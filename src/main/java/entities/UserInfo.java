@@ -3,6 +3,7 @@ package entities;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_info")
@@ -32,6 +33,16 @@ public class UserInfo {
     @Column(name = "reg_status")
     private String regStatus;
 
+    @OneToMany(mappedBy = "user_info_id")
+    private Set<UserProfile> userProfile;
+
+    public Set<UserProfile> getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(Set<UserProfile> userProfile) {
+        this.userProfile = userProfile;
+    }
 
     public BigDecimal getId() {
         return id;

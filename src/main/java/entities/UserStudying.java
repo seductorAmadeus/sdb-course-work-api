@@ -3,6 +3,7 @@ package entities;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Blob;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_studying")
@@ -17,6 +18,9 @@ public class UserStudying {
 
     @Column(name = "status")
     private Blob picture;
+
+    @OneToMany(mappedBy = "user_studying_id")
+    private Set<UserProfile> userProfile;
 
     public BigDecimal getId() {
         return id;
@@ -40,5 +44,13 @@ public class UserStudying {
 
     public void setPicture(Blob picture) {
         this.picture = picture;
+    }
+
+    public Set<UserProfile> getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(Set<UserProfile> userProfile) {
+        this.userProfile = userProfile;
     }
 }

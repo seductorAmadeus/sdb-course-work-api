@@ -4,6 +4,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_role")
@@ -21,6 +22,9 @@ public class UserRole {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
+
+    @OneToMany(mappedBy = "user_role_id")
+    private Set<UserProfile> userProfile;
 
     public UserRole() {
     }
@@ -53,5 +57,13 @@ public class UserRole {
 
     public void setUser(Users user) {
         this.user = user;
+    }
+
+    public Set<UserProfile> getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(Set<UserProfile> userProfile) {
+        this.userProfile = userProfile;
     }
 }
