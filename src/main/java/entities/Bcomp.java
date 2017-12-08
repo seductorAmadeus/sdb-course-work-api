@@ -13,8 +13,7 @@ public class Bcomp {
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "user_bcomp_settings",
             joinColumns = {@JoinColumn(name = "user_settings")}, inverseJoinColumns = {@JoinColumn(name = "description")})
-    private
-    Set<BcompGuide> bcompGuides = new HashSet<>();
+    private Set<BcompGuide> bcompGuides = new HashSet<>();
     /*TODO: Do I need to add an annotation <Column> ? */
     @ManyToOne
     @JoinColumn(name = "session_id")
