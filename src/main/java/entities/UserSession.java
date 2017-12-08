@@ -2,6 +2,7 @@ package entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_session")
@@ -20,6 +21,8 @@ public class UserSession {
     @Column(name = "status")
     private String status;
 
+    @OneToMany(mappedBy = "session_id")
+    private Set<Bcomp> bcompID;
 
     public BigDecimal getId() {
         return id;
@@ -43,5 +46,16 @@ public class UserSession {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * TODO: Do i need to rename it?
+     */
+    public Set<Bcomp> getBcompID() {
+        return bcompID;
+    }
+
+    public void setBcompID(Set<Bcomp> bcompID) {
+        this.bcompID = bcompID;
     }
 }
