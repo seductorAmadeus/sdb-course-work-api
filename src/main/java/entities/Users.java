@@ -38,20 +38,21 @@ public class Users {
     /**
      * This field contains user's unique invite code
      */
-    @Column(name = "invite_code")
+    /*TODO: Do I need to add an annotation <Column> ? */
+    @ManyToOne
+    @JoinColumn(name = "invite_code")
     private BigDecimal inviteCode;
-
 
     /**
      * TODO: ?
      */
-    @OneToMany(mappedBy="user_id")
+    @OneToMany(mappedBy = "user_id")
     private Set<UserRole> userRole;
 
     /**
      * TODO: ?
      */
-    @OneToMany(mappedBy="user_id")
+    @OneToMany(mappedBy = "user_id")
     private Set<UserSession> userSession;
 
 
