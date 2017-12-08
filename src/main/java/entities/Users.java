@@ -49,6 +49,13 @@ public class Users {
     private Set<UserRole> userRole;
 
     /**
+     * TODO: ?
+     */
+    @OneToMany(mappedBy="user_id")
+    private Set<UserSession> userSession;
+
+
+    /**
      * Function to get the value of the field {@link Users#userId}
      *
      * @return a BigDecimal contains value for representation user's id number.
