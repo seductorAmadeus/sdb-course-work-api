@@ -17,6 +17,7 @@ public class UserRole {
     @Type(type = "entities.UserT")
     private UserT type;
 
+    /*TODO: Do I need to add an annotation <Column> ? */
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
