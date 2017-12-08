@@ -7,8 +7,6 @@ import java.sql.Clob;
 @Entity
 @Table(name = "bcomp")
 public class Bcomp {
-    @Column(name = "id")
-    private BigDecimal id;
 
     /*TODO: Do I need to add an annotation <Column> ? */
     @ManyToOne
@@ -82,14 +80,6 @@ public class Bcomp {
 
     @Column(name = "asm")
     private Clob asm;
-
-    public BigDecimal getId() {
-        return id;
-    }
-
-    public void setId(BigDecimal id) {
-        this.id = id;
-    }
 
     public UserSession getUserSessionID() {
         return userSessionID;
