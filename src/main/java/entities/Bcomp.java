@@ -3,81 +3,66 @@ package entities;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Clob;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "bcomp")
 public class Bcomp {
 
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "user_bcomp_settings",
+            joinColumns = {@JoinColumn(name = "user_settings")}, inverseJoinColumns = {@JoinColumn(name = "description")})
+    private
+    Set<BcompGuide> bcompGuides = new HashSet<>();
     /*TODO: Do I need to add an annotation <Column> ? */
     @ManyToOne
     @JoinColumn(name = "session_id")
     private UserSession userSessionID;
-
     @Id
     @GeneratedValue
     @Column(name = "user_settings")
     private BigDecimal userSettings;
-
     @Column(name = "memory")
     private Clob memory;
-
     @Column(name = "rs")
     private String rs;
-
     @Column(name = "ra")
     private String ra;
-
     @Column(name = "rd")
     private String rd;
-
     @Column(name = "rc")
     private String rc;
-
     @Column(name = "cc")
     private String cc;
-
     @Column(name = "br")
     private String br;
-
     @Column(name = "ac")
     private String ac;
-
     @Column(name = "c")
     private String c;
-
     @Column(name = "kr")
     private String kr;
-
     @Column(name = "bit")
     private String bit;
-
     @Column(name = "int_req_ed_1")
     private String intReqEd1;
-
     @Column(name = "int_req_ed_2")
     private String intReqEd2;
-
     @Column(name = "int_req_ed_3")
     private String intReqEd3;
-
     @Column(name = "rd_ed_1")
     private String rdEd1;
-
     @Column(name = "rd_ed_2")
     private String rdEd2;
-
     @Column(name = "rd_ed_3")
     private String rdEd3;
-
     @Column(name = "memory_mc")
     private Clob memoryMc;
-
     @Column(name = "c_mc")
     private String cMc;
-
     @Column(name = "r_mc")
     private String rMc;
-
     @Column(name = "asm")
     private Clob asm;
 
@@ -263,5 +248,13 @@ public class Bcomp {
 
     public void setAsm(Clob asm) {
         this.asm = asm;
+    }
+
+    public Set<BcompGuide> getBcompGuides() {
+        return bcompGuides;
+    }
+
+    public void setBcompGuides(Set<BcompGuide> bcompGuides) {
+        this.bcompGuides = bcompGuides;
     }
 }
