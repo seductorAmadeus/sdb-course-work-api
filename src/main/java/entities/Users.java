@@ -2,6 +2,7 @@ package entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 /**
  * This class is an entity (just user, don't worry) and it's necessary for further use as an entity.
@@ -40,6 +41,12 @@ public class Users {
     @Column(name = "invite_code")
     private BigDecimal inviteCode;
 
+
+    /**
+     * TODO: ?
+     */
+    @OneToMany(mappedBy="user_id")
+    private Set<UserRole> userRole;
 
     /**
      * Function to get the value of the field {@link Users#userId}
