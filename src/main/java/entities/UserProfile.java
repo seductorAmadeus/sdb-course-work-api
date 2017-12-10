@@ -2,38 +2,49 @@ package entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "user_profile")
 public class UserProfile {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "profile_id")
     private BigDecimal profileId;
 
-    /*TODO: Do I need to add an annotation <Column> ? */
-    @ManyToOne
-    @JoinColumn(name = "user_role_id")
-    private UserRole userRole;
+    @Column(name = "user_role_id")
+    private BigDecimal userRoleId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_info_id")
-    private UserInfo userInfo;
-
-    @ManyToOne
-    @JoinColumn(name = "user_studying_id")
-    private UserStudying userStudying;
-
-    @ManyToOne
-    @JoinColumn(name = "user_picture_id")
-    private UserPicture userPicture;
+    @Column(name = "user_studying_id")
+    private BigDecimal userStudyingId;
 
     @Column(name = "last_seen")
-    private Date lastSeen;
+    private Timestamp lastSeen;
 
     @Column(name = "register_date")
-    private Date registerDate;
+    private Timestamp registerDate;
+
+    @Column(name = "studying_status")
+    private String studyingStatus;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "middle_name")
+    private String middleName;
+
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "date_of_birth")
+    private Timestamp dateOfBirth;
+
+    @Column(name = "reg_status")
+    private String regStatus;
 
     public BigDecimal getProfileId() {
         return profileId;
@@ -43,51 +54,91 @@ public class UserProfile {
         this.profileId = profileId;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public UserStudying getUserStudying() {
-        return userStudying;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setUserStudying(UserStudying userStudying) {
-        this.userStudying = userStudying;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
-    public UserPicture getUserPicture() {
-        return userPicture;
+    public String getGender() {
+        return gender;
     }
 
-    public void setUserPicture(UserPicture userPicture) {
-        this.userPicture = userPicture;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public Date getLastSeen() {
+    public Timestamp getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Timestamp dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getRegStatus() {
+        return regStatus;
+    }
+
+    public void setRegStatus(String regStatus) {
+        this.regStatus = regStatus;
+    }
+
+    public BigDecimal getUserRoleId() {
+        return userRoleId;
+    }
+
+    public void setUserRoleId(BigDecimal userRoleId) {
+        this.userRoleId = userRoleId;
+    }
+
+    public BigDecimal getUserStudyingId() {
+        return userStudyingId;
+    }
+
+    public void setUserStudyingId(BigDecimal userStudyingId) {
+        this.userStudyingId = userStudyingId;
+    }
+
+    public Timestamp getLastSeen() {
         return lastSeen;
     }
 
-    public void setLastSeen(Date lastSeen) {
+    public void setLastSeen(Timestamp lastSeen) {
         this.lastSeen = lastSeen;
     }
 
-    public Date getRegisterDate() {
+    public Timestamp getRegisterDate() {
         return registerDate;
     }
 
-    public void setRegisterDate(Date registerDate) {
+    public void setRegisterDate(Timestamp registerDate) {
         this.registerDate = registerDate;
+    }
+
+    public String getStudyingStatus() {
+        return studyingStatus;
+    }
+
+    public void setStudyingStatus(String studyingStatus) {
+        this.studyingStatus = studyingStatus;
     }
 }
