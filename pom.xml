@@ -21,11 +21,10 @@
             <version>2.9.0</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.2.10.Final</version>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>3.5.6-Final</version>
         </dependency>
 
         <dependency>
@@ -35,9 +34,14 @@
         </dependency>
 
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
         </dependency>
 
     </dependencies>
@@ -45,31 +49,6 @@
     <build>
         <finalName>lab8</finalName>
         <plugins>
-
-            <plugin>
-                <groupId>org.glassfish.maven.plugin</groupId>
-                <artifactId>maven-glassfish-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <glassfishDirectory>${local.glassfish.home}</glassfishDirectory>
-                    <user>admin</user>
-                    <passwordFile>${local.glassfish.passfile}</passwordFile>
-                    <domain>
-                        <name>domain5</name>
-                        <httpPort>8080</httpPort>
-                        <adminPort>4948</adminPort>
-                    </domain>
-                    <components>
-                        <component>
-                            <name>${project.artifactId}</name>
-                            <artifact>target/${project.build.finalName}.war</artifact>
-                        </component>
-                    </components>
-                    <debug>true</debug>
-                    <terse>false</terse>
-                    <echo>true</echo>
-                </configuration>
-            </plugin>
 
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -93,6 +72,22 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- Build an executable JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>daos.RegistrationCodesDAO</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
 

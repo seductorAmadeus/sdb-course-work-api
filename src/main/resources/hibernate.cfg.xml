@@ -23,6 +23,16 @@
         <property name="hibernate.dialect">
             org.hibernate.dialect.OracleDialect
         </property>
+
+        <mapping class="entities.RegistrationCodes"/>
+        <mapping class="entities.Users"/>
+        <mapping class="entities.UserRole"/>
+        <mapping class="entities.UserSession"/>
+        <mapping class="entities.UserProfile"/>
+        <mapping class="entities.UserInfo"/>
+        <mapping class="entities.UserStudying"/>
+
+
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>
