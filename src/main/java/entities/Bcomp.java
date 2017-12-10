@@ -3,83 +3,159 @@ package entities;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Clob;
-import java.util.HashSet;
-import java.util.Set;
+
+/**
+ * This class is an entity that describes bcomp.
+ *
+ * @author Rayla Martin
+ * @version 0.1
+ * @since 0.1
+ */
 
 @Entity
 @Table(name = "bcomp")
 public class Bcomp {
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "user_bcomp_settings",
-            joinColumns = {@JoinColumn(name = "user_settings")}, inverseJoinColumns = {@JoinColumn(name = "description")})
-    private Set<BcompGuide> bcompGuides = new HashSet<>();
-    /*TODO: Do I need to add an annotation <Column> ? */
-    @ManyToOne
-    @JoinColumn(name = "session_id")
-    private UserSession userSessionID;
+    /**
+     * This field contains bcomp identifier from the database
+     */
     @Id
     @GeneratedValue
-    @Column(name = "user_settings")
-    private BigDecimal userSettings;
+    @Column(name = "id")
+    private BigDecimal id;
+
+    /**
+     * This field contains the unique session identifier
+     */
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private BigDecimal sessionId;
+
+    /**
+     * This field contains bcomp memory
+     */
     @Column(name = "memory")
     private Clob memory;
+
+    /**
+     * This field contains the value of the status register
+     */
     @Column(name = "rs")
     private String rs;
+
+    /**
+     * This field contains the value of the address register
+     */
     @Column(name = "ra")
     private String ra;
+
+    /**
+     * This field contains the value of the data register
+     */
     @Column(name = "rd")
     private String rd;
+
+    /**
+     * This field contains the value of the command register
+     */
     @Column(name = "rc")
     private String rc;
+
+    /**
+     * This field contains the value of the command counter
+     */
     @Column(name = "cc")
     private String cc;
+
+    /**
+     * This field contains the value of the buffer register
+     */
     @Column(name = "br")
     private String br;
+
+    /**
+     * This field contains the value of the accumulator
+     */
     @Column(name = "ac")
     private String ac;
+
+    /**
+     * This field contains the value of bit "c"
+     */
     @Column(name = "c")
     private String c;
+
+    /**
+     * This field contains the value of the key register
+     */
     @Column(name = "kr")
     private String kr;
+
+    /**
+     * This field contains single bit denoting the position in the key register
+     */
     @Column(name = "bit")
     private String bit;
+
+    /**
+     * This field contains the interrupt request status of the external device №1
+     */
     @Column(name = "int_req_ed_1")
     private String intReqEd1;
+
+    /**
+     * This field contains the interrupt request status of the external device №2
+     */
     @Column(name = "int_req_ed_2")
     private String intReqEd2;
+
+    /**
+     * This field contains the interrupt request status of the external device №3
+     */
     @Column(name = "int_req_ed_3")
     private String intReqEd3;
+
+    /**
+     * This field contains the value of the data register of the external device №1
+     */
     @Column(name = "rd_ed_1")
     private String rdEd1;
+
+    /**
+     * This field contains the value of the data register of the external device №2
+     */
     @Column(name = "rd_ed_2")
     private String rdEd2;
+
+    /**
+     * This field contains the value of the data register of the external device №3
+     */
     @Column(name = "rd_ed_3")
     private String rdEd3;
+
+    /**
+     * This field contains the value of the micro-command memory
+     */
     @Column(name = "memory_mc")
     private Clob memoryMc;
+
+    /**
+     * This field contains the value of the micro-command counter
+     */
     @Column(name = "c_mc")
     private String cMc;
+
+    /**
+     * This field contains the value of the register of the micro-command
+     */
     @Column(name = "r_mc")
     private String rMc;
+
+    /**
+     * This field contains an assembler code
+     */
     @Column(name = "asm")
     private Clob asm;
-
-    public UserSession getUserSessionID() {
-        return userSessionID;
-    }
-
-    public void setUserSessionID(UserSession userSessionID) {
-        this.userSessionID = userSessionID;
-    }
-
-    public BigDecimal getUserSettings() {
-        return userSettings;
-    }
-
-    public void setUserSettings(BigDecimal userSettings) {
-        this.userSettings = userSettings;
-    }
 
     public Clob getMemory() {
         return memory;
@@ -249,11 +325,11 @@ public class Bcomp {
         this.asm = asm;
     }
 
-    public Set<BcompGuide> getBcompGuides() {
-        return bcompGuides;
-    }
+    public BigDecimal getId() { return id; }
 
-    public void setBcompGuides(Set<BcompGuide> bcompGuides) {
-        this.bcompGuides = bcompGuides;
-    }
+    public void setId(BigDecimal id) { this.id = id; }
+
+    public BigDecimal getSessionId() { return sessionId; }
+
+    public void setSessionId(BigDecimal sessionId) { this.sessionId = sessionId; }
 }
