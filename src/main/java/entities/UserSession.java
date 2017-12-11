@@ -2,6 +2,7 @@ package entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,14 +16,13 @@ public class UserSession {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user;
+    private Users userID;
 
-    /*TODO: add constraint*/
     @Column(name = "status")
     private String status;
 
-    @OneToMany(mappedBy = "session_id")
-    private Set<Bcomp> bcompID;
+    @OneToMany(mappedBy = "sessionId", cascade = CascadeType.ALL)
+    private Set<Bcomp> bcomps;
 
     public BigDecimal getId() {
         return id;
@@ -32,12 +32,12 @@ public class UserSession {
         this.id = id;
     }
 
-    public Users getUser() {
-        return user;
+    public Users getUserID() {
+        return userID;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setUserID(Users userID) {
+        this.userID = userID;
     }
 
     public String getStatus() {
@@ -46,16 +46,5 @@ public class UserSession {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    /**
-     * TODO: Do i need to rename it?
-     */
-    public Set<Bcomp> getBcompID() {
-        return bcompID;
-    }
-
-    public void setBcompID(Set<Bcomp> bcompID) {
-        this.bcompID = bcompID;
     }
 }

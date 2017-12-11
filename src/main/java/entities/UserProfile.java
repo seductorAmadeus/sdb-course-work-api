@@ -16,7 +16,8 @@ public class UserProfile {
     @Column(name = "user_role_id")
     private BigDecimal userRoleId;
 
-    @Column(name = "user_studying_id")
+    @ManyToOne
+    @JoinColumn(name = "id")
     private BigDecimal userStudyingId;
 
     @Column(name = "last_seen")

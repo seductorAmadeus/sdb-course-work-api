@@ -2,7 +2,6 @@ package entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Clob;
 
 /**
  * This class is an entity that describes bcomp.
@@ -27,15 +26,16 @@ public class Bcomp {
     /**
      * This field contains the unique session identifier
      */
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id")
-    private BigDecimal sessionId;
+    private UserSession sessionId;
 
     /**
      * This field contains bcomp memory
      */
     @Column(name = "memory")
-    private Clob memory;
+    @Lob
+    private String memory;
 
     /**
      * This field contains the value of the status register
@@ -137,7 +137,8 @@ public class Bcomp {
      * This field contains the value of the micro-command memory
      */
     @Column(name = "memory_mc")
-    private Clob memoryMc;
+    @Lob
+    private String memoryMc;
 
     /**
      * This field contains the value of the micro-command counter
@@ -155,13 +156,47 @@ public class Bcomp {
      * This field contains an assembler code
      */
     @Column(name = "asm")
-    private Clob asm;
+    @Lob
+    private String asm;
 
-    public Clob getMemory() {
+    public Bcomp() {
+
+    }
+
+    public Bcomp(BigDecimal id, UserSession sessionId, String memory, String rs, String ra,
+                 String rd, String rc, String cc, String br, String ac, String c, String kr,
+                 String bit, String intReqEd1, String intReqEd2, String intReqEd3, String rdEd1,
+                 String rdEd2, String rdEd3, String memoryMc, String cMc, String rMc, String asm) {
+        this.id = id;
+        this.sessionId = sessionId;
+        this.memory = memory;
+        this.rs = rs;
+        this.ra = ra;
+        this.rd = rd;
+        this.rc = rc;
+        this.cc = cc;
+        this.br = br;
+        this.ac = ac;
+        this.c = c;
+        this.kr = kr;
+        this.bit = bit;
+        this.intReqEd1 = intReqEd1;
+        this.intReqEd2 = intReqEd2;
+        this.intReqEd3 = intReqEd3;
+        this.rdEd1 = rdEd1;
+        this.rdEd2 = rdEd2;
+        this.rdEd3 = rdEd3;
+        this.memoryMc = memoryMc;
+        this.cMc = cMc;
+        this.rMc = rMc;
+        this.asm = asm;
+    }
+
+    public String getMemory() {
         return memory;
     }
 
-    public void setMemory(Clob memory) {
+    public void setMemory(String memory) {
         this.memory = memory;
     }
 
@@ -293,11 +328,11 @@ public class Bcomp {
         this.rdEd3 = rdEd3;
     }
 
-    public Clob getMemoryMc() {
+    public String getMemoryMc() {
         return memoryMc;
     }
 
-    public void setMemoryMc(Clob memoryMc) {
+    public void setMemoryMc(String memoryMc) {
         this.memoryMc = memoryMc;
     }
 
@@ -317,19 +352,27 @@ public class Bcomp {
         this.rMc = rMc;
     }
 
-    public Clob getAsm() {
+    public String getAsm() {
         return asm;
     }
 
-    public void setAsm(Clob asm) {
+    public void setAsm(String asm) {
         this.asm = asm;
     }
 
-    public BigDecimal getId() { return id; }
+    public BigDecimal getId() {
+        return id;
+    }
 
-    public void setId(BigDecimal id) { this.id = id; }
+    public void setId(BigDecimal id) {
+        this.id = id;
+    }
 
-    public BigDecimal getSessionId() { return sessionId; }
+    public UserSession getSessionId() {
+        return sessionId;
+    }
 
-    public void setSessionId(BigDecimal sessionId) { this.sessionId = sessionId; }
+    public void setSessionId(UserSession sessionId) {
+        this.sessionId = sessionId;
+    }
 }

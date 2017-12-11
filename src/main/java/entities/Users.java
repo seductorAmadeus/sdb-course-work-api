@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -11,9 +12,14 @@ import java.util.Set;
  * @version 0.1
  * @since 0.1
  */
+
 @Entity
 @Table(name = "users")
-public class Users {
+public class Users implements Serializable {
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = RegistrationCodes.class)
+    @JoinColumn(name = "invite_code")
+    private RegistrationCodes inviteCode;
 
     /**
      * This field contains user identifier from the database
@@ -38,23 +44,13 @@ public class Users {
     /**
      * This field contains user's unique invite code
      */
-    /*TODO: Do I need to add an annotation <Column> ? */
-    @ManyToOne
-    @JoinColumn(name = "invite_code")
-    private BigDecimal inviteCode;
 
-    /**
-     * TODO: ?
-     */
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany(mappedBy = "userID")
     private Set<UserRole> userRole;
 
-    /**
-     * TODO: ?
-     */
-    @OneToMany(mappedBy = "user_id")
-    private Set<UserSession> userSession;
 
+    @OneToMany(mappedBy = "userID")
+    private Set<UserSession> userSession;
 
     /**
      * Function to get the value of the field {@link Users#userId}
@@ -134,5 +130,27 @@ public class Users {
      */
     public void setInviteCode(BigDecimal inviteCode) {
         this.inviteCode = inviteCode;
+    }
+
+    /**
+     * TODO: ?
+     */
+    public Set<UserRole> getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(Set<UserRole> userRole) {
+        this.userRole = userRole;
+    }
+
+    /**
+     * TODO: ?
+     */
+    public Set<UserSession> getUserSession() {
+        return userSession;
+    }
+
+    public void setUserSession(Set<UserSession> userSession) {
+        this.userSession = userSession;
     }
 }

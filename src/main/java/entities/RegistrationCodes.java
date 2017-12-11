@@ -1,12 +1,13 @@
 package entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
 @Table(name = "registration_codes")
-public class RegistrationCodes {
+public class RegistrationCodes implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "inviteCode")
@@ -18,8 +19,8 @@ public class RegistrationCodes {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "inviteCode")
-    private Set<Users> user;
+    @OneToMany(mappedBy = "inviteCode", fetch = FetchType.EAGER)
+    private Set<Users> users;
 
     public BigDecimal getInviteCode() {
         return inviteCode;
@@ -48,11 +49,11 @@ public class RegistrationCodes {
     /**
      * TODO: ?
      */
-    public Set<Users> getUser() {
-        return user;
+    public Set<Users> getUsers() {
+        return users;
     }
 
-    public void setUser(Set<Users> user) {
-        this.user = user;
+    public void setUsers(Set<Users> user) {
+        this.users = user;
     }
 }

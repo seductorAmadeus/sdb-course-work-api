@@ -21,18 +21,18 @@ public class UserRole {
     /*TODO: Do I need to add an annotation <Column> ? */
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user;
+    private Users userID;
 
-    @OneToMany(mappedBy = "user_role_id")
+    @OneToMany(mappedBy = "userRole")
     private Set<UserProfile> userProfile;
 
     public UserRole() {
     }
 
-    public UserRole(BigDecimal id, UserT type, Users user) {
+    public UserRole(BigDecimal id, UserT type, Users userID) {
         this.id = id;
         this.type = type;
-        this.user = user;
+        this.userID = userID;
     }
 
     public BigDecimal getId() {
@@ -51,19 +51,11 @@ public class UserRole {
         this.type = type;
     }
 
-    public Users getUser() {
-        return user;
+    public Users getUserID() {
+        return userID;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
-    }
-
-    public Set<UserProfile> getUserProfile() {
-        return userProfile;
-    }
-
-    public void setUserProfile(Set<UserProfile> userProfile) {
-        this.userProfile = userProfile;
+    public void setUserID(Users user) {
+        this.userID = user;
     }
 }
