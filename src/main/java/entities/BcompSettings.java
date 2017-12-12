@@ -2,6 +2,8 @@ package entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "bcomp_settings")
@@ -17,6 +19,8 @@ public class BcompSettings {
     @Column(name = "type")
     private String type;
 
+    @ManyToMany(mappedBy="bcompSettings")
+    private List<UserSession> userSessions = new ArrayList<UserSession>();
 
     public BigDecimal getId() {
         return id;

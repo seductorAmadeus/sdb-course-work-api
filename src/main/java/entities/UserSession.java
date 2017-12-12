@@ -2,6 +2,7 @@ package entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -23,6 +24,12 @@ public class UserSession {
 
     @OneToMany(mappedBy = "sessionId", cascade = CascadeType.ALL)
     private Set<Bcomp> bcomps;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "session_settings",
+            joinColumns = {@JoinColumn(name = "session_id")},
+            inverseJoinColumns = {@JoinColumn(name = "setting_id")})
+    private List<BcompSettings> bcompSettings = new ArrayList<BcompSettings>();
 
     public BigDecimal getId() {
         return id;
