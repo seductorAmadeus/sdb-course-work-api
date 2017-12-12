@@ -10,25 +10,19 @@ import java.util.Set;
 public class UserPicture {
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "user_profile_id")
     private BigDecimal id;
 
     @Column(name = "picname")
     private String pictureName;
 
     @Column(name = "picture")
+    @Lob
     private Blob picture;
 
-    @OneToMany(mappedBy = "user_picture_id")
-    private Set<UserProfile> userProfile;
-
-    public Set<UserProfile> getUserProfile() {
-        return userProfile;
-    }
-
-    public void setUserProfile(Set<UserProfile> userProfile) {
-        this.userProfile = userProfile;
-    }
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private UserProfile userProfile;
 
     public BigDecimal getId() {
         return id;

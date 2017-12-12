@@ -48,6 +48,9 @@ public class Users implements Serializable {
     @OneToMany(mappedBy = "userID")
     private Set<UserSession> userSession;
 
+    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
+    private UserProfile profile;
+
     /**
      * Function to get the value of the field {@link Users#userId}
      *

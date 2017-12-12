@@ -48,6 +48,13 @@ public class UserProfile {
     @Column(name = "reg_status")
     private String regStatus;
 
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private Users users;
+
+    @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
+    private UserPicture picture;
+
     public BigDecimal getProfileId() {
         return profileId;
     }
