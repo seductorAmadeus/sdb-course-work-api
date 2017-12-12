@@ -1,22 +1,22 @@
 package utils;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
 
 public class HibernateUtil {
-    private static EntityManager entityManager;
+    private static final SessionFactory sessionFactory;
 
-    static {
-        try {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("MyPersistence");
-            entityManager = emf.createEntityManager();
-        } catch (Exception e) {
-            throw new ExceptionInInitializerError(e);
+    static{
+        try{
+            sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+
+        }catch (Throwable ex) {
+            System.err.println("Session Factory could not be created." + ex);
+            throw new ExceptionInInitializerError(ex);
         }
     }
 
-    public static EntityManager getEntityManager() {
-        return entityManager;
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 }
