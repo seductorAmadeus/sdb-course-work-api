@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name = "users")
 public class Users implements Serializable {
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = RegistrationCodes.class)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "invite_code")
     private RegistrationCodes inviteCode;
 
@@ -44,10 +44,6 @@ public class Users implements Serializable {
     /**
      * This field contains user's unique invite code
      */
-
-    @OneToMany(mappedBy = "userID")
-    private Set<UserRole> userRole;
-
 
     @OneToMany(mappedBy = "userID")
     private Set<UserSession> userSession;
@@ -118,34 +114,20 @@ public class Users implements Serializable {
      * @return a BigDecimal contains value for representation user's unique invite code.
      * @since 0.1
      */
-    public BigDecimal getInviteCode() {
+    public RegistrationCodes getInviteCode() {
         return inviteCode;
     }
 
     /**
-     * Procedure for determining the BigDecimal value {@link Users#inviteCode}
+     * Procedure for determining the RegistrationCodes value {@link Users#inviteCode}
      *
      * @param inviteCode - It's just user's unique invite code
      * @since 0.1
      */
-    public void setInviteCode(BigDecimal inviteCode) {
+    public void setInviteCode(RegistrationCodes inviteCode) {
         this.inviteCode = inviteCode;
     }
 
-    /**
-     * TODO: ?
-     */
-    public Set<UserRole> getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(Set<UserRole> userRole) {
-        this.userRole = userRole;
-    }
-
-    /**
-     * TODO: ?
-     */
     public Set<UserSession> getUserSession() {
         return userSession;
     }
@@ -153,4 +135,6 @@ public class Users implements Serializable {
     public void setUserSession(Set<UserSession> userSession) {
         this.userSession = userSession;
     }
+
+
 }

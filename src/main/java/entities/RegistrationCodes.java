@@ -8,9 +8,10 @@ import java.util.Set;
 @Entity
 @Table(name = "registration_codes")
 public class RegistrationCodes implements Serializable {
+
     @Id
     @GeneratedValue
-    @Column(name = "inviteCode")
+    @Column(name = "invite_code")
     private BigDecimal inviteCode;
 
     @Column(name = "invite_code_status")
@@ -19,7 +20,7 @@ public class RegistrationCodes implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "inviteCode", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "inviteCode")
     private Set<Users> users;
 
     public BigDecimal getInviteCode() {
@@ -46,9 +47,6 @@ public class RegistrationCodes implements Serializable {
         this.email = email;
     }
 
-    /**
-     * TODO: ?
-     */
     public Set<Users> getUsers() {
         return users;
     }

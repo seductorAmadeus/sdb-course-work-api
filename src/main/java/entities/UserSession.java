@@ -14,7 +14,7 @@ public class UserSession {
     @Column(name = "id")
     private BigDecimal id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private Users userID;
 
@@ -46,5 +46,13 @@ public class UserSession {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Set<Bcomp> getBcomps() {
+        return bcomps;
+    }
+
+    public void setBcomps(Set<Bcomp> bcomps) {
+        this.bcomps = bcomps;
     }
 }
