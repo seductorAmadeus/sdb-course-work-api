@@ -13,12 +13,13 @@ public class UserProfile {
     @Column(name = "profile_id")
     private BigDecimal profileId;
 
-    @Column(name = "user_role_id")
-    private BigDecimal userRoleId;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_role_id")
+    private UserRole userRoleId;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id")
-    private BigDecimal userStudyingId;
+    private UserStudying userStudyingId;
 
     @Column(name = "last_seen")
     private Timestamp lastSeen;
@@ -103,22 +104,6 @@ public class UserProfile {
         this.regStatus = regStatus;
     }
 
-    public BigDecimal getUserRoleId() {
-        return userRoleId;
-    }
-
-    public void setUserRoleId(BigDecimal userRoleId) {
-        this.userRoleId = userRoleId;
-    }
-
-    public BigDecimal getUserStudyingId() {
-        return userStudyingId;
-    }
-
-    public void setUserStudyingId(BigDecimal userStudyingId) {
-        this.userStudyingId = userStudyingId;
-    }
-
     public Timestamp getLastSeen() {
         return lastSeen;
     }
@@ -141,5 +126,21 @@ public class UserProfile {
 
     public void setStudyingStatus(String studyingStatus) {
         this.studyingStatus = studyingStatus;
+    }
+
+    public UserStudying getUserStudyingId() {
+        return userStudyingId;
+    }
+
+    public void setUserStudyingId(UserStudying userStudyingId) {
+        this.userStudyingId = userStudyingId;
+    }
+
+    public UserRole getUserRoleId() {
+        return userRoleId;
+    }
+
+    public void setUserRoleId(UserRole userRoleId) {
+        this.userRoleId = userRoleId;
     }
 }

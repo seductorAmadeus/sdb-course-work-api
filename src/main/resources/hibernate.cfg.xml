@@ -27,11 +27,11 @@
         <mapping class="entities.Bcomp"/>
         <mapping class="entities.RegistrationCodes"/>
         <mapping class="entities.UserPicture"/>
+        <mapping class="entities.UserStudying"/>
         <mapping class="entities.UserProfile"/>
         <mapping class="entities.UserRole"/>
         <mapping class="entities.Users"/>
         <mapping class="entities.UserSession"/>
-        <mapping class="entities.UserStudying"/>
 
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->

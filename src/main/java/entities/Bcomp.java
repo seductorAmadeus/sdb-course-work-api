@@ -144,7 +144,7 @@ public class Bcomp {
      * This field contains the value of the micro-command counter
      */
     @Column(name = "c_mc")
-    private String cMc;
+    private String  cMc;
 
     /**
      * This field contains the value of the register of the micro-command

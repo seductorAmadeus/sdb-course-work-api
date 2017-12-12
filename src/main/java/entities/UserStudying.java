@@ -2,6 +2,7 @@ package entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_studying")
@@ -13,6 +14,9 @@ public class UserStudying {
 
     @Column(name = "user_group")
     private String userGroup;
+
+    @OneToMany(mappedBy = "userStudyingId", cascade = CascadeType.ALL)
+    private Set<UserProfile> userProfiles;
 
     public BigDecimal getId() {
         return id;
@@ -30,4 +34,11 @@ public class UserStudying {
         this.userGroup = userGroup;
     }
 
+    public Set<UserProfile> getUserProfiles() {
+        return userProfiles;
+    }
+
+    public void setUserProfiles(Set<UserProfile> userProfiles) {
+        this.userProfiles = userProfiles;
+    }
 }

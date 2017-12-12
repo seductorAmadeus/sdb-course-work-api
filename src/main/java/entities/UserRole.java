@@ -18,21 +18,15 @@ public class UserRole {
     @Type(type = "entities.UserT")
     private UserT type;
 
-    /*TODO: Do I need to add an annotation <Column> ? */
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Users userID;
-
-    @OneToMany(mappedBy = "userRole")
+    @OneToMany(mappedBy = "userRoleId")
     private Set<UserProfile> userProfile;
 
     public UserRole() {
     }
 
-    public UserRole(BigDecimal id, UserT type, Users userID) {
+    public UserRole(BigDecimal id, UserT type) {
         this.id = id;
         this.type = type;
-        this.userID = userID;
     }
 
     public BigDecimal getId() {
@@ -51,11 +45,11 @@ public class UserRole {
         this.type = type;
     }
 
-    public Users getUserID() {
-        return userID;
+    public Set<UserProfile> getUserProfile() {
+        return userProfile;
     }
 
-    public void setUserID(Users user) {
-        this.userID = user;
+    public void setUserProfile(Set<UserProfile> userProfile) {
+        this.userProfile = userProfile;
     }
 }
