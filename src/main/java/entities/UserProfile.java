@@ -150,4 +150,20 @@ public class UserProfile {
     public void setUserRoleId(UserRole userRoleId) {
         this.userRoleId = userRoleId;
     }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+
+    public UserPicture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(UserPicture picture) {
+        this.picture = picture;
+    }
 }

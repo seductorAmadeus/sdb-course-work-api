@@ -47,4 +47,12 @@ public class UserPicture {
     public void setPicture(Blob picture) {
         this.picture = picture;
     }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
 }
