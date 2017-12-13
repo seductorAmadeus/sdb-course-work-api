@@ -19,8 +19,18 @@ public class BcompSettings {
     @Column(name = "type")
     private String type;
 
-    @ManyToMany(mappedBy="bcompSettings")
-    private List<UserSession> userSessions = new ArrayList<UserSession>();
+    @ManyToMany(mappedBy = "bcompSettings")
+    private List<UserSession> userSessions = new ArrayList<>();
+
+    public BcompSettings() {
+
+    }
+
+    public BcompSettings(String value, String type, List<UserSession> userSessions) {
+        this.value = value;
+        this.type = type;
+        this.userSessions = userSessions;
+    }
 
     public BigDecimal getId() {
         return id;
@@ -44,5 +54,13 @@ public class BcompSettings {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<UserSession> getUserSessions() {
+        return userSessions;
+    }
+
+    public void setUserSessions(List<UserSession> userSessions) {
+        this.userSessions = userSessions;
     }
 }

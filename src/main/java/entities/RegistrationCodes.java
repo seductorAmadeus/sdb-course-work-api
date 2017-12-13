@@ -23,6 +23,15 @@ public class RegistrationCodes implements Serializable {
     @OneToMany(mappedBy = "inviteCode")
     private Set<Users> users;
 
+    public RegistrationCodes() {
+    }
+    
+    public RegistrationCodes(String inviteCodeStatus, String email, Set<Users> users) {
+        this.inviteCodeStatus = inviteCodeStatus;
+        this.email = email;
+        this.users = users;
+    }
+
     public BigDecimal getInviteCode() {
         return inviteCode;
     }

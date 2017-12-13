@@ -55,6 +55,26 @@ public class UserProfile {
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     private UserPicture picture;
 
+    public UserProfile() {
+
+    }
+
+    public UserProfile(UserRole userRoleId, UserStudying userStudyingId, Timestamp lastSeen, Timestamp registerDate, String studyingStatus, String firstName, String lastName, String middleName, String gender, Timestamp dateOfBirth, String regStatus, Users users, UserPicture picture) {
+        this.userRoleId = userRoleId;
+        this.userStudyingId = userStudyingId;
+        this.lastSeen = lastSeen;
+        this.registerDate = registerDate;
+        this.studyingStatus = studyingStatus;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.regStatus = regStatus;
+        this.users = users;
+        this.picture = picture;
+    }
+
     public BigDecimal getProfileId() {
         return profileId;
     }

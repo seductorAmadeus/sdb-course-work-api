@@ -18,6 +18,14 @@ public class UserStudying {
     @OneToMany(mappedBy = "userStudyingId", cascade = CascadeType.ALL)
     private Set<UserProfile> userProfiles;
 
+    public UserStudying() {
+    }
+
+    public UserStudying(String userGroup, Set<UserProfile> userProfiles) {
+        this.userGroup = userGroup;
+        this.userProfiles = userProfiles;
+    }
+
     public BigDecimal getId() {
         return id;
     }

@@ -31,6 +31,16 @@ public class UserSession {
             inverseJoinColumns = {@JoinColumn(name = "setting_id")})
     private List<BcompSettings> bcompSettings = new ArrayList<BcompSettings>();
 
+    public UserSession() {
+    }
+
+    public UserSession(Users userID, String status, Set<Bcomp> bcomps, List<BcompSettings> bcompSettings) {
+        this.userID = userID;
+        this.status = status;
+        this.bcomps = bcomps;
+        this.bcompSettings = bcompSettings;
+    }
+
     public BigDecimal getId() {
         return id;
     }
@@ -61,5 +71,13 @@ public class UserSession {
 
     public void setBcomps(Set<Bcomp> bcomps) {
         this.bcomps = bcomps;
+    }
+
+    public List<BcompSettings> getBcompSettings() {
+        return bcompSettings;
+    }
+
+    public void setBcompSettings(List<BcompSettings> bcompSettings) {
+        this.bcompSettings = bcompSettings;
     }
 }

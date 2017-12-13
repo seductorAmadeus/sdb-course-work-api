@@ -51,6 +51,17 @@ public class Users implements Serializable {
     @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
     private UserProfile profile;
 
+    public Users() {
+    }
+
+    public Users(RegistrationCodes inviteCode, String username, String password, Set<UserSession> userSession, UserProfile profile) {
+        this.inviteCode = inviteCode;
+        this.username = username;
+        this.password = password;
+        this.userSession = userSession;
+        this.profile = profile;
+    }
+
     /**
      * Function to get the value of the field {@link Users#userId}
      *
@@ -140,4 +151,11 @@ public class Users implements Serializable {
     }
 
 
+    public UserProfile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(UserProfile profile) {
+        this.profile = profile;
+    }
 }

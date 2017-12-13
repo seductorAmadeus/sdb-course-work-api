@@ -3,7 +3,6 @@ package entities;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Blob;
-import java.util.Set;
 
 @Entity
 @Table(name = "user_picture")
@@ -23,6 +22,16 @@ public class UserPicture {
     @OneToOne
     @PrimaryKeyJoinColumn
     private UserProfile userProfile;
+
+    public UserPicture() {
+
+    }
+
+    public UserPicture(String pictureName, Blob picture, UserProfile userProfile) {
+        this.pictureName = pictureName;
+        this.picture = picture;
+        this.userProfile = userProfile;
+    }
 
     public BigDecimal getId() {
         return id;
