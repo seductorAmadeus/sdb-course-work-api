@@ -9,7 +9,7 @@ import java.util.Set;
 public class UserStudying {
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "user_studying_id")
     private BigDecimal id;
 
     @Column(name = "user_group")

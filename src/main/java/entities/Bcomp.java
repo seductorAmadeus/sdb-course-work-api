@@ -20,14 +20,14 @@ public class Bcomp {
      */
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "bcomp_id")
     private BigDecimal id;
 
     /**
      * This field contains the unique session identifier
      */
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "session_id")
     private UserSession sessionId;
 
     /**

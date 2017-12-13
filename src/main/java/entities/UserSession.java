@@ -12,7 +12,7 @@ public class UserSession {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "user_session_id")
     private BigDecimal id;
 
     @ManyToOne(optional = false)

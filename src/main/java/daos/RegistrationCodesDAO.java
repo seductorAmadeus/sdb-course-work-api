@@ -1,36 +1,32 @@
 package daos;
 
 import entities.RegistrationCodes;
+import entities.UserSession;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
+import utils.HibernateUtil;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class RegistrationCodesDAO {
-    private static SessionFactory factory;
 
     public static void main(String[] args) {
-        try {
-            factory = new AnnotationConfiguration().
-                    configure().
-                            addAnnotatedClass(entities.RegistrationCodes.class).
-                            buildSessionFactory();
-        } catch (Throwable ex) {
-            System.err.println("Failed to create sessionFactory object." + ex);
-            throw new ExceptionInInitializerError(ex);
-        }
+       RegistrationCodes registrationCodes = new RegistrationCodes(
+               "available", "martinraila@mail.ru");
 
-        RegistrationCodesDAO registrationCodesDAO = new RegistrationCodesDAO();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
 
-        BigDecimal inviteCode = registrationCodesDAO.addRegistrationCode("Y", "12");
+        session.persist(registrationCodes);
+
+        session.getTransaction().commit();
+        session.close();
     }
 
     public BigDecimal addRegistrationCode(String inviteCodeStatus, String email) {
-        Session session = factory.openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigInteger inviteCode = null;
 

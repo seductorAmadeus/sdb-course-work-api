@@ -10,7 +10,7 @@ import java.util.List;
 public class BcompSettings {
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "bcomp_settings_id")
     private BigDecimal id;
 
     @Column(name = "value")

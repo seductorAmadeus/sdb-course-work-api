@@ -18,7 +18,7 @@ public class UserProfile {
     private UserRole userRoleId;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_studying_id")
     private UserStudying userStudyingId;
 
     @Column(name = "last_seen")
@@ -55,7 +55,7 @@ public class UserProfile {
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     private UserPicture picture;
 
-    public UserProfile() {
+    public UserProfile(UserRole userRoleId) {
 
     }
 

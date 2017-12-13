@@ -25,11 +25,10 @@ public class RegistrationCodes implements Serializable {
 
     public RegistrationCodes() {
     }
-    
-    public RegistrationCodes(String inviteCodeStatus, String email, Set<Users> users) {
+
+    public RegistrationCodes(String inviteCodeStatus, String email) {
         this.inviteCodeStatus = inviteCodeStatus;
         this.email = email;
-        this.users = users;
     }
 
     public BigDecimal getInviteCode() {

@@ -11,11 +11,11 @@ import java.util.Set;
 public class UserRole {
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "user_role_id")
     private BigDecimal id;
 
     @Column(name = "type")
-    @Type(type = "entities.UserT")
+    @Type(type = "entities.UserRoleType")
     private UserT type;
 
     @OneToMany(mappedBy = "userRoleId")
