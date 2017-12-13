@@ -11,7 +11,8 @@ import java.util.Set;
 public class UserSession {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name="user_session_seq", sequenceName="USER_SESSION_ID_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_session_seq")
     @Column(name = "user_session_id")
     private BigDecimal id;
 

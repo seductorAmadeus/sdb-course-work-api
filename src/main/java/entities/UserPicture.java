@@ -8,7 +8,7 @@ import java.sql.Blob;
 @Table(name = "user_picture")
 public class UserPicture {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_profile_id")
     private BigDecimal id;
 

@@ -10,7 +10,8 @@ import java.util.Set;
 @Table(name = "user_role")
 public class UserRole {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name="user_role_seq", sequenceName="USER_ROLE_ID_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_role_seq")
     @Column(name = "user_role_id")
     private BigDecimal id;
 

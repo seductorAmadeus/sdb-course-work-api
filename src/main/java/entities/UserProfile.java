@@ -55,7 +55,7 @@ public class UserProfile {
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
     private UserPicture picture;
 
-    public UserProfile(UserRole userRoleId) {
+    public UserProfile() {
 
     }
 

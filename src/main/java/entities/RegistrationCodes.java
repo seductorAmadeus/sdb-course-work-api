@@ -10,7 +10,7 @@ import java.util.Set;
 public class RegistrationCodes implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "invite_code")
     private BigDecimal inviteCode;
 

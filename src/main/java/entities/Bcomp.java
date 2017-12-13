@@ -19,7 +19,8 @@ public class Bcomp {
      * This field contains bcomp identifier from the database
      */
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name="bcomp_seq", sequenceName="BCOMP_ID_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bcomp_seq")
     @Column(name = "bcomp_id")
     private BigDecimal id;
 
