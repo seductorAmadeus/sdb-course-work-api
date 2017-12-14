@@ -30,16 +30,15 @@ public class UserSession {
     @JoinTable(name = "session_settings",
             joinColumns = {@JoinColumn(name = "session_id")},
             inverseJoinColumns = {@JoinColumn(name = "setting_id")})
-    private List<BcompSettings> bcompSettings = new ArrayList<BcompSettings>();
+    private List<BcompSettings> bcompSettings = new ArrayList<>();
 
     public UserSession() {
     }
 
-    public UserSession(Users userID, String status, Set<Bcomp> bcomps, List<BcompSettings> bcompSettings) {
+    public UserSession(Users userID, String status, Set<Bcomp> bcomps) {
         this.userID = userID;
         this.status = status;
         this.bcomps = bcomps;
-        this.bcompSettings = bcompSettings;
     }
 
     public BigDecimal getId() {

@@ -22,9 +22,8 @@ public class UserStudying {
     public UserStudying() {
     }
 
-    public UserStudying(String userGroup, Set<UserProfile> userProfiles) {
+    public UserStudying(String userGroup) {
         this.userGroup = userGroup;
-        this.userProfiles = userProfiles;
     }
 
     public BigDecimal getId() {

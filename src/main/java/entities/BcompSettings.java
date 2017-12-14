@@ -27,10 +27,9 @@ public class BcompSettings {
 
     }
 
-    public BcompSettings(String value, String type, List<UserSession> userSessions) {
+    public BcompSettings(String value, String type) {
         this.value = value;
         this.type = type;
-        this.userSessions = userSessions;
     }
 
     public BigDecimal getId() {
