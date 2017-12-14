@@ -1,44 +1,29 @@
 package daos;
 
 import entities.RegistrationCodes;
-import entities.UserSession;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 public class RegistrationCodesDAO {
 
-    public static void main(String[] args) {
-       RegistrationCodes registrationCodes = new RegistrationCodes(
-               "available", "martinraila@mail.ru");
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-
-        session.persist(registrationCodes);
-
-        session.getTransaction().commit();
-        session.close();
-    }
-
-    public BigDecimal addRegistrationCode(String inviteCodeStatus, String email) {
+    public BigDecimal addRegistrationCode(RegistrationCodes registrationCodes) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        BigInteger inviteCode = null;
+        BigDecimal inviteCode = null;
 
         try {
             transaction = session.beginTransaction();
 
-            RegistrationCodes registrationCodes = new RegistrationCodes();
-            registrationCodes.setInviteCodeStatus(inviteCodeStatus);
-            registrationCodes.setEmail(email);
+            session.persist(registrationCodes);
 
-            inviteCode = (BigInteger) session.save(registrationCodes);
             transaction.commit();
+
+            inviteCode = registrationCodes.getInviteCode();
+
         } catch (HibernateException exp) {
             if (transaction != null) {
                 transaction.rollback();
@@ -48,6 +33,8 @@ public class RegistrationCodesDAO {
             session.close();
         }
 
-        return new BigDecimal(inviteCode);
+        return inviteCode;
     }
+
+
 }
