@@ -8,13 +8,15 @@ public enum MenuInputType {
     UPDATE_REGISTRATION_CODES("3. Обновить статус инвайт-кода\n"),
     DELETE_REGISTRATION_CODES("4. Удалить инвайт-код\n"),
     ENTER_USERS("5. Добавить пользователя\n"),
+    DELETE_USERS("6. Удалить пользователя\n"),
     // RegistrationCodes
     INVITE_CODE_STATUS("Введите статус инвайт-кода: "),
     EMAIL("Введите email: "),
     INVITE_CODE("Введите существующий инвайт-код: "),
     // Users
     USERNAME("Введите username: "),
-    PASSWORD("Введите password: ");
+    PASSWORD("Введите password: "),
+    USER_ID("Введите id пользователя: ");
 
     private String text;
 

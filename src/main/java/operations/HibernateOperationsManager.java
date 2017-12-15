@@ -31,6 +31,8 @@ public class HibernateOperationsManager {
             case 5:
                 usersOperations.addNewUser();
                 break;
+            case 6:
+                usersOperations.deleteUser();
             default:
                 break;
         }
@@ -42,6 +44,7 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.UPDATE_REGISTRATION_CODES)
                 .append(MenuInputType.DELETE_REGISTRATION_CODES)
                 .append(MenuInputType.ENTER_USERS)
+                .append(MenuInputType.DELETE_USERS)
                 .toString();
     }
 

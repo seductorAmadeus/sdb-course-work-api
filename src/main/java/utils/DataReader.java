@@ -109,4 +109,20 @@ public class DataReader {
         }
         return user;
     }
+
+    public static BigDecimal readUserId() {
+        BigDecimal userId = null;
+        System.out.println(MenuInputType.USER_ID);
+        for (; ; ) {
+            String tempUserId = scanner.nextLine();
+            try {
+                userId = new BigDecimal(tempUserId);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Повторите ввод: ");
+            }
+        }
+        return userId;
+    }
 }
+

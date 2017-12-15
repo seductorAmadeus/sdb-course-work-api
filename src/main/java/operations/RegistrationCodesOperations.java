@@ -38,10 +38,6 @@ public class RegistrationCodesOperations {
     public void deleteRegistrationCode() {
         RegistrationCodesDAO dao = new RegistrationCodesDAO();
         BigDecimal inviteCode = DataReader.readInviteCode();
-        try {
-            dao.deleteRegistrationCode(inviteCode);
-        } catch (NullPointerException exp) {
-            System.out.println("Указанный инвайт-код отсутствует в базе. Проверьте его корректность и повторите операцию");
-        }
+        dao.deleteRegistrationCode(inviteCode);
     }
 }

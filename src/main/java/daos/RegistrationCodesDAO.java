@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
-import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,6 @@ public class RegistrationCodesDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigDecimal inviteCode = null;
-
         try {
             transaction = session.beginTransaction();
             session.persist(registrationCodes);
@@ -39,7 +37,6 @@ public class RegistrationCodesDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         List<RegistrationCodes> list = new ArrayList<>();
-
         try {
             transaction = session.beginTransaction();
             List tempList = session.createQuery("from RegistrationCodes").list();
@@ -63,7 +60,6 @@ public class RegistrationCodesDAO {
     public void updateRegistrationCodeStatus(BigDecimal inviteCode, String inviteCodeStatus) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-
         try {
             transaction = session.beginTransaction();
             RegistrationCodes registrationCode = (RegistrationCodes) session.get(RegistrationCodes.class, inviteCode);
@@ -84,12 +80,13 @@ public class RegistrationCodesDAO {
     public void deleteRegistrationCode(BigDecimal inviteCode) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-
         try {
             transaction = session.beginTransaction();
             RegistrationCodes registrationCode = (RegistrationCodes) session.get(RegistrationCodes.class, inviteCode);
             session.delete(registrationCode);
             transaction.commit();
+        } catch (IllegalArgumentException exp) {
+            System.out.println("The specified registration code is not in the database. Check it out correctly and try again");
         } catch (HibernateException exp) {
             if (transaction != null) {
                 transaction.rollback();
