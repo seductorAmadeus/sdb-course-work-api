@@ -18,15 +18,10 @@ public class RegistrationCodesDAO {
         BigDecimal inviteCode = null;
 
         try {
-
             transaction = session.beginTransaction();
-
             session.persist(registrationCodes);
-
             transaction.commit();
-
             inviteCode = registrationCodes.getInviteCode();
-
         } catch (HibernateException exp) {
             if (transaction != null) {
                 transaction.rollback();
@@ -45,15 +40,12 @@ public class RegistrationCodesDAO {
         List<RegistrationCodes> list = new ArrayList<>();
 
         try {
-
             transaction = session.beginTransaction();
-
             List tempList = session.createQuery("from RegistrationCodes").list();
             for (Object aTempList : tempList) {
                 RegistrationCodes registrationCode = (RegistrationCodes) aTempList;
                 list.add(registrationCode);
             }
-
         } catch (HibernateException exp) {
             if (transaction != null) {
                 transaction.rollback();
@@ -62,8 +54,30 @@ public class RegistrationCodesDAO {
         } finally {
             session.close();
         }
+
         return list;
+
     }
 
+    public void updateRegistrationCodeStatus(BigDecimal inviteCode, String inviteCodeStatus) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+
+        try {
+            transaction = session.beginTransaction();
+            RegistrationCodes registrationCode = (RegistrationCodes) session.get(RegistrationCodes.class, inviteCode);
+            registrationCode.setInviteCodeStatus(inviteCodeStatus);
+            session.update(registrationCode);
+            transaction.commit();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+
+    }
 
 }

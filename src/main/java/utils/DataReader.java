@@ -4,6 +4,8 @@ import entities.RegistrationCodes;
 import exceptions.NonComplianceWithConstraints;
 import exceptions.PatternException;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,24 +21,9 @@ public class DataReader {
     // TODO: Add string size checking
     public static RegistrationCodes readRegistrationCode() {
         RegistrationCodes registrationCodes = new RegistrationCodes();
-
         System.out.println(MenuInputType.INVITE_CODE_STATUS);
-
-        for (; ; ) {
-            try {
-                String inviteCodeStatus = scanner.nextLine();
-                if (!inviteCodeStatus.equals("available") && !inviteCodeStatus.equals("not available")) {
-                    throw new NonComplianceWithConstraints("invite_code_status", "available", "not available");
-                }
-                registrationCodes.setInviteCodeStatus(inviteCodeStatus);
-                break;
-            } catch (NonComplianceWithConstraints exp) {
-                System.out.println(exp.getMessage());
-            }
-        }
-
+        readStatus(registrationCodes);
         System.out.println(MenuInputType.EMAIL);
-
         for (; ; ) {
             try {
                 String email = scanner.nextLine();
@@ -51,9 +38,54 @@ public class DataReader {
                 System.out.println("Повторите ввод: ");
             }
         }
-
         return registrationCodes;
     }
 
+    public static String readNewStatusForRegistrationCode() {
+        RegistrationCodes registrationCodes = new RegistrationCodes();
+        System.out.println(MenuInputType.INVITE_CODE_STATUS);
+        readStatus(registrationCodes);
+        return registrationCodes.getInviteCodeStatus();
+    }
+
+    public static BigDecimal readInviteCode() {
+        BigDecimal inviteCode = null;
+        System.out.println(MenuInputType.INVITE_CODE);
+        for (; ; ) {
+            String tempInviteCode = scanner.nextLine();
+            try {
+                inviteCode = new BigDecimal(tempInviteCode);
+                break;
+            } catch (Exception exp) {
+                System.out.println(exp.getMessage());
+                System.out.println("Повторите ввод: ");
+            }
+        }
+        return inviteCode;
+    }
+
+    private static void readStatus(RegistrationCodes registrationCodes) {
+        for (; ; ) {
+            try {
+                String inviteCodeStatus = scanner.nextLine();
+                if (!inviteCodeStatus.equals("available") && !inviteCodeStatus.equals("not available")) {
+                    throw new NonComplianceWithConstraints("invite_code_status", "available", "not available");
+                }
+                registrationCodes.setInviteCodeStatus(inviteCodeStatus);
+                break;
+            } catch (NonComplianceWithConstraints exp) {
+                System.out.println(exp.getMessage());
+            }
+        }
+    }
+
+    private static boolean isNumeric(String str) {
+        try {
+            double d = Double.parseDouble(str);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
 
 }
