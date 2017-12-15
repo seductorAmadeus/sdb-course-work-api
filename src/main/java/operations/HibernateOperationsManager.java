@@ -24,6 +24,9 @@ public class HibernateOperationsManager {
             case 3:
                 registrationCodesOperations.updateRegistrationCodeStatus();
                 break;
+            case 4:
+                registrationCodesOperations.deleteRegistrationCode();
+                break;
             default:
                 break;
         }
@@ -33,6 +36,7 @@ public class HibernateOperationsManager {
         return new StringBuilder(MenuInputType.ENTER_REGISTRATION_CODES.toString())
                 .append(MenuInputType.PRINT_REGISTRATION_CODES)
                 .append(MenuInputType.UPDATE_REGISTRATION_CODES)
+                .append(MenuInputType.DELETE_REGISTRATION_CODES)
                 .toString();
     }
 
