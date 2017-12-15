@@ -7,6 +7,8 @@ import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegistrationCodesDAO {
 
@@ -16,6 +18,7 @@ public class RegistrationCodesDAO {
         BigDecimal inviteCode = null;
 
         try {
+
             transaction = session.beginTransaction();
 
             session.persist(registrationCodes);
@@ -34,6 +37,32 @@ public class RegistrationCodesDAO {
         }
 
         return inviteCode;
+    }
+
+    public List<RegistrationCodes> listRegistrationCodes() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        List<RegistrationCodes> list = new ArrayList<>();
+
+        try {
+
+            transaction = session.beginTransaction();
+
+            List tempList = session.createQuery("from RegistrationCodes").list();
+            for (Object aTempList : tempList) {
+                RegistrationCodes registrationCode = (RegistrationCodes) aTempList;
+                list.add(registrationCode);
+            }
+
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+        return list;
     }
 
 

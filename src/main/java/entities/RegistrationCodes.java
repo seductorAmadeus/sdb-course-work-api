@@ -62,4 +62,9 @@ public class RegistrationCodes implements Serializable {
     public void setUsers(Set<Users> user) {
         this.users = user;
     }
+
+    @Override
+    public String toString() {
+        return getInviteCode() + " " + getInviteCodeStatus() + " " + getEmail();
+    }
 }
