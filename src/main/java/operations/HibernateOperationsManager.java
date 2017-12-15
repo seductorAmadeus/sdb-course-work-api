@@ -11,6 +11,7 @@ public class HibernateOperationsManager {
         System.out.println(getMenu());
 
         RegistrationCodesOperations registrationCodesOperations = new RegistrationCodesOperations();
+        UsersOperations usersOperations = new UsersOperations();
 
         int menuNumber = Integer.parseInt(scanner.nextLine());
 
@@ -27,6 +28,9 @@ public class HibernateOperationsManager {
             case 4:
                 registrationCodesOperations.deleteRegistrationCode();
                 break;
+            case 5:
+                usersOperations.addNewUser();
+                break;
             default:
                 break;
         }
@@ -37,6 +41,7 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.PRINT_REGISTRATION_CODES)
                 .append(MenuInputType.UPDATE_REGISTRATION_CODES)
                 .append(MenuInputType.DELETE_REGISTRATION_CODES)
+                .append(MenuInputType.ENTER_USERS)
                 .toString();
     }
 

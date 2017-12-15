@@ -1,11 +1,11 @@
 package utils;
 
 import entities.RegistrationCodes;
+import entities.Users;
 import exceptions.NonComplianceWithConstraints;
 import exceptions.PatternException;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -79,4 +79,34 @@ public class DataReader {
         }
     }
 
+    public static Users readUser() {
+        Users user = new Users();
+        System.out.println(MenuInputType.USERNAME);
+
+        for (; ; ) {
+            try {
+                String username = scanner.nextLine();
+                if (username.length() >= 20) throw new Exception();
+                user.setUsername(username);
+                break;
+            } catch (Exception exp) {
+                System.out.println(exp.getMessage());
+                System.out.println("Повторите ввод: ");
+            }
+        }
+
+        System.out.println(MenuInputType.PASSWORD);
+        for (; ; ) {
+            try {
+                String password = scanner.nextLine();
+                if (password.length() >= 25) throw new Exception();
+                user.setPassword(password);
+                break;
+            } catch (Exception exp) {
+                System.out.println(exp.getMessage());
+                System.out.println("Повторите ввод: ");
+            }
+        }
+        return user;
+    }
 }

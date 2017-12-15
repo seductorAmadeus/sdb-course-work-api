@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
+import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +98,26 @@ public class RegistrationCodesDAO {
         } finally {
             session.close();
         }
+    }
+
+    public RegistrationCodes findFreeRegistrationCode() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        RegistrationCodes freeRegistrationCode = null;
+        try {
+            transaction = session.beginTransaction();
+            freeRegistrationCode = (RegistrationCodes) session.createQuery("from RegistrationCodes where inviteCodeStatus = 'available'").setMaxResults(1).uniqueResult();
+            freeRegistrationCode.setInviteCodeStatus("not available");
+            transaction.commit();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+        return freeRegistrationCode;
     }
 
 }
