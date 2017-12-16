@@ -3,31 +3,31 @@ package utils;
 public enum MenuInputType {
 
     // HibernateOperationsManager
-    ENTER_REGISTRATION_CODES("1. Добавить инвайт-код\n"),
-    PRINT_REGISTRATION_CODES("2. Выдать все инвайт-коды\n"),
-    UPDATE_REGISTRATION_CODES("3. Обновить статус инвайт-кода\n"),
-    DELETE_REGISTRATION_CODES("4. Удалить инвайт-код\n"),
-    ENTER_USERS("5. Добавить пользователя\n"),
-    DELETE_USERS("6. Удалить пользователя\n"),
-    GENERATE_USER_ROLE("7. Сгенерировать список ролей пользователя"),
-    GENERATE__USER_GROUP("8. Сгенерировать список групп пользователя"),
+    ENTER_REGISTRATION_CODES("1. Add invite code\n"),
+    PRINT_REGISTRATION_CODES("2. Show invite codes\n"),
+    UPDATE_REGISTRATION_CODES("3. Refresh invite code status\n"),
+    DELETE_REGISTRATION_CODES("4. Delete invite code\n"),
+    ENTER_USERS("5. Add user\n"),
+    DELETE_USERS("6. Delete user\n"),
+    GENERATE_USER_ROLE("7. Generate user roles list"),
+    GENERATE__USER_GROUP("8. Generate user group list"),
 
     // RegistrationCodes
-    INVITE_CODE_STATUS("Введите статус инвайт-кода: "),
-    EMAIL("Введите email: "),
-    INVITE_CODE("Введите существующий инвайт-код: "),
+    INVITE_CODE_STATUS("Enter invite code status: "),
+    EMAIL("Enter email: "),
+    INVITE_CODE("Enter existing invite code: "),
     // Users
-    USERNAME("Введите username: "),
-    PASSWORD("Введите password: "),
-    USER_ID("Введите id пользователя: "),
-    STUDYING_STATUS("Введите статус пользователя: "),
-    FIRST_NAME("Введите имя пользователя: "),
-    LAST_NAME("Введите фамилию пользователя: "),
-    GENDER("Введите пол пользователя: "),
-    DATE_OF_BIRTH("Введите дату рождения пользователя"),
+    USERNAME("Enter username: "),
+    PASSWORD("Enter password: "),
+    USER_ID("Enter user id: "),
+    STUDYING_STATUS("Enter user status: "),
+    FIRST_NAME("Enter user first name: "),
+    LAST_NAME("Enter user last name: "),
+    GENDER("Enter user gender: "),
+    DATE_OF_BIRTH("Enter user date of birth"),
     //UserStudying
-    USER_GROUP("Введите группу пользователя"),
-    USER_ROLE("Введите роль пользователя");
+    USER_GROUP("Enter user group"),
+    USER_ROLE("Enter user role");
 
 
     private String text;
