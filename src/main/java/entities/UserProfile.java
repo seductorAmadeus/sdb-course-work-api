@@ -1,16 +1,21 @@
 package entities;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "user_profile")
 public class UserProfile {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "profile_id")
+    @GeneratedValue(strategy = IDENTITY)
+    @GenericGenerator(name = "SharedPrimaryKeyGenerator", strategy = "foreign", parameters = @org.hibernate.annotations.Parameter(name = "property", value = "users"))
+    @Column(name = "profile_id", unique = true, nullable = false)
     private BigDecimal profileId;
 
     @ManyToOne(optional = false)
@@ -48,11 +53,11 @@ public class UserProfile {
     @Column(name = "reg_status")
     private String regStatus;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private Users users;
 
-    @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "userProfile", cascade = CascadeType.PERSIST)
     private UserPicture picture;
 
     public UserProfile() {

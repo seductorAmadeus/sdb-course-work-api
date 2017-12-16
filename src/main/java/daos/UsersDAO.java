@@ -1,5 +1,6 @@
 package daos;
 
+import entities.UserProfile;
 import entities.Users;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -10,13 +11,18 @@ import java.math.BigDecimal;
 
 public class UsersDAO {
 
-    public BigDecimal addUser(Users user) {
+    public BigDecimal addUser(Users user, UserProfile userProfile) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigDecimal userId = null;
         try {
             transaction = session.beginTransaction();
-            session.persist(user);
+
+            user.setProfile(userProfile);
+            userProfile.setUsers(user);
+
+            session.save(user);
+
             transaction.commit();
             userId = user.getUserId();
         } catch (HibernateException exp) {

@@ -12,6 +12,8 @@ public class HibernateOperationsManager {
 
         RegistrationCodesOperations registrationCodesOperations = new RegistrationCodesOperations();
         UsersOperations usersOperations = new UsersOperations();
+        UserRoleOperations userRoleOperations = new UserRoleOperations();
+        UserStudyingOperations userStudyingOperations = new UserStudyingOperations();
 
         int menuNumber = Integer.parseInt(scanner.nextLine());
 
@@ -33,6 +35,12 @@ public class HibernateOperationsManager {
                 break;
             case 6:
                 usersOperations.deleteUser();
+                break;
+            case 7:
+                userRoleOperations.generateAllUsersRoles();
+                break;
+            case 8:
+                userStudyingOperations.generateAllUsersGroups();
             default:
                 break;
         }
@@ -45,6 +53,8 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.DELETE_REGISTRATION_CODES)
                 .append(MenuInputType.ENTER_USERS)
                 .append(MenuInputType.DELETE_USERS)
+                .append(MenuInputType.GENERATE_USER_ROLE)
+                .append(MenuInputType.GENERATE__USER_GROUP)
                 .toString();
     }
 

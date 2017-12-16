@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 /**
  * This class is an entity (just user, don't worry) and it's necessary for further use as an entity.
  *
@@ -26,8 +28,7 @@ public class Users implements Serializable {
      */
     @Id
     @SequenceGenerator(name="user_seq", sequenceName="USER_ID_SEQ")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")    @Column(name = "user_id", nullable = false, unique = true)
     private BigDecimal userId;
 
     /**
@@ -49,7 +50,7 @@ public class Users implements Serializable {
     @OneToMany(mappedBy = "userID")
     private Set<UserSession> userSession;
 
-    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private UserProfile profile;
 
     public Users() {
@@ -66,7 +67,7 @@ public class Users implements Serializable {
     /**
      * Function to get the value of the field {@link Users#userId}
      *
-     * @return a BigDecimal contains value for representation user's id number.
+     * @return bigDecimal BigDecimal contains value for representation user's id number.
      * @since 0.1
      */
     public BigDecimal getUserId() {
@@ -86,7 +87,7 @@ public class Users implements Serializable {
     /**
      * Function to get the value of the field {@link Users#username}
      *
-     * @return a String contains value for representation username.
+     * @return bigDecimal String contains value for representation username.
      * @since 0.1
      */
     public String getUsername() {
@@ -106,7 +107,7 @@ public class Users implements Serializable {
     /**
      * Function to get the value of the field {@link Users#password}
      *
-     * @return a String contains value for representation user's password
+     * @return bigDecimal String contains value for representation user's password
      * @since 0.1
      */
     public String getPassword() {
@@ -126,7 +127,7 @@ public class Users implements Serializable {
     /**
      * Function to get the value of the field {@link Users#inviteCode}
      *
-     * @return a BigDecimal contains value for representation user's unique invite code.
+     * @return bigDecimal BigDecimal contains value for representation user's unique invite code.
      * @since 0.1
      */
     public RegistrationCodes getInviteCode() {

@@ -1,12 +1,8 @@
 package entities;
 
-import java.sql.SQLData;
-import java.sql.SQLException;
-import java.sql.SQLInput;
-import java.sql.SQLOutput;
 import java.util.Objects;
 
-public class UserT  {
+public class UserT {
     private String root;
     private String admin;
     private String teacher;
@@ -46,7 +42,7 @@ public class UserT  {
 
     @Override
     public int hashCode() {
-       return Objects.hash(root,admin,teacher,stud);
+        return Objects.hash(root, admin, teacher, stud);
     }
 
     @Override

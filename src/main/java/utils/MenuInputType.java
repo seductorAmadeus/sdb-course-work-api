@@ -9,6 +9,9 @@ public enum MenuInputType {
     DELETE_REGISTRATION_CODES("4. Удалить инвайт-код\n"),
     ENTER_USERS("5. Добавить пользователя\n"),
     DELETE_USERS("6. Удалить пользователя\n"),
+    GENERATE_USER_ROLE("7. Сгенерировать список ролей пользователя"),
+    GENERATE__USER_GROUP("8. Сгенерировать список групп пользователя"),
+
     // RegistrationCodes
     INVITE_CODE_STATUS("Введите статус инвайт-кода: "),
     EMAIL("Введите email: "),
@@ -16,7 +19,16 @@ public enum MenuInputType {
     // Users
     USERNAME("Введите username: "),
     PASSWORD("Введите password: "),
-    USER_ID("Введите id пользователя: ");
+    USER_ID("Введите id пользователя: "),
+    STUDYING_STATUS("Введите статус пользователя: "),
+    FIRST_NAME("Введите имя пользователя: "),
+    LAST_NAME("Введите фамилию пользователя: "),
+    GENDER("Введите пол пользователя: "),
+    DATE_OF_BIRTH("Введите дату рождения пользователя"),
+    //UserStudying
+    USER_GROUP("Введите группу пользователя"),
+    USER_ROLE("Введите роль пользователя");
+
 
     private String text;
 
