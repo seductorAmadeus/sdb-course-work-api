@@ -23,10 +23,6 @@ public class UsersDAO {
 
             session.persist(userProfile);
 
-            userProfile.setProfileId(user.getUserId());
-
-            session.save(userProfile);
-
             session.getTransaction().commit();
 
         } catch (HibernateException exp) {
