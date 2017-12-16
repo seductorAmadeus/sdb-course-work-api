@@ -17,14 +17,11 @@ public class UsersDAO {
         BigDecimal userId = null;
         try {
             transaction = session.beginTransaction();
-
             userProfile.setUsers(user);
             user.setProfile(userProfile);
-
             session.persist(userProfile);
-
             session.getTransaction().commit();
-
+            userId = userProfile.getProfileId();
         } catch (HibernateException exp) {
             if (transaction != null) {
                 transaction.rollback();

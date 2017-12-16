@@ -12,25 +12,22 @@ import java.sql.*;
 
 public class UserStudyingDAO {
 
-    public static ResultSet resultSet;
-    public static BigDecimal bigDecimal;
+    private static ResultSet resultSet;
+    private static BigDecimal bigDecimal;
 
     public BigDecimal addGroupToUser(String userGroup) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.doWork(new Work() {
-                @Override
-                public void execute(Connection connection) throws SQLException {
-                    CallableStatement callableStatement = connection.prepareCall("{? = call READPCKG.GETSTUDYINGIDFROMGROUP(?)}");
-                    callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
-                    callableStatement.setString(2, userGroup);
-                    callableStatement.execute();
-                    resultSet = (ResultSet) callableStatement.getObject(1);
-                    while (resultSet.next()) {
-                        bigDecimal = resultSet.getBigDecimal("user_studying_id");
-                    }
+            session.doWork(connection -> {
+                CallableStatement callableStatement = connection.prepareCall("{? = call READPCKG.GETSTUDYINGIDFROMGROUP(?)}");
+                callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
+                callableStatement.setString(2, userGroup);
+                callableStatement.execute();
+                resultSet = (ResultSet) callableStatement.getObject(1);
+                while (resultSet.next()) {
+                    bigDecimal = resultSet.getBigDecimal("user_studying_id");
                 }
             });
 

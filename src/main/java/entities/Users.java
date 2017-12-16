@@ -30,8 +30,6 @@ public class Users implements Serializable {
     @Id
     @SequenceGenerator(name="user_seq", sequenceName="USER_ID_SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-//    @GeneratedValue(generator = "gen")
-//    @GenericGenerator(name = "gen", strategy = "foreign", parameters = @org.hibernate.annotations.Parameter(name = "property", value = "profile"))
     @Column(name = "user_id", nullable = false, unique = true)
     private BigDecimal userId;
 
@@ -56,8 +54,6 @@ public class Users implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
     private UserProfile profile;
-
-//    @OneToOne(mappedBy = "users")
 
     public Users() {
     }

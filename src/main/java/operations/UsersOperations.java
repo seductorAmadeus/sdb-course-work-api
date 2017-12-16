@@ -10,7 +10,7 @@ import utils.DataReader;
 import java.math.BigDecimal;
 
 public class UsersOperations {
-    // TODO: add user not found exception
+
     public void addNewUser() {
         RegistrationCodesDAO registrationCodesDAO = new RegistrationCodesDAO();
         UsersDAO dao = new UsersDAO();
@@ -70,6 +70,7 @@ public class UsersOperations {
 
     }
 
+    // TODO: Check and refactor this method
     public void deleteUser() {
         UsersDAO dao = new UsersDAO();
         BigDecimal userId = DataReader.readUserId();
