@@ -1,12 +1,11 @@
 package entities;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
-
-import static javax.persistence.GenerationType.AUTO;
-import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * This class is an entity (just user, don't worry) and it's necessary for further use as an entity.
@@ -17,7 +16,8 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "user_id")})
 public class Users implements Serializable {
 
     @ManyToOne(optional = false)
@@ -28,8 +28,11 @@ public class Users implements Serializable {
      * This field contains user identifier from the database
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
+    @SequenceGenerator(name="user_seq", sequenceName="USER_ID_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+//    @GeneratedValue(generator = "gen")
+//    @GenericGenerator(name = "gen", strategy = "foreign", parameters = @org.hibernate.annotations.Parameter(name = "property", value = "profile"))
+    @Column(name = "user_id", nullable = false, unique = true)
     private BigDecimal userId;
 
     /**

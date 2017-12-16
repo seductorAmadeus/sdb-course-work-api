@@ -21,7 +21,11 @@ public class UsersDAO {
             userProfile.setUsers(user);
             user.setProfile(userProfile);
 
-            session.save(user);
+            session.persist(userProfile);
+
+            userProfile.setProfileId(user.getUserId());
+
+            session.save(userProfile);
 
             session.getTransaction().commit();
 

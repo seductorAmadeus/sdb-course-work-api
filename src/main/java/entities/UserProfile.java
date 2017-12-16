@@ -3,19 +3,18 @@ package entities;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "user_profile", uniqueConstraints = {@UniqueConstraint(columnNames = "profile_id")})
-@org.hibernate.annotations.GenericGenerator(name="person-primarykey", strategy="foreign",
-        parameters={@org.hibernate.annotations.Parameter(name="property", value="users")
-        })
-public class UserProfile {
+public class UserProfile implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "person-primarykey")
-    @Column(name = "profile_id")
+    @GeneratedValue(generator="gen")
+    @GenericGenerator(name="gen", strategy="foreign",parameters=@org.hibernate.annotations.Parameter(name="property", value="users"))
+    @Column(name = "profile_id", unique = true, nullable = false)
     private BigDecimal profileId;
 
     @ManyToOne(optional = false)
@@ -53,7 +52,7 @@ public class UserProfile {
     @Column(name = "reg_status")
     private String regStatus;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Users users;
 
