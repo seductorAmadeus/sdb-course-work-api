@@ -69,7 +69,7 @@ public class RegistrationCodesTests {
         try {
             registrationCode = registrationCodesDAO.findFreeRegistrationCode();
         } catch (NullPointerException exp) {
-            System.out.println("Отсутствует свободный инвайт-код в системе. Сгенирируйте новый.");
+            System.out.println("No available invite code found. Generate additional codes.");
             return;
         }
         users.setUsername("21412412");

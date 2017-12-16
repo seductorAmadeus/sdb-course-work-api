@@ -31,7 +31,7 @@ public class RegistrationCodesOperations {
         try {
             dao.updateRegistrationCodeStatus(oldInviteCode, newInviteCodeStatus);
         } catch (NullPointerException exp) {
-            System.out.println("Указанный инвайт-код отсутствует в базе. Проверьте его корректность и повторите операцию");
+            System.out.println("Invite code not found. Check input and try again");
         }
     }
 

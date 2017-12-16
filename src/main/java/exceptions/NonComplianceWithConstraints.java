@@ -2,7 +2,7 @@ package exceptions;
 
 public class NonComplianceWithConstraints extends Exception {
 
-    private final static String DETAIL_MESSAGE = "Нарушено ограничение уникальности: ";
+    private final static String DETAIL_MESSAGE = "Unique constraint violation: ";
 
     public NonComplianceWithConstraints(String fieldName, String... constraints) {
         super(getErrorMessage(fieldName, constraints));

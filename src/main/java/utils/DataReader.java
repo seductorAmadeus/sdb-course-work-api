@@ -39,7 +39,7 @@ public class DataReader {
                 break;
             } catch (PatternException exp) {
                 System.out.println(exp.getMessage());
-                System.out.println("Повторите ввод: ");
+                System.out.println("Repeat input: ");
             }
         }
         return registrationCodes;
@@ -62,7 +62,7 @@ public class DataReader {
                 break;
             } catch (Exception exp) {
                 System.out.println(exp.getMessage());
-                System.out.println("Повторите ввод: ");
+                System.out.println("Repeat input: ");
             }
         }
         return inviteCode;
@@ -109,7 +109,7 @@ public class DataReader {
                 userProfile.setFirstName(firstName);
                 break;
             } catch (Exception exp) {
-                System.out.println("Повторите ввод: ");
+                System.out.println("Repeat input: ");
             }
         }
 
@@ -122,7 +122,7 @@ public class DataReader {
                 userProfile.setLastName(lastName);
                 break;
             } catch (Exception exp) {
-                System.out.println("Повторите ввод: ");
+                System.out.println("Repeat input: ");
             }
         }
 
@@ -153,7 +153,7 @@ public class DataReader {
                 userProfile.setDateOfBirth(timestamp);
                 break;
             } catch (Exception exp) {
-                System.out.println("Повторите ввод: ");
+                System.out.println("Repeat input: ");
             }
         }
 
@@ -222,7 +222,7 @@ public class DataReader {
                 break;
             } catch (Exception exp) {
                 System.out.println(exp.getMessage());
-                System.out.println("Повторите ввод: ");
+                System.out.println("Repeat input: ");
             }
         }
 
@@ -235,7 +235,7 @@ public class DataReader {
                 break;
             } catch (Exception exp) {
                 System.out.println(exp.getMessage());
-                System.out.println("Повторите ввод: ");
+                System.out.println("Repeat input: ");
             }
         }
         return user;
@@ -250,7 +250,7 @@ public class DataReader {
                 userId = new BigDecimal(tempUserId);
                 break;
             } catch (Exception exp) {
-                System.out.println("Повторите ввод: ");
+                System.out.println("Repeat input: ");
             }
         }
         return userId;

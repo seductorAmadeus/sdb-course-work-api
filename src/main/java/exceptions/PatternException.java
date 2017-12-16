@@ -3,7 +3,7 @@ package exceptions;
 import java.util.regex.Pattern;
 
 public class PatternException extends Exception {
-    private final static String DETAIL_MESSAGE = "Совпадение со строкой отсутствует: ";
+    private final static String DETAIL_MESSAGE = "String not found: ";
 
     public PatternException(String fieldName, Pattern pattern) {
         super(getErrorMessage(fieldName, pattern));
