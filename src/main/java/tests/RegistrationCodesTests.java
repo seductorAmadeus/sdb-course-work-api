@@ -109,9 +109,6 @@ public class RegistrationCodesTests {
 
         userProfile.setUserStudyingId(userStudying);
 
-        users.setProfile(userProfile);
-        userProfile.setUsers(users);
-
         usersDAO.addUser(users, userProfile);
     }
 }

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import static javax.persistence.GenerationType.AUTO;
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
@@ -27,8 +28,8 @@ public class Users implements Serializable {
      * This field contains user identifier from the database
      */
     @Id
-    @SequenceGenerator(name="user_seq", sequenceName="USER_ID_SEQ")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")    @Column(name = "user_id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private BigDecimal userId;
 
     /**
@@ -50,8 +51,10 @@ public class Users implements Serializable {
     @OneToMany(mappedBy = "userID")
     private Set<UserSession> userSession;
 
-    @OneToOne(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
     private UserProfile profile;
+
+//    @OneToOne(mappedBy = "users")
 
     public Users() {
     }

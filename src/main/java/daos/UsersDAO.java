@@ -18,13 +18,13 @@ public class UsersDAO {
         try {
             transaction = session.beginTransaction();
 
-            user.setProfile(userProfile);
             userProfile.setUsers(user);
+            user.setProfile(userProfile);
 
             session.save(user);
 
-            transaction.commit();
-            userId = user.getUserId();
+            session.getTransaction().commit();
+
         } catch (HibernateException exp) {
             if (transaction != null) {
                 transaction.rollback();

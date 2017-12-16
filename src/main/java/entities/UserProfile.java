@@ -6,16 +6,16 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 @Entity
-@Table(name = "user_profile")
+@Table(name = "user_profile", uniqueConstraints = {@UniqueConstraint(columnNames = "profile_id")})
+@org.hibernate.annotations.GenericGenerator(name="person-primarykey", strategy="foreign",
+        parameters={@org.hibernate.annotations.Parameter(name="property", value="users")
+        })
 public class UserProfile {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @GenericGenerator(name = "SharedPrimaryKeyGenerator", strategy = "foreign", parameters = @org.hibernate.annotations.Parameter(name = "property", value = "users"))
-    @Column(name = "profile_id", unique = true, nullable = false)
+    @GeneratedValue(generator = "person-primarykey")
+    @Column(name = "profile_id")
     private BigDecimal profileId;
 
     @ManyToOne(optional = false)
@@ -53,7 +53,7 @@ public class UserProfile {
     @Column(name = "reg_status")
     private String regStatus;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @PrimaryKeyJoinColumn
     private Users users;
 
@@ -76,7 +76,6 @@ public class UserProfile {
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.regStatus = regStatus;
-        this.users = users;
         this.picture = picture;
     }
 
@@ -176,19 +175,19 @@ public class UserProfile {
         this.userRoleId = userRoleId;
     }
 
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-
     public UserPicture getPicture() {
         return picture;
     }
 
     public void setPicture(UserPicture picture) {
         this.picture = picture;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }
