@@ -6,6 +6,14 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Set;
 
+/**
+ * This class is an entity that describes user's role
+ *
+ * @author Rayla Martin
+ * @version 0.1
+ * @since 0.1
+ */
+
 @Entity
 @Table(name = "user_role")
 public class UserRole {

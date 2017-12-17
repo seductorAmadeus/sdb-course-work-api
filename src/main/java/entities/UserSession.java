@@ -6,6 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This class is an entity that describes user's session in the system
+ *
+ * @author Rayla Martin
+ * @version 0.1
+ * @since 0.1
+ */
+
 @Entity
 @Table(name = "user_session")
 public class UserSession {

@@ -5,6 +5,14 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
+/**
+ * This class is an entity that describes user's invite code
+ *
+ * @author Rayla Martin
+ * @version 0.1
+ * @since 0.1
+ */
+
 @Entity
 @Table(name = "registration_codes")
 public class RegistrationCodes implements Serializable {

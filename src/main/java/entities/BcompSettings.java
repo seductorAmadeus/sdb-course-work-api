@@ -5,6 +5,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is an entity that describes user's interface settings.
+ *
+ * @author Rayla Martin
+ * @version 0.1
+ * @since 0.1
+ */
+
 @Entity
 @Table(name = "bcomp_settings")
 public class BcompSettings {

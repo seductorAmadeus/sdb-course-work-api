@@ -7,6 +7,14 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+/**
+ * This class is an entity that describes user's profile
+ *
+ * @author Rayla Martin
+ * @version 0.1
+ * @since 0.1
+ */
+
 @Entity
 @Table(name = "user_profile", uniqueConstraints = {@UniqueConstraint(columnNames = "profile_id")})
 public class UserProfile implements Serializable {

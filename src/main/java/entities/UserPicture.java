@@ -4,6 +4,14 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Blob;
 
+/**
+ * This class is an entity that describes user's profile picture in the system
+ *
+ * @author Rayla Martin
+ * @version 0.1
+ * @since 0.1
+ */
+
 @Entity
 @Table(name = "user_picture")
 public class UserPicture {
