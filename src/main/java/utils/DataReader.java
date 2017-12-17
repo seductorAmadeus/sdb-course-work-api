@@ -20,6 +20,9 @@ public class DataReader {
 
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern VALID_USER_GROUP_REGEX =
+            Pattern.compile("^[A-Z][0-9]{4}$", Pattern.CASE_INSENSITIVE);
+
 
     // TODO: Move constraints in additional file
     // TODO: Add string size checking
@@ -190,20 +193,13 @@ public class DataReader {
         String userGroup;
         for (; ; ) {
             try {
-                String type = scanner.nextLine();
-                switch (type) {
-                    case "P3101":
-                    case "P3100":
-                    case "P3102":
-                    case "P3110":
-                    case "P3111":
-                        userGroup = type;
-                        break;
-                    default:
-                        throw new NonComplianceWithConstraints("user_group", "P3100", "P3101", "P3102", "P3110", "P3111");
+                userGroup = scanner.nextLine().toUpperCase();
+                Matcher matcher = VALID_USER_GROUP_REGEX.matcher(userGroup);
+                if (!matcher.matches()) {
+                    throw new PatternException("user_group", VALID_USER_GROUP_REGEX);
                 }
                 break;
-            } catch (NonComplianceWithConstraints exp) {
+            } catch (PatternException exp) {
                 System.out.println(exp.getMessage());
             }
         }

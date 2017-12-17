@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
+import utils.DataReader;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -21,10 +22,17 @@ public class RegistrationCodesTests {
     private static final int TEST_COUNT = 50;
 
     public static void main(String[] args) {
-        Result result = JUnitCore.runClasses(RegistrationCodesTests.class);
-        for (Failure failure : result.getFailures()) {
-            System.out.println(failure.toString());
-        }
+//        Result result = JUnitCore.runClasses(RegistrationCodesTests.class);
+//        for (Failure failure : result.getFailures()) {
+//            System.out.println(failure.toString());
+//        }
+        RegistrationCodesTests registrationCodesTests = new RegistrationCodesTests();
+        registrationCodesTests.testRegexPattern();
+    }
+
+    @Test
+    public void testRegexPattern() {
+        System.out.println(DataReader.readUserGroup());
     }
 
     @Test
@@ -111,4 +119,6 @@ public class RegistrationCodesTests {
 
         usersDAO.addUser(users, userProfile);
     }
+
+
 }

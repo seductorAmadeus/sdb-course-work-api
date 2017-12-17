@@ -66,12 +66,12 @@ public class UserRoleDAO {
             transaction = session.beginTransaction();
             bigDecimal = (BigDecimal)
                     session.createSQLQuery("SELECT USER_ROLE.USER_ROLE_ID FROM USER_ROLE \n" +
-                    "WHERE USER_ROLE.TYPE = USER_T( :root, :admin, :teacher, :stud)")
-                    .setParameter("root", "no")
-                    .setParameter("admin", "no")
-                    .setParameter("teacher", "yes")
-                    .setParameter("stud", "no")
-                    .setMaxResults(1).uniqueResult();
+                            "WHERE USER_ROLE.TYPE = USER_T( :root, :admin, :teacher, :stud)")
+                            .setParameter("root", "no")
+                            .setParameter("admin", "no")
+                            .setParameter("teacher", "yes")
+                            .setParameter("stud", "no")
+                            .setMaxResults(1).uniqueResult();
             transaction.commit();
         } catch (HibernateException exp) {
             if (transaction != null) {
@@ -83,7 +83,6 @@ public class UserRoleDAO {
         }
         return bigDecimal;
     }
-
     public BigDecimal addStudRole() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;

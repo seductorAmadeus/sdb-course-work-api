@@ -10,7 +10,7 @@ public enum MenuInputType {
     ENTER_USERS("5. Add user\n"),
     DELETE_USERS("6. Delete user\n"),
     GENERATE_USER_ROLE("7. Generate user roles list\n"),
-    GENERATE__USER_GROUP("8. Generate user group list\n"),
+    ENTER_USER_GROUP("8. Add new user group\n"),
 
     // RegistrationCodes
     INVITE_CODE_STATUS("Enter invite code status: "),

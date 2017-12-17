@@ -40,7 +40,7 @@ public class HibernateOperationsManager {
                 userRoleOperations.generateAllUsersRoles();
                 break;
             case 8:
-                userStudyingOperations.generateAllUsersGroups();
+                userStudyingOperations.createNewUserGroup();
             default:
                 break;
         }
@@ -54,7 +54,7 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.ENTER_USERS)
                 .append(MenuInputType.DELETE_USERS)
                 .append(MenuInputType.GENERATE_USER_ROLE)
-                .append(MenuInputType.GENERATE__USER_GROUP)
+                .append(MenuInputType.ENTER_USER_GROUP)
                 .toString();
     }
 
