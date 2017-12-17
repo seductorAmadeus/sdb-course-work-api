@@ -208,33 +208,43 @@ public class DataReader {
 
     public static Users readUser() {
         Users user = new Users();
-        System.out.println(MenuInputType.USERNAME);
 
-        for (; ; ) {
-            try {
-                String username = scanner.nextLine();
-                if (username.length() >= 20) throw new Exception();
-                user.setUsername(username);
-                break;
-            } catch (Exception exp) {
-                System.out.println(exp.getMessage());
-                System.out.println("Repeat input: ");
-            }
-        }
+        user.setUsername(readUsername());
+        user.setPassword(readPassword());
 
-        System.out.println(MenuInputType.PASSWORD);
-        for (; ; ) {
-            try {
-                String password = scanner.nextLine();
-                if (password.length() >= 25) throw new Exception();
-                user.setPassword(password);
-                break;
-            } catch (Exception exp) {
-                System.out.println(exp.getMessage());
-                System.out.println("Repeat input: ");
-            }
-        }
         return user;
+    }
+
+    public static String readUsername() {
+        System.out.println(MenuInputType.USERNAME);
+        String username;
+        for (; ; ) {
+            try {
+                username = scanner.nextLine();
+                if (username.length() >= 20) throw new Exception();
+                break;
+            } catch (Exception exp) {
+                System.out.println(exp.getMessage());
+                System.out.println("Repeat input: ");
+            }
+        }
+        return username;
+    }
+
+    public static String readPassword() {
+        System.out.println(MenuInputType.PASSWORD);
+        String password;
+        for (; ; ) {
+            try {
+                password = scanner.nextLine();
+                if (password.length() >= 25) throw new Exception();
+                break;
+            } catch (Exception exp) {
+                System.out.println(exp.getMessage());
+                System.out.println("Repeat input: ");
+            }
+        }
+        return password;
     }
 
     public static BigDecimal readUserId() {

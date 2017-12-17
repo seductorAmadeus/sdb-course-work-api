@@ -21,7 +21,8 @@ public class UserRoleDAO {
                     .setParameter("root", "yes")
                     .setParameter("admin", "no")
                     .setParameter("teacher", "no")
-                    .setParameter("stud", "no").setMaxResults(1).uniqueResult();
+                    .setParameter("stud", "no")
+                    .setMaxResults(1).uniqueResult();
             transaction.commit();
         } catch (HibernateException exp) {
             if (transaction != null) {
@@ -83,6 +84,7 @@ public class UserRoleDAO {
         }
         return bigDecimal;
     }
+
     public BigDecimal addStudRole() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;

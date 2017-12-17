@@ -11,6 +11,7 @@ public enum MenuInputType {
     DELETE_USERS("6. Delete user\n"),
     GENERATE_USER_ROLE("7. Generate user roles list\n"),
     ENTER_USER_GROUP("8. Add new user group\n"),
+    CREATE_USER_SESSION("9. Sign in\n"),
 
     // RegistrationCodes
     INVITE_CODE_STATUS("Enter invite code status: "),

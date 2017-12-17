@@ -58,6 +58,12 @@
             <version>11.2.0.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.lucee</groupId>
+            <artifactId>xdb</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

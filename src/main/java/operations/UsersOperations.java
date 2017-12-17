@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 
 public class UsersOperations {
 
-    public void addNewUser() {
+    public void addUser() {
         RegistrationCodesDAO registrationCodesDAO = new RegistrationCodesDAO();
         UsersDAO dao = new UsersDAO();
         UserRoleDAO userRoleDAO = new UserRoleDAO();
