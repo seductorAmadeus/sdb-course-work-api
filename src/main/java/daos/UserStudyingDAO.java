@@ -13,9 +13,8 @@ import java.sql.Types;
 
 public class UserStudyingDAO {
 
-    // TODO: remove static modifier
-    private static ResultSet resultSet;
-    private static BigDecimal bigDecimal;
+    private ResultSet resultSet;
+    private BigDecimal bigDecimal;
 
     public BigDecimal addGroupToUser(String userGroup) {
         Session session = HibernateUtil.getSessionFactory().openSession();
