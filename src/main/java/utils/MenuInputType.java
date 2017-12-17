@@ -24,10 +24,10 @@ public enum MenuInputType {
     FIRST_NAME("Enter user first name: "),
     LAST_NAME("Enter user last name: "),
     GENDER("Enter user gender: "),
-    DATE_OF_BIRTH("Enter user date of birth"),
+    DATE_OF_BIRTH("Enter user date of birth: "),
     //UserStudying
-    USER_GROUP("Enter user group"),
-    USER_ROLE("Enter user role");
+    USER_GROUP("Enter user group: "),
+    USER_ROLE("Enter user role: ");
 
 
     private String text;

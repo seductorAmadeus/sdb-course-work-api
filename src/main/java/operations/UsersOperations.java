@@ -35,22 +35,18 @@ public class UsersOperations {
         switch (userRoleStr) {
             case "root":
                 userRole.setId(userRoleDAO.addRootRole());
-                // проверить, существует ли такая сущность с правами, иначе сгенерировать
-                userProfile.setUserRoleId(userRole);
                 break;
             case "admin":
                 userRole.setId(userRoleDAO.addAdminRole());
-                userProfile.setUserRoleId(userRole);
                 break;
             case "teacher":
                 userRole.setId(userRoleDAO.addTeacherRole());
-                userProfile.setUserRoleId(userRole);
                 break;
             case "stud":
                 userRole.setId(userRoleDAO.addStudRole());
-                userProfile.setUserRoleId(userRole);
                 break;
         }
+        userProfile.setUserRoleId(userRole);
 
         // получаем и инициализируем поле user_studying_id
         UserStudyingDAO userStudyingDAO = new UserStudyingDAO();
@@ -64,8 +60,8 @@ public class UsersOperations {
             case "P3111":
                 userStudying.setId(userStudyingDAO.addGroupToUser(userGroupStr));
         }
-
         userProfile.setUserStudyingId(userStudying);
+
         dao.addUser(user, userProfile);
 
     }

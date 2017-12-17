@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(name = "user_studying")
 public class UserStudying {
     @Id
-    @SequenceGenerator(name="user_studying_seq", sequenceName="USER_STUDYING_ID_SEQ")
+    @SequenceGenerator(name = "user_studying_seq", sequenceName = "USER_STUDYING_ID_SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_studying_seq")
     @Column(name = "user_studying_id")
     private BigDecimal id;
