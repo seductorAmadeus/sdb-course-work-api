@@ -12,6 +12,7 @@ public enum MenuInputType {
     GENERATE_USER_ROLE("7. Generate user roles list\n"),
     ENTER_USER_GROUP("8. Add new user group\n"),
     CREATE_USER_SESSION("9. Sign in\n"),
+    CREATE_BCOMP("10. Create new BCOMP\n"),
 
     // RegistrationCodes
     INVITE_CODE_STATUS("Enter invite code status: "),
@@ -28,8 +29,20 @@ public enum MenuInputType {
     DATE_OF_BIRTH("Enter user date of birth: "),
     //UserStudying
     USER_GROUP("Enter user group: "),
-    USER_ROLE("Enter user role: ");
-
+    USER_ROLE("Enter user role: "),
+    BCOMP("Enter user session id: "),
+    MEMORY("Enter memory: "),
+    RS("Enter rs register: "),
+    RA("Enter ra register: "),
+    RD("Enter rd register: "),
+    RC("Enter rc register: "),
+    CC("Enter cc register: "),
+    BR("Enter buffer register: "),
+    AC("Enter accumulator: "),
+    C("Enter bit C: "),
+    KR("Enter ")
+    // TODO: заполнить полностью это
+    ;
 
     private String text;
 

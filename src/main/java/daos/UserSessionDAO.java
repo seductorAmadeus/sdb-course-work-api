@@ -42,4 +42,40 @@ public class UserSessionDAO {
         return userSessionId;
     }
 
+    public UserSession getUserSessionById(BigDecimal userSessionId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        UserSession userSession = null;
+        try {
+            transaction = session.beginTransaction();
+            userSession = (UserSession) session.createQuery("from UserSession where id = :userSessionId")
+                    .setParameter("userSessionId", userSessionId)
+                    .setMaxResults(1)
+                    .uniqueResult();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+        return userSession;
+    }
+
+    public boolean checkSessionExists(BigDecimal userSessionId) {
+        boolean userSessionExists = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            if (session.get(UserSession.class, userSessionId) != null) {
+                userSessionExists = true;
+            }
+        } catch (HibernateException exp) {
+
+        } finally {
+            session.close();
+        }
+
+        return userSessionExists;
+    }
 }

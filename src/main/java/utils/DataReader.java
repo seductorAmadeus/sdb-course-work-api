@@ -1,5 +1,6 @@
 package utils;
 
+import entities.Bcomp;
 import entities.RegistrationCodes;
 import entities.UserProfile;
 import entities.Users;
@@ -260,6 +261,43 @@ public class DataReader {
             }
         }
         return userId;
+    }
+
+    public static BigDecimal readUserSessionId() {
+        BigDecimal userSessionId = null;
+        System.out.println(MenuInputType.BCOMP);
+        for (; ; ) {
+            String tempUserSessionId = scanner.nextLine();
+            try {
+                if (tempUserSessionId.length() > 20) {
+                    throw new Exception();
+                }
+                userSessionId = new BigDecimal(tempUserSessionId);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+        return userSessionId;
+    }
+
+    public static Bcomp readBcomp() {
+        Bcomp bcomp = new Bcomp();
+
+        System.out.println(MenuInputType.BCOMP);
+//        for (; ; ) {
+//            String tempUserSessionId = scanner.nextLine();
+//            try {
+//                if (tempUserSessionId.length() > 20) {
+//                    throw new Exception();
+//                }
+//                userSessionId = new BigDecimal(tempUserSessionId);
+//                break;
+//            } catch (Exception exp) {
+//                System.out.println("Repeat input: ");
+//            }
+//        }
+        return bcomp;
     }
 }
 

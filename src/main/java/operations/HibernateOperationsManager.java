@@ -15,6 +15,7 @@ public class HibernateOperationsManager {
         UserRoleOperations userRoleOperations = new UserRoleOperations();
         UserStudyingOperations userStudyingOperations = new UserStudyingOperations();
         UserSessionOperations userSessionOperations = new UserSessionOperations();
+        BcompOperations bcompOperations = new BcompOperations();
 
         int menuNumber = Integer.parseInt(scanner.nextLine());
 
@@ -46,6 +47,8 @@ public class HibernateOperationsManager {
             case 9:
                 userSessionOperations.createUserSession();
                 break;
+            case 10:
+                bcompOperations.createEmptyBcomp();
             default:
                 break;
         }
@@ -61,6 +64,7 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.GENERATE_USER_ROLE)
                 .append(MenuInputType.ENTER_USER_GROUP)
                 .append(MenuInputType.CREATE_USER_SESSION)
+                .append(MenuInputType.CREATE_BCOMP)
                 .toString();
     }
 
