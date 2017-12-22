@@ -1,9 +1,6 @@
 package utils;
 
-import entities.Bcomp;
-import entities.RegistrationCodes;
-import entities.UserProfile;
-import entities.Users;
+import entities.*;
 import exceptions.NonComplianceWithConstraints;
 import exceptions.PatternException;
 
@@ -279,6 +276,60 @@ public class DataReader {
             }
         }
         return userSessionId;
+    }
+
+    // TODO: make a generic method for reading id specified length
+    // TODO: to put constants in another file
+    public static BigDecimal readBcompSettingsId() {
+        BigDecimal bcompSettingsId = null;
+        System.out.println(MenuInputType.BCOMP_SETTINGS_ID);
+        for (; ; ) {
+            String tempBcompSettingsId = scanner.nextLine();
+            try {
+                if (tempBcompSettingsId.length() > 20) {
+                    throw new Exception();
+                }
+                bcompSettingsId = new BigDecimal(tempBcompSettingsId);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+        return bcompSettingsId;
+    }
+
+    public static BcompSettings readBcompSettings() {
+        BcompSettings bcompSettings = new BcompSettings();
+
+        System.out.println(MenuInputType.BCOMP_SETTINGS_TYPE);
+        for (; ; ) {
+            String bcompSettingsType = scanner.nextLine();
+            try {
+                if (bcompSettingsType.length() > 20) {
+                    throw new Exception();
+                }
+                bcompSettings.setType(bcompSettingsType);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.BCOMP_SETTINGS_VALUE);
+        for (; ; ) {
+            String bcompSettingsValue = scanner.nextLine();
+            try {
+                if (bcompSettingsValue.length() > 20) {
+                    throw new Exception();
+                }
+                bcompSettings.setValue(bcompSettingsValue);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        return bcompSettings;
     }
 
     public static Bcomp readBcomp() {

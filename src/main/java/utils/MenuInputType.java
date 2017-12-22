@@ -13,7 +13,8 @@ public enum MenuInputType {
     ENTER_USER_GROUP("8. Add new user group\n"),
     CREATE_USER_SESSION("9. Sign in\n"),
     CREATE_BCOMP("10. Create new BCOMP\n"),
-
+    CREATE_BCOMP_SETTINGS("11. Create new bcomp settings\n"),
+    ASSING_USER_SETTINGS("12. Assign user settings"),
     // RegistrationCodes
     INVITE_CODE_STATUS("Enter invite code status: "),
     EMAIL("Enter email: "),
@@ -31,6 +32,9 @@ public enum MenuInputType {
     USER_GROUP("Enter user group: "),
     USER_ROLE("Enter user role: "),
     BCOMP("Enter user session id: "),
+    BCOMP_SETTINGS_ID("Enter bcomp settings id: "),
+    BCOMP_SETTINGS_TYPE("Enter bcomp settings type: "),
+    BCOMP_SETTINGS_VALUE("Enter bcomp settings value: "),
     MEMORY("Enter memory: "),
     RS("Enter rs register: "),
     RA("Enter ra register: "),

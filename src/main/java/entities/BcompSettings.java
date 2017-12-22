@@ -28,7 +28,7 @@ public class BcompSettings {
     @Column(name = "type")
     private String type;
 
-    @ManyToMany(mappedBy = "bcompSettings")
+    @ManyToMany(mappedBy = "bcompSettings", fetch = FetchType.EAGER)
     private List<UserSession> userSessions = new ArrayList<>();
 
     public BcompSettings() {

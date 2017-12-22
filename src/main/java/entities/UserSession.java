@@ -19,7 +19,7 @@ import java.util.Set;
 public class UserSession {
 
     @Id
-    @SequenceGenerator(name="user_session_seq", sequenceName="USER_SESSION_ID_SEQ")
+    @SequenceGenerator(name = "user_session_seq", sequenceName = "USER_SESSION_ID_SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_session_seq")
     @Column(name = "user_session_id")
     private BigDecimal id;
@@ -34,7 +34,7 @@ public class UserSession {
     @OneToMany(mappedBy = "sessionId", cascade = CascadeType.ALL)
     private Set<Bcomp> bcomps;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "session_settings",
             joinColumns = {@JoinColumn(name = "session_id")},
             inverseJoinColumns = {@JoinColumn(name = "setting_id")})

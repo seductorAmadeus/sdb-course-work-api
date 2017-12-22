@@ -16,6 +16,8 @@ public class HibernateOperationsManager {
         UserStudyingOperations userStudyingOperations = new UserStudyingOperations();
         UserSessionOperations userSessionOperations = new UserSessionOperations();
         BcompOperations bcompOperations = new BcompOperations();
+        BcompSettingsOperations bcompSettingsOperations = new BcompSettingsOperations();
+        SessionSettingsOperations sessionSettingsOperations = new SessionSettingsOperations();
 
         int menuNumber = Integer.parseInt(scanner.nextLine());
 
@@ -49,6 +51,12 @@ public class HibernateOperationsManager {
                 break;
             case 10:
                 bcompOperations.createEmptyBcomp();
+                break;
+            case 11:
+                bcompSettingsOperations.createBcompSettings();
+                break;
+            case 12:
+                sessionSettingsOperations.assignUserSettings();
             default:
                 break;
         }
@@ -65,6 +73,8 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.ENTER_USER_GROUP)
                 .append(MenuInputType.CREATE_USER_SESSION)
                 .append(MenuInputType.CREATE_BCOMP)
+                .append(MenuInputType.CREATE_BCOMP_SETTINGS)
+                .append(MenuInputType.ASSING_USER_SETTINGS)
                 .toString();
     }
 
