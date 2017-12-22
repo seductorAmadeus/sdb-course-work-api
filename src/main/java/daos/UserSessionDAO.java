@@ -8,6 +8,8 @@ import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserSessionDAO {
 
@@ -77,5 +79,29 @@ public class UserSessionDAO {
         }
 
         return userSessionExists;
+    }
+
+    public List<UserSession> listUserSessions() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        List<UserSession> list = new ArrayList<>();
+        try {
+            transaction = session.beginTransaction();
+            List tempList = session.createQuery("from UserSession").list();
+            for (Object aTempList : tempList) {
+                UserSession userSession = (UserSession) aTempList;
+                list.add(userSession);
+            }
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+
+        return list;
+
     }
 }

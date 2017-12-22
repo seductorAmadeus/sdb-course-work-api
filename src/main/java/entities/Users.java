@@ -27,6 +27,7 @@ public class Users implements Serializable {
     /**
      * This field contains user identifier from the database
      */
+    /*This action*/
     @Id
     @SequenceGenerator(name="user_seq", sequenceName="USER_ID_SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")

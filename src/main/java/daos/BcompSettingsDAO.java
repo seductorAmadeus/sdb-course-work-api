@@ -7,6 +7,8 @@ import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BcompSettingsDAO {
 
@@ -51,5 +53,29 @@ public class BcompSettingsDAO {
             session.close();
         }
         return bcompSettings;
+    }
+
+    public List<BcompSettings> getBcompSettingsList() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        List<BcompSettings> list = new ArrayList<>();
+        try {
+            transaction = session.beginTransaction();
+            List tempList = session.createQuery("from BcompSettings").list();
+            for (Object aTempList : tempList) {
+                BcompSettings bcompSettings = (BcompSettings) aTempList;
+                list.add(bcompSettings);
+            }
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+
+        return list;
+
     }
 }

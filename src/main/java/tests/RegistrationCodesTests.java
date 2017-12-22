@@ -1,14 +1,8 @@
 package tests;
 
-import daos.RegistrationCodesDAO;
-import daos.UserRoleDAO;
-import daos.UserStudyingDAO;
-import daos.UsersDAO;
+import daos.*;
 import entities.*;
 import org.junit.Test;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
 import utils.DataReader;
 
 import java.sql.Timestamp;
@@ -19,15 +13,11 @@ import java.util.List;
 
 public class RegistrationCodesTests {
 
-    private static final int TEST_COUNT = 50;
+    private static final int TESTS_COUNT = 20;
 
     public static void main(String[] args) {
-//        Result result = JUnitCore.runClasses(RegistrationCodesTests.class);
-//        for (Failure failure : result.getFailures()) {
-//            System.out.println(failure.toString());
-//        }
-        RegistrationCodesTests registrationCodesTests = new RegistrationCodesTests();
-        registrationCodesTests.testRegexPattern();
+        RegistrationCodesTests registrationCodes = new RegistrationCodesTests();
+        registrationCodes.fillAllTables();
     }
 
     @Test
@@ -35,90 +25,162 @@ public class RegistrationCodesTests {
         System.out.println(DataReader.readUserGroup());
     }
 
-    @Test
-    public void testAllOperations() {
-        RegistrationCodesDAO dao = new RegistrationCodesDAO();
-
-        // Генерируем значения
-        List<RegistrationCodes> list = new ArrayList<>();
-        for (int i = 0; i < TEST_COUNT; i++) {
-            list.add(new RegistrationCodes(i % 2 == 0 ? "available" : "not available", "test" + i + "@mail.ru"));
+    private List<RegistrationCodes> getRegistrationCodesList() {
+        List<RegistrationCodes> registrationCodes = new ArrayList<>();
+        for (int i = 0; i < TESTS_COUNT; i++) {
+            registrationCodes.add(new RegistrationCodes(i % 2 == 0 ? "available" : "not available", "test" + i + "@mail.ru"));
         }
+        return registrationCodes;
+    }
 
-        // Добавляем в БД
-        for (RegistrationCodes registrationCodes : list) {
-            dao.addRegistrationCode(registrationCodes);
+    private List<Users> getUsersList(List<RegistrationCodes> registrationCodes, List<UserProfile> userProfile) {
+        List<Users> userProfiles = new ArrayList<>();
+        for (int i = 0; i < TESTS_COUNT; i++) {
+            userProfiles.add(new Users(registrationCodes.get(i), "login" + i, "password" + i, null, userProfile.get(i)));
         }
+        return userProfiles;
+    }
 
-        // Получаем значения из БД
-        List<RegistrationCodes> printedList = dao.listRegistrationCodes();
-        for (RegistrationCodes registrationCodes : printedList) {
-            System.out.println(registrationCodes);
-        }
-
-        // Обновляем статусы
-        for (RegistrationCodes registrationCodes : printedList) {
-            dao.updateRegistrationCodeStatus(registrationCodes.getInviteCode(), registrationCodes.getInviteCodeStatus()
-                    .equals("available") ? "not available" : "available");
-        }
-
-        // Получаем значения из БД
-        List<RegistrationCodes> printedList2 = dao.listRegistrationCodes();
-        for (RegistrationCodes registrationCodes : printedList2) {
-            System.out.println(registrationCodes);
-        }
-
-        // добавляем пользователя в БД
-        RegistrationCodesDAO registrationCodesDAO = new RegistrationCodesDAO();
-        // инициируем пользователя
-        UsersDAO usersDAO = new UsersDAO();
-        Users users = new Users();
-        RegistrationCodes registrationCode = null;
-        try {
-            registrationCode = registrationCodesDAO.findFreeRegistrationCode();
-        } catch (NullPointerException exp) {
-            System.out.println("No available invite code found. Generate additional codes.");
-            return;
-        }
-        users.setUsername("21412412");
-        users.setPassword("afawf");
-        users.setInviteCode(registrationCode);
-
-        UserProfile userProfile = new UserProfile();
+    private List<UserProfile> getProfilesList(UserRole userRoleId, UserStudying userStudyingId) {
+        Timestamp timestamp = null;
         try {
             String dateOfBirth = "1999-01-01";
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date parsedDate = dateFormat.parse(dateOfBirth);
-            Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
-            userProfile.setDateOfBirth(timestamp);
+            timestamp = new java.sql.Timestamp(parsedDate.getTime());
         } catch (Exception exp) {
             exp.getMessage();
         }
 
-        userProfile.setGender("M");
-        userProfile.setLastName("Rayla");
-        userProfile.setFirstName("Martin");
-        userProfile.setStudyingStatus("YES");
-
-        // инициализировали UserRoleId
-        UserRole userRole = new UserRole();
-        UserRoleDAO userRoleDAO = new UserRoleDAO();
-        userRoleDAO.generateAllUsersRoles();
-        userRole.setId(userRoleDAO.addTeacherRole());
-
-        userProfile.setUserRoleId(userRole);
-
-        // инициализировали UserStudyingId
-        UserStudyingDAO userStudyingDAO = new UserStudyingDAO();
-        userStudyingDAO.generateAllUsersGroups();
-        UserStudying userStudying = new UserStudying();
-        String userGroupStr = "P3101";
-        userStudying.setId(userStudyingDAO.addGroupToUser(userGroupStr));
-
-        userProfile.setUserStudyingId(userStudying);
-
-        usersDAO.addUser(users, userProfile);
+        List<UserProfile> userProfiles = new ArrayList<>();
+        for (int i = 0; i < TESTS_COUNT; i++) {
+            userProfiles.add(new UserProfile(userRoleId, userStudyingId, timestamp, timestamp,
+                    "YES", "Martin" + i, "Rayla" + i, "",
+                    "M", timestamp, "Y", null, null));
+        }
+        return userProfiles;
     }
 
 
+    public List<BcompSettings> getBcompSettings() {
+        List<BcompSettings> bcompSettingsList = new ArrayList<>();
+        for (int i = 0; i < TESTS_COUNT; i++) {
+            bcompSettingsList.add(new BcompSettings("value" + i, "type" + i));
+        }
+        return bcompSettingsList;
+    }
+
+    private List<Bcomp> getBcompsList(List<UserSession> userSessionList) {
+        List<Bcomp> bcompList = new ArrayList<>();
+        for (int i = 0; i < TESTS_COUNT; i++) {
+            bcompList.add(new Bcomp(null, userSessionList.get(i), null, null, null, null,
+                    null, null, null, null, null, null, null, null,
+                    null, null, null, null, null, null,
+                    null, null, null));
+        }
+        return bcompList;
+    }
+
+    @Test
+    public void fillAllTables() {
+        UsersDAO usersDAO = new UsersDAO();
+
+        // Заполняем registration_codes
+        List<RegistrationCodes> registrationCodesList = getRegistrationCodesList();
+        // Добавляем в БД
+        RegistrationCodesDAO dao = new RegistrationCodesDAO();
+        for (RegistrationCodes registrationCodes : registrationCodesList) {
+            dao.addRegistrationCode(registrationCodes);
+        }
+
+        /**
+         * добавляем пользователей в БД
+         */
+        // Генерируем общую роль
+        UserRoleDAO userRoleDAO = new UserRoleDAO();
+        UserRole userRole = new UserRole();
+        userRoleDAO.generateAllUsersRoles();
+        // set all roles as "admin"
+        userRole.setId(userRoleDAO.addAdminRole());
+
+        // Генерируем общий userStudying id
+        // инициализировали UserStudyingId
+        UserStudyingDAO userStudyingDAO = new UserStudyingDAO();
+        UserStudying userStudying = new UserStudying();
+        userStudyingDAO.generateAllUsersGroups();
+        String userGroupStr = "P3101";
+        userStudying.setId(userStudyingDAO.addGroupToUser(userGroupStr));
+
+        List<UserProfile> userProfiles = getProfilesList(userRole, userStudying);
+        List<Users> users = getUsersList(registrationCodesList, userProfiles);
+        for (int i = 0; i < TESTS_COUNT; i++) {
+            try {
+                usersDAO.addUser(users.get(i), userProfiles.get(i));
+            } catch (NullPointerException exp) {
+                exp.getMessage();
+            }
+        }
+
+        /**
+         * создаем сессии в БД на основе последнего пользователя, используя рандомайзер (доделать)
+         */
+        UserSessionDAO userSessionDAO = new UserSessionDAO();
+        for (int i = 0; i < TESTS_COUNT; i++) {
+            try {
+                userSessionDAO.createSession(users.get((int)
+                        Math.random() * (users.size() - 1 - users.get(0).getUserId().intValue())).getUserId());
+            } catch (NullPointerException exp) {
+                exp.getMessage();
+            }
+        }
+
+        /**
+         * создаем BCOMP-ы
+         */
+        // получаем список пользовательских сессий
+        UserSessionDAO userSessionDAO1 = new UserSessionDAO();
+        List<UserSession> userSessionList = userSessionDAO1.listUserSessions();
+        // добавляем bcomp's
+        List<Bcomp> bcompList = getBcompsList(userSessionList);
+        BcompDAO bcompDAO = new BcompDAO();
+
+        for (int i = 0; i < TESTS_COUNT; i++) {
+            try {
+                bcompDAO.createEmptyBcomp(bcompList.get(i));
+            } catch (NullPointerException exp) {
+                exp.getMessage();
+            }
+        }
+
+        /**
+         * создаем BCOMP settings
+         */
+        BcompSettingsDAO bcompSettingsDAO = new BcompSettingsDAO();
+        List<BcompSettings> bcompSettingsList = getBcompSettings();
+
+        for (int i = 0; i < TESTS_COUNT; i++) {
+            try {
+                bcompSettingsDAO.addBcompSettings(bcompSettingsList.get(i));
+            } catch (NullPointerException exp) {
+                exp.getMessage();
+            }
+        }
+
+        /**
+         * ассоциируем настройки с userSessionId
+         */
+
+        List<BcompSettings> newBcompSettingsList = bcompSettingsDAO.getBcompSettingsList();
+        List<UserSession> newUserSessionList = userSessionDAO.listUserSessions();
+
+        SessionSettingsDAO sessionSettingsDAO = new SessionSettingsDAO();
+        for (int i = 0; i < TESTS_COUNT; i++) {
+            try {
+                sessionSettingsDAO.assignUserSettings(newUserSessionList.get(i), newBcompSettingsList.get(i));
+            } catch (NullPointerException exp) {
+                exp.getMessage();
+            }
+        }
+
+    }
 }
