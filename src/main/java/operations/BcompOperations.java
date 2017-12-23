@@ -28,6 +28,21 @@ public class BcompOperations {
         } catch (NullPointerException exp) {
             System.out.println("The specified session was not created in the system. Check it out correctly and try again");
         }
+    }
+
+    public void updateBcomp() {
+        Bcomp bcomp = new Bcomp();
+        BcompDAO bcompDAO = new BcompDAO();
+
+        BigDecimal bcompId = DataReader.readBcompId();
+
+        if (bcompDAO.checkBcompExists(bcompId)) {
+            bcomp = bcompDAO.getBcompById(bcompId);
+            DataReader.initBcomp(bcomp);
+            bcompDAO.updateBcomp(bcompId, bcomp);
+        } else {
+            System.out.println("The specified bcomp id was not found in the system. Check it out correctly and try again");
+        }
 
     }
 

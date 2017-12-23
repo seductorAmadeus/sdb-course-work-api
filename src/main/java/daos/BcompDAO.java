@@ -134,10 +134,6 @@ public class BcompDAO {
         return list;
     }
 
-    public void fillBcomp(Bcomp bcomp) {
-
-    }
-
     public boolean checkBcompExists(BigDecimal bcompId) {
         boolean bcompExists = false;
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -154,4 +150,43 @@ public class BcompDAO {
         return bcompExists;
     }
 
+    public Bcomp getBcompById(BigDecimal bcompId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        Bcomp bcomp = null;
+        try {
+            transaction = session.beginTransaction();
+            bcomp = (Bcomp) session.createQuery("from Bcomp where id = :bcompId")
+                    .setParameter("bcompId", bcompId)
+                    .setMaxResults(1)
+                    .uniqueResult();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+        return bcomp;
+    }
+
+
+    public void updateBcomp(BigDecimal bcompId, Bcomp bcomp) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(bcomp);
+            transaction.commit();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+
+    }
 }

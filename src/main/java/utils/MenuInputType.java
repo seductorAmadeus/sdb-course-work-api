@@ -17,6 +17,7 @@ public enum MenuInputType {
     ASSING_USER_SETTINGS("12. Assign user settings\n"),
     GET_EMAIL_USING_SESSION_ID("13. Get admin email from user's session id\n"),
     GET_SETTINGS_ID_FOR_USER("14. Get settingsId for user\n"),
+    UPDATE_BCOMP("15. Update BCOMP\n"),
     // RegistrationCodes
     INVITE_CODE_STATUS("Enter invite code status: "),
     EMAIL("Enter email: "),
@@ -37,6 +38,7 @@ public enum MenuInputType {
     BCOMP_SETTINGS_ID("Enter bcomp settings id: "),
     BCOMP_SETTINGS_TYPE("Enter bcomp settings type: "),
     BCOMP_SETTINGS_VALUE("Enter bcomp settings value: "),
+    BCOMP_ID("Enter bcomp id: "),
     MEMORY("Enter memory: "),
     RS("Enter rs register: "),
     RA("Enter ra register: "),
