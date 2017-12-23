@@ -1,8 +1,7 @@
 package daos;
 
 import entities.Bcomp;
-import entities.BcompSettings;
-import operations.ConnectionHandler;
+import utils.ConnectionJDBC;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -28,7 +27,7 @@ public class BcompDAO {
 
     public BigDecimal createEmptyBcomp(Bcomp bcomp) {
         Connection connection = null;
-        ConnectionHandler connectionHandler = new ConnectionHandler();
+        ConnectionJDBC connectionHandler = new ConnectionJDBC();
         BigDecimal bcompId = null;
         try {
             connection = connectionHandler.createConnection();

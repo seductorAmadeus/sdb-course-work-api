@@ -1,9 +1,9 @@
-package operations;
+package utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class ConnectionHandler {
+public class ConnectionJDBC {
 
     private static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
     private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:XE";

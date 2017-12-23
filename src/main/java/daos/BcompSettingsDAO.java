@@ -4,9 +4,14 @@ import entities.BcompSettings;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import utils.ConnectionJDBC;
 import utils.HibernateUtil;
 
 import java.math.BigDecimal;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +26,32 @@ import java.util.List;
 public class BcompSettingsDAO {
 
     public BigDecimal addBcompSettings(BcompSettings bcompSettings) {
+        Connection connection = null;
+        ConnectionJDBC connectionHandler = new ConnectionJDBC();
+        BigDecimal bcompSettingsId = null;
+        try {
+            connection = connectionHandler.createConnection();
+
+            CallableStatement callableStatement = connection.prepareCall("{? = call CREATEPCKG.ADDBCOMPSETTINGS(?,?)}");
+            callableStatement.registerOutParameter(1, Types.DECIMAL);
+            callableStatement.setString(2, bcompSettings.getValue());
+            callableStatement.setString(3, bcompSettings.getType());
+            callableStatement.execute();
+
+            // we're getting id;
+            bcompSettingsId = (BigDecimal) callableStatement.getObject(1);
+
+        } catch (SQLException exp) {
+            exp.printStackTrace();
+        } finally {
+            connectionHandler.close(connection);
+        }
+
+        return bcompSettingsId;
+    }
+
+    @Deprecated
+    public BigDecimal addBcompSettingsH(BcompSettings bcompSettings) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigDecimal bcompSettingsId = null;
