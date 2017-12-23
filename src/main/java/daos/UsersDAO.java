@@ -104,4 +104,20 @@ public class UsersDAO {
             session.close();
         }
     }
+
+    public void dropAllUsersRecords() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.createSQLQuery("truncate table users").executeUpdate();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+    }
 }

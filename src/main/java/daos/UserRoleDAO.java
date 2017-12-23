@@ -132,4 +132,21 @@ public class UserRoleDAO {
             session.close();
         }
     }
+
+    public void dropAllUserRoleRecords() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.createSQLQuery("truncate table user_role").executeUpdate();
+            transaction.commit();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+    }
 }

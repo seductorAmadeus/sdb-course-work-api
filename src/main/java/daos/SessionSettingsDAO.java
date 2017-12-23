@@ -30,4 +30,21 @@ public class SessionSettingsDAO {
         }
 
     }
+
+    public void dropAllSessionSettingsRecords() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.createSQLQuery("truncate table session_settings").executeUpdate();
+            transaction.commit();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+    }
 }

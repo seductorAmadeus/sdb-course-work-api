@@ -117,4 +117,19 @@ public class RegistrationCodesDAO {
         return freeRegistrationCode;
     }
 
+    public void dropAllRegistrationCodesRecords() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.createSQLQuery("truncate table REGISTRATION_CODES").executeUpdate();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+    }
 }

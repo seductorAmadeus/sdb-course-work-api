@@ -11,13 +11,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class RegistrationCodesTests {
+public class WebBcompTests {
 
     private static final int TESTS_COUNT = 20;
 
     public static void main(String[] args) {
-        RegistrationCodesTests registrationCodes = new RegistrationCodesTests();
-        registrationCodes.fillAllTables();
+        WebBcompTests test = new WebBcompTests();
+        test.dropAllTables();
+//        test.fillAllTables();
     }
 
     @Test
@@ -79,6 +80,39 @@ public class RegistrationCodesTests {
                     null, null, null));
         }
         return bcompList;
+    }
+
+    @Test
+    public void dropAllTables() {
+        BcompDAO bcompDAO = new BcompDAO();
+        bcompDAO.dropAllBcompRecords();
+
+        RegistrationCodesDAO registrationCodesDAO = new RegistrationCodesDAO();
+        registrationCodesDAO.dropAllRegistrationCodesRecords();
+
+        UsersDAO usersDAO = new UsersDAO();
+        usersDAO.dropAllUsersRecords();
+
+        SessionSettingsDAO sessionSettingsDAO = new SessionSettingsDAO();
+        sessionSettingsDAO.dropAllSessionSettingsRecords();
+
+
+        UserSessionDAO userSessionDAO = new UserSessionDAO();
+        userSessionDAO.dropAllUserSessionRecords();
+
+        BcompSettingsDAO bcompSettingsDAO = new BcompSettingsDAO();
+        bcompSettingsDAO.dropAllBcompSettingsRecords();
+
+
+
+        UserRoleDAO userRoleDAO = new UserRoleDAO();
+        userRoleDAO.dropAllUserRoleRecords();
+
+
+
+
+        UserStudyingDAO userStudyingDAO = new UserStudyingDAO();
+        userStudyingDAO.dropAllUserStudyingRecords();
     }
 
     @Test

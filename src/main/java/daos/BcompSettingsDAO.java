@@ -76,6 +76,22 @@ public class BcompSettingsDAO {
         }
 
         return list;
+    }
 
+    public void dropAllBcompSettingsRecords() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.createSQLQuery("truncate table bcomp_settings").executeUpdate();
+            transaction.commit();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
     }
 }

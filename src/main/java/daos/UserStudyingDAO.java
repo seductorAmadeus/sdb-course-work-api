@@ -124,4 +124,21 @@ public class UserStudyingDAO {
             session.close();
         }
     }
+
+    public void dropAllUserStudyingRecords() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.createSQLQuery("truncate table user_studying").executeUpdate();
+            transaction.commit();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+    }
 }
