@@ -68,6 +68,8 @@ public class HibernateOperationsManager {
             case 15:
                 bcompOperations.updateBcomp();
                 break;
+            case 16:
+                usersOperations.updateUserProfile();
             default:
                 break;
         }
@@ -89,6 +91,7 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.GET_EMAIL_USING_SESSION_ID)
                 .append(MenuInputType.GET_SETTINGS_ID_FOR_USER)
                 .append(MenuInputType.UPDATE_BCOMP)
+                .append(MenuInputType.UPDATE_USER_PROFILE)
                 .toString();
     }
 

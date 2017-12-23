@@ -5,6 +5,7 @@ import daos.UserRoleDAO;
 import daos.UserStudyingDAO;
 import daos.UsersDAO;
 import entities.*;
+import javafx.scene.chart.XYChart;
 import utils.DataReader;
 
 import java.math.BigDecimal;
@@ -72,4 +73,20 @@ public class UsersOperations {
         BigDecimal userId = DataReader.readUserId();
         dao.deleteUser(userId);
     }
+
+    public void updateUserProfile() {
+        UserProfile userProfile = new UserProfile();
+        UsersDAO usersDAO = new UsersDAO();
+
+        BigDecimal userProfileId = DataReader.readUserProfileId();
+
+        if (usersDAO.checkUserProfileExists(userProfileId)) {
+            userProfile = usersDAO.getUserProfileById(userProfileId);
+            DataReader.initUserProfile(userProfile);
+            usersDAO.updateUserProfile(userProfile);
+        } else {
+            System.out.println("The specified user profile id was not found in the system. Check it out correctly and try again");
+        }
+    }
+
 }

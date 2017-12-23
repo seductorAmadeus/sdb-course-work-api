@@ -72,6 +72,27 @@ public class UsersDAO {
         return userId;
     }
 
+    public UserProfile getUserProfileById(BigDecimal userProfileId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        UserProfile userProfile = null;
+        try {
+            transaction = session.beginTransaction();
+            userProfile = (UserProfile) session.get(UserProfile.class, userProfileId);
+            transaction.commit();
+        } catch (IllegalArgumentException exp) {
+            System.out.println("The specified user profile is not in the database. Check it out correctly and try again");
+        } catch (Exception exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+        return userProfile;
+    }
+
     public Users getUserById(BigDecimal userId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
@@ -144,5 +165,39 @@ public class UsersDAO {
         }
 
         return usersExists;
+    }
+
+    public boolean checkUserProfileExists(BigDecimal userProfileId) {
+        boolean userProfileExists = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            if (session.get(UserProfile.class, userProfileId) != null) {
+                userProfileExists = true;
+            }
+        } catch (HibernateException exp) {
+
+        } finally {
+            session.close();
+        }
+
+        return userProfileExists;
+    }
+
+    public void updateUserProfile(UserProfile userProfile) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(userProfile);
+            transaction.commit();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+
     }
 }

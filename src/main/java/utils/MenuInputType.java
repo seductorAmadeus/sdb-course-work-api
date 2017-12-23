@@ -18,6 +18,7 @@ public enum MenuInputType {
     GET_EMAIL_USING_SESSION_ID("13. Get admin email from user's session id\n"),
     GET_SETTINGS_ID_FOR_USER("14. Get settingsId for user\n"),
     UPDATE_BCOMP("15. Update BCOMP\n"),
+    UPDATE_USER_PROFILE("16. UPDATE USER_PROFILE\n"),
     // RegistrationCodes
     INVITE_CODE_STATUS("Enter invite code status: "),
     EMAIL("Enter email: "),
@@ -25,6 +26,7 @@ public enum MenuInputType {
     // Users
     USERNAME("Enter username: "),
     PASSWORD("Enter password: "),
+    USER_PROFILE_ID("Enter user profile id: "),
     USER_ID("Enter user id: "),
     STUDYING_STATUS("Enter user status: "),
     FIRST_NAME("Enter user first name: "),

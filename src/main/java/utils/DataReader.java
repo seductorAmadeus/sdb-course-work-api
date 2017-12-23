@@ -355,9 +355,32 @@ public class DataReader {
         return bcompId;
     }
 
-    public static void initBcomp(Bcomp bcomp) {
+    public static BigDecimal readUserProfileId() {
+        BigDecimal userProfileId = null;
+        System.out.println(MenuInputType.USER_PROFILE_ID);
+        for (; ; ) {
+            String tempUserProfileId = scanner.nextLine();
+            try {
+                if (tempUserProfileId.length() > 7) {
+                    throw new Exception();
+                }
+                userProfileId = new BigDecimal(tempUserProfileId);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+        return userProfileId;
+    }
 
-        System.out.println(MenuInputType.MEMORY);
+
+    public static void initUserProfile(UserProfile userProfile) {
+
+    }
+
+    public static void initBcomp(Bcomp bcomp) {
+    // TODO: need fix
+//        System.out.println(MenuInputType.);
         for (; ; ) {
             String memory = scanner.nextLine();
             try {
