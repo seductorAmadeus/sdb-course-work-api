@@ -9,6 +9,14 @@ import utils.HibernateUtil;
 
 import java.math.BigDecimal;
 
+/**
+ * This class is a data access object that provides CRUD operations to {@link Users} entity.
+ *
+ * @author Rayla Martin
+ * @version 0.1
+ * @since 0.1
+ */
+
 public class UsersDAO {
 
     public BigDecimal addUser(Users user, UserProfile userProfile) {

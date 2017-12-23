@@ -1,5 +1,6 @@
 package daos;
 
+import entities.UserStudying;
 import oracle.jdbc.OracleTypes;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -10,6 +11,14 @@ import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.Types;
+
+/**
+ * This class is a data access object that provides CRUD operations to {@link UserStudying} entity.
+ *
+ * @author Rayla Martin
+ * @version 0.1
+ * @since 0.1
+ */
 
 public class UserStudyingDAO {
 

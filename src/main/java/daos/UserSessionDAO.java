@@ -11,6 +11,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is a data access object that provides CRUD operations to {@link UserSession} entity.
+ *
+ * @author Rayla Martin
+ * @version 0.1
+ * @since 0.1
+ */
+
 public class UserSessionDAO {
 
     public BigDecimal createSession(BigDecimal userId) {

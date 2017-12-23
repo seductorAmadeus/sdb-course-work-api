@@ -7,6 +7,14 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
+/**
+ * This class is a data access object that provides CRUD operations to session_settings table from DB.
+ *
+ * @author Rayla Martin
+ * @version 0.1
+ * @since 0.1
+ */
+
 public class SessionSettingsDAO {
 
     public void assignUserSettings(UserSession userSession, BcompSettings bcompSettings) {

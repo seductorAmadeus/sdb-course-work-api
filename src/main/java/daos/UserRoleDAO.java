@@ -1,5 +1,6 @@
 package daos;
 
+import entities.UserRole;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -7,6 +8,14 @@ import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
 import java.math.BigDecimal;
+
+/**
+ * This class is a data access object that provides CRUD operations to {@link UserRole} entity.
+ *
+ * @author Rayla Martin
+ * @version 0.1
+ * @since 0.1
+ */
 
 public class UserRoleDAO {
 

@@ -8,7 +8,18 @@ import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
 import java.math.BigDecimal;
-import java.sql.*;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
+
+/**
+ * This class is a data access object that provides CRUD operations to {@link Bcomp} entity.
+ *
+ * @author Rayla Martin
+ * @version 0.1
+ * @since 0.1
+ */
 
 public class BcompDAO {
 
@@ -54,6 +65,29 @@ public class BcompDAO {
             exp.printStackTrace();
         } finally {
             connectionHandler.close(connection);
+        }
+
+        return bcompId;
+    }
+
+    @Deprecated
+    public BigDecimal createEmptyBcompH(Bcomp bcomp) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        BigDecimal bcompId = null;
+
+        try {
+            transaction = session.beginTransaction();
+            session.persist(bcomp);
+            transaction.commit();
+            bcompId = bcomp.getId();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
         }
 
         return bcompId;
