@@ -158,4 +158,20 @@ public class UserRoleDAO {
             session.close();
         }
     }
+
+    public boolean checkUserRoleExists(BigDecimal userRoleId) {
+        boolean userRoleExists = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            if (session.get(UserRole.class, userRoleId) != null) {
+                userRoleExists = true;
+            }
+        } catch (HibernateException exp) {
+
+        } finally {
+            session.close();
+        }
+
+        return userRoleExists;
+    }
 }

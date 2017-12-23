@@ -39,8 +39,7 @@ public class PackageFunctions {
         return email;
     }
 
-    @Deprecated
-    public BigDecimal getSettingsIdForUserId(BigDecimal userId) {
+    public BigDecimal getSettingsIdForUserSessionId(BigDecimal userSessionId) {
         BigDecimal settingId = null;
         Connection connection = null;
         ConnectionJDBC connectionHandler = new ConnectionJDBC();
@@ -51,7 +50,7 @@ public class PackageFunctions {
 
             CallableStatement callableStatement = connection.prepareCall("{? = call READPCKG.GETSETTINGSIDSFORUSER(?)}");
             callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
-            callableStatement.setBigDecimal(2, userId);
+            callableStatement.setBigDecimal(2, userSessionId);
             callableStatement.execute();
 
             resultSet = (ResultSet) callableStatement.getObject(1);

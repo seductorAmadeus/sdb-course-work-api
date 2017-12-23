@@ -133,4 +133,25 @@ public class BcompDAO {
         }
         return list;
     }
+
+    public void fillBcomp(Bcomp bcomp) {
+
+    }
+
+    public boolean checkBcompExists(BigDecimal bcompId) {
+        boolean bcompExists = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            if (session.get(Bcomp.class, bcompId) != null) {
+                bcompExists = true;
+            }
+        } catch (HibernateException exp) {
+
+        } finally {
+            session.close();
+        }
+
+        return bcompExists;
+    }
+
 }

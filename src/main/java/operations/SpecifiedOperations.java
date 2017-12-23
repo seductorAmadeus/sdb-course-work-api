@@ -20,11 +20,12 @@ public class SpecifiedOperations {
         }
     }
 
+    @Deprecated
     public void getSettingsIdForUser() {
         PackageFunctions packageFunctions = new PackageFunctions();
-        BigDecimal userId = DataReader.readUserId();
+        BigDecimal userSessionId = DataReader.readUserSessionId();
         // TODO: add checking if null
-        BigDecimal settingsId = packageFunctions.getSettingsIdForUserId(userId);
+        BigDecimal settingsId = packageFunctions.getSettingsIdForUserSessionId(userSessionId);
         System.out.println(settingsId.toString());
     }
 }

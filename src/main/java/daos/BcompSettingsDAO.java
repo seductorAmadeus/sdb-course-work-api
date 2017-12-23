@@ -133,4 +133,20 @@ public class BcompSettingsDAO {
             session.close();
         }
     }
+
+    public boolean checkBcompSettingsExists(BigDecimal bcompSettingsId) {
+        boolean bcompSettingsExists = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            if (session.get(BcompSettings.class, bcompSettingsId) != null) {
+                bcompSettingsExists = true;
+            }
+        } catch (HibernateException exp) {
+
+        } finally {
+            session.close();
+        }
+
+        return bcompSettingsExists;
+    }
 }

@@ -129,4 +129,20 @@ public class UsersDAO {
             session.close();
         }
     }
+
+    public boolean checkUserExists(BigDecimal userId) {
+        boolean usersExists = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            if (session.get(Users.class, userId) != null) {
+                usersExists = true;
+            }
+        } catch (HibernateException exp) {
+
+        } finally {
+            session.close();
+        }
+
+        return usersExists;
+    }
 }
