@@ -1,7 +1,5 @@
 package entities;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -21,8 +19,8 @@ import java.util.Set;
 public class Users implements Serializable {
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "invite_code")
-    private RegistrationCodes inviteCode;
+    @JoinColumn(name = "reg_code_id")
+    private RegistrationCodes regCodeId;
 
     /**
      * This field contains user identifier from the database
@@ -59,8 +57,8 @@ public class Users implements Serializable {
     public Users() {
     }
 
-    public Users(RegistrationCodes inviteCode, String username, String password, Set<UserSession> userSession, UserProfile profile) {
-        this.inviteCode = inviteCode;
+    public Users(RegistrationCodes regCodeId, String username, String password, Set<UserSession> userSession, UserProfile profile) {
+        this.regCodeId = regCodeId;
         this.username = username;
         this.password = password;
         this.userSession = userSession;
@@ -128,23 +126,23 @@ public class Users implements Serializable {
     }
 
     /**
-     * Function to get the value of the field {@link Users#inviteCode}
+     * Function to get the value of the field {@link Users#regCodeId}
      *
      * @return bigDecimal BigDecimal contains value for representation user's unique invite code.
      * @since 0.1
      */
-    public RegistrationCodes getInviteCode() {
-        return inviteCode;
+    public RegistrationCodes getRegCodeId() {
+        return regCodeId;
     }
 
     /**
-     * Procedure for determining the RegistrationCodes value {@link Users#inviteCode}
+     * Procedure for determining the RegistrationCodes value {@link Users#regCodeId}
      *
      * @param inviteCode - It's just user's unique invite code
      * @since 0.1
      */
-    public void setInviteCode(RegistrationCodes inviteCode) {
-        this.inviteCode = inviteCode;
+    public void setRegCodeId(RegistrationCodes inviteCode) {
+        this.regCodeId = inviteCode;
     }
 
     public Set<UserSession> getUserSession() {

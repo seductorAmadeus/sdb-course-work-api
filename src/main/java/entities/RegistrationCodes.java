@@ -19,6 +19,9 @@ public class RegistrationCodes implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "reg_code_id")
+    private BigDecimal regCodeId;
+
     @Column(name = "invite_code")
     private BigDecimal inviteCode;
 
@@ -28,13 +31,14 @@ public class RegistrationCodes implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "inviteCode")
+    @OneToMany(mappedBy = "regCodeId")
     private Set<Users> users;
 
     public RegistrationCodes() {
     }
 
-    public RegistrationCodes(String inviteCodeStatus, String email) {
+    public RegistrationCodes(BigDecimal inviteCode, String inviteCodeStatus, String email) {
+        this.inviteCode = inviteCode;
         this.inviteCodeStatus = inviteCodeStatus;
         this.email = email;
     }
@@ -69,6 +73,14 @@ public class RegistrationCodes implements Serializable {
 
     public void setUsers(Set<Users> user) {
         this.users = user;
+    }
+
+    public BigDecimal getRegCodeId() {
+        return regCodeId;
+    }
+
+    public void setRegCodeId(BigDecimal regCodeId) {
+        this.regCodeId = regCodeId;
     }
 
     @Override
