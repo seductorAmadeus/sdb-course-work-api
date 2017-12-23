@@ -18,6 +18,7 @@ public class HibernateOperationsManager {
         BcompOperations bcompOperations = new BcompOperations();
         BcompSettingsOperations bcompSettingsOperations = new BcompSettingsOperations();
         SessionSettingsOperations sessionSettingsOperations = new SessionSettingsOperations();
+        SpecifiedOperations specifiedOperations = new SpecifiedOperations();
 
         int menuNumber = Integer.parseInt(scanner.nextLine());
 
@@ -57,6 +58,10 @@ public class HibernateOperationsManager {
                 break;
             case 12:
                 sessionSettingsOperations.assignUserSettings();
+                break;
+            case 13:
+                specifiedOperations.getEmailFromSessionId();
+                break;
             default:
                 break;
         }
@@ -75,6 +80,7 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.CREATE_BCOMP)
                 .append(MenuInputType.CREATE_BCOMP_SETTINGS)
                 .append(MenuInputType.ASSING_USER_SETTINGS)
+                .append(MenuInputType.GET_EMAIL_USING_SESSION_ID)
                 .toString();
     }
 
