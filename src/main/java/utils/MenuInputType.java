@@ -46,7 +46,19 @@ public enum MenuInputType {
     BR("Enter buffer register: "),
     AC("Enter accumulator: "),
     C("Enter bit C: "),
-    KR("Enter ")
+    KR("Enter клавишный register: "),
+    BIT("Enter alone bit (from Клавишный register): "),
+    INT_REQ_ED_1("Enter interrupt request status of the external device №1: "),
+    INT_REQ_ED_2("Enter interrupt request status of the external device №2: "),
+    INT_REQ_ED_3("Enter interrupt request status of the external device №3: "),
+    RD_ED_1("Enter value of the data register of the external device №1: "),
+    RD_ED_2("Enter value of the data register of the external device №2: "),
+    RD_ED_3("Enter value of the data register of the external device №3: "),
+    MEMORY_MC("Enter value of the micro-command memory: "),
+    C_MC("Enter value of the micro-command counter: "),
+    R_MC("Enter value of the register of the micro-command: "),
+    ASM("Enter assembler code: ")
+
     // TODO: заполнить полностью это
     ;
 
