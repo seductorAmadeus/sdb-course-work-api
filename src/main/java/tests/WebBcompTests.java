@@ -216,7 +216,7 @@ public class WebBcompTests {
         List<UserSession> newUserSessionList = userSessionDAO.listUserSessions();
 
         SessionSettingsDAO sessionSettingsDAO = new SessionSettingsDAO();
-        for (int i = 0; i < TESTS_COUNT; i++) {
+        for (int i = 0; i < newBcompSettingsList.size(); i++) {
             try {
                 sessionSettingsDAO.assignUserSettings(newUserSessionList.get(i), newBcompSettingsList.get(i));
             } catch (NullPointerException exp) {
