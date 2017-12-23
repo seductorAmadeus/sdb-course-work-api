@@ -62,6 +62,9 @@ public class HibernateOperationsManager {
             case 13:
                 specifiedOperations.getEmailFromSessionId();
                 break;
+            case 14:
+                specifiedOperations.getSettingsIdForUser();
+                break;
             default:
                 break;
         }
@@ -81,6 +84,7 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.CREATE_BCOMP_SETTINGS)
                 .append(MenuInputType.ASSING_USER_SETTINGS)
                 .append(MenuInputType.GET_EMAIL_USING_SESSION_ID)
+                .append(MenuInputType.GET_SETTINGS_ID_FOR_USER)
                 .toString();
     }
 

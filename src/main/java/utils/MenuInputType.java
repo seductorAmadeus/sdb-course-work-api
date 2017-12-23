@@ -16,6 +16,7 @@ public enum MenuInputType {
     CREATE_BCOMP_SETTINGS("11. Create new bcomp settings\n"),
     ASSING_USER_SETTINGS("12. Assign user settings\n"),
     GET_EMAIL_USING_SESSION_ID("13. Get admin email from user's session id\n"),
+    GET_SETTINGS_ID_FOR_USER("14. Get settingsId for user\n"),
     // RegistrationCodes
     INVITE_CODE_STATUS("Enter invite code status: "),
     EMAIL("Enter email: "),

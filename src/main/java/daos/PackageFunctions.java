@@ -38,4 +38,33 @@ public class PackageFunctions {
 
         return email;
     }
+
+    @Deprecated
+    public BigDecimal getSettingsIdForUserId(BigDecimal userId) {
+        BigDecimal settingId = null;
+        Connection connection = null;
+        ConnectionJDBC connectionHandler = new ConnectionJDBC();
+        ResultSet resultSet;
+
+        try {
+            connection = connectionHandler.createConnection();
+
+            CallableStatement callableStatement = connection.prepareCall("{? = call READPCKG.GETSETTINGSIDSFORUSER(?)}");
+            callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
+            callableStatement.setBigDecimal(2, userId);
+            callableStatement.execute();
+
+            resultSet = (ResultSet) callableStatement.getObject(1);
+            while (resultSet.next()) {
+                settingId = resultSet.getBigDecimal("setting_id");
+            }
+
+        } catch (SQLException exp) {
+            exp.printStackTrace();
+        } finally {
+            connectionHandler.close(connection);
+        }
+
+        return settingId;
+    }
 }
