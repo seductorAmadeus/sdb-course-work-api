@@ -4,9 +4,14 @@ import entities.RegistrationCodes;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import utils.ConnectionJDBC;
 import utils.HibernateUtil;
 
 import java.math.BigDecimal;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +26,33 @@ import java.util.List;
 public class RegistrationCodesDAO {
 
     public BigDecimal addRegistrationCode(RegistrationCodes registrationCodes) {
+        Connection connection = null;
+        ConnectionJDBC connectionHandler = new ConnectionJDBC();
+        BigDecimal inviteCode = null;
+        try {
+            connection = connectionHandler.createConnection();
+
+            CallableStatement callableStatement = connection.prepareCall("{? = call CREATEPCKG.ADDREGISTRATIONCODES(?,?,?)}");
+            callableStatement.registerOutParameter(1, Types.DECIMAL);
+            callableStatement.setBigDecimal(2, registrationCodes.getInviteCode());
+            callableStatement.setString(3, registrationCodes.getInviteCodeStatus());
+            callableStatement.setString(4, registrationCodes.getEmail());
+            callableStatement.execute();
+
+            // we're getting id;
+            inviteCode = (BigDecimal) callableStatement.getObject(1);
+
+        } catch (SQLException exp) {
+            exp.printStackTrace();
+        } finally {
+            connectionHandler.close(connection);
+        }
+
+        return inviteCode;
+    }
+
+    @Deprecated
+    public BigDecimal addRegistrationCodeH(RegistrationCodes registrationCodes) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigDecimal inviteCode = null;

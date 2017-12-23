@@ -26,6 +26,11 @@ public class DataReader {
     // TODO: Add string size checking
     public static RegistrationCodes readRegistrationCode() {
         RegistrationCodes registrationCodes = new RegistrationCodes();
+
+        // generate invite code
+        RandomInviteCodesGenerator inviteCodesGenerator = new RandomInviteCodesGenerator();
+        registrationCodes.setInviteCode(inviteCodesGenerator.getInviteCode());
+
         System.out.println(MenuInputType.INVITE_CODE_STATUS);
         readStatus(registrationCodes);
         System.out.println(MenuInputType.EMAIL);

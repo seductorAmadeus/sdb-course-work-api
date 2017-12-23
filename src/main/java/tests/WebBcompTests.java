@@ -4,6 +4,7 @@ import daos.*;
 import entities.*;
 import org.junit.Test;
 import utils.DataReader;
+import utils.RandomInviteCodesGenerator;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -27,9 +28,19 @@ public class WebBcompTests {
     }
 
     private List<RegistrationCodes> getRegistrationCodesList() {
+        RandomInviteCodesGenerator randomInviteCodesGenerator = new RandomInviteCodesGenerator();
         List<RegistrationCodes> registrationCodes = new ArrayList<>();
         for (int i = 0; i < TESTS_COUNT; i++) {
-            registrationCodes.add(new RegistrationCodes(i % 2 == 0 ? "available" : "not available", "test" + i + "@mail.ru"));
+            registrationCodes.add(new RegistrationCodes(randomInviteCodesGenerator.getInviteCode(), "available" , "test" + i + "@mail.ru"));
+        }
+        return registrationCodes;
+    }
+
+    private List<RegistrationCodes> getOldRegistrationCodesList() {
+        RegistrationCodesDAO registrationCodesDAO = new RegistrationCodesDAO();
+        List<RegistrationCodes> registrationCodes = new ArrayList<>();
+        for (int i = 0; i < TESTS_COUNT; i++) {
+            registrationCodes.add(registrationCodesDAO.findFreeRegistrationCode());
         }
         return registrationCodes;
     }
@@ -104,11 +115,8 @@ public class WebBcompTests {
         bcompSettingsDAO.dropAllBcompSettingsRecords();
 
 
-
         UserRoleDAO userRoleDAO = new UserRoleDAO();
         userRoleDAO.dropAllUserRoleRecords();
-
-
 
 
         UserStudyingDAO userStudyingDAO = new UserStudyingDAO();
@@ -146,7 +154,7 @@ public class WebBcompTests {
         userStudying.setId(userStudyingDAO.addGroupToUser(userGroupStr));
 
         List<UserProfile> userProfiles = getProfilesList(userRole, userStudying);
-        List<Users> users = getUsersList(registrationCodesList, userProfiles);
+        List<Users> users = getUsersList(getOldRegistrationCodesList(), userProfiles);
         for (int i = 0; i < TESTS_COUNT; i++) {
             try {
                 usersDAO.addUser(users.get(i), userProfiles.get(i));

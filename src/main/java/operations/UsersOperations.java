@@ -23,7 +23,7 @@ public class UsersOperations {
             return;
         }
         Users user = DataReader.readUser();
-        user.setInviteCode(registrationCode);
+        user.setRegCodeId(registrationCode);
 
         // инициализируем все поля, крое user_role_id и user_studying_id
         UserProfile userProfile = DataReader.readUserProfile();
