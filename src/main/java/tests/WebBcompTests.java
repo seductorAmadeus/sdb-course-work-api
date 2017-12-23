@@ -17,8 +17,8 @@ public class WebBcompTests {
 
     public static void main(String[] args) {
         WebBcompTests test = new WebBcompTests();
-        test.dropAllTables();
-//        test.fillAllTables();
+//        test.dropAllTables();
+        test.fillAllTables();
     }
 
     @Test

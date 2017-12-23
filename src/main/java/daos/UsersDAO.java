@@ -111,6 +111,7 @@ public class UsersDAO {
         try {
             transaction = session.beginTransaction();
             session.createSQLQuery("truncate table users").executeUpdate();
+            transaction.commit();
         } catch (HibernateException exp) {
             if (transaction != null) {
                 transaction.rollback();
