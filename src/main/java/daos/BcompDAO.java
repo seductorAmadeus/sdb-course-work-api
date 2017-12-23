@@ -1,6 +1,7 @@
 package daos;
 
 import entities.Bcomp;
+import entities.BcompSettings;
 import operations.ConnectionHandler;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -12,6 +13,8 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is a data access object that provides CRUD operations to {@link Bcomp} entity.
@@ -93,6 +96,7 @@ public class BcompDAO {
         return bcompId;
     }
 
+    /*TODO: fix it*/
     public void dropAllBcompRecords() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
@@ -107,5 +111,27 @@ public class BcompDAO {
         } finally {
             session.close();
         }
+    }
+
+    public List<Bcomp> getBcompList() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        List<Bcomp> list = new ArrayList<>();
+        try {
+            transaction = session.beginTransaction();
+            List tempList = session.createQuery("from Bcomp").list();
+            for (Object aTempList : tempList) {
+                Bcomp bcomp = (Bcomp) aTempList;
+                list.add(bcomp);
+            }
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+        return list;
     }
 }
