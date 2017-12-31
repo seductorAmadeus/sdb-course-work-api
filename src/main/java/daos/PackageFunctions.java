@@ -1,6 +1,6 @@
 package daos;
 
-import oracle.jdbc.internal.OracleTypes;
+import oracle.jdbc.OracleTypes;
 import utils.ConnectionJDBC;
 
 import java.math.BigDecimal;

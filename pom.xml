@@ -52,10 +52,13 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
+
         <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0.2</version>
+            <groupId>ojdbc7</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <scope>system</scope>
+            <version>1.0</version>
+            <systemPath>${basedir}\src\libs\ojdbc7.jar</systemPath>
         </dependency>
 
         <dependency>

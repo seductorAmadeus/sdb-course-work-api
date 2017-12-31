@@ -22,7 +22,6 @@ import java.util.List;
  * @version 0.1
  * @since 0.1
  */
-
 public class BcompDAO {
 
     public BigDecimal createEmptyBcomp(Bcomp bcomp) {
