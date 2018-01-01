@@ -88,8 +88,6 @@
                             <addClasspath>true</addClasspath>
                             <mainClass>operations.HibernateOperationsManager</mainClass>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
-                            <!--TODO: add local repository?-->
-                            <!--<classpathPrefix>classes/lib</classpathPrefix>-->
                         </manifest>
                     </archive>
                 </configuration>
@@ -132,7 +130,7 @@
                 <executions>
                     <execution>
                         <id>install-external</id>
-                        <phase>clean</phase>
+                        <phase>package</phase>
                         <configuration>
                             <file>${basedir}/src/main/resources/lib/ojdbc7.jar</file>
                             <repositoryLayout>default</repositoryLayout>
