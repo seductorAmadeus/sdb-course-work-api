@@ -23,42 +23,32 @@
 
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-            <version>3.5.6-Final</version>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.12.Final</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.7</version>
-        </dependency>
         <dependency>
             <groupId>javassist</groupId>
             <artifactId>javassist</artifactId>
             <version>3.12.1.GA</version>
         </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.5</version>
         </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.5</version>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-        </dependency>
-
-        <dependency>
-            <groupId>ojdbc7</groupId>
-            <artifactId>ojdbc7</artifactId>
-            <scope>system</scope>
-            <version>1.0</version>
-            <systemPath>${basedir}\src\libs\ojdbc7.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -67,10 +57,16 @@
             <version>1.0.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>ojdbc7</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <version>1.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
-        <finalName>lab8</finalName>
+
         <plugins>
 
             <plugin>
@@ -78,23 +74,6 @@
                 <version>2.6</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
                 </configuration>
             </plugin>
 
@@ -107,11 +86,64 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>daos.RegistrationCodesDAO</mainClass>
+                            <mainClass>operations.HibernateOperationsManager</mainClass>
+                            <classpathPrefix>dependency-jars/</classpathPrefix>
+                            <!--TODO: add local repository?-->
+                            <!--<classpathPrefix>classes/lib</classpathPrefix>-->
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <!-- exclude junit, we need runtime dependency only -->
+                            <includeScope>runtime</includeScope>
+                            <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>ojdbc7</groupId>
+                            <artifactId>ojdbc7</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <file>${basedir}/src/main/resources/lib/ojdbc7.jar</file>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>

@@ -1,6 +1,7 @@
 package entities;
 
 import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
 
 import java.io.Serializable;
@@ -36,14 +37,11 @@ public class UserRoleType implements UserType {
             return 0;
     }
 
-    /**
-     * Creates the custom object from the data returned by resultset
-     */
-    public Object nullSafeGet(ResultSet rs, String[] names, Object owner)
-            throws HibernateException, SQLException {
+    @Override
+    public Object nullSafeGet(ResultSet resultSet, String[] strings, SharedSessionContractImplementor sharedSessionContractImplementor, Object o) throws HibernateException, SQLException {
         UserT phone = null;
 
-        String nameVal = rs.getString(names[0]);
+        String nameVal = resultSet.getString(strings[0]);
         if (nameVal != null) {
             phone = new UserT();
 
@@ -57,16 +55,12 @@ public class UserRoleType implements UserType {
         return phone;
     }
 
-    /**
-     * Converts custom object into value which needs to be passed to prepared statement
-     */
-    public void nullSafeSet(PreparedStatement st, Object value, int index)
-            throws HibernateException, SQLException {
-
-        if (value == null) {
-            st.setNull(index, Types.VARCHAR);
+    @Override
+    public void nullSafeSet(PreparedStatement preparedStatement, Object o, int i, SharedSessionContractImplementor sharedSessionContractImplementor) throws HibernateException, SQLException {
+        if (o == null) {
+            preparedStatement.setNull(i, Types.VARCHAR);
         } else {
-            st.setString(index, ((UserT) value).toString());
+            preparedStatement.setString(i, ((UserT) o).toString());
         }
 
     }

@@ -34,7 +34,7 @@ public class UserSession {
     @OneToMany(mappedBy = "sessionId", cascade = CascadeType.ALL)
     private Set<Bcomp> bcomps;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "session_settings",
             joinColumns = {@JoinColumn(name = "session_id")},
             inverseJoinColumns = {@JoinColumn(name = "setting_id")})
