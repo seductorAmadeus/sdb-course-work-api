@@ -5,7 +5,6 @@ import daos.UserRoleDAO;
 import daos.UserStudyingDAO;
 import daos.UsersDAO;
 import entities.*;
-import javafx.scene.chart.XYChart;
 import utils.DataReader;
 
 import java.math.BigDecimal;
@@ -24,7 +23,7 @@ public class UsersOperations {
             return;
         }
         Users user = DataReader.readUser();
-        user.setRegCodeId(registrationCode);
+        user.setRegistrationCode(registrationCode);
 
         // инициализируем все поля, крое user_role_id и user_studying_id
         UserProfile userProfile = DataReader.readUserProfile();

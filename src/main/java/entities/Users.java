@@ -1,7 +1,5 @@
 package entities;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,16 +18,11 @@ import java.util.Set;
         @UniqueConstraint(columnNames = "user_id")})
 public class Users implements Serializable {
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "reg_code_id")
-    private RegistrationCodes regCodeId;
-
     /**
      * This field contains user identifier from the database
      */
-    /*This action*/
     @Id
-    @SequenceGenerator(name="user_seq", sequenceName="USER_ID_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "user_seq", sequenceName = "USER_ID_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     @Column(name = "user_id", nullable = false, unique = true)
     private BigDecimal userId;
@@ -47,23 +40,47 @@ public class Users implements Serializable {
     private String password;
 
     /**
-     * This field contains user's unique invite code
+     * This field contains entity that represents user's unique invite code
      */
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "reg_code_id")
+    private RegistrationCodes registrationCode;
 
+    /**
+     * This field contains set of entities that represents user's sessions
+     */
     @OneToMany(mappedBy = "userID")
-    private Set<UserSession> userSession;
+    private Set<UserSession> userSessions;
 
+    /**
+     * This field contains entity that represents user's profile
+     */
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
     private UserProfile profile;
 
+    /**
+     * Sole constructor.
+     * For Hibernate code that creates objects via reflection using Class<T>.newInstance().
+     * This method requires a public no-arg constructor to be able to instantiate the object
+     */
     public Users() {
     }
 
-    public Users(RegistrationCodes regCodeId, String username, String password, Set<UserSession> userSession, UserProfile profile) {
-        this.regCodeId = regCodeId;
+    /**
+     * Constructor.
+     *
+     * @param registrationCode (required) {@link RegistrationCodes} entity, that represents invite code
+     *                         for particular user
+     * @param username         (required) user name in the system
+     * @param password         (required) user password in the system
+     * @param userSessions     (optional) user sessions in the system
+     * @param profile          (required) user profile in the system
+     */
+    public Users(RegistrationCodes registrationCode, String username, String password, Set<UserSession> userSessions, UserProfile profile) {
+        this.registrationCode = registrationCode;
         this.username = username;
         this.password = password;
-        this.userSession = userSession;
+        this.userSessions = userSessions;
         this.profile = profile;
     }
 
@@ -80,7 +97,7 @@ public class Users implements Serializable {
     /**
      * Procedure for determining the BigDecimal value {@link Users#userId}
      *
-     * @param userId - It's just user's personal identifier (in oracle database)
+     * @param userId - It's just user's personal identifier
      * @since 0.1
      */
     public void setUserId(BigDecimal userId) {
@@ -90,7 +107,7 @@ public class Users implements Serializable {
     /**
      * Function to get the value of the field {@link Users#username}
      *
-     * @return bigDecimal String contains value for representation username.
+     * @return String contains value for representation username.
      * @since 0.1
      */
     public String getUsername() {
@@ -110,7 +127,7 @@ public class Users implements Serializable {
     /**
      * Function to get the value of the field {@link Users#password}
      *
-     * @return bigDecimal String contains value for representation user's password
+     * @return String contains value for representation user's password
      * @since 0.1
      */
     public String getPassword() {
@@ -128,38 +145,64 @@ public class Users implements Serializable {
     }
 
     /**
-     * Function to get the value of the field {@link Users#regCodeId}
+     * Function to get the value of the field {@link Users#registrationCode}
      *
-     * @return bigDecimal BigDecimal contains value for representation user's unique invite code.
+     * @return {@link RegistrationCodes} entity contains value for representation user's unique invite code.
+     * @see RegistrationCodes
      * @since 0.1
      */
-    public RegistrationCodes getRegCodeId() {
-        return regCodeId;
+    public RegistrationCodes getRegistrationCode() {
+        return registrationCode;
     }
 
     /**
-     * Procedure for determining the RegistrationCodes value {@link Users#regCodeId}
+     * Procedure for determining the RegistrationCodes value {@link Users#registrationCode}
      *
      * @param inviteCode - It's just user's unique invite code
      * @since 0.1
      */
-    public void setRegCodeId(RegistrationCodes inviteCode) {
-        this.regCodeId = inviteCode;
+    public void setRegistrationCode(RegistrationCodes inviteCode) {
+        this.registrationCode = inviteCode;
     }
 
-    public Set<UserSession> getUserSession() {
-        return userSession;
+    /**
+     * Function to get the value of the field {@link Users#userSessions}
+     *
+     * @return set of user sessions in the system.
+     * @see UserSession
+     * @since 0.1
+     */
+    public Set<UserSession> getUserSessions() {
+        return userSessions;
     }
 
-    public void setUserSession(Set<UserSession> userSession) {
-        this.userSession = userSession;
+    /**
+     * Procedure for determining the Set of user sessions {@link Users#userSessions}
+     *
+     * @param userSession - It's set of user sessions in the system.
+     * @since 0.1
+     */
+    public void setUserSessions(Set<UserSession> userSession) {
+        this.userSessions = userSession;
     }
 
-
+    /**
+     * Function to get the value of the field {@link Users#profile}
+     *
+     * @return user's profile that represents a particular user in the system
+     * @see UserProfile
+     * @since 0.1
+     */
     public UserProfile getProfile() {
         return profile;
     }
 
+    /**
+     * Procedure for determining the UserProfile value {@link Users#profile}
+     *
+     * @param profile - It's user's profile that represents a particular user in the system
+     * @since 0.1
+     */
     public void setProfile(UserProfile profile) {
         this.profile = profile;
     }
