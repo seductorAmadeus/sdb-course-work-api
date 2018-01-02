@@ -23,7 +23,7 @@ public class BcompOperations {
             if (userSession == null) {
                 throw new NullPointerException();
             }
-            bcomp.setSessionId(userSession);
+            bcomp.setUserSession(userSession);
             bcompDAO.createEmptyBcomp(bcomp);
         } catch (NullPointerException exp) {
             System.out.println("The specified session was not created in the system. Check it out correctly and try again");

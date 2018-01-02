@@ -34,7 +34,7 @@ public class BcompDAO {
             CallableStatement callableStatement = connection.prepareCall("{? = call CREATEPCKG.ADDBCOMP(?,?, ?, ?, ?, ?, ?, ?, ?,?" +
                     ", ?, ?, ?,?, ?,?, ?,?,?, ?, ?, ?)}");
             callableStatement.registerOutParameter(1, Types.DECIMAL);
-            callableStatement.setBigDecimal(2, bcomp.getSessionId().getId());
+            callableStatement.setBigDecimal(2, bcomp.getUserSession().getId());
             callableStatement.setNull(3, Types.CLOB);
             callableStatement.setNull(4, Types.VARCHAR);
             callableStatement.setNull(5, Types.VARCHAR);

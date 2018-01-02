@@ -19,7 +19,7 @@ import java.util.Set;
 public class Users implements Serializable {
 
     /**
-     * This field contains user identifier from the database
+     * This field contains user identifier
      */
     @Id
     @SequenceGenerator(name = "user_seq", sequenceName = "USER_ID_SEQ", allocationSize = 1)
@@ -87,7 +87,7 @@ public class Users implements Serializable {
     /**
      * Function to get the value of the field {@link Users#userId}
      *
-     * @return bigDecimal BigDecimal contains value for representation user's id number.
+     * @return BigDecimal contains value for representation user's id number.
      * @since 0.1
      */
     public BigDecimal getUserId() {

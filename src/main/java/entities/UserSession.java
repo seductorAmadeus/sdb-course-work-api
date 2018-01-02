@@ -31,7 +31,7 @@ public class UserSession {
     @Column(name = "status")
     private String status;
 
-    @OneToMany(mappedBy = "sessionId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userSession", cascade = CascadeType.ALL)
     private Set<Bcomp> bcomps;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -86,7 +86,7 @@ public class WebBcompTests {
     private List<Bcomp> getBcompsList(List<UserSession> userSessionList) {
         List<Bcomp> bcompList = new ArrayList<>();
         for (int i = 0; i < TESTS_COUNT; i++) {
-            bcompList.add(new Bcomp(null, userSessionList.get(i), null, null, null, null,
+            bcompList.add(new Bcomp(userSessionList.get(i), null, null, null, null,
                     null, null, null, null, null, null, null, null,
                     null, null, null, null, null, null,
                     null, null, null));

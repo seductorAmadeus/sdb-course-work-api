@@ -31,7 +31,7 @@ public class RegistrationCodes implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "regCodeId")
+    @OneToMany(mappedBy = "registrationCode")
     private Set<Users> users;
 
     public RegistrationCodes() {
