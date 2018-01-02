@@ -32,7 +32,7 @@ public class WebBcompTests {
         RandomInviteCodesGenerator randomInviteCodesGenerator = new RandomInviteCodesGenerator();
         List<RegistrationCodes> registrationCodes = new ArrayList<>();
         for (int i = 0; i < TESTS_COUNT; i++) {
-            registrationCodes.add(new RegistrationCodes(randomInviteCodesGenerator.getInviteCode(), "available" , "test" + i + "@mail.ru"));
+            registrationCodes.add(new RegistrationCodes(randomInviteCodesGenerator.getInviteCode(), "available", "test" + i + "@mail.ru"));
         }
         return registrationCodes;
     }
@@ -95,6 +95,7 @@ public class WebBcompTests {
     }
 
     @Test
+    @Deprecated
     public void dropAllTables() {
         BcompDAO bcompDAO = new BcompDAO();
         bcompDAO.dropAllBcompRecords();
@@ -215,11 +216,11 @@ public class WebBcompTests {
 
         List<BcompSettings> newBcompSettingsList = bcompSettingsDAO.getBcompSettingsList();
         List<UserSession> newUserSessionList = userSessionDAO.listUserSessions();
-
+        // TODO: add a check of existence in the table sessionSettings
         SessionSettingsDAO sessionSettingsDAO = new SessionSettingsDAO();
-        for (int i = 0; i < newBcompSettingsList.size(); i++) {
+        for (int i = newBcompSettingsList.size(); i > newBcompSettingsList.size() - TESTS_COUNT; i--) {
             try {
-                sessionSettingsDAO.assignUserSettings(newUserSessionList.get(i), newBcompSettingsList.get(i));
+                sessionSettingsDAO.assignUserSettings(newUserSessionList.get(i - 1), newBcompSettingsList.get(i - 1));
             } catch (NullPointerException exp) {
                 exp.getMessage();
             }
