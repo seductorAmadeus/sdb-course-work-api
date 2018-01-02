@@ -19,7 +19,7 @@
         <property name="connection.password">
             0797
         </property>
-        <property name="show_sql">false</property>
+        <property name="show_sql">true</property>
 
         <mapping class="entities.Bcomp"/>
         <mapping class="entities.RegistrationCodes"/>

@@ -1,5 +1,7 @@
 package entities;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -27,7 +29,7 @@ public class Users implements Serializable {
      */
     /*This action*/
     @Id
-    @SequenceGenerator(name="user_seq", sequenceName="USER_ID_SEQ")
+    @SequenceGenerator(name="user_seq", sequenceName="USER_ID_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     @Column(name = "user_id", nullable = false, unique = true)
     private BigDecimal userId;

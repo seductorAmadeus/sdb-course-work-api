@@ -19,7 +19,7 @@ import java.util.Set;
 public class UserSession {
 
     @Id
-    @SequenceGenerator(name = "user_session_seq", sequenceName = "USER_SESSION_ID_SEQ")
+    @SequenceGenerator(name = "user_session_seq", sequenceName = "USER_SESSION_ID_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_session_seq")
     @Column(name = "user_session_id")
     private BigDecimal id;

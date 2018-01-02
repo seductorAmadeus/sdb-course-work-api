@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "bcomp_settings")
 public class BcompSettings {
     @Id
-    @SequenceGenerator(name="bcomp_settings_seq", sequenceName="BCOMP_SETTINGS_ID_SEQ")
+    @SequenceGenerator(name="bcomp_settings_seq", sequenceName="BCOMP_SETTINGS_ID_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bcomp_settings_seq")
     @Column(name = "bcomp_settings_id")
     private BigDecimal id;
