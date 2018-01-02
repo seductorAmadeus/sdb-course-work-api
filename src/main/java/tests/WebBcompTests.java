@@ -4,6 +4,7 @@ import daos.*;
 import entities.*;
 import org.junit.Test;
 import utils.DataReader;
+import utils.HibernateUtil;
 import utils.RandomInviteCodesGenerator;
 
 import java.sql.Timestamp;
@@ -224,5 +225,6 @@ public class WebBcompTests {
             }
         }
 
+        HibernateUtil.getSessionFactory().close();
     }
 }

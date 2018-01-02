@@ -1,5 +1,6 @@
 package operations;
 
+import utils.HibernateUtil;
 import utils.MenuInputType;
 
 import java.util.Scanner;
@@ -73,6 +74,8 @@ public class HibernateOperationsManager {
             default:
                 break;
         }
+
+        HibernateUtil.getSessionFactory().close();
     }
 
     private static String getMenu() {
