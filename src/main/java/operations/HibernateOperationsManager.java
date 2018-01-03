@@ -52,7 +52,7 @@ public class HibernateOperationsManager {
                 userSessionOperations.createUserSession();
                 break;
             case 10:
-                bcompOperations.createEmptyBcomp();
+                bcompOperations.jAddEmptyBcomp();
                 break;
             case 11:
                 bcompSettingsOperations.createBcompSettings();

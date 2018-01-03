@@ -692,4 +692,33 @@ public class Bcomp {
     public void setUserSession(UserSession userSession) {
         this.userSession = userSession;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append(getId()).append(" ")
+                .append(getUserSession().getId()).append(" ")
+                .append(getMemory()).append(" ")
+                .append(getRs()).append(" ")
+                .append(getRa()).append(" ")
+                .append(getRd()).append(" ")
+                .append(getRc()).append(" ")
+                .append(getCc()).append(" ")
+                .append(getBr()).append(" ")
+                .append(getAc()).append(" ")
+                .append(getC()).append(" ")
+                .append(getKr()).append(" ")
+                .append(getBit()).append(" ")
+                .append(getIntReqEd1()).append(" ")
+                .append(getIntReqEd2()).append(" ")
+                .append(getIntReqEd3()).append(" ")
+                .append(getRdEd1()).append(" ")
+                .append(getRdEd2()).append(" ")
+                .append(getRdEd3()).append(" ")
+                .append(getMemoryMc()).append(" ")
+                .append(getcMc()).append(" ")
+                .append(getrMc()).append(" ")
+                .append(getAsm())
+                .toString();
+    }
 }

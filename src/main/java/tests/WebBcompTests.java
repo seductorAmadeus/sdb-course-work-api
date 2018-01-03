@@ -190,7 +190,7 @@ public class WebBcompTests {
 
         for (int i = 0; i < TESTS_COUNT; i++) {
             try {
-                bcompDAO.createEmptyBcomp(bcompList.get(i));
+                bcompDAO.insert(bcompList.get(i));
             } catch (NullPointerException exp) {
                 exp.getMessage();
             }

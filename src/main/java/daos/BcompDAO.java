@@ -1,10 +1,10 @@
 package daos;
 
 import entities.Bcomp;
-import utils.ConnectionJDBC;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import utils.ConnectionJDBC;
 import utils.HibernateUtil;
 
 import java.math.BigDecimal;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class BcompDAO {
 
-    public BigDecimal createEmptyBcomp(Bcomp bcomp) {
+    public BigDecimal insert(Bcomp bcomp) {
         Connection connection = null;
         ConnectionJDBC connectionHandler = new ConnectionJDBC();
         BigDecimal bcompId = null;
@@ -100,7 +100,7 @@ public class BcompDAO {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.createSQLQuery("truncate table bcomp").executeUpdate();
+            session.createSQLQuery("TRUNCATE TABLE bcomp").executeUpdate();
         } catch (HibernateException exp) {
             if (transaction != null) {
                 transaction.rollback();
@@ -111,7 +111,7 @@ public class BcompDAO {
         }
     }
 
-    public List<Bcomp> getBcompList() {
+    public List<Bcomp> getList() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         List<Bcomp> list = new ArrayList<>();
@@ -133,7 +133,7 @@ public class BcompDAO {
         return list;
     }
 
-    public boolean checkBcompExists(BigDecimal bcompId) {
+    public boolean checkExistsById(BigDecimal bcompId) {
         boolean bcompExists = false;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -149,7 +149,7 @@ public class BcompDAO {
         return bcompExists;
     }
 
-    public Bcomp getBcompById(BigDecimal bcompId) {
+    public Bcomp getById(BigDecimal bcompId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         Bcomp bcomp = null;
@@ -171,7 +171,7 @@ public class BcompDAO {
     }
 
 
-    public void updateBcomp(BigDecimal bcompId, Bcomp bcomp) {
+    public void update(BigDecimal bcompId, Bcomp bcomp) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
