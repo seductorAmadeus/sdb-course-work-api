@@ -27,7 +27,7 @@ public class JedisOperations {
             jedis.set(key, value);
             System.out.println("> Added to cache " + key + " " + jedis.get(key));
         } catch (JedisException e) {
-            // if something wrong happen, return it back to the pool
+            // if something wrong happened, return it back to the pool
             if (null != jedis) {
                 pool.returnBrokenResource(jedis);
                 jedis = null;
@@ -54,7 +54,7 @@ public class JedisOperations {
             jedis.expire(key, expTime);
             System.out.println("> Added to cache " + key + " " + jedis.get(key));
         } catch (JedisException e) {
-            // if something wrong happen, return it back to the pool
+            // if something wrong happened, return it back to the pool
             if (null != jedis) {
                 pool.returnBrokenResource(jedis);
                 jedis = null;
@@ -79,7 +79,7 @@ public class JedisOperations {
             res = jedis.get(key);
             System.out.println(">> Got from cache: " + res);
         } catch (JedisException e) {
-            // if something wrong happen, return it back to the pool
+            // if something wrong happened, return it back to the pool
             if (null != jedis) {
                 pool.returnBrokenResource(jedis);
                 jedis = null;
