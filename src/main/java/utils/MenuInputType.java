@@ -19,7 +19,8 @@ public enum MenuInputType {
     GET_SETTINGS_ID_FOR_USER("14. Get settingsId for user\n"),
     UPDATE_BCOMP("15. Update BCOMP\n"),
     UPDATE_USER_PROFILE("16. UPDATE USER_PROFILE\n"),
-    PRINT_BCOMPS("17. Print all bcomps"),
+    PRINT_BCOMPS("17. Print all bcomps\n"),
+    DELETE_BCOMP("18. Delete bcomp by id\n"),
     // RegistrationCodes
     INVITE_CODE_STATUS("Enter invite code status: "),
     EMAIL("Enter email: "),

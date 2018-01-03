@@ -186,6 +186,26 @@ public class BcompDAO {
         } finally {
             session.close();
         }
-
     }
+
+    public void deleteBcomp(BigDecimal bcompId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            Bcomp bcomp = session.get(Bcomp.class, bcompId);
+            session.delete(bcomp);
+            transaction.commit();
+        } catch (IllegalArgumentException exp) {
+            System.out.println("The specified bcomp is not in the database. Check it out correctly and try again");
+        } catch (Exception exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+    }
+
 }

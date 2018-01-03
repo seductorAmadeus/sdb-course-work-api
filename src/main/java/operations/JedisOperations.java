@@ -117,7 +117,6 @@ public class JedisOperations {
         return records;
     }
 
-
     public void delete(String key) {
         Jedis jedis = pool.getResource();
         try {

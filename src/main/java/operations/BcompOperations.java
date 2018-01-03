@@ -91,8 +91,9 @@ public class BcompOperations {
         }
     }
 
+    @Deprecated
     public void updateBcomp() {
-        Bcomp bcomp = new Bcomp();
+        Bcomp bcomp;
         BcompDAO bcompDAO = new BcompDAO();
 
         BigDecimal bcompId = DataReader.readBcompId();
@@ -104,7 +105,40 @@ public class BcompOperations {
         } else {
             System.out.println("The specified bcomp id was not found in the system. Check it out correctly and try again");
         }
-
     }
 
+    public void jUpdateBcomp() {
+        JedisOperations jedisOperations = new JedisOperations();
+
+        Bcomp bcomp;
+        BcompDAO bcompDAO = new BcompDAO();
+
+        BigDecimal bcompId = DataReader.readBcompId();
+
+        if (bcompDAO.checkExistsById(bcompId)) {
+            bcomp = bcompDAO.getById(bcompId);
+            DataReader.initBcomp(bcomp);
+            bcompDAO.update(bcompId, bcomp);
+            // TODO: add exception checking?
+            // необходимо ли проверять существует ли, может быть просто добавится новое значение
+            jedisOperations.set(CachePrefixType.BCOMP.toString() + bcomp.getId(), bcomp.toString());
+        } else {
+            System.out.println("The specified bcomp id was not found in the system. Check it out correctly and try again");
+        }
+    }
+
+    public void jDeleteBcomp() {
+        JedisOperations jedisOperations = new JedisOperations();
+        BcompDAO bcompDAO = new BcompDAO();
+
+        BigDecimal bcompId = DataReader.readBcompId();
+
+        if (bcompDAO.checkExistsById(bcompId)) {
+            bcompDAO.deleteBcomp(bcompId);
+            // TODO: add exception checking
+            jedisOperations.delete(CachePrefixType.BCOMP.toString() + bcompId);
+        } else {
+            System.out.println("The specified bcomp id was not found in the system. Check it out correctly and try again");
+        }
+    }
 }
