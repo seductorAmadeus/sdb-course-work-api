@@ -56,7 +56,7 @@ public class Users implements Serializable {
      * This field contains entity that represents user's profile
      */
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
-    private UserProfile profile;
+    private UserProfile userProfile;
 
     /**
      * Sole constructor.
@@ -74,14 +74,14 @@ public class Users implements Serializable {
      * @param username         (required) user name in the system
      * @param password         (required) user password in the system
      * @param userSessions     (optional) user sessions in the system
-     * @param profile          (required) user profile in the system
+     * @param userProfile          (required) user profile in the system
      */
-    public Users(RegistrationCodes registrationCode, String username, String password, Set<UserSession> userSessions, UserProfile profile) {
+    public Users(RegistrationCodes registrationCode, String username, String password, Set<UserSession> userSessions, UserProfile userProfile) {
         this.registrationCode = registrationCode;
         this.username = username;
         this.password = password;
         this.userSessions = userSessions;
-        this.profile = profile;
+        this.userProfile = userProfile;
     }
 
     /**
@@ -187,23 +187,23 @@ public class Users implements Serializable {
     }
 
     /**
-     * Function to get the value of the field {@link Users#profile}
+     * Function to get the value of the field {@link Users#userProfile}
      *
      * @return user's profile that represents a particular user in the system
      * @see UserProfile
      * @since 0.1
      */
-    public UserProfile getProfile() {
-        return profile;
+    public UserProfile getUserProfile() {
+        return userProfile;
     }
 
     /**
-     * Procedure for determining the UserProfile value {@link Users#profile}
+     * Procedure for determining the UserProfile value {@link Users#userProfile}
      *
-     * @param profile - It's user's profile that represents a particular user in the system
+     * @param userProfile - It's user's profile that represents a particular user in the system
      * @since 0.1
      */
-    public void setProfile(UserProfile profile) {
-        this.profile = profile;
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 }

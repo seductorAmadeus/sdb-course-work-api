@@ -26,7 +26,7 @@ public class UsersDAO {
         try {
             transaction = session.beginTransaction();
             userProfile.setUsers(user);
-            user.setProfile(userProfile);
+            user.setUserProfile(userProfile);
             session.persist(userProfile);
             session.getTransaction().commit();
             userId = userProfile.getProfileId();
