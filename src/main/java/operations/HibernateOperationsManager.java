@@ -71,6 +71,9 @@ public class HibernateOperationsManager {
                 break;
             case 16:
                 usersOperations.updateUserProfile();
+                break;
+            case 17:
+                bcompOperations.jPrintAllBcomp();
             default:
                 break;
         }
@@ -95,6 +98,8 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.GET_SETTINGS_ID_FOR_USER)
                 .append(MenuInputType.UPDATE_BCOMP)
                 .append(MenuInputType.UPDATE_USER_PROFILE)
+                .append(MenuInputType.PRINT_REGISTRATION_CODES)
+                .append(MenuInputType.PRINT_BCOMPS)
                 .toString();
     }
 

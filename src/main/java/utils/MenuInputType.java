@@ -19,6 +19,7 @@ public enum MenuInputType {
     GET_SETTINGS_ID_FOR_USER("14. Get settingsId for user\n"),
     UPDATE_BCOMP("15. Update BCOMP\n"),
     UPDATE_USER_PROFILE("16. UPDATE USER_PROFILE\n"),
+    PRINT_BCOMPS("17. Print all bcomps"),
     // RegistrationCodes
     INVITE_CODE_STATUS("Enter invite code status: "),
     EMAIL("Enter email: "),
@@ -63,6 +64,7 @@ public enum MenuInputType {
     R_MC("Enter value of the register of the micro-command: "),
     ASM("Enter assembler code: ")
 
+    ;
     // TODO: заполнить полностью это
     ;
 

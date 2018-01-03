@@ -4,6 +4,11 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.exceptions.JedisException;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 public class JedisOperations {
 
     private final static String HOST = "127.0.0.1";
@@ -20,7 +25,7 @@ public class JedisOperations {
 
         try {
             jedis.set(key, value);
-            System.out.println("> Added to cache " + key + jedis.get(key));
+            System.out.println("> Added to cache " + key + " " + jedis.get(key));
         } catch (JedisException e) {
             // if something wrong happen, return it back to the pool
             if (null != jedis) {
@@ -47,7 +52,7 @@ public class JedisOperations {
         try {
             jedis.set(key, value);
             jedis.expire(key, expTime);
-            System.out.println("> Added to cache " + key + jedis.get(key));
+            System.out.println("> Added to cache " + key + " " + jedis.get(key));
         } catch (JedisException e) {
             // if something wrong happen, return it back to the pool
             if (null != jedis) {
@@ -87,6 +92,31 @@ public class JedisOperations {
 
         return res;
     }
+
+    public List<String> getAllRecordsMatchingPattern(String keyPattern) {
+        Jedis jedis = pool.getResource();
+        List<String> records = new ArrayList<>();
+        try {
+            Set<String> keys = jedis.keys(keyPattern);
+
+            for (String key : keys) {
+                String s = jedis.get(key);
+                records.add(s);
+            }
+
+        } catch (JedisException ex) {
+            System.err.println("Oops, sorry " + ex.getMessage());
+            if (null != jedis) {
+                pool.returnBrokenResource(jedis);
+                jedis = null;
+            }
+        } finally {
+            if (null != jedis)
+                pool.returnResource(jedis);
+        }
+        return records;
+    }
+
 
     public void delete(String key) {
         Jedis jedis = pool.getResource();

@@ -8,6 +8,7 @@ import utils.CachePrefixType;
 import utils.DataReader;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class BcompOperations {
 
@@ -30,6 +31,36 @@ public class BcompOperations {
         } catch (NullPointerException exp) {
             System.out.println("The specified session was not created in the system. Check it out correctly and try again");
         }
+    }
+
+    @Deprecated
+    public void printAllBcomp() {
+        BcompDAO bcompDAO = new BcompDAO();
+        try {
+            List<Bcomp> bcompList = bcompDAO.getList();
+            if (bcompList.size() == 0) throw new NullPointerException();
+        } catch (NullPointerException exp) {
+            System.out.println("Bcomp list is empty. No bcomp has been created");
+        }
+
+    }
+
+    public void jPrintAllBcomp() {
+        JedisOperations jedisOperations = new JedisOperations();
+        List<String> records;
+        try {
+            records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.BCOMP + "*");
+            if (records.size() == 0) {
+                throw new NullPointerException();
+            } else {
+                for (String record : records) {
+                    System.out.println(record);
+                }
+            }
+        } catch (NullPointerException exp) {
+            System.out.println("Bcomp list is empty. No bcomp has been created/added in Redis cache");
+        }
+
     }
 
     public void jAddEmptyBcomp() {
