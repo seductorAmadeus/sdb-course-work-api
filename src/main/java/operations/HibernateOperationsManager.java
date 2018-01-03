@@ -40,71 +40,89 @@ public class HibernateOperationsManager {
                 usersOperations.addUser();
                 break;
             case 6:
-                usersOperations.deleteUser();
+                System.out.println("Oops");
                 break;
             case 7:
-                userRoleOperations.generateAllUsersRoles();
+                System.out.println("Oops");
                 break;
             case 8:
-                userStudyingOperations.createNewUserGroup();
+                usersOperations.deleteUser();
                 break;
             case 9:
-                userSessionOperations.createUserSession();
+                userRoleOperations.generateAllUsersRoles();
                 break;
             case 10:
-                bcompOperations.jAddEmptyBcomp();
+                userStudyingOperations.addUserGroup();
                 break;
             case 11:
-                bcompSettingsOperations.createBcompSettings();
+                userSessionOperations.createUserSession();
                 break;
             case 12:
-                sessionSettingsOperations.assignUserSettings();
+                bcompOperations.jAddEmptyBcomp();
                 break;
             case 13:
-                specifiedOperations.getEmailFromSessionId();
-                break;
-            case 14:
-                specifiedOperations.getSettingsIdForUser();
-                break;
-            case 15:
-                bcompOperations.jUpdateBcomp();
-                break;
-            case 16:
-                usersOperations.updateUserProfile();
-                break;
-            case 17:
                 bcompOperations.jPrintAllBcomp();
                 break;
-            case 18:
+            case 14:
+                bcompOperations.jUpdateBcomp();
+                break;
+            case 15:
                 bcompOperations.jDeleteBcomp();
+                break;
+            case 16:
+                bcompSettingsOperations.createBcompSettings();
+                break;
+            case 17:
+                sessionSettingsOperations.assignUserSettings();
+                break;
+            case 18:
+                specifiedOperations.getEmailFromSessionId();
+                break;
+            case 19:
+                specifiedOperations.getSettingsIdForUser();
+                break;
+            case 20:
+                // TODO: move to separate file
+                usersOperations.updateUserProfile();
+                break;
             default:
                 break;
         }
-
         HibernateUtil.getSessionFactory().close();
     }
 
     private static String getMenu() {
-        return new StringBuilder(MenuInputType.ENTER_REGISTRATION_CODES.toString())
+        return new StringBuilder()
+                .append("<<< Registration codes >>>\n")
+                .append(MenuInputType.ADD_REGISTRATION_CODES)
                 .append(MenuInputType.PRINT_REGISTRATION_CODES)
                 .append(MenuInputType.UPDATE_REGISTRATION_CODES)
                 .append(MenuInputType.DELETE_REGISTRATION_CODES)
-                .append(MenuInputType.ENTER_USERS)
-                .append(MenuInputType.DELETE_USERS)
+                .append("\n<<< Users >>>\n")
+                .append(MenuInputType.ADD_USER)
+                .append(MenuInputType.PRINT_USERS)
+                .append(MenuInputType.UPDATE_USER)
+                .append(MenuInputType.DELETE_USER)
+                .append("\n<<< User roles >>>\n")
                 .append(MenuInputType.GENERATE_USER_ROLE)
-                .append(MenuInputType.ENTER_USER_GROUP)
+                .append("\n<<< User studying>>>\n")
+                .append(MenuInputType.ADD_USER_GROUP)
+                .append("\n<<< User session>>>\n")
                 .append(MenuInputType.CREATE_USER_SESSION)
-                .append(MenuInputType.CREATE_BCOMP)
+                .append("\n<<< Bcomp >>>\n")
+                .append(MenuInputType.ADD_BCOMP)
+                .append(MenuInputType.PRINT_BCOMPS)
+                .append(MenuInputType.UPDATE_BCOMP)
+                .append(MenuInputType.DELETE_BCOMP)
+                .append("\n<<< Bcomp settings >>>\n")
                 .append(MenuInputType.CREATE_BCOMP_SETTINGS)
+                .append("\n<<< Session settings >>>\n")
                 .append(MenuInputType.ASSING_USER_SETTINGS)
+                .append("\n<<< Separate functions >>>\n")
                 .append(MenuInputType.GET_EMAIL_USING_SESSION_ID)
                 .append(MenuInputType.GET_SETTINGS_ID_FOR_USER)
-                .append(MenuInputType.UPDATE_BCOMP)
+                .append("\n<<< User profile >>>\n")
                 .append(MenuInputType.UPDATE_USER_PROFILE)
-                .append(MenuInputType.PRINT_REGISTRATION_CODES)
-                .append(MenuInputType.PRINT_BCOMPS)
-                .append(MenuInputType.DELETE_BCOMP)
                 .toString();
     }
-
 }

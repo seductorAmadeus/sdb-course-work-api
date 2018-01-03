@@ -5,7 +5,7 @@ import utils.DataReader;
 
 public class UserStudyingOperations {
 
-    public void createNewUserGroup() {
+    public void addUserGroup() {
         UserStudyingDAO userStudyingDAO = new UserStudyingDAO();
         String userGroup = DataReader.readUserGroup();
         userStudyingDAO.addNewUserGroup(userGroup);

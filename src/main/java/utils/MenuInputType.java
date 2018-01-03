@@ -3,24 +3,27 @@ package utils;
 public enum MenuInputType {
 
     // HibernateOperationsManager
-    ENTER_REGISTRATION_CODES("1. Add invite code\n"),
-    PRINT_REGISTRATION_CODES("2. Show invite codes\n"),
-    UPDATE_REGISTRATION_CODES("3. Refresh invite code status\n"),
+    ADD_REGISTRATION_CODES("1. Add invite code\n"),
+    PRINT_REGISTRATION_CODES("2. Print all invite codes\n"),
+    UPDATE_REGISTRATION_CODES("3. Update invite code status\n"),
     DELETE_REGISTRATION_CODES("4. Delete invite code\n"),
-    ENTER_USERS("5. Add user\n"),
-    DELETE_USERS("6. Delete user\n"),
-    GENERATE_USER_ROLE("7. Generate user roles list\n"),
-    ENTER_USER_GROUP("8. Add new user group\n"),
-    CREATE_USER_SESSION("9. Sign in\n"),
-    CREATE_BCOMP("10. Create new BCOMP\n"),
-    CREATE_BCOMP_SETTINGS("11. Create new bcomp settings\n"),
-    ASSING_USER_SETTINGS("12. Assign user settings\n"),
-    GET_EMAIL_USING_SESSION_ID("13. Get admin email from user's session id\n"),
-    GET_SETTINGS_ID_FOR_USER("14. Get settingsId for user\n"),
-    UPDATE_BCOMP("15. Update BCOMP\n"),
-    UPDATE_USER_PROFILE("16. UPDATE USER_PROFILE\n"),
-    PRINT_BCOMPS("17. Print all bcomps\n"),
-    DELETE_BCOMP("18. Delete bcomp by id\n"),
+    ADD_USER("5. Add user\n"),
+    PRINT_USERS("6. Print all users (D)\n"),
+    UPDATE_USER("7. Update user (D) \n"),
+    DELETE_USER("8. Delete user\n"),
+    GENERATE_USER_ROLE("9. Generate user roles list\n"),
+    ADD_USER_GROUP("10. Add user group\n"),
+    CREATE_USER_SESSION("11. Sign in\n"),
+    ADD_BCOMP("12. Add new empty BCOMP\n"),
+    PRINT_BCOMPS("13. Print all bcomps\n"),
+    UPDATE_BCOMP("14. Update BCOMP\n"),
+    DELETE_BCOMP("15. Delete bcomp by id\n"),
+    CREATE_BCOMP_SETTINGS("16. Create new bcomp settings\n"),
+    ASSING_USER_SETTINGS("17. Assign user settings\n"),
+    GET_EMAIL_USING_SESSION_ID("18. Get admin email from user's session id\n"),
+    GET_SETTINGS_ID_FOR_USER("19. Get settingsId for user\n"),
+    UPDATE_USER_PROFILE("20. UPDATE USER_PROFILE\n"),
+
     // RegistrationCodes
     INVITE_CODE_STATUS("Enter invite code status: "),
     EMAIL("Enter email: "),
@@ -63,9 +66,7 @@ public enum MenuInputType {
     MEMORY_MC("Enter value of the micro-command memory: "),
     C_MC("Enter value of the micro-command counter: "),
     R_MC("Enter value of the register of the micro-command: "),
-    ASM("Enter assembler code: ")
-
-    ;
+    ASM("Enter assembler code: ");
     // TODO: заполнить полностью это
     ;
 
