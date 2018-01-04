@@ -25,19 +25,19 @@ public class HibernateOperationsManager {
 
         switch (menuNumber) {
             case 1:
-                registrationCodesOperations.addNewRegistrationCode();
+                registrationCodesOperations.jAdd();
                 break;
             case 2:
-                registrationCodesOperations.printAllRegistrationCodes();
+                registrationCodesOperations.printAll();
                 break;
             case 3:
                 System.out.println("Oops");
                 break;
             case 4:
-                registrationCodesOperations.updateRegistrationCodeStatus();
+                registrationCodesOperations.update();
                 break;
             case 5:
-                registrationCodesOperations.deleteRegistrationCode();
+                registrationCodesOperations.delete();
                 break;
             case 6:
                 usersOperations.addUser();

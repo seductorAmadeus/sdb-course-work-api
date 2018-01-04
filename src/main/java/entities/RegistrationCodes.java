@@ -177,6 +177,6 @@ public class RegistrationCodes implements Serializable {
      */
     @Override
     public String toString() {
-        return getInviteCode() + " " + getInviteCodeStatus() + " " + getEmail();
+        return getRegCodeId() + " " + getInviteCode() + " " + getInviteCodeStatus() + " " + getEmail();
     }
 }
