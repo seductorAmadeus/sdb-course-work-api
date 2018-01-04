@@ -22,9 +22,9 @@ import java.util.List;
  * @version 0.1
  * @since 0.1
  */
-public class BcompDAO {
+public class BcompDAOImpl implements GenericDAO<Bcomp, BigDecimal> {
 
-    public BigDecimal insert(Bcomp bcomp) {
+    public BigDecimal create(Bcomp bcomp) {
         Connection connection = null;
         ConnectionJDBC connectionHandler = new ConnectionJDBC();
         BigDecimal bcompId = null;
@@ -95,6 +95,7 @@ public class BcompDAO {
     }
 
     /*TODO: fix it*/
+    @Deprecated
     public void dropAllBcompRecords() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
@@ -133,7 +134,7 @@ public class BcompDAO {
         return list;
     }
 
-    public boolean checkExistsById(BigDecimal bcompId) {
+    public boolean isExists(BigDecimal bcompId) {
         boolean bcompExists = false;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -149,7 +150,7 @@ public class BcompDAO {
         return bcompExists;
     }
 
-    public Bcomp getById(BigDecimal bcompId) {
+    public Bcomp read(BigDecimal bcompId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         Bcomp bcomp = null;
@@ -170,8 +171,8 @@ public class BcompDAO {
         return bcomp;
     }
 
-
-    public void update(BigDecimal bcompId, Bcomp bcomp) {
+    // TODO: change it
+    public void update(Bcomp bcomp) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
@@ -188,7 +189,7 @@ public class BcompDAO {
         }
     }
 
-    public void deleteBcomp(BigDecimal bcompId) {
+    public void delete(BigDecimal bcompId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {

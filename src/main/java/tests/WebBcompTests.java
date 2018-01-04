@@ -97,7 +97,7 @@ public class WebBcompTests {
     @Test
     @Deprecated
     public void dropAllTables() {
-        BcompDAO bcompDAO = new BcompDAO();
+        BcompDAOImpl bcompDAO = new BcompDAOImpl();
         bcompDAO.dropAllBcompRecords();
 
         RegistrationCodesDAO registrationCodesDAO = new RegistrationCodesDAO();
@@ -186,11 +186,11 @@ public class WebBcompTests {
         List<UserSession> userSessionList = userSessionDAO1.listUserSessions();
         // добавляем bcomp's
         List<Bcomp> bcompList = getBcompsList(userSessionList);
-        BcompDAO bcompDAO = new BcompDAO();
+        BcompDAOImpl bcompDAO = new BcompDAOImpl();
 
         for (int i = 0; i < TESTS_COUNT; i++) {
             try {
-                bcompDAO.insert(bcompList.get(i));
+                bcompDAO.create(bcompList.get(i));
             } catch (NullPointerException exp) {
                 exp.getMessage();
             }

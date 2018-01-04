@@ -172,4 +172,25 @@ public class RegistrationCodesDAO {
             session.close();
         }
     }
+
+    public RegistrationCodes getRegistrationCode(BigDecimal registrationCodeId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        RegistrationCodes registrationCode = null;
+        try {
+            transaction = session.beginTransaction();
+            registrationCode = (RegistrationCodes) session.createQuery("from RegistrationCodes where regCodeId = :regCodeId")
+                    .setParameter("regCodeId", registrationCodeId)
+                    .setMaxResults(1)
+                    .uniqueResult();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+        return registrationCode;
+    }
 }

@@ -15,6 +15,10 @@ public class RegistrationCodesOperations {
         System.out.println((dao.addRegistrationCode(registrationCodes)));
     }
 
+    public void getRegistrationCode() {
+
+    }
+
     public void printAllRegistrationCodes() {
         RegistrationCodesDAO dao = new RegistrationCodesDAO();
         List<RegistrationCodes> tempList = dao.listRegistrationCodes();

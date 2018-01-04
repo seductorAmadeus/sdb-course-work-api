@@ -1,6 +1,6 @@
 package operations;
 
-import daos.BcompDAO;
+import daos.BcompDAOImpl;
 import daos.UserSessionDAO;
 import entities.Bcomp;
 import entities.UserSession;
@@ -15,7 +15,7 @@ public class BcompOperations {
     @Deprecated
     public void addEmptyBcomp() {
         Bcomp bcomp = new Bcomp();
-        BcompDAO bcompDAO = new BcompDAO();
+        BcompDAOImpl bcompDAO = new BcompDAOImpl();
         UserSessionDAO userSessionDAO = new UserSessionDAO();
         UserSession userSession = null;
 
@@ -27,7 +27,7 @@ public class BcompOperations {
                 throw new NullPointerException();
             }
             bcomp.setUserSession(userSession);
-            bcompDAO.insert(bcomp);
+            bcompDAO.create(bcomp);
         } catch (NullPointerException exp) {
             System.out.println("The specified session was not created in the system. Check it out correctly and try again");
         }
@@ -35,7 +35,7 @@ public class BcompOperations {
 
     @Deprecated
     public void printAllBcomp() {
-        BcompDAO bcompDAO = new BcompDAO();
+        BcompDAOImpl bcompDAO = new BcompDAOImpl();
         try {
             List<Bcomp> bcompList = bcompDAO.getList();
             if (bcompList.size() == 0) throw new NullPointerException();
@@ -67,7 +67,7 @@ public class BcompOperations {
         JedisOperations jedisOperations = new JedisOperations();
 
         Bcomp bcomp = new Bcomp();
-        BcompDAO bcompDAO = new BcompDAO();
+        BcompDAOImpl bcompDAO = new BcompDAOImpl();
         UserSessionDAO userSessionDAO = new UserSessionDAO();
         UserSession userSession = null;
 
@@ -79,9 +79,9 @@ public class BcompOperations {
                 throw new NullPointerException();
             }
             bcomp.setUserSession(userSession);
-            BigDecimal newBcompId = bcompDAO.insert(bcomp);
-            // TODO: add insert checking
-            // if insert in db was successful
+            BigDecimal newBcompId = bcompDAO.create(bcomp);
+            // TODO: add create checking
+            // if create in db was successful
             if (newBcompId != null) {
                 bcomp.setId(newBcompId);
                 jedisOperations.set(CachePrefixType.BCOMP.toString() + bcomp.getId(), bcomp.toString());
@@ -94,14 +94,14 @@ public class BcompOperations {
     @Deprecated
     public void updateBcomp() {
         Bcomp bcomp;
-        BcompDAO bcompDAO = new BcompDAO();
+        BcompDAOImpl bcompDAO = new BcompDAOImpl();
 
         BigDecimal bcompId = DataReader.readBcompId();
 
-        if (bcompDAO.checkExistsById(bcompId)) {
-            bcomp = bcompDAO.getById(bcompId);
+        if (bcompDAO.isExists(bcompId)) {
+            bcomp = bcompDAO.read(bcompId);
             DataReader.initBcomp(bcomp);
-            bcompDAO.update(bcompId, bcomp);
+            bcompDAO.update(bcomp);
         } else {
             System.out.println("The specified bcomp id was not found in the system. Check it out correctly and try again");
         }
@@ -111,14 +111,14 @@ public class BcompOperations {
         JedisOperations jedisOperations = new JedisOperations();
 
         Bcomp bcomp;
-        BcompDAO bcompDAO = new BcompDAO();
+        BcompDAOImpl bcompDAO = new BcompDAOImpl();
 
         BigDecimal bcompId = DataReader.readBcompId();
 
-        if (bcompDAO.checkExistsById(bcompId)) {
-            bcomp = bcompDAO.getById(bcompId);
+        if (bcompDAO.isExists(bcompId)) {
+            bcomp = bcompDAO.read(bcompId);
             DataReader.initBcomp(bcomp);
-            bcompDAO.update(bcompId, bcomp);
+            bcompDAO.update(bcomp);
             // TODO: add exception checking?
             // необходимо ли проверять существует ли, может быть просто добавится новое значение
             jedisOperations.set(CachePrefixType.BCOMP.toString() + bcomp.getId(), bcomp.toString());
@@ -129,13 +129,13 @@ public class BcompOperations {
 
     public void jDeleteBcomp() {
         JedisOperations jedisOperations = new JedisOperations();
-        BcompDAO bcompDAO = new BcompDAO();
+        BcompDAOImpl bcompDAO = new BcompDAOImpl();
 
         BigDecimal bcompId = DataReader.readBcompId();
 
         // TODO: удалить несовпадение проверок
-        if (bcompDAO.checkExistsById(bcompId)) {
-            bcompDAO.deleteBcomp(bcompId);
+        if (bcompDAO.isExists(bcompId)) {
+            bcompDAO.delete(bcompId);
             // TODO: add exception checking
             jedisOperations.delete(CachePrefixType.BCOMP.toString() + bcompId);
         } else {
