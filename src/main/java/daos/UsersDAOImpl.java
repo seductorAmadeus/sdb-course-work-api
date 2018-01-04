@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * This class is a data access object that provides CRUD operations to {@link Users} entity.
@@ -16,8 +17,9 @@ import java.math.BigDecimal;
  * @version 0.1
  * @since 0.1
  */
+// TODO: Create new interface or implement this
 
-public class UsersDAO {
+public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
 
     public BigDecimal addUser(Users user, UserProfile userProfile) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -199,5 +201,35 @@ public class UsersDAO {
             session.close();
         }
 
+    }
+
+    @Override
+    public BigDecimal create(Users newInstance) {
+        return null;
+    }
+
+    @Override
+    public Users read(BigDecimal id) {
+        return null;
+    }
+
+    @Override
+    public void update(Users transientObject) {
+
+    }
+
+    @Override
+    public void delete(BigDecimal id) {
+
+    }
+
+    @Override
+    public boolean isExists(BigDecimal id) {
+        return false;
+    }
+
+    @Override
+    public List<Users> getList() {
+        return null;
     }
 }

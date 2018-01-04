@@ -1,9 +1,9 @@
 package operations;
 
-import daos.RegistrationCodesDAO;
-import daos.UserRoleDAO;
-import daos.UserStudyingDAO;
-import daos.UsersDAO;
+import daos.RegistrationCodesDAOImpl;
+import daos.UserRoleDAOImpl;
+import daos.UserStudyingDAOImpl;
+import daos.UsersDAOImpl;
 import entities.*;
 import utils.DataReader;
 
@@ -12,9 +12,9 @@ import java.math.BigDecimal;
 public class UsersOperations {
 
     public void addUser() {
-        RegistrationCodesDAO registrationCodesDAO = new RegistrationCodesDAO();
-        UsersDAO dao = new UsersDAO();
-        UserRoleDAO userRoleDAO = new UserRoleDAO();
+        RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
+        UsersDAOImpl dao = new UsersDAOImpl();
+        UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
         RegistrationCodes registrationCode = null;
         try {
             registrationCode = registrationCodesDAO.findFreeRegistrationCode();
@@ -49,7 +49,7 @@ public class UsersOperations {
         userProfile.setUserRoleId(userRole);
 
         // получаем и инициализируем поле user_studying_id
-        UserStudyingDAO userStudyingDAO = new UserStudyingDAO();
+        UserStudyingDAOImpl userStudyingDAO = new UserStudyingDAOImpl();
         UserStudying userStudying = new UserStudying();
         String userGroupStr = DataReader.readUserGroup();
         switch (userGroupStr) {
@@ -68,14 +68,14 @@ public class UsersOperations {
 
     // TODO: Check and refactor this method
     public void deleteUser() {
-        UsersDAO dao = new UsersDAO();
+        UsersDAOImpl dao = new UsersDAOImpl();
         BigDecimal userId = DataReader.readUserId();
         dao.deleteUser(userId);
     }
 
     public void updateUserProfile() {
         UserProfile userProfile = new UserProfile();
-        UsersDAO usersDAO = new UsersDAO();
+        UsersDAOImpl usersDAO = new UsersDAOImpl();
 
         BigDecimal userProfileId = DataReader.readUserProfileId();
 

@@ -1,6 +1,6 @@
 package operations;
 
-import daos.RegistrationCodesDAO;
+import daos.RegistrationCodesDAOImpl;
 import entities.RegistrationCodes;
 import utils.DataReader;
 
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class RegistrationCodesOperations {
     public void addNewRegistrationCode() {
-        RegistrationCodesDAO dao = new RegistrationCodesDAO();
+        RegistrationCodesDAOImpl dao = new RegistrationCodesDAOImpl();
         RegistrationCodes registrationCodes = DataReader.readRegistrationCode();
         // TODO: Remove print action!
         System.out.println((dao.create(registrationCodes)));
@@ -20,7 +20,7 @@ public class RegistrationCodesOperations {
     }
 
     public void printAllRegistrationCodes() {
-        RegistrationCodesDAO dao = new RegistrationCodesDAO();
+        RegistrationCodesDAOImpl dao = new RegistrationCodesDAOImpl();
         List<RegistrationCodes> tempList = dao.getList();
         System.out.println("invite_code" + " " + "invite_code_status" + " " + "email");
         for (RegistrationCodes registrationCodes : tempList) {
@@ -29,7 +29,7 @@ public class RegistrationCodesOperations {
     }
 
     public void updateRegistrationCodeStatus() {
-        RegistrationCodesDAO dao = new RegistrationCodesDAO();
+        RegistrationCodesDAOImpl dao = new RegistrationCodesDAOImpl();
         String newInviteCodeStatus = DataReader.readNewStatusForRegistrationCode();
         BigDecimal oldInviteCode = DataReader.readInviteCode();
         RegistrationCodes tempRegistrationCode = new RegistrationCodes();
@@ -43,7 +43,7 @@ public class RegistrationCodesOperations {
     }
 
     public void deleteRegistrationCode() {
-        RegistrationCodesDAO dao = new RegistrationCodesDAO();
+        RegistrationCodesDAOImpl dao = new RegistrationCodesDAOImpl();
         BigDecimal inviteCode = DataReader.readInviteCode();
         dao.delete(inviteCode);
     }

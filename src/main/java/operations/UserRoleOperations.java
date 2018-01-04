@@ -1,10 +1,10 @@
 package operations;
 
-import daos.UserRoleDAO;
+import daos.UserRoleDAOImpl;
 
 public class UserRoleOperations {
     public void generateAllUsersRoles() {
-        UserRoleDAO dao = new UserRoleDAO();
+        UserRoleDAOImpl dao = new UserRoleDAOImpl();
         dao.generateAllUsersRoles();
     }
 }

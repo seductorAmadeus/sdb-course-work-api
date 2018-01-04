@@ -23,7 +23,7 @@ import java.util.List;
  * @since 0.1
  */
 
-public class RegistrationCodesDAO implements GenericDAO<RegistrationCodes, BigDecimal> {
+public class RegistrationCodesDAOImpl implements GenericDAO<RegistrationCodes, BigDecimal> {
 
     public BigDecimal create(RegistrationCodes registrationCodes) {
         Connection connection = null;

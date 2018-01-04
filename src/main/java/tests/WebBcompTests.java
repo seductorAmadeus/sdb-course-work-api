@@ -38,7 +38,7 @@ public class WebBcompTests {
     }
 
     private List<RegistrationCodes> getOldRegistrationCodesList() {
-        RegistrationCodesDAO registrationCodesDAO = new RegistrationCodesDAO();
+        RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
         List<RegistrationCodes> registrationCodes = new ArrayList<>();
         for (int i = 0; i < TESTS_COUNT; i++) {
             registrationCodes.add(registrationCodesDAO.findFreeRegistrationCode());
@@ -100,39 +100,39 @@ public class WebBcompTests {
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
         bcompDAO.dropAllBcompRecords();
 
-        RegistrationCodesDAO registrationCodesDAO = new RegistrationCodesDAO();
+        RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
         registrationCodesDAO.dropAllRegistrationCodesRecords();
 
-        UsersDAO usersDAO = new UsersDAO();
+        UsersDAOImpl usersDAO = new UsersDAOImpl();
         usersDAO.dropAllUsersRecords();
 
-        SessionSettingsDAO sessionSettingsDAO = new SessionSettingsDAO();
+        SessionSettingsDAOImpl sessionSettingsDAO = new SessionSettingsDAOImpl();
         sessionSettingsDAO.dropAllSessionSettingsRecords();
 
 
-        UserSessionDAO userSessionDAO = new UserSessionDAO();
+        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         userSessionDAO.dropAllUserSessionRecords();
 
         BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
         bcompSettingsDAO.dropAllBcompSettingsRecords();
 
 
-        UserRoleDAO userRoleDAO = new UserRoleDAO();
+        UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
         userRoleDAO.dropAllUserRoleRecords();
 
 
-        UserStudyingDAO userStudyingDAO = new UserStudyingDAO();
+        UserStudyingDAOImpl userStudyingDAO = new UserStudyingDAOImpl();
         userStudyingDAO.dropAllUserStudyingRecords();
     }
 
     @Test
     public void fillAllTables() {
-        UsersDAO usersDAO = new UsersDAO();
+        UsersDAOImpl usersDAO = new UsersDAOImpl();
 
         // Заполняем registration_codes
         List<RegistrationCodes> registrationCodesList = getRegistrationCodesList();
         // Добавляем в БД
-        RegistrationCodesDAO dao = new RegistrationCodesDAO();
+        RegistrationCodesDAOImpl dao = new RegistrationCodesDAOImpl();
         for (RegistrationCodes registrationCodes : registrationCodesList) {
             dao.create(registrationCodes);
         }
@@ -141,7 +141,7 @@ public class WebBcompTests {
          * добавляем пользователей в БД
          */
         // Генерируем общую роль
-        UserRoleDAO userRoleDAO = new UserRoleDAO();
+        UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
         UserRole userRole = new UserRole();
         userRoleDAO.generateAllUsersRoles();
         // set all roles as "admin"
@@ -149,7 +149,7 @@ public class WebBcompTests {
 
         // Генерируем общий userStudying id
         // инициализировали UserStudyingId
-        UserStudyingDAO userStudyingDAO = new UserStudyingDAO();
+        UserStudyingDAOImpl userStudyingDAO = new UserStudyingDAOImpl();
         UserStudying userStudying = new UserStudying();
         userStudyingDAO.generateAllUsersGroups();
         String userGroupStr = "P3101";
@@ -168,10 +168,10 @@ public class WebBcompTests {
         /**
          * создаем сессии в БД на основе последнего пользователя, используя рандомайзер (доделать)
          */
-        UserSessionDAO userSessionDAO = new UserSessionDAO();
+        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         for (int i = 0; i < TESTS_COUNT; i++) {
             try {
-                userSessionDAO.createSession(users.get((int)
+                userSessionDAO.create(users.get((int)
                         Math.random() * (users.size() - 1 - users.get(0).getUserId().intValue())).getUserId());
             } catch (NullPointerException exp) {
                 exp.getMessage();
@@ -182,8 +182,8 @@ public class WebBcompTests {
          * создаем BCOMP-ы
          */
         // получаем список пользовательских сессий
-        UserSessionDAO userSessionDAO1 = new UserSessionDAO();
-        List<UserSession> userSessionList = userSessionDAO1.listUserSessions();
+        UserSessionDAOImpl userSessionDAO1 = new UserSessionDAOImpl();
+        List<UserSession> userSessionList = userSessionDAO1.getList();
         // добавляем bcomp's
         List<Bcomp> bcompList = getBcompsList(userSessionList);
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
@@ -215,9 +215,9 @@ public class WebBcompTests {
          */
 
         List<BcompSettings> newBcompSettingsList = bcompSettingsDAO.getList();
-        List<UserSession> newUserSessionList = userSessionDAO.listUserSessions();
+        List<UserSession> newUserSessionList = userSessionDAO.getList();
         // TODO: add a check of existence in the table sessionSettings
-        SessionSettingsDAO sessionSettingsDAO = new SessionSettingsDAO();
+        SessionSettingsDAOImpl sessionSettingsDAO = new SessionSettingsDAOImpl();
         for (int i = newBcompSettingsList.size(); i > newBcompSettingsList.size() - TESTS_COUNT; i--) {
             try {
                 sessionSettingsDAO.assignUserSettings(newUserSessionList.get(i - 1), newBcompSettingsList.get(i - 1));

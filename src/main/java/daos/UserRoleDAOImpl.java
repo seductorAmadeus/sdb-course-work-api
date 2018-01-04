@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * This class is a data access object that provides CRUD operations to {@link UserRole} entity.
@@ -17,7 +18,8 @@ import java.math.BigDecimal;
  * @since 0.1
  */
 
-public class UserRoleDAO {
+// TODO: Create new interface or implement this
+public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
 
     public BigDecimal addRootRole() {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -173,5 +175,35 @@ public class UserRoleDAO {
         }
 
         return userRoleExists;
+    }
+
+    @Override
+    public BigDecimal create(UserRole newInstance) {
+        return null;
+    }
+
+    @Override
+    public UserRole read(BigDecimal id) {
+        return null;
+    }
+
+    @Override
+    public void update(UserRole transientObject) {
+
+    }
+
+    @Override
+    public void delete(BigDecimal id) {
+
+    }
+
+    @Override
+    public boolean isExists(BigDecimal id) {
+        return false;
+    }
+
+    @Override
+    public List<UserRole> getList() {
+        return null;
     }
 }

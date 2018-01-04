@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.Types;
+import java.util.List;
 
 /**
  * This class is a data access object that provides CRUD operations to {@link UserStudying} entity.
@@ -20,7 +21,9 @@ import java.sql.Types;
  * @since 0.1
  */
 
-public class UserStudyingDAO {
+// TODO: Create new interface or implement this
+
+public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal> {
 
     private ResultSet resultSet;
     private BigDecimal bigDecimal;
@@ -139,7 +142,7 @@ public class UserStudyingDAO {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.createSQLQuery("truncate table user_studying").executeUpdate();
+            session.createSQLQuery("TRUNCATE TABLE user_studying").executeUpdate();
             transaction.commit();
         } catch (HibernateException exp) {
             if (transaction != null) {
@@ -165,5 +168,35 @@ public class UserStudyingDAO {
         }
 
         return userStudyingExists;
+    }
+
+    @Override
+    public BigDecimal create(UserStudying newInstance) {
+        return null;
+    }
+
+    @Override
+    public UserStudying read(BigDecimal id) {
+        return null;
+    }
+
+    @Override
+    public void update(UserStudying transientObject) {
+
+    }
+
+    @Override
+    public void delete(BigDecimal id) {
+
+    }
+
+    @Override
+    public boolean isExists(BigDecimal id) {
+        return false;
+    }
+
+    @Override
+    public List<UserStudying> getList() {
+        return null;
     }
 }

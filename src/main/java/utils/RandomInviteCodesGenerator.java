@@ -1,6 +1,6 @@
 package utils;
 
-import daos.RegistrationCodesDAO;
+import daos.RegistrationCodesDAOImpl;
 import entities.RegistrationCodes;
 
 import java.math.BigDecimal;
@@ -17,7 +17,7 @@ public class RandomInviteCodesGenerator {
 
     private BigDecimal getNonExistsInviteCode(List<BigDecimal> inviteCodeList) {
         BigDecimal inviteCode = null;
-        RegistrationCodesDAO registrationCodesDAO = new RegistrationCodesDAO();
+        RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
 
         // получаем список имеющихся инвайт-кодов
         List<RegistrationCodes> registrationCodesList = registrationCodesDAO.getList();

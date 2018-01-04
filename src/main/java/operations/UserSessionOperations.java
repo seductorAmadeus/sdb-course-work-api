@@ -1,7 +1,7 @@
 package operations;
 
-import daos.UserSessionDAO;
-import daos.UsersDAO;
+import daos.UserSessionDAOImpl;
+import daos.UsersDAOImpl;
 import utils.DataReader;
 
 import java.math.BigDecimal;
@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 public class UserSessionOperations {
 
     public void createUserSession() {
-        UserSessionDAO userSessionDAO = new UserSessionDAO();
-        UsersDAO usersDAO = new UsersDAO();
+        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
+        UsersDAOImpl usersDAO = new UsersDAOImpl();
 
         String username = DataReader.readUsername();
         String password = DataReader.readPassword();
@@ -21,7 +21,7 @@ public class UserSessionOperations {
             if (userId == null) {
                 throw new NullPointerException();
             } else {
-                userSessionDAO.createSession(userId);
+                userSessionDAO.create(userId);
             }
 
         } catch (NullPointerException exp) {

@@ -1,7 +1,7 @@
 package operations;
 
 import daos.BcompDAOImpl;
-import daos.UserSessionDAO;
+import daos.UserSessionDAOImpl;
 import entities.Bcomp;
 import entities.UserSession;
 import utils.CachePrefixType;
@@ -16,13 +16,13 @@ public class BcompOperations {
     public void addEmptyBcomp() {
         Bcomp bcomp = new Bcomp();
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
-        UserSessionDAO userSessionDAO = new UserSessionDAO();
+        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         UserSession userSession = null;
 
         BigDecimal userSessionId = DataReader.readUserSessionId();
         try {
             // checking that session exists
-            userSession = userSessionDAO.getUserSessionById(userSessionId);
+            userSession = userSessionDAO.read(userSessionId);
             if (userSession == null) {
                 throw new NullPointerException();
             }
@@ -68,13 +68,13 @@ public class BcompOperations {
 
         Bcomp bcomp = new Bcomp();
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
-        UserSessionDAO userSessionDAO = new UserSessionDAO();
+        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         UserSession userSession = null;
 
         BigDecimal userSessionId = DataReader.readUserSessionId();
         try {
             // checking that session exists
-            userSession = userSessionDAO.getUserSessionById(userSessionId);
+            userSession = userSessionDAO.read(userSessionId);
             if (userSession == null) {
                 throw new NullPointerException();
             }

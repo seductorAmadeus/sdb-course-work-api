@@ -1,8 +1,8 @@
 package operations;
 
 import daos.BcompSettingsDAOImpl;
-import daos.SessionSettingsDAO;
-import daos.UserSessionDAO;
+import daos.SessionSettingsDAOImpl;
+import daos.UserSessionDAOImpl;
 import entities.BcompSettings;
 import entities.UserSession;
 import utils.DataReader;
@@ -12,9 +12,9 @@ import java.math.BigDecimal;
 public class SessionSettingsOperations {
 
     public void assignUserSettings() {
-        UserSessionDAO userSessionDAO = new UserSessionDAO();
+        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
-        SessionSettingsDAO sessionSettingsDAO = new SessionSettingsDAO();
+        SessionSettingsDAOImpl sessionSettingsDAO = new SessionSettingsDAOImpl();
 
         UserSession userSession;
         BcompSettings bcompSettings;
@@ -24,7 +24,7 @@ public class SessionSettingsOperations {
 
         try {
             // checking that session exists
-            userSession = userSessionDAO.getUserSessionById(userSessionId);
+            userSession = userSessionDAO.read(userSessionId);
             if (userSession == null) {
                 throw new NullPointerException();
             }

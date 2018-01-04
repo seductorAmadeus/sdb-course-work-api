@@ -7,6 +7,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * This class is a data access object that provides CRUD operations to session_settings table from DB.
  *
@@ -15,7 +18,8 @@ import utils.HibernateUtil;
  * @since 0.1
  */
 
-public class SessionSettingsDAO {
+// TODO: create new interface
+public class SessionSettingsDAOImpl implements GenericDAO {
 
     public void assignUserSettings(UserSession userSession, BcompSettings bcompSettings) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -54,5 +58,35 @@ public class SessionSettingsDAO {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public Serializable create(Object newInstance) {
+        return null;
+    }
+
+    @Override
+    public Object read(Serializable id) {
+        return null;
+    }
+
+    @Override
+    public void update(Object transientObject) {
+
+    }
+
+    @Override
+    public void delete(Serializable id) {
+
+    }
+
+    @Override
+    public boolean isExists(Serializable id) {
+        return false;
+    }
+
+    @Override
+    public List getList() {
+        return null;
     }
 }

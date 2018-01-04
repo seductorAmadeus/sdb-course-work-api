@@ -19,9 +19,10 @@ import java.util.List;
  * @since 0.1
  */
 
-public class UserSessionDAO {
+public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
 
-    public BigDecimal createSession(BigDecimal userId) {
+    // TODO: change this method signature
+    public BigDecimal create(BigDecimal userId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigDecimal userSessionId = null;
@@ -31,7 +32,7 @@ public class UserSessionDAO {
         userSession.setStatus("active");
 
         // create new Hibernate session and get user for adding to user's session
-        UsersDAO usersDAO = new UsersDAO();
+        UsersDAOImpl usersDAO = new UsersDAOImpl();
         Users user = usersDAO.getUserById(userId);
         userSession.setUserID(user);
 
@@ -52,7 +53,12 @@ public class UserSessionDAO {
         return userSessionId;
     }
 
-    public UserSession getUserSessionById(BigDecimal userSessionId) {
+    @Override
+    public BigDecimal create(UserSession newInstance) {
+        return null;
+    }
+
+    public UserSession read(BigDecimal userSessionId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         UserSession userSession = null;
@@ -73,7 +79,17 @@ public class UserSessionDAO {
         return userSession;
     }
 
-    public boolean checkSessionExists(BigDecimal userSessionId) {
+    @Override
+    public void update(UserSession transientObject) {
+
+    }
+
+    @Override
+    public void delete(BigDecimal id) {
+
+    }
+
+    public boolean isExists(BigDecimal userSessionId) {
         boolean userSessionExists = false;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -89,7 +105,7 @@ public class UserSessionDAO {
         return userSessionExists;
     }
 
-    public List<UserSession> listUserSessions() {
+    public List<UserSession> getList() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         List<UserSession> list = new ArrayList<>();
@@ -111,12 +127,13 @@ public class UserSessionDAO {
         return list;
     }
 
+    @Deprecated
     public void dropAllUserSessionRecords() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.createSQLQuery("truncate table user_session").executeUpdate();
+            session.createSQLQuery("TRUNCATE TABLE user_session").executeUpdate();
             transaction.commit();
         } catch (HibernateException exp) {
             if (transaction != null) {
@@ -126,21 +143,5 @@ public class UserSessionDAO {
         } finally {
             session.close();
         }
-    }
-
-    public boolean checkUserSessionExists(BigDecimal userSessionId) {
-        boolean userSessionExists = false;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            if (session.get(UserSession.class, userSessionId) != null) {
-                userSessionExists = true;
-            }
-        } catch (HibernateException exp) {
-
-        } finally {
-            session.close();
-        }
-
-        return userSessionExists;
     }
 }
