@@ -144,4 +144,13 @@ public class BcompSettings {
     public void setUserSessions(List<UserSession> userSessions) {
         this.userSessions = userSessions;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append(getId()).append(" ")
+                .append(getValue()).append(" ")
+                .append(getType()).append(" ")
+                .toString();
+    }
 }

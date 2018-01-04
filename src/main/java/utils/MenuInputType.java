@@ -22,7 +22,7 @@ public enum MenuInputType {
     UPDATE_BCOMP("17. Update bcomp by id\n"),
     DELETE_BCOMP("18. Delete bcomp by id\n"),
     CREATE_BCOMP_SETTINGS("19. Create new bcomp settings\n"),
-    PRINT_BCOMP_SETTINGS("20. Print all bcomp settings (D)\n"),
+    PRINT_BCOMP_SETTINGS("20. Print all bcomp settings\n"),
     GET_BCOMP_SETTING_BY_ID("21. Get bcomp setting by id (D)\n"),
     UPDATE_BCOMP_SETTING("22. Update bcomp setting by id\n"),
     DELETE_BCOMP_SETING("23. Delete bcomp setting by id (D)\n"),

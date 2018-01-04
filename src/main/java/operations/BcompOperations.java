@@ -38,7 +38,13 @@ public class BcompOperations {
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
         try {
             List<Bcomp> bcompList = bcompDAO.getList();
-            if (bcompList.size() == 0) throw new NullPointerException();
+            if (bcompList.size() == 0) {
+                throw new NullPointerException();
+            } else {
+                for (Bcomp bcomp : bcompList) {
+                    System.out.println(bcomp);
+                }
+            }
         } catch (NullPointerException exp) {
             System.out.println("Bcomp list is empty. No bcomp has been created");
         }
