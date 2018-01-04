@@ -64,19 +64,19 @@ public class HibernateOperationsManager {
                 userSessionOperations.createUserSession();
                 break;
             case 14:
-                bcompOperations.jAddEmptyBcomp();
+                bcompOperations.jAdd();
                 break;
             case 15:
-                bcompOperations.jPrintAllBcomp();
+                bcompOperations.jPrintAll();
                 break;
             case 16:
-                bcompOperations.jGetBcomp();
+                bcompOperations.jPrint();
                 break;
             case 17:
-                bcompOperations.jUpdateBcomp();
+                bcompOperations.jUpdate();
                 break;
             case 18:
-                bcompOperations.jDeleteBcomp();
+                bcompOperations.jDelete();
                 break;
             case 19:
                 bcompSettingsOperations.add();

@@ -10,10 +10,10 @@ import utils.DataReader;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class BcompOperations {
+public class BcompOperations implements RedisGenericOperations, DatabaseGenericOperations {
 
     @Deprecated
-    public void addEmptyBcomp() {
+    public void add() {
         Bcomp bcomp = new Bcomp();
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
@@ -34,7 +34,7 @@ public class BcompOperations {
     }
 
     @Deprecated
-    public void printAllBcomp() {
+    public void printAll() {
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
         try {
             List<Bcomp> bcompList = bcompDAO.getList();
@@ -51,7 +51,7 @@ public class BcompOperations {
 
     }
 
-    public void jPrintAllBcomp() {
+    public void jPrintAll() {
         JedisOperations jedisOperations = new JedisOperations();
         List<String> records;
         try {
@@ -69,7 +69,7 @@ public class BcompOperations {
 
     }
 
-    public void jAddEmptyBcomp() {
+    public void jAdd() {
         JedisOperations jedisOperations = new JedisOperations();
 
         Bcomp bcomp = new Bcomp();
@@ -98,7 +98,7 @@ public class BcompOperations {
     }
 
     @Deprecated
-    public void updateBcomp() {
+    public void update() {
         Bcomp bcomp;
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
 
@@ -113,7 +113,7 @@ public class BcompOperations {
         }
     }
 
-    public void jUpdateBcomp() {
+    public void jUpdate() {
         JedisOperations jedisOperations = new JedisOperations();
 
         Bcomp bcomp;
@@ -133,7 +133,7 @@ public class BcompOperations {
         }
     }
 
-    public void jDeleteBcomp() {
+    public void jDelete() {
         JedisOperations jedisOperations = new JedisOperations();
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
 
@@ -149,7 +149,7 @@ public class BcompOperations {
         }
     }
 
-    public void jGetBcomp() {
+    public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
 
         BigDecimal bcompId = DataReader.readBcompId();
@@ -163,4 +163,15 @@ public class BcompOperations {
         }
 
     }
+
+    @Override
+    public void print() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
+
 }
