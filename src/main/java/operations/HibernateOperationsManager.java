@@ -31,57 +31,66 @@ public class HibernateOperationsManager {
                 registrationCodesOperations.printAllRegistrationCodes();
                 break;
             case 3:
-                registrationCodesOperations.updateRegistrationCodeStatus();
+                System.out.println("Oops");
                 break;
             case 4:
-                registrationCodesOperations.deleteRegistrationCode();
+                registrationCodesOperations.updateRegistrationCodeStatus();
                 break;
             case 5:
-                usersOperations.addUser();
+                registrationCodesOperations.deleteRegistrationCode();
                 break;
             case 6:
-                System.out.println("Oops");
+                usersOperations.addUser();
                 break;
             case 7:
                 System.out.println("Oops");
                 break;
             case 8:
-                usersOperations.deleteUser();
+                System.out.println("Oops");
                 break;
             case 9:
-                userRoleOperations.generateAllUsersRoles();
+                System.out.println("Oops");
                 break;
             case 10:
-                userStudyingOperations.addUserGroup();
+                usersOperations.deleteUser();
                 break;
             case 11:
-                userSessionOperations.createUserSession();
+                userRoleOperations.generateAllUsersRoles();
                 break;
             case 12:
-                bcompOperations.jAddEmptyBcomp();
+                userStudyingOperations.addUserGroup();
                 break;
             case 13:
-                bcompOperations.jPrintAllBcomp();
+                userSessionOperations.createUserSession();
                 break;
             case 14:
-                bcompOperations.jUpdateBcomp();
+                bcompOperations.jAddEmptyBcomp();
                 break;
             case 15:
-                bcompOperations.jDeleteBcomp();
+                bcompOperations.jPrintAllBcomp();
                 break;
             case 16:
-                bcompSettingsOperations.createBcompSettings();
+                System.out.println("Oops");
                 break;
             case 17:
-                sessionSettingsOperations.assignUserSettings();
+                bcompOperations.jUpdateBcomp();
                 break;
             case 18:
-                specifiedOperations.getEmailFromSessionId();
+                bcompOperations.jDeleteBcomp();
                 break;
             case 19:
-                specifiedOperations.getSettingsIdForUser();
+                bcompSettingsOperations.createBcompSettings();
                 break;
             case 20:
+                sessionSettingsOperations.assignUserSettings();
+                break;
+            case 21:
+                specifiedOperations.getEmailFromSessionId();
+                break;
+            case 22:
+                specifiedOperations.getSettingsIdForUser();
+                break;
+            case 23:
                 // TODO: move to separate file
                 usersOperations.updateUserProfile();
                 break;
@@ -96,11 +105,13 @@ public class HibernateOperationsManager {
                 .append("<<< Registration codes >>>\n")
                 .append(MenuInputType.ADD_REGISTRATION_CODES)
                 .append(MenuInputType.PRINT_REGISTRATION_CODES)
+                .append(MenuInputType.GET_REGISTRATION_CODE_BY_ID)
                 .append(MenuInputType.UPDATE_REGISTRATION_CODES)
                 .append(MenuInputType.DELETE_REGISTRATION_CODES)
                 .append("\n<<< Users >>>\n")
                 .append(MenuInputType.ADD_USER)
                 .append(MenuInputType.PRINT_USERS)
+                .append(MenuInputType.GET_USER_BY_ID)
                 .append(MenuInputType.UPDATE_USER)
                 .append(MenuInputType.DELETE_USER)
                 .append("\n<<< User roles >>>\n")
@@ -112,6 +123,7 @@ public class HibernateOperationsManager {
                 .append("\n<<< Bcomp >>>\n")
                 .append(MenuInputType.ADD_BCOMP)
                 .append(MenuInputType.PRINT_BCOMPS)
+                .append(MenuInputType.GET_BCOMP_BY_ID)
                 .append(MenuInputType.UPDATE_BCOMP)
                 .append(MenuInputType.DELETE_BCOMP)
                 .append("\n<<< Bcomp settings >>>\n")
