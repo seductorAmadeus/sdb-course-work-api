@@ -113,7 +113,7 @@ public class WebBcompTests {
         UserSessionDAO userSessionDAO = new UserSessionDAO();
         userSessionDAO.dropAllUserSessionRecords();
 
-        BcompSettingsDAO bcompSettingsDAO = new BcompSettingsDAO();
+        BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
         bcompSettingsDAO.dropAllBcompSettingsRecords();
 
 
@@ -134,7 +134,7 @@ public class WebBcompTests {
         // Добавляем в БД
         RegistrationCodesDAO dao = new RegistrationCodesDAO();
         for (RegistrationCodes registrationCodes : registrationCodesList) {
-            dao.addRegistrationCode(registrationCodes);
+            dao.create(registrationCodes);
         }
 
         /**
@@ -199,12 +199,12 @@ public class WebBcompTests {
         /**
          * создаем BCOMP settings
          */
-        BcompSettingsDAO bcompSettingsDAO = new BcompSettingsDAO();
+        BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
         List<BcompSettings> bcompSettingsList = getBcompSettings();
 
         for (int i = 0; i < TESTS_COUNT; i++) {
             try {
-                bcompSettingsDAO.addBcompSettings(bcompSettingsList.get(i));
+                bcompSettingsDAO.create(bcompSettingsList.get(i));
             } catch (NullPointerException exp) {
                 exp.getMessage();
             }
@@ -214,7 +214,7 @@ public class WebBcompTests {
          * ассоциируем настройки с userSessionId
          */
 
-        List<BcompSettings> newBcompSettingsList = bcompSettingsDAO.getBcompSettingsList();
+        List<BcompSettings> newBcompSettingsList = bcompSettingsDAO.getList();
         List<UserSession> newUserSessionList = userSessionDAO.listUserSessions();
         // TODO: add a check of existence in the table sessionSettings
         SessionSettingsDAO sessionSettingsDAO = new SessionSettingsDAO();

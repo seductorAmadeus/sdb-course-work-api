@@ -23,9 +23,9 @@ import java.util.List;
  * @since 0.1
  */
 
-public class BcompSettingsDAO {
+public class BcompSettingsDAOImpl implements GenericDAO<BcompSettings, BigDecimal> {
 
-    public BigDecimal addBcompSettings(BcompSettings bcompSettings) {
+    public BigDecimal create(BcompSettings bcompSettings) {
         Connection connection = null;
         ConnectionJDBC connectionHandler = new ConnectionJDBC();
         BigDecimal bcompSettingsId = null;
@@ -73,7 +73,7 @@ public class BcompSettingsDAO {
         return bcompSettingsId;
     }
 
-    public BcompSettings getBcompSettingsById(BigDecimal bcompSettingsId) {
+    public BcompSettings read(BigDecimal bcompSettingsId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BcompSettings bcompSettings = null;
@@ -94,7 +94,15 @@ public class BcompSettingsDAO {
         return bcompSettings;
     }
 
-    public List<BcompSettings> getBcompSettingsList() {
+    public void update(BcompSettings transientObject) {
+
+    }
+
+    public void delete(BigDecimal id) {
+
+    }
+
+    public List<BcompSettings> getList() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         List<BcompSettings> list = new ArrayList<>();
@@ -117,12 +125,13 @@ public class BcompSettingsDAO {
         return list;
     }
 
+    @Deprecated
     public void dropAllBcompSettingsRecords() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.createSQLQuery("truncate table bcomp_settings").executeUpdate();
+            session.createSQLQuery("TRUNCATE TABLE bcomp_settings").executeUpdate();
             transaction.commit();
         } catch (HibernateException exp) {
             if (transaction != null) {
@@ -134,7 +143,7 @@ public class BcompSettingsDAO {
         }
     }
 
-    public boolean checkBcompSettingsExists(BigDecimal bcompSettingsId) {
+    public boolean isExists(BigDecimal bcompSettingsId) {
         boolean bcompSettingsExists = false;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {

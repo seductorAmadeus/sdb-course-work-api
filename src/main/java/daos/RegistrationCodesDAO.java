@@ -23,9 +23,9 @@ import java.util.List;
  * @since 0.1
  */
 
-public class RegistrationCodesDAO {
+public class RegistrationCodesDAO implements GenericDAO<RegistrationCodes, BigDecimal> {
 
-    public BigDecimal addRegistrationCode(RegistrationCodes registrationCodes) {
+    public BigDecimal create(RegistrationCodes registrationCodes) {
         Connection connection = null;
         ConnectionJDBC connectionHandler = new ConnectionJDBC();
         BigDecimal inviteCode = null;
@@ -73,7 +73,7 @@ public class RegistrationCodesDAO {
         return inviteCode;
     }
 
-    public List<RegistrationCodes> listRegistrationCodes() {
+    public List<RegistrationCodes> getList() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         List<RegistrationCodes> list = new ArrayList<>();
@@ -97,13 +97,14 @@ public class RegistrationCodesDAO {
 
     }
 
-    public void updateRegistrationCodeStatus(BigDecimal inviteCode, String inviteCodeStatus) {
+    // TODO: проверить работу после переопределения входных параметров
+    public void update(RegistrationCodes registrationCodes) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            RegistrationCodes registrationCode = (RegistrationCodes) session.get(RegistrationCodes.class, inviteCode);
-            registrationCode.setInviteCodeStatus(inviteCodeStatus);
+            RegistrationCodes registrationCode = (RegistrationCodes) session.get(RegistrationCodes.class, registrationCodes.getInviteCode());
+            registrationCode.setInviteCodeStatus(registrationCode.getInviteCodeStatus());
             session.update(registrationCode);
             transaction.commit();
         } catch (HibernateException exp) {
@@ -117,7 +118,7 @@ public class RegistrationCodesDAO {
 
     }
 
-    public void deleteRegistrationCode(BigDecimal inviteCode) {
+    public void delete(BigDecimal inviteCode) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
@@ -137,6 +138,11 @@ public class RegistrationCodesDAO {
         }
     }
 
+    public boolean isExists(BigDecimal id) {
+        return false;
+    }
+
+    // TODO: implement additional interface
     public RegistrationCodes findFreeRegistrationCode() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
@@ -157,12 +163,13 @@ public class RegistrationCodesDAO {
         return freeRegistrationCode;
     }
 
+    @Deprecated
     public void dropAllRegistrationCodesRecords() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.createSQLQuery("truncate table REGISTRATION_CODES").executeUpdate();
+            session.createSQLQuery("TRUNCATE TABLE REGISTRATION_CODES").executeUpdate();
         } catch (HibernateException exp) {
             if (transaction != null) {
                 transaction.rollback();
@@ -173,7 +180,7 @@ public class RegistrationCodesDAO {
         }
     }
 
-    public RegistrationCodes getRegistrationCode(BigDecimal registrationCodeId) {
+    public RegistrationCodes read(BigDecimal registrationCodeId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         RegistrationCodes registrationCode = null;

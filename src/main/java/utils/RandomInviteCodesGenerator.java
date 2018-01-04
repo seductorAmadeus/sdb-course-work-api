@@ -20,7 +20,7 @@ public class RandomInviteCodesGenerator {
         RegistrationCodesDAO registrationCodesDAO = new RegistrationCodesDAO();
 
         // получаем список имеющихся инвайт-кодов
-        List<RegistrationCodes> registrationCodesList = registrationCodesDAO.listRegistrationCodes();
+        List<RegistrationCodes> registrationCodesList = registrationCodesDAO.getList();
 
         for (BigDecimal decimal : inviteCodeList) {
             if (!registrationCodesList.contains(decimal)) {

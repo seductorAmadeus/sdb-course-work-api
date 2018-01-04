@@ -1,13 +1,13 @@
 package operations;
 
-import daos.BcompSettingsDAO;
+import daos.BcompSettingsDAOImpl;
 import entities.BcompSettings;
 import utils.DataReader;
 
 public class BcompSettingsOperations {
     public void createBcompSettings() {
-        BcompSettingsDAO bcompSettingsDAO = new BcompSettingsDAO();
+        BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
         BcompSettings bcompSettings = DataReader.readBcompSettings();
-        bcompSettingsDAO.addBcompSettings(bcompSettings);
+        bcompSettingsDAO.create(bcompSettings);
     }
 }

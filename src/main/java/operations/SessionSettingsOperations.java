@@ -1,6 +1,6 @@
 package operations;
 
-import daos.BcompSettingsDAO;
+import daos.BcompSettingsDAOImpl;
 import daos.SessionSettingsDAO;
 import daos.UserSessionDAO;
 import entities.BcompSettings;
@@ -13,7 +13,7 @@ public class SessionSettingsOperations {
 
     public void assignUserSettings() {
         UserSessionDAO userSessionDAO = new UserSessionDAO();
-        BcompSettingsDAO bcompSettingsDAO = new BcompSettingsDAO();
+        BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
         SessionSettingsDAO sessionSettingsDAO = new SessionSettingsDAO();
 
         UserSession userSession;
@@ -30,7 +30,7 @@ public class SessionSettingsOperations {
             }
 
             // choose settings
-            bcompSettings = bcompSettingsDAO.getBcompSettingsById(bcompSettingsId);
+            bcompSettings = bcompSettingsDAO.read(bcompSettingsId);
             if (bcompSettingsId == null) {
                 throw new NumberFormatException();
             }
