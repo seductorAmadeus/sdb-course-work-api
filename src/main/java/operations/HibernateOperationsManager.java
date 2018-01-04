@@ -70,7 +70,7 @@ public class HibernateOperationsManager {
                 bcompOperations.jPrintAllBcomp();
                 break;
             case 16:
-                System.out.println("Oops");
+                bcompOperations.jGetBcomp();
                 break;
             case 17:
                 bcompOperations.jUpdateBcomp();

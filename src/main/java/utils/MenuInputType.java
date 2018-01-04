@@ -18,7 +18,7 @@ public enum MenuInputType {
     CREATE_USER_SESSION("13. Sign in\n"),
     ADD_BCOMP("14. Add new empty BCOMP\n"),
     PRINT_BCOMPS("15. Print all bcomps\n"),
-    GET_BCOMP_BY_ID("16. Get bcomp by id (D)\n"),
+    GET_BCOMP_BY_ID("16. Get bcomp by id\n"),
     UPDATE_BCOMP("17. Update bcomp\n"),
     DELETE_BCOMP("18. Delete bcomp by id\n"),
     CREATE_BCOMP_SETTINGS("19. Create new bcomp settings\n"),
@@ -70,8 +70,6 @@ public enum MenuInputType {
     C_MC("Enter value of the micro-command counter: "),
     R_MC("Enter value of the register of the micro-command: "),
     ASM("Enter assembler code: ");
-    // TODO: заполнить полностью это
-    ;
 
     private String text;
 

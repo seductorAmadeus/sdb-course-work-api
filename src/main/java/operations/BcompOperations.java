@@ -133,12 +133,28 @@ public class BcompOperations {
 
         BigDecimal bcompId = DataReader.readBcompId();
 
+        // TODO: удалить несовпадение проверок
         if (bcompDAO.checkExistsById(bcompId)) {
             bcompDAO.deleteBcomp(bcompId);
             // TODO: add exception checking
             jedisOperations.delete(CachePrefixType.BCOMP.toString() + bcompId);
         } else {
-            System.out.println("The specified bcomp id was not found in the system. Check it out correctly and try again");
+            System.out.println("The specified bcomp id was not found in the Redis cache. Check it out correctly and try again");
         }
+    }
+
+    public void jGetBcomp() {
+        JedisOperations jedisOperations = new JedisOperations();
+
+        BigDecimal bcompId = DataReader.readBcompId();
+
+        String bcomp = jedisOperations.get(CachePrefixType.BCOMP.toString() + bcompId);
+
+        if (bcomp != null) {
+            System.out.println(bcomp);
+        } else {
+            System.out.println("The specified bcomp id was not found in the Redis cache. Check it out correctly and try again");
+        }
+
     }
 }

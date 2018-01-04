@@ -30,6 +30,6 @@
         <mapping class="entities.Users"/>
         <mapping class="entities.UserSession"/>
         <mapping class="entities.BcompSettings"/>
-        <!-- DB schema will be updated if needed -->
+
     </session-factory>
 </hibernate-configuration>
