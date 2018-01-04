@@ -7,7 +7,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
+import javax.management.Query;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -20,6 +22,26 @@ import java.util.List;
 
 // TODO: create new interface
 public class SessionSettingsDAOImpl implements GenericDAO {
+
+//    public void deleteByBcompSettingsId(BigDecimal id) {
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        Transaction transaction = null;
+//        try {
+//            transaction = session.beginTransaction();
+//           javax.persistence.Query query =  session.createQuery("delete from ")
+//
+//            transaction.commit();
+//        } catch (IllegalArgumentException exp) {
+//            System.out.println("The specified bcomp settings is not in the database. Check it out correctly and try again");
+//        } catch (Exception exp) {
+//            if (transaction != null) {
+//                transaction.rollback();
+//                exp.printStackTrace();
+//            }
+//        } finally {
+//            session.close();
+//        }
+//    }
 
     public void assignUserSettings(UserSession userSession, BcompSettings bcompSettings) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -43,6 +65,7 @@ public class SessionSettingsDAOImpl implements GenericDAO {
 
     }
 
+    @Deprecated
     public void dropAllSessionSettingsRecords() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;

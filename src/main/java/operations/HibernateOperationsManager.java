@@ -82,16 +82,16 @@ public class HibernateOperationsManager {
                 bcompSettingsOperations.jAdd();
                 break;
             case 20:
-                bcompSettingsOperations.printAll();
+                bcompSettingsOperations.jPrintAll();
                 break;
             case 21:
                 bcompSettingsOperations.jPrint();
                 break;
             case 22:
-                bcompSettingsOperations.update();
+                bcompSettingsOperations.jUpdate();
                 break;
             case 23:
-                System.out.println("Oops"); // delete
+                bcompSettingsOperations.jDelete();
                 break;
             case 24:
                 sessionSettingsOperations.assignUserSettings();

@@ -54,6 +54,20 @@ public class BcompSettingsOperations implements DatabaseGenericOperations, Redis
 
     @Override
     public void jPrintAll() {
+        JedisOperations jedisOperations = new JedisOperations();
+        List<String> records;
+        try {
+            records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.BCOMP_SETTINGS + "*");
+            if (records.size() == 0) {
+                throw new NullPointerException();
+            } else {
+                for (String record : records) {
+                    System.out.println(record);
+                }
+            }
+        } catch (NullPointerException exp) {
+            System.out.println("Bcomp settings list is empty. No bcomp has been created/added in Redis cache");
+        }
 
     }
 
@@ -74,12 +88,40 @@ public class BcompSettingsOperations implements DatabaseGenericOperations, Redis
 
     @Override
     public void jUpdate() {
+        JedisOperations jedisOperations = new JedisOperations();
 
+        BcompSettings bcompSettings;
+        BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
+
+        BigDecimal bcompSettingsId = DataReader.readBcompSettingsId();
+
+        if (bcompSettingsDAO.isExists(bcompSettingsId)) {
+            bcompSettings = DataReader.readBcompSettings();
+            bcompSettings.setId(bcompSettingsId);
+            bcompSettingsDAO.update(bcompSettings);
+            // TODO: add exception checking?
+            // необходимо ли проверять существует ли, может быть просто добавится новое значение
+            jedisOperations.set(CachePrefixType.BCOMP_SETTINGS.toString() + bcompSettings.getId(), bcompSettings.toString());
+        } else {
+            System.out.println("The specified bcomp setting id was not found in the system. Check it out correctly and try again");
+        }
     }
 
     @Override
     public void jDelete() {
+        JedisOperations jedisOperations = new JedisOperations();
+        BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
 
+        BigDecimal bcompSettingId = DataReader.readBcompSettingsId();
+
+        if (bcompSettingsDAO.isExists(bcompSettingId)) {
+            // firstly, we must to deleteByBcompSettingsId session setting that linked
+            bcompSettingsDAO.delete(bcompSettingId);
+        } else {
+            System.out.println("The specified bcomp setting id was not found in the oracle DB. Check it out correctly and try again");
+        }
+        // check if exists in cache
+        jedisOperations.delete(CachePrefixType.BCOMP_SETTINGS.toString() + bcompSettingId);
     }
 
     @Override

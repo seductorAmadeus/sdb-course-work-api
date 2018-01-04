@@ -123,7 +123,7 @@ public class JedisOperations {
             jedis.del(key);
             System.out.println(">> Deleted " + key);
         } catch (JedisException ex) {
-            System.err.println("Something happened (Jedis, delete) " + ex.getMessage());
+            System.err.println("Something happened (Jedis, deleteByBcompSettingsId) " + ex.getMessage());
             if (null != jedis) {
                 pool.returnBrokenResource(jedis);
                 jedis = null;
