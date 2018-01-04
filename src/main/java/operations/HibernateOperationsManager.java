@@ -79,18 +79,30 @@ public class HibernateOperationsManager {
                 bcompOperations.jDeleteBcomp();
                 break;
             case 19:
-                bcompSettingsOperations.createBcompSettings();
+                bcompSettingsOperations.createBcompSetting();
                 break;
             case 20:
-                sessionSettingsOperations.assignUserSettings();
+                System.out.println("Oops"); // print all
                 break;
             case 21:
-                specifiedOperations.getEmailFromSessionId();
+                System.out.println("Oops"); // get BcompSetting by id
                 break;
             case 22:
-                specifiedOperations.getSettingsIdForUser();
+                bcompSettingsOperations.updateBcompSetting();
                 break;
             case 23:
+                System.out.println("Oops"); // delete
+                break;
+            case 24:
+                sessionSettingsOperations.assignUserSettings();
+                break;
+            case 25:
+                specifiedOperations.getEmailFromSessionId();
+                break;
+            case 26:
+                specifiedOperations.getSettingsIdForUser();
+                break;
+            case 27:
                 // TODO: move to separate file
                 usersOperations.updateUserProfile();
                 break;
@@ -128,6 +140,10 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.DELETE_BCOMP)
                 .append("\n<<< Bcomp settings >>>\n")
                 .append(MenuInputType.CREATE_BCOMP_SETTINGS)
+                .append(MenuInputType.PRINT_BCOMP_SETTINGS)
+                .append(MenuInputType.GET_BCOMP_SETTING_BY_ID)
+                .append(MenuInputType.UPDATE_BCOMP_SETTING)
+                .append(MenuInputType.DELETE_BCOMP_SETING)
                 .append("\n<<< Session settings >>>\n")
                 .append(MenuInputType.ASSING_USER_SETTINGS)
                 .append("\n<<< Separate functions >>>\n")

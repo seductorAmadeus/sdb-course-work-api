@@ -94,10 +94,6 @@ public class BcompSettingsDAOImpl implements GenericDAO<BcompSettings, BigDecima
         return bcompSettings;
     }
 
-    public void update(BcompSettings transientObject) {
-
-    }
-
     public void delete(BigDecimal id) {
 
     }
