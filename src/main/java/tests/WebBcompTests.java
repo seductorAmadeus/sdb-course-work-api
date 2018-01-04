@@ -41,7 +41,7 @@ public class WebBcompTests {
         RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
         List<RegistrationCodes> registrationCodes = new ArrayList<>();
         for (int i = 0; i < TESTS_COUNT; i++) {
-            registrationCodes.add(registrationCodesDAO.findFreeRegistrationCode());
+            registrationCodes.add(registrationCodesDAO.getAvailableCode());
         }
         return registrationCodes;
     }

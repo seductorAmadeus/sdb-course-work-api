@@ -17,7 +17,7 @@ public class UsersOperations {
         UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
         RegistrationCodes registrationCode = null;
         try {
-            registrationCode = registrationCodesDAO.findFreeRegistrationCode();
+            registrationCode = registrationCodesDAO.getAvailableCode();
         } catch (NullPointerException exp) {
             System.out.println("No available invite code found. Generate additional codes.");
             return;

@@ -23,7 +23,7 @@ import java.util.List;
  * @since 0.1
  */
 
-public class RegistrationCodesDAOImpl implements GenericDAO<RegistrationCodes, BigDecimal> {
+public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
 
     public BigDecimal create(RegistrationCodes registrationCodes) {
         Connection connection = null;
@@ -142,8 +142,7 @@ public class RegistrationCodesDAOImpl implements GenericDAO<RegistrationCodes, B
         return false;
     }
 
-    // TODO: implement additional interface
-    public RegistrationCodes findFreeRegistrationCode() {
+    public RegistrationCodes getAvailableCode() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         RegistrationCodes freeRegistrationCode = null;
