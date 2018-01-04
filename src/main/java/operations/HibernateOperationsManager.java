@@ -79,13 +79,13 @@ public class HibernateOperationsManager {
                 bcompOperations.jDelete();
                 break;
             case 19:
-                bcompSettingsOperations.add();
+                bcompSettingsOperations.jAdd();
                 break;
             case 20:
                 bcompSettingsOperations.printAll();
                 break;
             case 21:
-                System.out.println("Oops"); // get BcompSetting by id
+                bcompSettingsOperations.jPrint();
                 break;
             case 22:
                 bcompSettingsOperations.update();

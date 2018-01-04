@@ -1,7 +1,8 @@
 package utils;
 
 public enum CachePrefixType {
-    BCOMP("bcomp:");
+    BCOMP("bcomp:"),
+    BCOMP_SETTINGS("bcomp_settings:");
 
     private String text;
 

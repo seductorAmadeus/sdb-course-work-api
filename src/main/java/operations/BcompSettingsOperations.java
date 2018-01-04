@@ -2,6 +2,7 @@ package operations;
 
 import daos.BcompSettingsDAOImpl;
 import entities.BcompSettings;
+import utils.CachePrefixType;
 import utils.DataReader;
 
 import java.math.BigDecimal;
@@ -58,7 +59,17 @@ public class BcompSettingsOperations implements DatabaseGenericOperations, Redis
 
     @Override
     public void jPrint() {
+        JedisOperations jedisOperations = new JedisOperations();
 
+        BigDecimal bcompSettingId = DataReader.readBcompSettingsId();
+
+        String bcompSetting = jedisOperations.get(CachePrefixType.BCOMP_SETTINGS.toString() + bcompSettingId);
+
+        if (bcompSetting != null) {
+            System.out.println(bcompSetting);
+        } else {
+            System.out.println("The specified bcomp setting id was not found in the Redis cache. Check it out correctly and try again");
+        }
     }
 
     @Override
@@ -73,6 +84,23 @@ public class BcompSettingsOperations implements DatabaseGenericOperations, Redis
 
     @Override
     public void jAdd() {
+        JedisOperations jedisOperations = new JedisOperations();
+
+        BcompSettings bcompSettings;
+        BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
+
+        bcompSettings = DataReader.readBcompSettings();
+
+        BigDecimal bcompSettingsId;
+        try {
+            bcompSettingsId = bcompSettingsDAO.create(bcompSettings);
+            if (bcompSettingsId != null) {
+                bcompSettings.setId(bcompSettingsId);
+                jedisOperations.set(CachePrefixType.BCOMP_SETTINGS.toString() + bcompSettings.getId(), bcompSettings.toString());
+            }
+        } catch (NullPointerException exp) {
+            System.out.println("The specified bcomp setting was not created in the system. Check it out correctly and try again");
+        }
 
     }
 }
