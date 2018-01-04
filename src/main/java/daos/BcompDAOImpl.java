@@ -171,24 +171,6 @@ public class BcompDAOImpl implements GenericDAO<Bcomp, BigDecimal> {
         return bcomp;
     }
 
-    // TODO: change it
-    public void update(Bcomp bcomp) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            session.saveOrUpdate(bcomp);
-            transaction.commit();
-        } catch (HibernateException exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        } finally {
-            session.close();
-        }
-    }
-
     public void delete(BigDecimal bcompId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
