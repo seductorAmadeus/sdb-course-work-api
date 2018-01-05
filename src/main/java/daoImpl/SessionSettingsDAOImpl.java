@@ -88,7 +88,7 @@ public class SessionSettingsDAOImpl implements GenericDAO {
     }
 
     @Override
-    public Object read(Serializable id) {
+    public Object get(Serializable id) {
         return null;
     }
 

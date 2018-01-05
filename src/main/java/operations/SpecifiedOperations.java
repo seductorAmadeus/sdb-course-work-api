@@ -2,6 +2,7 @@ package operations;
 
 import daoImpl.PackageFunctions;
 import daoImpl.UserSessionDAOImpl;
+import entities.UserSession;
 import utils.DataReader;
 
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ public class SpecifiedOperations {
         PackageFunctions packageFunctions = new PackageFunctions();
         BigDecimal userSessionId = DataReader.readUserSessionId();
 
-        if (userSessionDAO.isExists(userSessionId)) {
+        if (userSessionDAO.isExists(UserSession.class, userSessionId)) {
             System.out.println(packageFunctions.getEmailFromFromSessionId(userSessionId));
         } else {
             System.out.println("Session was not created");

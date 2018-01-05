@@ -141,7 +141,7 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
         }
     }
 
-    public RegistrationCodes read(BigDecimal registrationCodeId) {
+    public RegistrationCodes get(BigDecimal registrationCodeId) {
         Transaction transaction = null;
         RegistrationCodes registrationCode = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

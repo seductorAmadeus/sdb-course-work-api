@@ -163,7 +163,7 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
     }
 
     @Override
-    public UserRole read(BigDecimal id) {
+    public UserRole get(BigDecimal id) {
         return null;
     }
 

@@ -126,7 +126,7 @@ public class BcompDAOImpl implements GenericDAO<Bcomp, BigDecimal> {
         return list;
     }
 
-    public Bcomp read(BigDecimal bcompId) {
+    public Bcomp get(BigDecimal bcompId) {
         Transaction transaction = null;
         Bcomp bcomp = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

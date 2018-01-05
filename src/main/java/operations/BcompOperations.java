@@ -22,7 +22,7 @@ public class BcompOperations implements RedisGenericOperations, DatabaseGenericO
         BigDecimal userSessionId = DataReader.readUserSessionId();
         try {
             // checking that session exists
-            userSession = userSessionDAO.read(userSessionId);
+            userSession = userSessionDAO.get(userSessionId);
             if (userSession == null) {
                 throw new NullPointerException();
             }
@@ -80,7 +80,7 @@ public class BcompOperations implements RedisGenericOperations, DatabaseGenericO
         BigDecimal userSessionId = DataReader.readUserSessionId();
         try {
             // checking that session exists
-            userSession = userSessionDAO.read(userSessionId);
+            userSession = userSessionDAO.get(userSessionId);
             if (userSession == null) {
                 throw new NullPointerException();
             }
@@ -105,7 +105,7 @@ public class BcompOperations implements RedisGenericOperations, DatabaseGenericO
         BigDecimal bcompId = DataReader.readBcompId();
 
         if (bcompDAO.isExists(Bcomp.class, bcompId)) {
-            bcomp = bcompDAO.read(bcompId);
+            bcomp = bcompDAO.get(bcompId);
             DataReader.initBcomp(bcomp);
             bcompDAO.update(bcomp);
         } else {
@@ -122,7 +122,7 @@ public class BcompOperations implements RedisGenericOperations, DatabaseGenericO
         BigDecimal bcompId = DataReader.readBcompId();
 
         if (bcompDAO.isExists(Bcomp.class, bcompId)) {
-            bcomp = bcompDAO.read(bcompId);
+            bcomp = bcompDAO.get(bcompId);
             DataReader.initBcomp(bcomp);
             bcompDAO.update(bcomp);
             // TODO: add exception checking?

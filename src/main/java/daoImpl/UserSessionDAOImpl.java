@@ -33,7 +33,7 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
 
         // create new Hibernate session and get user for adding to user's session
         UsersDAOImpl usersDAO = new UsersDAOImpl();
-        Users user = usersDAO.getUserById(userId);
+        Users user = usersDAO.get(userId);
         userSession.setUserID(user);
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -56,7 +56,7 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
         return null;
     }
 
-    public UserSession read(BigDecimal userSessionId) {
+    public UserSession get(BigDecimal userSessionId) {
         Transaction transaction = null;
         UserSession userSession = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

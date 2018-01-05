@@ -71,7 +71,7 @@ public class BcompSettingsDAOImpl implements GenericDAO<BcompSettings, BigDecima
         return bcompSettingsId;
     }
 
-    public BcompSettings read(BigDecimal bcompSettingsId) {
+    public BcompSettings get(BigDecimal bcompSettingsId) {
         Transaction transaction = null;
         BcompSettings bcompSettings = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

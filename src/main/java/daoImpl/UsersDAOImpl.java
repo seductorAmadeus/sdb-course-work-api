@@ -69,25 +69,7 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
         return userId;
     }
 
-    public UserProfile getUserProfileById(BigDecimal userProfileId) {
-        Transaction transaction = null;
-        UserProfile userProfile = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            userProfile = session.get(UserProfile.class, userProfileId);
-            transaction.commit();
-        } catch (IllegalArgumentException exp) {
-            System.out.println("The specified user profile is not in the database. Check it out correctly and try again");
-        } catch (Exception exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        }
-        return userProfile;
-    }
-
-    public Users getUserById(BigDecimal userId) {
+    public Users get(BigDecimal userId) {
         Transaction transaction = null;
         Users user = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -119,54 +101,8 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
         }
     }
 
-    public boolean checkUserExists(BigDecimal userId) {
-        boolean usersExists = false;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            if (session.get(Users.class, userId) != null) {
-                usersExists = true;
-            }
-        } catch (HibernateException exp) {
-
-        }
-
-        return usersExists;
-    }
-
-    public boolean checkUserProfileExists(BigDecimal userProfileId) {
-        boolean userProfileExists = false;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            if (session.get(UserProfile.class, userProfileId) != null) {
-                userProfileExists = true;
-            }
-        } catch (HibernateException exp) {
-
-        }
-
-        return userProfileExists;
-    }
-
-    public void updateUserProfile(UserProfile userProfile) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.saveOrUpdate(userProfile);
-            transaction.commit();
-        } catch (HibernateException exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        }
-
-    }
-
     @Override
     public BigDecimal create(Users newInstance) {
-        return null;
-    }
-
-    @Override
-    public Users read(BigDecimal id) {
         return null;
     }
 

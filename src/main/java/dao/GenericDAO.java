@@ -11,7 +11,7 @@ import java.util.List;
 public interface GenericDAO<T, PK extends Serializable> {
     PK create(T newInstance);
 
-    T read(PK id);
+    T get(PK id);
 
     default void update(T transientObject) {
         Transaction transaction = null;

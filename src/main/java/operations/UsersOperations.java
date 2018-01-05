@@ -1,9 +1,6 @@
 package operations;
 
-import daoImpl.RegistrationCodesDAOImpl;
-import daoImpl.UserRoleDAOImpl;
-import daoImpl.UserStudyingDAOImpl;
-import daoImpl.UsersDAOImpl;
+import daoImpl.*;
 import entities.*;
 import utils.DataReader;
 
@@ -75,14 +72,13 @@ public class UsersOperations {
 
     public void updateUserProfile() {
         UserProfile userProfile;
-        UsersDAOImpl usersDAO = new UsersDAOImpl();
-
+        UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
         BigDecimal userProfileId = DataReader.readUserProfileId();
 
-        if (usersDAO.checkUserProfileExists(userProfileId)) {
-            userProfile = usersDAO.getUserProfileById(userProfileId);
+        if (userProfileDAO.isExists(UserProfile.class, userProfileId)) {
+            userProfile = userProfileDAO.get(userProfileId);
             DataReader.initUserProfile(userProfile);
-            usersDAO.updateUserProfile(userProfile);
+            userProfileDAO.update(userProfile);
         } else {
             System.out.println("The specified user profile id was not found in the system. Check it out correctly and try again");
         }

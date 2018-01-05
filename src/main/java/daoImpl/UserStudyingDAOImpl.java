@@ -159,7 +159,7 @@ public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal>
     }
 
     @Override
-    public UserStudying read(BigDecimal id) {
+    public UserStudying get(BigDecimal id) {
         return null;
     }
 

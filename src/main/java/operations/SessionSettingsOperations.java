@@ -24,13 +24,13 @@ public class SessionSettingsOperations {
 
         try {
             // checking that session exists
-            userSession = userSessionDAO.read(userSessionId);
+            userSession = userSessionDAO.get(userSessionId);
             if (userSession == null) {
                 throw new NullPointerException();
             }
 
             // choose settings
-            bcompSettings = bcompSettingsDAO.read(bcompSettingsId);
+            bcompSettings = bcompSettingsDAO.get(bcompSettingsId);
             if (bcompSettingsId == null) {
                 throw new NumberFormatException();
             }
