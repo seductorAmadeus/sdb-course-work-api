@@ -7,8 +7,9 @@ import entities.Users;
 import utils.DataReader;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-public class UserSessionOperations implements DatabaseGenericOperations{
+public class UserSessionOperations implements DatabaseGenericOperations {
 
     public void add() {
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
@@ -40,16 +41,49 @@ public class UserSessionOperations implements DatabaseGenericOperations{
 
     @Override
     public void printAll() {
+        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
+
+        List<UserSession> userSessionList = userSessionDAO.getList();
+        if (userSessionList != null) {
+            for (UserSession userSession : userSessionList) {
+                System.out.println(userSession);
+            }
+        } else {
+            System.out.println("User's session list is empty. Check it out correctly and try again");
+        }
 
     }
 
     @Override
     public void print() {
+        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
+        UserSession userSession;
+        BigDecimal userSessionId = DataReader.readUserSessionId();
 
+        if (userSessionDAO.isExists(UserSession.class, userSessionId)) {
+            userSession = userSessionDAO.get(userSessionId);
+            System.out.println(userSession);
+        } else {
+            System.out.println("The specified user's session is not created in the system. Check it out correctly and try again");
+        }
     }
 
     @Override
     public void update() {
+        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
+        UserSession userSession;
+
+        BigDecimal userSessionId = DataReader.readUserSessionId();
+        String userSessionStatus = DataReader.readUserSessionStatus();
+
+        if (userSessionDAO.isExists(UserSession.class, userSessionId)) {
+            userSession = userSessionDAO.get(userSessionId);
+            userSession.setStatus(userSessionStatus);
+            userSessionDAO.update(userSession);
+            System.out.println("Статус обновлен.");
+        } else {
+            System.out.println("The specified user's session is not created in the system. Check it out correctly and try again");
+        }
 
     }
 

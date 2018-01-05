@@ -89,4 +89,13 @@ public class UserSession {
     public void setBcompSettings(List<BcompSettings> bcompSettings) {
         this.bcompSettings = bcompSettings;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append(getId()).append(" ")
+                .append(getUserID().getUserId()).append(" ")
+                .append(getStatus()).append(" ")
+                .toString();
+    }
 }

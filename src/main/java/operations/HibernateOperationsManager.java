@@ -64,45 +64,57 @@ public class HibernateOperationsManager {
                 userSessionOperations.add();
                 break;
             case 14:
-                bcompOperations.jAdd();
+                userSessionOperations.printAll();
                 break;
             case 15:
-                bcompOperations.jPrintAll();
+                userSessionOperations.print();
                 break;
             case 16:
-                bcompOperations.jPrint();
+                userSessionOperations.update();
                 break;
             case 17:
-                bcompOperations.jUpdate();
+                userSessionOperations.delete();
                 break;
             case 18:
-                bcompOperations.jDelete();
+                bcompOperations.jAdd();
                 break;
             case 19:
-                bcompSettingsOperations.jAdd();
+                bcompOperations.jPrintAll();
                 break;
             case 20:
-                bcompSettingsOperations.jPrintAll();
+                bcompOperations.jPrint();
                 break;
             case 21:
-                bcompSettingsOperations.jPrint();
+                bcompOperations.jUpdate();
                 break;
             case 22:
-                bcompSettingsOperations.jUpdate();
+                bcompOperations.jDelete();
                 break;
             case 23:
-                bcompSettingsOperations.jDelete();
+                bcompSettingsOperations.jAdd();
                 break;
             case 24:
-                sessionSettingsOperations.assignUserSettings();
+                bcompSettingsOperations.jPrintAll();
                 break;
             case 25:
-                specifiedOperations.getEmailFromSessionId();
+                bcompSettingsOperations.jPrint();
                 break;
             case 26:
-                specifiedOperations.getSettingsIdForUser();
+                bcompSettingsOperations.jUpdate();
                 break;
             case 27:
+                bcompSettingsOperations.jDelete();
+                break;
+            case 28:
+                sessionSettingsOperations.assignUserSettings();
+                break;
+            case 29:
+                specifiedOperations.getEmailFromSessionId();
+                break;
+            case 30:
+                specifiedOperations.getSettingsIdForUser();
+                break;
+            case 31:
                 // TODO: move to separate file
                 usersOperations.updateUserProfile();
                 break;
@@ -132,6 +144,10 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.ADD_USER_GROUP)
                 .append("\n<<< User session>>>\n")
                 .append(MenuInputType.CREATE_USER_SESSION)
+                .append(MenuInputType.PRINT_USER_SESSION)
+                .append(MenuInputType.GET_USER_SESSION_BY_ID)
+                .append(MenuInputType.UPDATE_USER_SESSION)
+                .append(MenuInputType.DELETE_USER_SESSION)
                 .append("\n<<< Bcomp >>>\n")
                 .append(MenuInputType.ADD_BCOMP)
                 .append(MenuInputType.PRINT_BCOMPS)

@@ -58,6 +58,24 @@ public class DataReader {
         return registrationCodes.getInviteCodeStatus();
     }
 
+    public static String readUserSessionStatus() {
+        UserSession userSession = new UserSession();
+        System.out.println(MenuInputType.USER_SESSION_STATUS);
+        for (; ; ) {
+            try {
+                String userSessionStatus = scanner.nextLine();
+                if (!userSessionStatus.equals("active") && !userSessionStatus.equals("inactive")) {
+                    throw new NonComplianceWithConstraints("status", "active", "inactive");
+                }
+                userSession.setStatus(userSessionStatus);
+                break;
+            } catch (NonComplianceWithConstraints exp) {
+                System.out.println(exp.getMessage());
+            }
+        }
+        return userSession.getStatus();
+    }
+
     public static BigDecimal readInviteCode() {
         BigDecimal inviteCode = null;
         System.out.println(MenuInputType.INVITE_CODE);

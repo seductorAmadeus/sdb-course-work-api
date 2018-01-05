@@ -62,15 +62,6 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
         return userSession;
     }
 
-    @Override
-    public void update(UserSession transientObject) {
-
-    }
-
-    public void delete(BigDecimal id) {
-
-    }
-
     public List<UserSession> getList() {
         Transaction transaction = null;
         List<UserSession> list = new ArrayList<>();
