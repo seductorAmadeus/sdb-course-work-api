@@ -53,7 +53,20 @@ public class RegistrationCodesOperations implements RedisGenericOperations, Data
 
     @Override
     public void jPrintAll() {
-
+        JedisOperations jedisOperations = new JedisOperations();
+        List<String> records;
+        try {
+            records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.REGISTRATION_CODES + "*");
+            if (records.size() == 0) {
+                throw new NullPointerException();
+            } else {
+                for (String record : records) {
+                    System.out.println(record);
+                }
+            }
+        } catch (NullPointerException exp) {
+            System.out.println("Registration codes list is empty. No bcomp has been created/added in Redis cache");
+        }
     }
 
     @Override

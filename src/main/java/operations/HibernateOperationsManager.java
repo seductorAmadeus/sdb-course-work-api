@@ -28,7 +28,7 @@ public class HibernateOperationsManager {
                 registrationCodesOperations.jAdd();
                 break;
             case 2:
-                registrationCodesOperations.printAll();
+                registrationCodesOperations.jPrintAll();
                 break;
             case 3:
                 registrationCodesOperations.jPrint();
