@@ -61,19 +61,19 @@ public class HibernateOperationsManager {
                 userStudyingOperations.addUserGroup();
                 break;
             case 13:
-                userSessionOperations.add();
+                userSessionOperations.jAdd();
                 break;
             case 14:
-                userSessionOperations.printAll();
+                userSessionOperations.jPrintAll();
                 break;
             case 15:
-                userSessionOperations.print();
+                userSessionOperations.jPrint();
                 break;
             case 16:
-                userSessionOperations.update();
+                userSessionOperations.jUpdate();
                 break;
             case 17:
-                userSessionOperations.delete();
+                userSessionOperations.jDelete();
                 break;
             case 18:
                 bcompOperations.jAdd();

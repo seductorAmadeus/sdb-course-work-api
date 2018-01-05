@@ -5,7 +5,8 @@ public enum CachePrefixType {
     BCOMP_SETTINGS("bcomp_settings:"),
     REGISTRATION_CODES("registration_codes:"),
     USERS("users:"),
-    USER_PROFILE("user_profile:");
+    USER_PROFILE("user_profile:"),
+    USER_SESSION("user_session:");
     private String text;
 
     CachePrefixType(String text) {
