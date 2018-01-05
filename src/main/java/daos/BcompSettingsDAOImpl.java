@@ -94,26 +94,6 @@ public class BcompSettingsDAOImpl implements GenericDAO<BcompSettings, BigDecima
         return bcompSettings;
     }
 
-    public void delete(BigDecimal id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            BcompSettings bcompSettings = session.get(BcompSettings.class, id);
-            session.delete(bcompSettings);
-            transaction.commit();
-        } catch (IllegalArgumentException exp) {
-            System.out.println("The specified bcomp settings is not in the database. Check it out correctly and try again");
-        } catch (Exception exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        } finally {
-            session.close();
-        }
-    }
-
     public List<BcompSettings> getList() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;

@@ -141,7 +141,7 @@ public class BcompOperations implements RedisGenericOperations, DatabaseGenericO
 
         // TODO: удалить несовпадение проверок
         if (bcompDAO.isExists(bcompId)) {
-            bcompDAO.delete(bcompId);
+            bcompDAO.delete(Bcomp.class, bcompId);
             // TODO: add exception checking
             jedisOperations.delete(CachePrefixType.BCOMP.toString() + bcompId);
         } else {

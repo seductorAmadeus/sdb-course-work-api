@@ -116,26 +116,6 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
         return user;
     }
 
-    public void deleteUser(BigDecimal userId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            Users user = (Users) session.get(Users.class, userId);
-            session.delete(user);
-            transaction.commit();
-        } catch (IllegalArgumentException exp) {
-            System.out.println("The specified user is not in the database. Check it out correctly and try again");
-        } catch (Exception exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        } finally {
-            session.close();
-        }
-    }
-
     public void dropAllUsersRecords() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
@@ -215,11 +195,6 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
 
     @Override
     public void update(Users transientObject) {
-
-    }
-
-    @Override
-    public void delete(BigDecimal id) {
 
     }
 

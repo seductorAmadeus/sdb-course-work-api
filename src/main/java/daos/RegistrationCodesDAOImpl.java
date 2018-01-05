@@ -118,26 +118,6 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
 
     }
 
-    public void delete(BigDecimal inviteCode) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            RegistrationCodes registrationCode = (RegistrationCodes) session.get(RegistrationCodes.class, inviteCode);
-            session.delete(registrationCode);
-            transaction.commit();
-        } catch (IllegalArgumentException exp) {
-            System.out.println("The specified registration code is not in the database. Check it out correctly and try again");
-        } catch (HibernateException exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        } finally {
-            session.close();
-        }
-    }
-
     public boolean isExists(BigDecimal id) {
         return false;
     }

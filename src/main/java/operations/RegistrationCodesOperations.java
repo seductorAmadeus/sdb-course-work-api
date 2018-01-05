@@ -47,7 +47,7 @@ public class RegistrationCodesOperations implements RedisGenericOperations, Data
     public void delete() {
         RegistrationCodesDAOImpl dao = new RegistrationCodesDAOImpl();
         BigDecimal inviteCode = DataReader.readInviteCode();
-        dao.delete(inviteCode);
+        dao.delete(RegistrationCodes.class, inviteCode);
     }
 
     @Override
@@ -59,6 +59,22 @@ public class RegistrationCodesOperations implements RedisGenericOperations, Data
     public void jPrint() {
 
     }
+
+//    @Override
+//    public void jPrint() {
+//        JedisOperations jedisOperations = new JedisOperations();
+//        // TODO: add action @readRegistrationCodeId or вынести его откуда-нибудь, создать общий интерфейс или что-то
+//        // в этом роде
+////        BigDecimal registrationCodeId = DataReader.readRegistrationCode();
+//
+//        String bcomp = jedisOperations.get(CachePrefixType.BCOMP.toString() + registrationCodeId);
+//
+//        if (bcomp != null) {
+//            System.out.println(bcomp);
+//        } else {
+//            System.out.println("The specified bcomp id was not found in the Redis cache. Check it out correctly and try again");
+//        }
+//    }
 
     @Override
     public void jUpdate() {

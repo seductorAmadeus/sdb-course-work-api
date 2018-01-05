@@ -185,7 +185,6 @@ public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal>
 
     }
 
-    @Override
     public void delete(BigDecimal id) {
 
     }

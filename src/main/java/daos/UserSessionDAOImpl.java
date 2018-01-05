@@ -84,7 +84,6 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
 
     }
 
-    @Override
     public void delete(BigDecimal id) {
 
     }

@@ -192,7 +192,6 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
 
     }
 
-    @Override
     public void delete(BigDecimal id) {
 
     }

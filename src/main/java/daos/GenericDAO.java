@@ -30,7 +30,27 @@ public interface GenericDAO<T, PK extends Serializable> {
         }
     }
 
-    void delete(PK id);
+    default void delete(Class<T> tClass, PK id) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            T classInstance = session.get(tClass, id);
+            session.delete(classInstance);
+            transaction.commit();
+        } catch (IllegalArgumentException exp) {
+            System.out.println("The specified " + tClass.getName() + " is not in the database. Check it out correctly and try again");
+        } catch (Exception exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        } finally {
+            session.close();
+        }
+
+    }
 
     boolean isExists(PK id);
 

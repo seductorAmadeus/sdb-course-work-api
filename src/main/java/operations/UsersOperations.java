@@ -70,7 +70,7 @@ public class UsersOperations {
     public void deleteUser() {
         UsersDAOImpl dao = new UsersDAOImpl();
         BigDecimal userId = DataReader.readUserId();
-        dao.deleteUser(userId);
+        dao.delete(Users.class, userId);
     }
 
     public void updateUserProfile() {

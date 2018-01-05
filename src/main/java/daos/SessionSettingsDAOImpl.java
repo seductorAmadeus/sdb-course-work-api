@@ -98,7 +98,6 @@ public class SessionSettingsDAOImpl implements GenericDAO {
 
     }
 
-    @Override
     public void delete(Serializable id) {
 
     }
