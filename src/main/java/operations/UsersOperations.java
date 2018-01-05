@@ -122,7 +122,29 @@ public class UsersOperations implements RedisGenericOperations {
 
     @Override
     public void jUpdate() {
+        JedisOperations jedisOperations = new JedisOperations();
 
+        Users user, tempUser;
+        UsersDAOImpl usersDAO = new UsersDAOImpl();
+
+        BigDecimal userId = DataReader.readBcompSettingsId();
+
+        if (usersDAO.isExists(Users.class, userId)) {
+            user = usersDAO.get(userId);
+            tempUser = DataReader.readUser();
+            //TODO: доработать метод иницииации существующей сущности в БД
+            //TODO: change this temp action
+            // инициируем необходимые поля
+            user.setPassword(tempUser.getPassword());
+            user.setUsername(tempUser.getUsername());
+
+            usersDAO.update(user);
+            // TODO: add exception checking?
+            // необходимо ли проверять существует ли, может быть просто добавится новое значение
+            jedisOperations.set(CachePrefixType.USERS.toString() + user.getUserId(), user.toString());
+        } else {
+            System.out.println("The specified user id was not found in the system. Check it out correctly and try again");
+        }
     }
 
     @Override

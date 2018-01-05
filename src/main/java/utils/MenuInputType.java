@@ -11,7 +11,7 @@ public enum MenuInputType {
     ADD_USER("6. Add user\n"),
     PRINT_USERS("7. Print all users\n"),
     GET_USER_BY_ID("8. Get user by id\n"),
-    UPDATE_USER("9. Update user (D)\n"),
+    UPDATE_USER("9. Update user\n"),
     DELETE_USER("10. Delete user\n"),
     GENERATE_USER_ROLE("11. Generate user roles list\n"),
     ADD_USER_GROUP("12. Add user group\n"),

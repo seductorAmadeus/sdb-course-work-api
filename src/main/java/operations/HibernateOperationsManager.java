@@ -49,7 +49,7 @@ public class HibernateOperationsManager {
                 usersOperations.jPrint();
                 break;
             case 9:
-                System.out.println("Oops");
+                usersOperations.jUpdate();
                 break;
             case 10:
                 usersOperations.deleteUser();

@@ -107,11 +107,6 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
     }
 
     @Override
-    public void update(Users transientObject) {
-
-    }
-
-    @Override
     public List<Users> getList() {
         return null;
     }
