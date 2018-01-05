@@ -206,4 +206,14 @@ public class Users implements Serializable {
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append(getUserId()).append(" ")
+                .append(getUsername()).append(" ")
+                .append(getPassword()).append(" ")
+                .append(getRegistrationCode().getRegCodeId()).append(" ")
+                .toString();
+    }
 }
