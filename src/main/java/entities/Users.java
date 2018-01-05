@@ -42,20 +42,20 @@ public class Users implements Serializable {
     /**
      * This field contains entity that represents user's unique invite code
      */
-    @ManyToOne(optional = false)
+    @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
     @JoinColumn(name = "reg_code_id")
     private RegistrationCodes registrationCode;
 
     /**
      * This field contains set of entities that represents user's sessions
      */
-    @OneToMany(mappedBy = "userID")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "userID")
     private Set<UserSession> userSessions;
 
     /**
      * This field contains entity that represents user's profile
      */
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "users")
     private UserProfile userProfile;
 
     /**
