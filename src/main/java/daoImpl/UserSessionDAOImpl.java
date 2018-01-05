@@ -22,19 +22,12 @@ import java.util.List;
 
 public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
 
-    // TODO: change this method signature
-    public BigDecimal create(BigDecimal userId) {
+    public BigDecimal create(UserSession userSession) {
         Transaction transaction = null;
         BigDecimal userSessionId = null;
-        UserSession userSession = new UserSession();
 
         // attempt to set initial status for session
         userSession.setStatus("active");
-
-        // create new Hibernate session and get user for adding to user's session
-        UsersDAOImpl usersDAO = new UsersDAOImpl();
-        Users user = usersDAO.get(userId);
-        userSession.setUserID(user);
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -49,11 +42,6 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
         }
 
         return userSessionId;
-    }
-
-    @Override
-    public BigDecimal create(UserSession newInstance) {
-        return null;
     }
 
     public UserSession get(BigDecimal userSessionId) {

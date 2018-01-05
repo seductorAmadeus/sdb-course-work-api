@@ -171,8 +171,8 @@ public class WebBcompTests {
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         for (int i = 0; i < TESTS_COUNT; i++) {
             try {
-                userSessionDAO.create(users.get((int)
-                        Math.random() * (users.size() - 1 - users.get(0).getUserId().intValue())).getUserId());
+//                userSessionDAO.create(users.get((int)
+//                        Math.random() * (users.size() - 1 - users.get(0).getUserId().intValue())).getUserId());
             } catch (NullPointerException exp) {
                 exp.getMessage();
             }
