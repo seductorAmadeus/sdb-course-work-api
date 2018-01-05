@@ -1,6 +1,6 @@
 package operations;
 
-import daos.RegistrationCodesDAOImpl;
+import daoImpl.RegistrationCodesDAOImpl;
 import entities.RegistrationCodes;
 import utils.CachePrefixType;
 import utils.DataReader;

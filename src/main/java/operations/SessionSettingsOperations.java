@@ -1,8 +1,8 @@
 package operations;
 
-import daos.BcompSettingsDAOImpl;
-import daos.SessionSettingsDAOImpl;
-import daos.UserSessionDAOImpl;
+import daoImpl.BcompSettingsDAOImpl;
+import daoImpl.SessionSettingsDAOImpl;
+import daoImpl.UserSessionDAOImpl;
 import entities.BcompSettings;
 import entities.UserSession;
 import utils.DataReader;

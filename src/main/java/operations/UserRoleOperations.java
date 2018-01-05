@@ -1,6 +1,6 @@
 package operations;
 
-import daos.UserRoleDAOImpl;
+import daoImpl.UserRoleDAOImpl;
 
 public class UserRoleOperations {
     public void generateAllUsersRoles() {

@@ -1,5 +1,6 @@
-package daos;
+package daoImpl;
 
+import dao.GenericDAO;
 import entities.Bcomp;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -132,22 +133,6 @@ public class BcompDAOImpl implements GenericDAO<Bcomp, BigDecimal> {
             session.close();
         }
         return list;
-    }
-
-    public boolean isExists(BigDecimal bcompId) {
-        boolean bcompExists = false;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            if (session.get(Bcomp.class, bcompId) != null) {
-                bcompExists = true;
-            }
-        } catch (HibernateException exp) {
-
-        } finally {
-            session.close();
-        }
-
-        return bcompExists;
     }
 
     public Bcomp read(BigDecimal bcompId) {

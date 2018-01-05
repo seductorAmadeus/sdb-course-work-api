@@ -1,5 +1,6 @@
-package daos;
+package daoImpl;
 
+import dao.GenericDAO;
 import entities.BcompSettings;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

@@ -1,6 +1,6 @@
 package operations;
 
-import daos.BcompSettingsDAOImpl;
+import daoImpl.BcompSettingsDAOImpl;
 import entities.BcompSettings;
 import utils.CachePrefixType;
 import utils.DataReader;

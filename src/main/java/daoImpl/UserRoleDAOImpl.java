@@ -1,5 +1,6 @@
-package daos;
+package daoImpl;
 
+import dao.GenericDAO;
 import entities.UserRole;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;

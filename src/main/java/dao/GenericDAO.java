@@ -1,4 +1,4 @@
-package daos;
+package dao;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -18,6 +18,7 @@ public interface GenericDAO<T, PK extends Serializable> {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
+            // TODO: check this method!
             session.saveOrUpdate(transientObject);
             transaction.commit();
         } catch (HibernateException exp) {
@@ -31,7 +32,6 @@ public interface GenericDAO<T, PK extends Serializable> {
     }
 
     default void delete(Class<T> tClass, PK id) {
-
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
@@ -49,7 +49,6 @@ public interface GenericDAO<T, PK extends Serializable> {
         } finally {
             session.close();
         }
-
     }
 
     default boolean isExists(Class<T> tClass, PK id) {

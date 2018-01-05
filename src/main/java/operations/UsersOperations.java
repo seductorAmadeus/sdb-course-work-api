@@ -1,9 +1,9 @@
 package operations;
 
-import daos.RegistrationCodesDAOImpl;
-import daos.UserRoleDAOImpl;
-import daos.UserStudyingDAOImpl;
-import daos.UsersDAOImpl;
+import daoImpl.RegistrationCodesDAOImpl;
+import daoImpl.UserRoleDAOImpl;
+import daoImpl.UserStudyingDAOImpl;
+import daoImpl.UsersDAOImpl;
 import entities.*;
 import utils.DataReader;
 
@@ -15,7 +15,7 @@ public class UsersOperations {
         RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
         UsersDAOImpl dao = new UsersDAOImpl();
         UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
-        RegistrationCodes registrationCode = null;
+        RegistrationCodes registrationCode;
         try {
             registrationCode = registrationCodesDAO.getAvailableCode();
         } catch (NullPointerException exp) {
@@ -74,7 +74,7 @@ public class UsersOperations {
     }
 
     public void updateUserProfile() {
-        UserProfile userProfile = new UserProfile();
+        UserProfile userProfile;
         UsersDAOImpl usersDAO = new UsersDAOImpl();
 
         BigDecimal userProfileId = DataReader.readUserProfileId();

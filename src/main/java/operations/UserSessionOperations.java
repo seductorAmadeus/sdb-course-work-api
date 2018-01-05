@@ -1,7 +1,7 @@
 package operations;
 
-import daos.UserSessionDAOImpl;
-import daos.UsersDAOImpl;
+import daoImpl.UserSessionDAOImpl;
+import daoImpl.UsersDAOImpl;
 import utils.DataReader;
 
 import java.math.BigDecimal;

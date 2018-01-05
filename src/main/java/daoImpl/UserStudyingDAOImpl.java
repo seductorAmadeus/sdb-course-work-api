@@ -1,5 +1,6 @@
-package daos;
+package daoImpl;
 
+import dao.GenericDAO;
 import entities.UserStudying;
 import oracle.jdbc.OracleTypes;
 import org.hibernate.HibernateException;

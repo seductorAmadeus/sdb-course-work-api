@@ -1,6 +1,6 @@
 package tests;
 
-import daos.*;
+import daoImpl.*;
 import entities.*;
 import org.junit.Test;
 import utils.DataReader;
@@ -75,7 +75,7 @@ public class WebBcompTests {
     }
 
 
-    public List<BcompSettings> getBcompSettings() {
+    private List<BcompSettings> getBcompSettings() {
         List<BcompSettings> bcompSettingsList = new ArrayList<>();
         for (int i = 0; i < TESTS_COUNT; i++) {
             bcompSettingsList.add(new BcompSettings("value" + i, "type" + i));
@@ -137,8 +137,8 @@ public class WebBcompTests {
             dao.create(registrationCodes);
         }
 
-        /**
-         * добавляем пользователей в БД
+        /*
+          добавляем пользователей в БД
          */
         // Генерируем общую роль
         UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
@@ -165,8 +165,8 @@ public class WebBcompTests {
             }
         }
 
-        /**
-         * создаем сессии в БД на основе последнего пользователя, используя рандомайзер (доделать)
+        /*
+          создаем сессии в БД на основе последнего пользователя, используя рандомайзер (доделать)
          */
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         for (int i = 0; i < TESTS_COUNT; i++) {
@@ -178,8 +178,8 @@ public class WebBcompTests {
             }
         }
 
-        /**
-         * создаем BCOMP-ы
+        /*
+          создаем BCOMP-ы
          */
         // получаем список пользовательских сессий
         UserSessionDAOImpl userSessionDAO1 = new UserSessionDAOImpl();
@@ -196,8 +196,8 @@ public class WebBcompTests {
             }
         }
 
-        /**
-         * создаем BCOMP settings
+        /*
+          создаем BCOMP settings
          */
         BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
         List<BcompSettings> bcompSettingsList = getBcompSettings();
@@ -210,8 +210,8 @@ public class WebBcompTests {
             }
         }
 
-        /**
-         * ассоциируем настройки с userSessionId
+        /*
+          ассоциируем настройки с userSessionId
          */
 
         List<BcompSettings> newBcompSettingsList = bcompSettingsDAO.getList();

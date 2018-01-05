@@ -1,4 +1,4 @@
-package daos;
+package daoImpl;
 
 import oracle.jdbc.OracleTypes;
 import utils.ConnectionJDBC;

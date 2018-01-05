@@ -1,5 +1,6 @@
-package daos;
+package daoImpl;
 
+import dao.GenericDAO;
 import entities.UserProfile;
 import entities.Users;
 import org.hibernate.HibernateException;
@@ -80,7 +81,7 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
         UserProfile userProfile = null;
         try {
             transaction = session.beginTransaction();
-            userProfile = (UserProfile) session.get(UserProfile.class, userProfileId);
+            userProfile = session.get(UserProfile.class, userProfileId);
             transaction.commit();
         } catch (IllegalArgumentException exp) {
             System.out.println("The specified user profile is not in the database. Check it out correctly and try again");
@@ -101,7 +102,7 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
         Users user = null;
         try {
             transaction = session.beginTransaction();
-            user = (Users) session.get(Users.class, userId);
+            user = session.get(Users.class, userId);
             transaction.commit();
         } catch (IllegalArgumentException exp) {
             System.out.println("The specified user is not in the database. Check it out correctly and try again");
@@ -121,7 +122,7 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.createSQLQuery("truncate table users").executeUpdate();
+            session.createSQLQuery("TRUNCATE TABLE users").executeUpdate();
             transaction.commit();
         } catch (HibernateException exp) {
             if (transaction != null) {

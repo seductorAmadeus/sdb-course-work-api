@@ -1,5 +1,6 @@
-package daos;
+package daoImpl;
 
+import dao.GenericDAO;
 import entities.BcompSettings;
 import entities.UserSession;
 import org.hibernate.HibernateException;
@@ -7,9 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
-import javax.management.Query;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**

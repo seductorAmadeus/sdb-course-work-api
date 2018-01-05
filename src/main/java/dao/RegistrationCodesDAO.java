@@ -1,5 +1,6 @@
-package daos;
+package dao;
 
+import dao.GenericDAO;
 import entities.RegistrationCodes;
 
 import java.math.BigDecimal;

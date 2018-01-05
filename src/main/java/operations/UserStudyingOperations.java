@@ -1,6 +1,6 @@
 package operations;
 
-import daos.UserStudyingDAOImpl;
+import daoImpl.UserStudyingDAOImpl;
 import utils.DataReader;
 
 public class UserStudyingOperations {

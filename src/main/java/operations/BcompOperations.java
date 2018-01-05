@@ -1,7 +1,7 @@
 package operations;
 
-import daos.BcompDAOImpl;
-import daos.UserSessionDAOImpl;
+import daoImpl.BcompDAOImpl;
+import daoImpl.UserSessionDAOImpl;
 import entities.Bcomp;
 import entities.UserSession;
 import utils.CachePrefixType;
@@ -17,7 +17,7 @@ public class BcompOperations implements RedisGenericOperations, DatabaseGenericO
         Bcomp bcomp = new Bcomp();
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
-        UserSession userSession = null;
+        UserSession userSession;
 
         BigDecimal userSessionId = DataReader.readUserSessionId();
         try {
@@ -75,7 +75,7 @@ public class BcompOperations implements RedisGenericOperations, DatabaseGenericO
         Bcomp bcomp = new Bcomp();
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
-        UserSession userSession = null;
+        UserSession userSession;
 
         BigDecimal userSessionId = DataReader.readUserSessionId();
         try {
@@ -104,7 +104,7 @@ public class BcompOperations implements RedisGenericOperations, DatabaseGenericO
 
         BigDecimal bcompId = DataReader.readBcompId();
 
-        if (bcompDAO.isExists(bcompId)) {
+        if (bcompDAO.isExists(Bcomp.class, bcompId)) {
             bcomp = bcompDAO.read(bcompId);
             DataReader.initBcomp(bcomp);
             bcompDAO.update(bcomp);
@@ -121,7 +121,7 @@ public class BcompOperations implements RedisGenericOperations, DatabaseGenericO
 
         BigDecimal bcompId = DataReader.readBcompId();
 
-        if (bcompDAO.isExists(bcompId)) {
+        if (bcompDAO.isExists(Bcomp.class, bcompId)) {
             bcomp = bcompDAO.read(bcompId);
             DataReader.initBcomp(bcomp);
             bcompDAO.update(bcomp);
@@ -140,7 +140,7 @@ public class BcompOperations implements RedisGenericOperations, DatabaseGenericO
         BigDecimal bcompId = DataReader.readBcompId();
 
         // TODO: удалить несовпадение проверок
-        if (bcompDAO.isExists(bcompId)) {
+        if (bcompDAO.isExists(Bcomp.class, bcompId)) {
             bcompDAO.delete(Bcomp.class, bcompId);
             // TODO: add exception checking
             jedisOperations.delete(CachePrefixType.BCOMP.toString() + bcompId);

@@ -1,6 +1,6 @@
 package utils;
 
-import daos.RegistrationCodesDAOImpl;
+import daoImpl.RegistrationCodesDAOImpl;
 import entities.RegistrationCodes;
 
 import java.math.BigDecimal;

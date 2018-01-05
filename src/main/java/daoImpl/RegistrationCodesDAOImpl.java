@@ -1,5 +1,6 @@
-package daos;
+package daoImpl;
 
+import dao.RegistrationCodesDAO;
 import entities.RegistrationCodes;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -103,7 +104,7 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            RegistrationCodes registrationCode = (RegistrationCodes) session.get(RegistrationCodes.class, registrationCodes.getInviteCode());
+            RegistrationCodes registrationCode = session.get(RegistrationCodes.class, registrationCodes.getInviteCode());
             registrationCode.setInviteCodeStatus(registrationCode.getInviteCodeStatus());
             session.update(registrationCode);
             transaction.commit();
@@ -116,10 +117,6 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
             session.close();
         }
 
-    }
-
-    public boolean isExists(BigDecimal id) {
-        return false;
     }
 
     public RegistrationCodes getAvailableCode() {
