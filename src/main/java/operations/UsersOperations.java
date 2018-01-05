@@ -61,7 +61,8 @@ public class UsersOperations implements RedisGenericOperations {
         }
         userProfile.setUserStudyingId(userStudying);
 
-        dao.addUser(user, userProfile);
+        user.setUserProfile(userProfile);
+        dao.create(user);
 
     }
 
@@ -218,7 +219,9 @@ public class UsersOperations implements RedisGenericOperations {
         }
         userProfile.setUserStudyingId(userStudying);
 
-        BigDecimal userId = dao.addUser(user, userProfile);
+        user.setUserProfile(userProfile);
+
+        BigDecimal userId = dao.create(user);
 
         if (userId != null) {
             user.setUserId(userId);

@@ -22,8 +22,9 @@ import java.util.List;
 
 public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
 
-    public BigDecimal addUser(Users user, UserProfile userProfile) {
+    public BigDecimal create(Users user) {
         Transaction transaction = null;
+        UserProfile userProfile = user.getUserProfile();
         BigDecimal userId = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -99,11 +100,6 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
                 exp.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public BigDecimal create(Users newInstance) {
-        return null;
     }
 
     @Override

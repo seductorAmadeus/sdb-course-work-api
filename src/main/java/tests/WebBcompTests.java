@@ -157,13 +157,13 @@ public class WebBcompTests {
 
         List<UserProfile> userProfiles = getProfilesList(userRole, userStudying);
         List<Users> users = getUsersList(getOldRegistrationCodesList(), userProfiles);
-        for (int i = 0; i < TESTS_COUNT; i++) {
-            try {
-                usersDAO.addUser(users.get(i), userProfiles.get(i));
-            } catch (NullPointerException exp) {
-                exp.getMessage();
-            }
-        }
+//        for (int i = 0; i < TESTS_COUNT; i++) {
+//            try {
+//                usersDAO.create(users.get(i), userProfiles.get(i));
+//            } catch (NullPointerException exp) {
+//                exp.getMessage();
+//            }
+//        }
 
         /*
           создаем сессии в БД на основе последнего пользователя, используя рандомайзер (доделать)
