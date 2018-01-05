@@ -37,7 +37,7 @@ public class HibernateOperationsManager {
                 registrationCodesOperations.jUpdate();
                 break;
             case 5:
-                registrationCodesOperations.delete();
+                registrationCodesOperations.jDelete();
                 break;
             case 6:
                 usersOperations.jAdd();

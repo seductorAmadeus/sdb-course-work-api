@@ -46,7 +46,7 @@ public class RegistrationCodes implements Serializable {
     /**
      * This field contains set of entities that represents users
      */
-    @OneToMany(mappedBy = "registrationCode")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "registrationCode")
     private Set<Users> users;
 
     /**

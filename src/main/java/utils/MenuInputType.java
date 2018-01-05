@@ -16,7 +16,7 @@ public enum MenuInputType {
     GENERATE_USER_ROLE("11. Generate user roles list\n"),
     ADD_USER_GROUP("12. Add user group\n"),
     CREATE_USER_SESSION("13. Sign in\n"),
-    ADD_BCOMP("14. Add new empty BCOMP\n"),
+    ADD_BCOMP("14. Add new empty bcomp\n"),
     PRINT_BCOMPS("15. Print all bcomps\n"),
     GET_BCOMP_BY_ID("16. Get bcomp by id\n"),
     UPDATE_BCOMP("17. Update bcomp by id\n"),

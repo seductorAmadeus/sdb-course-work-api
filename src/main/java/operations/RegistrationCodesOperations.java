@@ -1,5 +1,6 @@
 package operations;
 
+import dao.RegistrationCodesDAO;
 import daoImpl.RegistrationCodesDAOImpl;
 import entities.RegistrationCodes;
 import utils.CachePrefixType;
@@ -104,6 +105,20 @@ public class RegistrationCodesOperations implements RedisGenericOperations, Data
 
     @Override
     public void jDelete() {
+
+        JedisOperations jedisOperations = new JedisOperations();
+        RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
+
+        BigDecimal registrationCodeId = DataReader.readRegistrationCodeId();
+
+        // TODO: удалить несовпадение проверок
+        if (registrationCodesDAO.isExists(RegistrationCodes.class, registrationCodeId)) {
+            registrationCodesDAO.delete(RegistrationCodes.class, registrationCodeId);
+            // TODO: add exception checking
+            jedisOperations.delete(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodeId);
+        } else {
+            System.out.println("The specified registration code id was not found in the Redis cache. Check it out correctly and try again");
+        }
 
     }
 
