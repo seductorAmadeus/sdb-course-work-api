@@ -197,4 +197,22 @@ public class UserProfile implements Serializable {
     public void setUsers(Users users) {
         this.users = users;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append(getProfileId()).append(" ")
+                .append(getUserRoleId().getId()).append(" ")
+                .append(getUserStudyingId().getId()).append(" ")
+                .append(getLastSeen()).append(" ")
+                .append(getRegisterDate()).append(" ")
+                .append(getStudyingStatus()).append(" ")
+                .append(getFirstName()).append(" ")
+                .append(getLastName()).append(" ")
+                .append(getMiddleName()).append(" ")
+                .append(getGender()).append(" ")
+                .append(getDateOfBirth()).append(" ")
+                .append(getRegStatus()).append(" ")
+                .toString();
+    }
 }

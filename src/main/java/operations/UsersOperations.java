@@ -127,7 +127,7 @@ public class UsersOperations implements RedisGenericOperations {
         Users user, tempUser;
         UsersDAOImpl usersDAO = new UsersDAOImpl();
 
-        BigDecimal userId = DataReader.readBcompSettingsId();
+        BigDecimal userId = DataReader.readUserId();
 
         if (usersDAO.isExists(Users.class, userId)) {
             user = usersDAO.get(userId);
@@ -149,11 +149,83 @@ public class UsersOperations implements RedisGenericOperations {
 
     @Override
     public void jDelete() {
+        JedisOperations jedisOperations = new JedisOperations();
+        UsersDAOImpl usersDAO = new UsersDAOImpl();
 
+        BigDecimal userId = DataReader.readUserId();
+
+        // TODO: удалить несовпадение проверок
+        if (usersDAO.isExists(Users.class, userId)) {
+            usersDAO.delete(Users.class, userId);
+            // TODO: add exception checking
+            // TODO: добавить полную проверку зависимостей с другими пользователями
+            jedisOperations.delete(CachePrefixType.USERS.toString() + userId);
+        } else {
+            System.out.println("The specified user id was not found in the Redis cache. Check it out correctly and try again");
+        }
     }
 
     @Override
     public void jAdd() {
+        JedisOperations jedisOperations = new JedisOperations();
+        RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
+        UsersDAOImpl dao = new UsersDAOImpl();
+        UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
+        RegistrationCodes registrationCode;
+        try {
+            registrationCode = registrationCodesDAO.getAvailableCode();
+        } catch (NullPointerException exp) {
+            System.out.println("No available invite code found. Generate additional codes.");
+            return;
+        }
+        Users user = DataReader.readUser();
+        user.setRegistrationCode(registrationCode);
+
+        // инициализируем все поля, крое user_role_id и user_studying_id
+        UserProfile userProfile = DataReader.readUserProfile();
+
+        // получаем и инициализируем поле user_role_id
+        UserRole userRole = new UserRole();
+        userRoleDAO.generateAllUsersRoles();
+        String userRoleStr = DataReader.readUserRole();
+        switch (userRoleStr) {
+            case "root":
+                userRole.setId(userRoleDAO.addRootRole());
+                break;
+            case "admin":
+                userRole.setId(userRoleDAO.addAdminRole());
+                break;
+            case "teacher":
+                userRole.setId(userRoleDAO.addTeacherRole());
+                break;
+            case "stud":
+                userRole.setId(userRoleDAO.addStudRole());
+                break;
+        }
+        userProfile.setUserRoleId(userRole);
+
+        // получаем и инициализируем поле user_studying_id
+        UserStudyingDAOImpl userStudyingDAO = new UserStudyingDAOImpl();
+        UserStudying userStudying = new UserStudying();
+        String userGroupStr = DataReader.readUserGroup();
+        switch (userGroupStr) {
+            case "P3101":
+            case "P3100":
+            case "P3102":
+            case "P3110":
+            case "P3111":
+                userStudying.setId(userStudyingDAO.addGroupToUser(userGroupStr));
+        }
+        userProfile.setUserStudyingId(userStudying);
+
+        BigDecimal userId = dao.addUser(user, userProfile);
+
+        if (userId != null) {
+            user.setUserId(userId);
+
+            jedisOperations.set(CachePrefixType.USERS.toString() + user.getUserId(), user.toString());
+            jedisOperations.set(CachePrefixType.USER_PROFILE.toString() + user.getUserProfile().getProfileId(), userProfile.toString());
+        }
 
     }
 }

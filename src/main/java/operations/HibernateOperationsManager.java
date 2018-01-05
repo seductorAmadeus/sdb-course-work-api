@@ -40,7 +40,7 @@ public class HibernateOperationsManager {
                 registrationCodesOperations.delete();
                 break;
             case 6:
-                usersOperations.addUser();
+                usersOperations.jAdd();
                 break;
             case 7:
                 usersOperations.jPrintAll();
@@ -52,7 +52,7 @@ public class HibernateOperationsManager {
                 usersOperations.jUpdate();
                 break;
             case 10:
-                usersOperations.deleteUser();
+                usersOperations.jDelete();
                 break;
             case 11:
                 userRoleOperations.generateAllUsersRoles();
