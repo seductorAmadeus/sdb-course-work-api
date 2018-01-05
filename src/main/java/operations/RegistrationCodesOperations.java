@@ -83,7 +83,23 @@ public class RegistrationCodesOperations implements RedisGenericOperations, Data
 
     @Override
     public void jUpdate() {
+        JedisOperations jedisOperations = new JedisOperations();
 
+        RegistrationCodes registrationCodes;
+        RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
+
+        BigDecimal registrationCodeId = DataReader.readRegistrationCodeId();
+
+        if (registrationCodesDAO.isExists(RegistrationCodes.class, registrationCodeId)) {
+            registrationCodes = DataReader.readRegistrationCode();
+            registrationCodes.setRegCodeId(registrationCodeId);
+            registrationCodesDAO.update(registrationCodes);
+            // TODO: add exception checking?
+            // необходимо ли проверять существует ли, может быть просто добавится новое значение
+            jedisOperations.set(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodes.getRegCodeId(), registrationCodes.toString());
+        } else {
+            System.out.println("The specified registration code id was not found in the system. Check it out correctly and try again");
+        }
     }
 
     @Override

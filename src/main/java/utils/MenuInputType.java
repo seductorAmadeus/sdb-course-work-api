@@ -25,7 +25,7 @@ public enum MenuInputType {
     PRINT_BCOMP_SETTINGS("20. Print all bcomp settings\n"),
     GET_BCOMP_SETTING_BY_ID("21. Get bcomp setting by id\n"),
     UPDATE_BCOMP_SETTING("22. Update bcomp setting by id\n"),
-    DELETE_BCOMP_SETING("23. Delete bcomp setting by id (D)\n"),
+    DELETE_BCOMP_SETING("23. Delete bcomp setting by id\n"),
     ASSING_USER_SETTINGS("20. Assign user settings\n"),
     GET_EMAIL_USING_SESSION_ID("21. Get admin email from user's session id\n"),
     GET_SETTINGS_ID_FOR_USER("22. Get settingsId for user\n"),

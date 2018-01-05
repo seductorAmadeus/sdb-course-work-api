@@ -92,24 +92,6 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
 
     }
 
-    // TODO: проверить работу после переопределения входных параметров
-    public void update(RegistrationCodes registrationCodes) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            RegistrationCodes registrationCode = session.get(RegistrationCodes.class, registrationCodes.getInviteCode());
-            registrationCode.setInviteCodeStatus(registrationCode.getInviteCodeStatus());
-            session.update(registrationCode);
-            transaction.commit();
-        } catch (HibernateException exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        }
-
-    }
-
     public RegistrationCodes getAvailableCode() {
         Transaction transaction = null;
         RegistrationCodes freeRegistrationCode = null;
