@@ -34,7 +34,8 @@ public class UserSession {
     @OneToMany(mappedBy = "userSession", cascade = CascadeType.ALL)
     private Set<Bcomp> bcomps;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    // TODO: fix it?
+    @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JoinTable(name = "session_settings",
             joinColumns = {@JoinColumn(name = "session_id")},
             inverseJoinColumns = {@JoinColumn(name = "setting_id")})

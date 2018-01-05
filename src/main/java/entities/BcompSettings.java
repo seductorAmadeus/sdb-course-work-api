@@ -41,7 +41,7 @@ public class BcompSettings {
     /**
      * This field contains list of bcomp settings that represents user's session
      */
-    @ManyToMany(mappedBy = "bcompSettings", fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.REMOVE, mappedBy = "bcompSettings", fetch = FetchType.EAGER)
     private List<UserSession> userSessions = new ArrayList<>();
 
     /**

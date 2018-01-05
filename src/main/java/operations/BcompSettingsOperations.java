@@ -115,7 +115,7 @@ public class BcompSettingsOperations implements DatabaseGenericOperations, Redis
         BigDecimal bcompSettingId = DataReader.readBcompSettingsId();
 
         if (bcompSettingsDAO.isExists(BcompSettings.class, bcompSettingId)) {
-            // firstly, we must to deleteByBcompSettingsId session setting that linked
+            // TODO: delete from jedis связанные classes, а не только bcomp setting!!
             bcompSettingsDAO.delete(BcompSettings.class, bcompSettingId);
         } else {
             System.out.println("The specified bcomp setting id was not found in the oracle DB. Check it out correctly and try again");

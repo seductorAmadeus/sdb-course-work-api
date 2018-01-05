@@ -123,4 +123,10 @@ public class BcompSettingsDAOImpl implements GenericDAO<BcompSettings, BigDecima
             }
         }
     }
+
+    /*TODO: Add warning! This method will delete all records thar related with BcompSettings! (i.e bcomp, user_session, bcomp_setting, session setting*/
+    @Override
+    public void delete(Class<BcompSettings> bcompSettingsClass, BigDecimal id) {
+        delete(bcompSettingsClass, id);
+    }
 }
