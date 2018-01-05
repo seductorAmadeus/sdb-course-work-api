@@ -134,20 +134,4 @@ public class BcompSettingsDAOImpl implements GenericDAO<BcompSettings, BigDecima
             session.close();
         }
     }
-
-    public boolean isExists(BigDecimal bcompSettingsId) {
-        boolean bcompSettingsExists = false;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            if (session.get(BcompSettings.class, bcompSettingsId) != null) {
-                bcompSettingsExists = true;
-            }
-        } catch (HibernateException exp) {
-
-        } finally {
-            session.close();
-        }
-
-        return bcompSettingsExists;
-    }
 }

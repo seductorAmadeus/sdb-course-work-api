@@ -196,7 +196,6 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
 
     }
 
-    @Override
     public boolean isExists(BigDecimal id) {
         return false;
     }

@@ -95,7 +95,7 @@ public class BcompSettingsOperations implements DatabaseGenericOperations, Redis
 
         BigDecimal bcompSettingsId = DataReader.readBcompSettingsId();
 
-        if (bcompSettingsDAO.isExists(bcompSettingsId)) {
+        if (bcompSettingsDAO.isExists(BcompSettings.class, bcompSettingsId)) {
             bcompSettings = DataReader.readBcompSettings();
             bcompSettings.setId(bcompSettingsId);
             bcompSettingsDAO.update(bcompSettings);
@@ -114,7 +114,7 @@ public class BcompSettingsOperations implements DatabaseGenericOperations, Redis
 
         BigDecimal bcompSettingId = DataReader.readBcompSettingsId();
 
-        if (bcompSettingsDAO.isExists(bcompSettingId)) {
+        if (bcompSettingsDAO.isExists(BcompSettings.class, bcompSettingId)) {
             // firstly, we must to deleteByBcompSettingsId session setting that linked
             bcompSettingsDAO.delete(BcompSettings.class, bcompSettingId);
         } else {

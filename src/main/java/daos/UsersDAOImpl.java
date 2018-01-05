@@ -199,11 +199,6 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
     }
 
     @Override
-    public boolean isExists(BigDecimal id) {
-        return false;
-    }
-
-    @Override
     public List<Users> getList() {
         return null;
     }

@@ -52,7 +52,21 @@ public interface GenericDAO<T, PK extends Serializable> {
 
     }
 
-    boolean isExists(PK id);
+    default boolean isExists(Class<T> tClass, PK id) {
+        boolean condition = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            if (session.get(tClass, id) != null) {
+                condition = true;
+            }
+        } catch (HibernateException exp) {
+
+        } finally {
+            session.close();
+        }
+
+        return condition;
+    }
 
     List<T> getList();
 }

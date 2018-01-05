@@ -102,7 +102,6 @@ public class SessionSettingsDAOImpl implements GenericDAO {
 
     }
 
-    @Override
     public boolean isExists(Serializable id) {
         return false;
     }
