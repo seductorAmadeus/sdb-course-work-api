@@ -5,7 +5,7 @@ public enum MenuInputType {
     // HibernateOperationsManager
     ADD_REGISTRATION_CODES("1. Add invite code\n"),
     PRINT_REGISTRATION_CODES("2. Print all invite codes\n"),
-    GET_REGISTRATION_CODE_BY_ID("3. Get invite code by id (D)\n"),
+    GET_REGISTRATION_CODE_BY_ID("3. Get invite code by id\n"),
     UPDATE_REGISTRATION_CODES("4. Update invite code status\n"),
     DELETE_REGISTRATION_CODES("5. Delete invite code\n"),
     ADD_USER("6. Add user\n"),
@@ -39,6 +39,7 @@ public enum MenuInputType {
     USERNAME("Enter username: "),
     PASSWORD("Enter password: "),
     USER_PROFILE_ID("Enter user profile id: "),
+    REGISTRATION_CODE_ID("Enter invite code id: "),
     USER_ID("Enter user id: "),
     STUDYING_STATUS("Enter user status: "),
     FIRST_NAME("Enter user first name: "),

@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class RegistrationCodesOperations implements RedisGenericOperations, DatabaseGenericOperations {
+
     public void add() {
         RegistrationCodesDAOImpl dao = new RegistrationCodesDAOImpl();
         RegistrationCodes registrationCodes = DataReader.readRegistrationCode();
@@ -57,24 +58,15 @@ public class RegistrationCodesOperations implements RedisGenericOperations, Data
 
     @Override
     public void jPrint() {
-
+        JedisOperations jedisOperations = new JedisOperations();
+        BigDecimal registrationCodeId = DataReader.readRegistrationCodeId();
+        String registrationCode = jedisOperations.get(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodeId);
+        if (registrationCode != null) {
+            System.out.println(registrationCode);
+        } else {
+            System.out.println("The specified registration code was not found in the Redis cache. Check it out correctly and try again");
+        }
     }
-
-//    @Override
-//    public void jPrint() {
-//        JedisOperations jedisOperations = new JedisOperations();
-//        // TODO: add action @readRegistrationCodeId or вынести его откуда-нибудь, создать общий интерфейс или что-то
-//        // в этом роде
-////        BigDecimal registrationCodeId = DataReader.readRegistrationCode();
-//
-//        String bcomp = jedisOperations.get(CachePrefixType.BCOMP.toString() + registrationCodeId);
-//
-//        if (bcomp != null) {
-//            System.out.println(bcomp);
-//        } else {
-//            System.out.println("The specified bcomp id was not found in the Redis cache. Check it out correctly and try again");
-//        }
-//    }
 
     @Override
     public void jUpdate() {

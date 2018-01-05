@@ -31,7 +31,7 @@ public class HibernateOperationsManager {
                 registrationCodesOperations.printAll();
                 break;
             case 3:
-                System.out.println("Oops");
+                registrationCodesOperations.jPrint();
                 break;
             case 4:
                 registrationCodesOperations.update();

@@ -355,6 +355,24 @@ public class DataReader {
         return bcompId;
     }
 
+    public static BigDecimal readRegistrationCodeId() {
+        BigDecimal registrationCodeId;
+        System.out.println(MenuInputType.REGISTRATION_CODE_ID);
+        for (; ; ) {
+            String tempBcompId = scanner.nextLine();
+            try {
+                if (tempBcompId.length() > 20) {
+                    throw new Exception();
+                }
+                registrationCodeId = new BigDecimal(tempBcompId);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+        return registrationCodeId;
+    }
+
     public static BigDecimal readUserProfileId() {
         BigDecimal userProfileId = null;
         System.out.println(MenuInputType.USER_PROFILE_ID);
@@ -379,7 +397,7 @@ public class DataReader {
     }
 
     public static void initBcomp(Bcomp bcomp) {
-    // TODO: need fix
+        // TODO: need fix
 //        System.out.println(MenuInputType.);
         for (; ; ) {
             String memory = scanner.nextLine();
