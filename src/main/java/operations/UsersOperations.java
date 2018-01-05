@@ -2,11 +2,13 @@ package operations;
 
 import daoImpl.*;
 import entities.*;
+import utils.CachePrefixType;
 import utils.DataReader;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-public class UsersOperations {
+public class UsersOperations implements RedisGenericOperations {
 
     public void addUser() {
         RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
@@ -70,6 +72,7 @@ public class UsersOperations {
         dao.delete(Users.class, userId);
     }
 
+
     public void updateUserProfile() {
         UserProfile userProfile;
         UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
@@ -84,4 +87,51 @@ public class UsersOperations {
         }
     }
 
+    @Override
+    public void jPrintAll() {
+        JedisOperations jedisOperations = new JedisOperations();
+        List<String> records;
+        try {
+            records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.USERS + "*");
+            if (records.size() == 0) {
+                throw new NullPointerException();
+            } else {
+                for (String record : records) {
+                    System.out.println(record);
+                }
+            }
+        } catch (NullPointerException exp) {
+            System.out.println("Users' list is empty. No bcomp has been created/added in Redis cache");
+        }
+    }
+
+    @Override
+    public void jPrint() {
+        JedisOperations jedisOperations = new JedisOperations();
+
+        BigDecimal userId = DataReader.readUserId();
+
+        String users = jedisOperations.get(CachePrefixType.USERS.toString() + userId);
+
+        if (users != null) {
+            System.out.println(users);
+        } else {
+            System.out.println("The specified user id was not found in the Redis cache. Check it out correctly and try again");
+        }
+    }
+
+    @Override
+    public void jUpdate() {
+
+    }
+
+    @Override
+    public void jDelete() {
+
+    }
+
+    @Override
+    public void jAdd() {
+
+    }
 }

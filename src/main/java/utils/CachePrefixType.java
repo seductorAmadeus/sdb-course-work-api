@@ -3,7 +3,8 @@ package utils;
 public enum CachePrefixType {
     BCOMP("bcomp:"),
     BCOMP_SETTINGS("bcomp_settings:"),
-    REGISTRATION_CODES("registration_codes:");
+    REGISTRATION_CODES("registration_codes:"),
+    USERS("users:");
 
     private String text;
 

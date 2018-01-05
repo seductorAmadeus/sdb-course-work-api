@@ -43,10 +43,10 @@ public class HibernateOperationsManager {
                 usersOperations.addUser();
                 break;
             case 7:
-                System.out.println("Oops");
+                usersOperations.jPrintAll();
                 break;
             case 8:
-                System.out.println("Oops");
+                usersOperations.jPrint();
                 break;
             case 9:
                 System.out.println("Oops");
