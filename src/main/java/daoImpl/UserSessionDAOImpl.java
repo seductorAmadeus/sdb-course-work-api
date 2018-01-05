@@ -24,7 +24,6 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
 
     // TODO: change this method signature
     public BigDecimal create(BigDecimal userId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigDecimal userSessionId = null;
         UserSession userSession = new UserSession();
@@ -37,7 +36,7 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
         Users user = usersDAO.getUserById(userId);
         userSession.setUserID(user);
 
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.persist(userSession);
             transaction.commit();
@@ -47,8 +46,6 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
 
         return userSessionId;
@@ -60,10 +57,9 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
     }
 
     public UserSession read(BigDecimal userSessionId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         UserSession userSession = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             userSession = (UserSession) session.createQuery("from UserSession where id = :userSessionId")
                     .setParameter("userSessionId", userSessionId)
@@ -74,8 +70,6 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
         return userSession;
     }
@@ -89,27 +83,10 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
 
     }
 
-    public boolean isExists(BigDecimal userSessionId) {
-        boolean userSessionExists = false;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            if (session.get(UserSession.class, userSessionId) != null) {
-                userSessionExists = true;
-            }
-        } catch (HibernateException exp) {
-
-        } finally {
-            session.close();
-        }
-
-        return userSessionExists;
-    }
-
     public List<UserSession> getList() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         List<UserSession> list = new ArrayList<>();
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             List tempList = session.createQuery("from UserSession").list();
             for (Object aTempList : tempList) {
@@ -121,17 +98,14 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
         return list;
     }
 
     @Deprecated
     public void dropAllUserSessionRecords() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.createSQLQuery("TRUNCATE TABLE user_session").executeUpdate();
             transaction.commit();
@@ -140,8 +114,6 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
     }
 }

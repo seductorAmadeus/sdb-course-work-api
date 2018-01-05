@@ -23,10 +23,9 @@ import java.util.List;
 public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
 
     public BigDecimal addUser(Users user, UserProfile userProfile) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigDecimal userId = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             userProfile.setUsers(user);
             user.setUserProfile(userProfile);
@@ -38,8 +37,6 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
 
         return userId;
@@ -47,10 +44,9 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
 
     // return null if user not exists
     public BigDecimal getUserId(String username, String password) throws NullPointerException {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigDecimal userId = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             Users user = (Users) session.createQuery("from Users where username=:username and password=:password")
                     .setParameter("username", username)
@@ -69,17 +65,14 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
         return userId;
     }
 
     public UserProfile getUserProfileById(BigDecimal userProfileId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         UserProfile userProfile = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             userProfile = session.get(UserProfile.class, userProfileId);
             transaction.commit();
@@ -90,17 +83,14 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
         return userProfile;
     }
 
     public Users getUserById(BigDecimal userId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         Users user = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             user = session.get(Users.class, userId);
             transaction.commit();
@@ -111,16 +101,13 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
         return user;
     }
 
     public void dropAllUsersRecords() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.createSQLQuery("TRUNCATE TABLE users").executeUpdate();
             transaction.commit();
@@ -129,22 +116,17 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
     }
 
     public boolean checkUserExists(BigDecimal userId) {
         boolean usersExists = false;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             if (session.get(Users.class, userId) != null) {
                 usersExists = true;
             }
         } catch (HibernateException exp) {
 
-        } finally {
-            session.close();
         }
 
         return usersExists;
@@ -152,24 +134,20 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
 
     public boolean checkUserProfileExists(BigDecimal userProfileId) {
         boolean userProfileExists = false;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             if (session.get(UserProfile.class, userProfileId) != null) {
                 userProfileExists = true;
             }
         } catch (HibernateException exp) {
 
-        } finally {
-            session.close();
         }
 
         return userProfileExists;
     }
 
     public void updateUserProfile(UserProfile userProfile) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.saveOrUpdate(userProfile);
             transaction.commit();
@@ -178,8 +156,6 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
 
     }

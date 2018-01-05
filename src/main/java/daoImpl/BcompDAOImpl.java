@@ -74,11 +74,10 @@ public class BcompDAOImpl implements GenericDAO<Bcomp, BigDecimal> {
 
     @Deprecated
     public BigDecimal createEmptyBcompH(Bcomp bcomp) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigDecimal bcompId = null;
 
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.persist(bcomp);
             transaction.commit();
@@ -88,8 +87,6 @@ public class BcompDAOImpl implements GenericDAO<Bcomp, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
 
         return bcompId;
@@ -98,9 +95,8 @@ public class BcompDAOImpl implements GenericDAO<Bcomp, BigDecimal> {
     /*TODO: fix it*/
     @Deprecated
     public void dropAllBcompRecords() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.createSQLQuery("TRUNCATE TABLE bcomp").executeUpdate();
         } catch (HibernateException exp) {
@@ -108,16 +104,13 @@ public class BcompDAOImpl implements GenericDAO<Bcomp, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
     }
 
     public List<Bcomp> getList() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         List<Bcomp> list = new ArrayList<>();
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             List tempList = session.createQuery("from Bcomp").list();
             for (Object aTempList : tempList) {
@@ -129,17 +122,14 @@ public class BcompDAOImpl implements GenericDAO<Bcomp, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
         return list;
     }
 
     public Bcomp read(BigDecimal bcompId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         Bcomp bcomp = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             bcomp = (Bcomp) session.createQuery("from Bcomp where id = :bcompId")
                     .setParameter("bcompId", bcompId)
@@ -150,8 +140,6 @@ public class BcompDAOImpl implements GenericDAO<Bcomp, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
         return bcomp;
     }

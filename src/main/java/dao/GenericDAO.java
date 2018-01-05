@@ -14,9 +14,8 @@ public interface GenericDAO<T, PK extends Serializable> {
     T read(PK id);
 
     default void update(T transientObject) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             // TODO: check this method!
             session.saveOrUpdate(transientObject);
@@ -26,15 +25,12 @@ public interface GenericDAO<T, PK extends Serializable> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
     }
 
     default void delete(Class<T> tClass, PK id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             T classInstance = session.get(tClass, id);
             session.delete(classInstance);
@@ -46,22 +42,17 @@ public interface GenericDAO<T, PK extends Serializable> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
     }
 
     default boolean isExists(Class<T> tClass, PK id) {
         boolean condition = false;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             if (session.get(tClass, id) != null) {
                 condition = true;
             }
         } catch (HibernateException exp) {
 
-        } finally {
-            session.close();
         }
 
         return condition;

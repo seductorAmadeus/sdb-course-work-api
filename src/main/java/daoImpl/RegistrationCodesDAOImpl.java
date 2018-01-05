@@ -54,10 +54,9 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
 
     @Deprecated
     public BigDecimal addRegistrationCodeH(RegistrationCodes registrationCodes) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigDecimal inviteCode = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.persist(registrationCodes);
             transaction.commit();
@@ -67,18 +66,15 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
 
         return inviteCode;
     }
 
     public List<RegistrationCodes> getList() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         List<RegistrationCodes> list = new ArrayList<>();
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             List tempList = session.createQuery("from RegistrationCodes").list();
             for (Object aTempList : tempList) {
@@ -90,8 +86,6 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
 
         return list;
@@ -100,9 +94,8 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
 
     // TODO: проверить работу после переопределения входных параметров
     public void update(RegistrationCodes registrationCodes) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             RegistrationCodes registrationCode = session.get(RegistrationCodes.class, registrationCodes.getInviteCode());
             registrationCode.setInviteCodeStatus(registrationCode.getInviteCodeStatus());
@@ -113,17 +106,14 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
 
     }
 
     public RegistrationCodes getAvailableCode() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         RegistrationCodes freeRegistrationCode = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             freeRegistrationCode = (RegistrationCodes) session.createQuery("from RegistrationCodes where inviteCodeStatus = 'available'").setMaxResults(1).uniqueResult();
             freeRegistrationCode.setInviteCodeStatus("not available");
@@ -133,17 +123,14 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
         return freeRegistrationCode;
     }
 
     @Deprecated
     public void dropAllRegistrationCodesRecords() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.createSQLQuery("TRUNCATE TABLE REGISTRATION_CODES").executeUpdate();
         } catch (HibernateException exp) {
@@ -151,16 +138,13 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
     }
 
     public RegistrationCodes read(BigDecimal registrationCodeId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         RegistrationCodes registrationCode = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             registrationCode = (RegistrationCodes) session.createQuery("from RegistrationCodes where regCodeId = :regCodeId")
                     .setParameter("regCodeId", registrationCodeId)
@@ -171,8 +155,6 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
         return registrationCode;
     }

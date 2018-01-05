@@ -30,9 +30,8 @@ public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal>
     private BigDecimal bigDecimal;
 
     public BigDecimal addGroupToUser(String userGroup) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.doWork(connection -> {
                 CallableStatement callableStatement = connection.prepareCall("{? = call READPCKG.GETSTUDYINGIDFROMGROUP(?)}");
@@ -51,17 +50,14 @@ public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal>
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
         return bigDecimal;
     }
 
 
     public void addNewUserGroup(String group) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.doWork(connection -> {
                 CallableStatement callableStatement = connection.prepareCall("{ ? = call CREATEPCKG.addUserStudying(?)}");
@@ -75,18 +71,15 @@ public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal>
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
     }
 
     // TODO: add function like "list all groups"
     public boolean groupExist(String group) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         boolean groupExist = false;
 
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.doWork(connection -> {
                 // TODO: fix this function
@@ -100,8 +93,6 @@ public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal>
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
 
         return groupExist;
@@ -109,9 +100,8 @@ public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal>
 
     @Deprecated
     public void generateAllUsersGroups() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.doWork(connection -> {
                 CallableStatement callableStatement = connection.prepareCall("{ ? = call CREATEPCKG.addUserStudying(?)}");
@@ -133,15 +123,12 @@ public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal>
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
     }
 
     public void dropAllUserStudyingRecords() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.createSQLQuery("TRUNCATE TABLE user_studying").executeUpdate();
             transaction.commit();
@@ -150,22 +137,17 @@ public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal>
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
     }
 
     public boolean checkUserStudyingExists(BigDecimal userStudyingId) {
         boolean userStudyingExists = false;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             if (session.get(UserStudying.class, userStudyingId) != null) {
                 userStudyingExists = true;
             }
         } catch (HibernateException exp) {
 
-        } finally {
-            session.close();
         }
 
         return userStudyingExists;

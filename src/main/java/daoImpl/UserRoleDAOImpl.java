@@ -23,10 +23,9 @@ import java.util.List;
 public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
 
     public BigDecimal addRootRole() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigDecimal bigDecimal = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             bigDecimal = (BigDecimal) session.createSQLQuery("SELECT USER_ROLE.USER_ROLE_ID FROM USER_ROLE \n" +
                     "WHERE USER_ROLE.TYPE = USER_T( :root, :admin, :teacher, :stud)")
@@ -41,17 +40,14 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
         return bigDecimal;
     }
 
     public BigDecimal addAdminRole() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigDecimal bigDecimal = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             bigDecimal = (BigDecimal) session.createSQLQuery("SELECT USER_ROLE.USER_ROLE_ID FROM USER_ROLE \n" +
                     "WHERE USER_ROLE.TYPE = USER_T( :root, :admin, :teacher, :stud)")
@@ -65,17 +61,14 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
         return bigDecimal;
     }
 
     public BigDecimal addTeacherRole() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigDecimal bigDecimal = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             bigDecimal = (BigDecimal)
                     session.createSQLQuery("SELECT USER_ROLE.USER_ROLE_ID FROM USER_ROLE \n" +
@@ -91,17 +84,14 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
         return bigDecimal;
     }
 
     public BigDecimal addStudRole() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         BigDecimal bigDecimal = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             bigDecimal = (BigDecimal) session.createSQLQuery("SELECT USER_ROLE.USER_ROLE_ID FROM USER_ROLE \n" +
                     "WHERE USER_ROLE.TYPE = USER_T( :root, :admin, :teacher, :stud)")
@@ -115,16 +105,13 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
         return bigDecimal;
     }
 
     public void generateAllUsersRoles() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             Query query = session.createSQLQuery("INSERT INTO USER_ROLE (TYPE) values(USER_T('yes','no','no','no'))");
             query.executeUpdate();
@@ -140,15 +127,12 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
     }
 
     public void dropAllUserRoleRecords() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.createSQLQuery("truncate table user_role").executeUpdate();
             transaction.commit();
@@ -157,22 +141,17 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
                 transaction.rollback();
                 exp.printStackTrace();
             }
-        } finally {
-            session.close();
         }
     }
 
     public boolean checkUserRoleExists(BigDecimal userRoleId) {
         boolean userRoleExists = false;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             if (session.get(UserRole.class, userRoleId) != null) {
                 userRoleExists = true;
             }
         } catch (HibernateException exp) {
 
-        } finally {
-            session.close();
         }
 
         return userRoleExists;
