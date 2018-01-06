@@ -145,7 +145,7 @@ public class UsersOperations implements RedisGenericOperations {
     }
 
     @Override
-    public void jAdd() {
+    public void jCreate() {
         JedisOperations jedisOperations = new JedisOperations();
         RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
         UsersDAOImpl dao = new UsersDAOImpl();

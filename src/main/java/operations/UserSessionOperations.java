@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UserSessionOperations implements DatabaseGenericOperations, RedisGenericOperations {
 
-    public void add() {
+    public void get() {
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         UsersDAOImpl usersDAO = new UsersDAOImpl();
 
@@ -177,7 +177,7 @@ public class UserSessionOperations implements DatabaseGenericOperations, RedisGe
     }
 
     @Override
-    public void jAdd() {
+    public void jCreate() {
         JedisOperations jedisOperations = new JedisOperations();
 
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();

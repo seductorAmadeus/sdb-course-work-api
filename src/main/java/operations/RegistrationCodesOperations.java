@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RegistrationCodesOperations implements RedisGenericOperations, DatabaseGenericOperations {
 
-    public void add() {
+    public void get() {
         RegistrationCodesDAOImpl dao = new RegistrationCodesDAOImpl();
         RegistrationCodes registrationCodes = DataReader.readRegistrationCode();
         // TODO: Remove print action!
@@ -123,7 +123,7 @@ public class RegistrationCodesOperations implements RedisGenericOperations, Data
     }
 
     @Override
-    public void jAdd() {
+    public void jCreate() {
         JedisOperations jedisOperations = new JedisOperations();
 
         RegistrationCodes registrationCodes;

@@ -9,5 +9,5 @@ public interface RedisGenericOperations {
 
     void jDelete();
 
-    void jAdd();
+    void jCreate();
 }

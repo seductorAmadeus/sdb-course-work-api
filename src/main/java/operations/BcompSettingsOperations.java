@@ -10,7 +10,7 @@ import java.util.List;
 
 public class BcompSettingsOperations implements DatabaseGenericOperations, RedisGenericOperations {
 
-    public void add() {
+    public void get() {
         BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
         BcompSettings bcompSettings = DataReader.readBcompSettings();
         bcompSettingsDAO.create(bcompSettings);
@@ -125,7 +125,7 @@ public class BcompSettingsOperations implements DatabaseGenericOperations, Redis
     }
 
     @Override
-    public void jAdd() {
+    public void jCreate() {
         JedisOperations jedisOperations = new JedisOperations();
 
         BcompSettings bcompSettings;

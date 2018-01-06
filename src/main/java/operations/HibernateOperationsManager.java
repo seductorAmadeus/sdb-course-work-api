@@ -27,7 +27,7 @@ public class HibernateOperationsManager {
 
         switch (menuNumber) {
             case 1:
-                registrationCodesOperations.jAdd();
+                registrationCodesOperations.jCreate();
                 break;
             case 2:
                 registrationCodesOperations.jPrintAll();
@@ -42,7 +42,7 @@ public class HibernateOperationsManager {
                 registrationCodesOperations.jDelete();
                 break;
             case 6:
-                usersOperations.jAdd();
+                usersOperations.jCreate();
                 break;
             case 7:
                 usersOperations.jPrintAll();
@@ -63,7 +63,7 @@ public class HibernateOperationsManager {
                 userStudyingOperations.addUserGroup();
                 break;
             case 13:
-                userSessionOperations.jAdd();
+                userSessionOperations.jCreate();
                 break;
             case 14:
                 userSessionOperations.jPrintAll();
@@ -78,7 +78,7 @@ public class HibernateOperationsManager {
                 userSessionOperations.jDelete();
                 break;
             case 18:
-                bcompOperations.jAdd();
+                bcompOperations.jCreate();
                 break;
             case 19:
                 bcompOperations.jPrintAll();
@@ -93,7 +93,7 @@ public class HibernateOperationsManager {
                 bcompOperations.jDelete();
                 break;
             case 23:
-                bcompSettingsOperations.jAdd();
+                bcompSettingsOperations.jCreate();
                 break;
             case 24:
                 bcompSettingsOperations.jPrintAll();
@@ -117,7 +117,7 @@ public class HibernateOperationsManager {
                 specifiedOperations.getSettingsIdForUser();
                 break;
             case 31:
-                userProfileOperations.jAdd();
+                userProfileOperations.jCreate();
                 break;
             case 32:
                 userProfileOperations.jPrintAll();
