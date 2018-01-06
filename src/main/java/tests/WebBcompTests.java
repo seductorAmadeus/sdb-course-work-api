@@ -26,6 +26,8 @@ public class WebBcompTests {
         WebBcompTests test = new WebBcompTests();
 //        test.dropAllTables();
         test.createRegistrationCodes();
+        test.createUsers();
+        HibernateUtil.getSessionFactory().close();
     }
 
     @Test
@@ -79,7 +81,6 @@ public class WebBcompTests {
         return userProfiles;
     }
 
-
     private List<BcompSettings> getBcompSettings() {
         List<BcompSettings> bcompSettingsList = new ArrayList<>();
         for (int i = 0; i < TESTS_COUNT; i++) {
@@ -110,18 +111,10 @@ public class WebBcompTests {
             registrationCodes.setRegCodeId(regCodeId);
             jedisOperations.set(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodes.getRegCodeId(), registrationCodes.toString());
         }
-        // TODO: remove it!
-        HibernateUtil.getSessionFactory().close();
     }
 
-    @Test
-    public void fillAllTables() {
+    private void createUsers() {
         UsersDAOImpl usersDAO = new UsersDAOImpl();
-
-
-        /*
-          добавляем пользователей в БД
-         */
 
         // Генерируем общую роль
         UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
@@ -140,13 +133,18 @@ public class WebBcompTests {
 
         List<UserProfile> userProfiles = getProfilesList(userRole, userStudying);
         List<Users> users = getUsersList(getOldRegistrationCodesList(), userProfiles);
-//        for (int i = 0; i < TESTS_COUNT; i++) {
-//            try {
-//                usersDAO.create(users.get(i), userProfiles.get(i));
-//            } catch (NullPointerException exp) {
-//                exp.getMessage();
-//            }
-//        }
+        for (int i = 0; i < TESTS_COUNT; i++) {
+            try {
+                users.get(i).setUserProfile(userProfiles.get(i));
+                usersDAO.create(users.get(i));
+            } catch (NullPointerException exp) {
+                exp.getMessage();
+            }
+        }
+    }
+
+    @Test
+    public void fillAllTables() {
 
         /*
           создаем сессии в БД на основе последнего пользователя, используя рандомайзер (доделать)

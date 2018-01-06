@@ -411,8 +411,78 @@ public class DataReader {
 
 
     public static void initUserProfile(UserProfile userProfile) {
+        System.out.println(MenuInputType.STUDYING_STATUS);
 
-    }
+        for (; ; ) {
+            try {
+                String studyingStatus = scanner.nextLine();
+                if (!studyingStatus.equals("YES") && !studyingStatus.equals("NOT")) {
+                    throw new NonComplianceWithConstraints("studying_status", "YES", "NOT");
+                }
+                userProfile.setStudyingStatus(studyingStatus);
+                break;
+            } catch (NonComplianceWithConstraints exp) {
+                System.out.println(exp.getMessage());
+            }
+        }
+
+        System.out.println(MenuInputType.FIRST_NAME);
+
+        for (; ; ) {
+            try {
+                String firstName = scanner.nextLine();
+                if (firstName.length() >= 20) throw new Exception();
+                userProfile.setFirstName(firstName);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.LAST_NAME);
+
+        for (; ; ) {
+            try {
+                String lastName = scanner.nextLine();
+                if (lastName.length() >= 20) throw new Exception();
+                userProfile.setLastName(lastName);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+
+        System.out.println(MenuInputType.GENDER);
+
+        for (; ; ) {
+            try {
+                String gender = scanner.nextLine();
+                if (!gender.equals("M") && !gender.equals("F")) {
+                    throw new NonComplianceWithConstraints("gender", "M", "F");
+                }
+                userProfile.setGender(gender);
+                break;
+            } catch (NonComplianceWithConstraints exp) {
+                System.out.println(exp.getMessage());
+            }
+        }
+
+        System.out.println(MenuInputType.DATE_OF_BIRTH);
+
+        for (; ; ) {
+            try {
+                String dateOfBirth = scanner.nextLine();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date parsedDate = dateFormat.parse(dateOfBirth);
+                Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+                userProfile.setDateOfBirth(timestamp);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+        }
 
     public static void initBcomp(Bcomp bcomp) {
         // TODO: need fix

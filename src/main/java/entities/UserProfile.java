@@ -25,11 +25,11 @@ public class UserProfile implements Serializable {
     @Column(name = "profile_id", unique = true, nullable = false)
     private BigDecimal profileId;
 
-    @ManyToOne(optional = false)
+    @ManyToOne()
     @JoinColumn(name = "user_role_id")
     private UserRole userRoleId;
 
-    @ManyToOne(optional = false)
+    @ManyToOne()
     @JoinColumn(name = "user_studying_id")
     private UserStudying userStudyingId;
 
@@ -60,11 +60,11 @@ public class UserProfile implements Serializable {
     @Column(name = "reg_status")
     private String regStatus;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @PrimaryKeyJoinColumn
     private Users users;
 
-    @OneToOne(mappedBy = "userProfile", cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "userProfile", cascade = CascadeType.REMOVE)
     private UserPicture picture;
 
     public UserProfile() {
