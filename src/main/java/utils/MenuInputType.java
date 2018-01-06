@@ -12,7 +12,7 @@ public enum MenuInputType {
     PRINT_USERS("7. Print all users\n"),
     GET_USER_BY_ID("8. Get user by id\n"),
     UPDATE_USER("9. Update user\n"),
-    DELETE_USER("10. Delete user\n"),
+    DELETE_USER("10. Delete user (and user profile)\n"),
     GENERATE_USER_ROLE("11. Generate user roles list\n"),
     ADD_USER_GROUP("12. Add user group\n"),
     CREATE_USER_SESSION("13. Sign in\n"),
@@ -38,7 +38,8 @@ public enum MenuInputType {
     PRINT_USER_PROFILE("32. Print all user's profiles\n"),
     GET_USER_PROFILE_BY_ID("33. Get user profile by id\n"),
     UPDATE_USER_PROFILE("34. Update user profile\n"),
-    DELETE_USER_PROFILE("35. Delete user profile\n"),
+    //    DELETE_USER_PROFILE("35. Delete user profile \n(WARNING! This operation does not affect the user and only deletes the user profile if one exists)\n"),
+    DELETE_USER_PROFILE("35. Delete user profile (and user)\n"),
 
     // RegistrationCodes
     INVITE_CODE_STATUS("Enter invite code status: "),

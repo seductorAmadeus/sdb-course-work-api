@@ -13,8 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserProfileDAOImpl implements GenericDAO<UserProfile, BigDecimal> {
-    // TODO: fix it!
+
     @Override
+    // This method does not create only the user profile, it also creates the user!
     public BigDecimal create(UserProfile userProfile) {
         UsersDAOImpl usersDAO = new UsersDAOImpl();
         Users users = userProfile.getUsers();
@@ -40,6 +41,13 @@ public class UserProfileDAOImpl implements GenericDAO<UserProfile, BigDecimal> {
             }
         }
         return userProfile;
+    }
+
+    // TODO: add documentation
+   // if you only need to delete the profile, then comment out this method.
+    public void delete(Class<UserProfile> userProfileClass, BigDecimal id) {
+        UsersDAOImpl usersDAO = new UsersDAOImpl();
+        usersDAO.delete(Users.class, id);
     }
 
     @Override
