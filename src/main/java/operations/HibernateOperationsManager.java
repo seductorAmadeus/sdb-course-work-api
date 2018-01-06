@@ -117,19 +117,19 @@ public class HibernateOperationsManager {
                 specifiedOperations.getSettingsIdForUser();
                 break;
             case 31:
-                userProfileOperations.add();
+                userProfileOperations.jAdd();
                 break;
             case 32:
-                userProfileOperations.printAll();
+                userProfileOperations.jPrintAll();
                 break;
             case 33:
-                userProfileOperations.print();
+                userProfileOperations.jPrint();
                 break;
             case 34:
-                userProfileOperations.update();
+                userProfileOperations.jUpdate();
                 break;
             case 35:
-                userProfileOperations.delete();
+                userProfileOperations.jDelete();
                 break;
             default:
                 break;
