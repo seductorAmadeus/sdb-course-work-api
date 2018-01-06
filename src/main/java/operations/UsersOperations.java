@@ -1,6 +1,9 @@
 package operations;
 
-import daoImpl.*;
+import daoImpl.RegistrationCodesDAOImpl;
+import daoImpl.UserRoleDAOImpl;
+import daoImpl.UserStudyingDAOImpl;
+import daoImpl.UsersDAOImpl;
 import entities.*;
 import utils.CachePrefixType;
 import utils.DataReader;
@@ -142,6 +145,29 @@ public class UsersOperations implements RedisGenericOperations {
         } else {
             System.out.println("The specified user id was not found in the Redis cache. Check it out correctly and try again");
         }
+    }
+
+    public void synchronize() {
+        JedisOperations jedisOperations = new JedisOperations();
+        UsersDAOImpl usersDAO = new UsersDAOImpl();
+
+        List<String> keysList = jedisOperations.getAllKeys(CachePrefixType.USERS.toString() + "*");
+        // удаляем лишние записи в Redis, если таковые отсутствуют в БД
+        for (String aKeysList : keysList) {
+            String temStrId = aKeysList.substring(aKeysList.lastIndexOf(":") + 1);
+            BigDecimal tempId = new BigDecimal(temStrId);
+            if (!usersDAO.isExists(Users.class, tempId)) {
+                jedisOperations.delete(aKeysList);
+            }
+        }
+
+        // добавляем отсутствующие записи в Redis из Oracle-а.
+        List<Users> users = usersDAO.getList();
+
+        for (Users user : users) {
+            jedisOperations.set(CachePrefixType.USERS.toString() + user.getUserId(), user.toString());
+        }
+
     }
 
     @Override

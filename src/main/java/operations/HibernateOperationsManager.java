@@ -42,19 +42,24 @@ public class HibernateOperationsManager {
                 registrationCodesOperations.jDelete();
                 break;
             case 6:
+                usersOperations.synchronize();
                 usersOperations.jCreate();
                 break;
             case 7:
+                usersOperations.synchronize();
                 usersOperations.jPrintAll();
                 break;
             case 8:
+                usersOperations.synchronize();
                 usersOperations.jPrint();
                 break;
             case 9:
+                usersOperations.synchronize();
                 usersOperations.jUpdate();
                 break;
             case 10:
                 usersOperations.jDelete();
+                usersOperations.synchronize();
                 break;
             case 11:
                 userRoleOperations.generateAllUsersRoles();

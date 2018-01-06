@@ -4,8 +4,8 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.exceptions.JedisException;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -91,6 +91,59 @@ public class JedisOperations {
         }
 
         return res;
+    }
+
+    public boolean isExistsId(String keyPattern, BigDecimal id) {
+        Jedis jedis = pool.getResource();
+        // pattern:id
+        return jedis.exists(keyPattern + id);
+    }
+
+    public List<String> getAllKeys(String pattern) {
+        Jedis jedis = pool.getResource();
+        List<String> keys = new ArrayList<>();
+        try {
+            Set<String> tempKeys = jedis.keys(pattern);
+
+            keys.addAll(tempKeys);
+
+        } catch (JedisException ex) {
+            System.err.println("Oops, sorry " + ex.getMessage());
+            if (null != jedis) {
+                pool.returnBrokenResource(jedis);
+                jedis = null;
+            }
+        } finally {
+            if (null != jedis)
+                pool.returnResource(jedis);
+        }
+        return keys;
+    }
+
+    public List<BigDecimal> getAllIdsMatchingPattern(String keyPattern) {
+        Jedis jedis = pool.getResource();
+        // pattern:id
+        List<BigDecimal> id = new ArrayList<>();
+        try {
+            Set<String> keys = jedis.keys(keyPattern);
+
+            for (String key : keys) {
+                String s = key.substring(key.lastIndexOf(":") + 1);
+                // TODO: add exception checking
+                id.add(new BigDecimal(s));
+            }
+
+        } catch (JedisException ex) {
+            System.err.println("Oops, sorry " + ex.getMessage());
+            if (null != jedis) {
+                pool.returnBrokenResource(jedis);
+                jedis = null;
+            }
+        } finally {
+            if (null != jedis)
+                pool.returnResource(jedis);
+        }
+        return id;
     }
 
     public List<String> getAllRecordsMatchingPattern(String keyPattern) {

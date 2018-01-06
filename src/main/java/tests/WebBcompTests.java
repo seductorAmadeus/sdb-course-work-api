@@ -3,14 +3,13 @@ package tests;
 import daoImpl.*;
 import entities.*;
 import operations.JedisOperations;
-import operations.RegistrationCodesOperations;
+import operations.UsersOperations;
 import org.junit.Test;
 import utils.CachePrefixType;
 import utils.DataReader;
 import utils.HibernateUtil;
 import utils.RandomInviteCodesGenerator;
 
-import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -24,10 +23,16 @@ public class WebBcompTests {
 
     public static void main(String[] args) {
         WebBcompTests test = new WebBcompTests();
+        test.testSynchronize();
 //        test.dropAllTables();
-        test.createRegistrationCodes();
-        test.createUsers();
+//        test.createRegistrationCodes();
+//        test.createUsers();
         HibernateUtil.getSessionFactory().close();
+    }
+
+    private void testSynchronize() {
+        UsersOperations usersOperations = new UsersOperations();
+        usersOperations.synchronize();
     }
 
     @Test

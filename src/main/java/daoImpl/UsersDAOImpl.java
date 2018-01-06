@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -90,6 +91,21 @@ public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
 
     @Override
     public List<Users> getList() {
-        return null;
+        Transaction transaction = null;
+        List<Users> list = new ArrayList<>();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            List tempList = session.createQuery("from Users ").list();
+            for (Object aTempList : tempList) {
+                Users user = (Users) aTempList;
+                list.add(user);
+            }
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        }
+        return list;
     }
 }
