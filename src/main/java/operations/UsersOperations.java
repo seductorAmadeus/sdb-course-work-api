@@ -66,28 +66,6 @@ public class UsersOperations implements RedisGenericOperations {
 
     }
 
-    // TODO: Check and refactor this method
-    public void deleteUser() {
-        UsersDAOImpl dao = new UsersDAOImpl();
-        BigDecimal userId = DataReader.readUserId();
-        dao.delete(Users.class, userId);
-    }
-
-
-    public void updateUserProfile() {
-        UserProfile userProfile;
-        UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
-        BigDecimal userProfileId = DataReader.readUserProfileId();
-
-        if (userProfileDAO.isExists(UserProfile.class, userProfileId)) {
-            userProfile = userProfileDAO.get(userProfileId);
-            DataReader.initUserProfile(userProfile);
-            userProfileDAO.update(userProfile);
-        } else {
-            System.out.println("The specified user profile id was not found in the system. Check it out correctly and try again");
-        }
-    }
-
     @Override
     public void jPrintAll() {
         JedisOperations jedisOperations = new JedisOperations();

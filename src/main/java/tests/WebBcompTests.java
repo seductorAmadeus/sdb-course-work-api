@@ -2,11 +2,16 @@ package tests;
 
 import daoImpl.*;
 import entities.*;
+import operations.JedisOperations;
+import operations.RegistrationCodesOperations;
 import org.junit.Test;
+import utils.CachePrefixType;
 import utils.DataReader;
 import utils.HibernateUtil;
 import utils.RandomInviteCodesGenerator;
 
+import java.io.ByteArrayInputStream;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,7 +25,7 @@ public class WebBcompTests {
     public static void main(String[] args) {
         WebBcompTests test = new WebBcompTests();
 //        test.dropAllTables();
-        test.fillAllTables();
+        test.createRegistrationCodes();
     }
 
     @Test
@@ -94,52 +99,30 @@ public class WebBcompTests {
         return bcompList;
     }
 
-    @Test
-    @Deprecated
-    public void dropAllTables() {
-        BcompDAOImpl bcompDAO = new BcompDAOImpl();
-        bcompDAO.dropAllBcompRecords();
-
-        RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
-        registrationCodesDAO.dropAllRegistrationCodesRecords();
-
-        UsersDAOImpl usersDAO = new UsersDAOImpl();
-        usersDAO.dropAllUsersRecords();
-
-        SessionSettingsDAOImpl sessionSettingsDAO = new SessionSettingsDAOImpl();
-        sessionSettingsDAO.dropAllSessionSettingsRecords();
-
-
-        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
-        userSessionDAO.dropAllUserSessionRecords();
-
-        BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
-        bcompSettingsDAO.dropAllBcompSettingsRecords();
-
-
-        UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
-        userRoleDAO.dropAllUserRoleRecords();
-
-
-        UserStudyingDAOImpl userStudyingDAO = new UserStudyingDAOImpl();
-        userStudyingDAO.dropAllUserStudyingRecords();
+    private void createRegistrationCodes() {
+        JedisOperations jedisOperations = new JedisOperations();
+        // Заполняем registration_codes
+        List<RegistrationCodes> registrationCodesList = getRegistrationCodesList();
+        // Добавляем в БД
+        RegistrationCodesDAOImpl dao = new RegistrationCodesDAOImpl();
+        for (RegistrationCodes registrationCodes : registrationCodesList) {
+            BigDecimal regCodeId = dao.create(registrationCodes);
+            registrationCodes.setRegCodeId(regCodeId);
+            jedisOperations.set(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodes.getRegCodeId(), registrationCodes.toString());
+        }
+        // TODO: remove it!
+        HibernateUtil.getSessionFactory().close();
     }
 
     @Test
     public void fillAllTables() {
         UsersDAOImpl usersDAO = new UsersDAOImpl();
 
-        // Заполняем registration_codes
-        List<RegistrationCodes> registrationCodesList = getRegistrationCodesList();
-        // Добавляем в БД
-        RegistrationCodesDAOImpl dao = new RegistrationCodesDAOImpl();
-        for (RegistrationCodes registrationCodes : registrationCodesList) {
-            dao.create(registrationCodes);
-        }
 
         /*
           добавляем пользователей в БД
          */
+
         // Генерируем общую роль
         UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
         UserRole userRole = new UserRole();

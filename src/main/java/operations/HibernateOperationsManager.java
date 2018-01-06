@@ -20,6 +20,8 @@ public class HibernateOperationsManager {
         BcompSettingsOperations bcompSettingsOperations = new BcompSettingsOperations();
         SessionSettingsOperations sessionSettingsOperations = new SessionSettingsOperations();
         SpecifiedOperations specifiedOperations = new SpecifiedOperations();
+        UserProfileOperations userProfileOperations = new UserProfileOperations();
+
 
         int menuNumber = Integer.parseInt(scanner.nextLine());
 
@@ -115,8 +117,19 @@ public class HibernateOperationsManager {
                 specifiedOperations.getSettingsIdForUser();
                 break;
             case 31:
-                // TODO: move to separate file
-                usersOperations.updateUserProfile();
+                userProfileOperations.add();
+                break;
+            case 32:
+                userProfileOperations.printAll();
+                break;
+            case 33:
+                userProfileOperations.print();
+                break;
+            case 34:
+                userProfileOperations.update();
+                break;
+            case 35:
+                userProfileOperations.delete();
                 break;
             default:
                 break;
@@ -166,7 +179,11 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.GET_EMAIL_USING_SESSION_ID)
                 .append(MenuInputType.GET_SETTINGS_ID_FOR_USER)
                 .append("\n<<< User profile >>>\n")
+                .append(MenuInputType.ADD_USER_PROFILE)
+                .append(MenuInputType.PRINT_USER_PROFILE)
+                .append(MenuInputType.GET_USER_PROFILE_BY_ID)
                 .append(MenuInputType.UPDATE_USER_PROFILE)
+                .append(MenuInputType.DELETE_USER_PROFILE)
                 .toString();
     }
 }

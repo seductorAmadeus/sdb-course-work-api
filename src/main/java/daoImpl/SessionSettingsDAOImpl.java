@@ -64,24 +64,6 @@ public class SessionSettingsDAOImpl implements GenericDAO {
 
     }
 
-    @Deprecated
-    public void dropAllSessionSettingsRecords() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            session.createSQLQuery("truncate table session_settings").executeUpdate();
-            transaction.commit();
-        } catch (HibernateException exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        } finally {
-            session.close();
-        }
-    }
-
     @Override
     public Serializable create(Object newInstance) {
         return null;

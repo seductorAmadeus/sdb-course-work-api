@@ -92,21 +92,6 @@ public class BcompDAOImpl implements GenericDAO<Bcomp, BigDecimal> {
         return bcompId;
     }
 
-    /*TODO: fix it*/
-    @Deprecated
-    public void dropAllBcompRecords() {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.createSQLQuery("TRUNCATE TABLE bcomp").executeUpdate();
-        } catch (HibernateException exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        }
-    }
-
     public List<Bcomp> getList() {
         Transaction transaction = null;
         List<Bcomp> list = new ArrayList<>();

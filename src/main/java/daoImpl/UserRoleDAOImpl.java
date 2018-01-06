@@ -130,20 +130,6 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
         }
     }
 
-    public void dropAllUserRoleRecords() {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.createSQLQuery("truncate table user_role").executeUpdate();
-            transaction.commit();
-        } catch (HibernateException exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        }
-    }
-
     public boolean checkUserRoleExists(BigDecimal userRoleId) {
         boolean userRoleExists = false;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

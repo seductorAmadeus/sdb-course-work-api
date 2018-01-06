@@ -109,21 +109,6 @@ public class BcompSettingsDAOImpl implements GenericDAO<BcompSettings, BigDecima
         return list;
     }
 
-    @Deprecated
-    public void dropAllBcompSettingsRecords() {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.createSQLQuery("TRUNCATE TABLE bcomp_settings").executeUpdate();
-            transaction.commit();
-        } catch (HibernateException exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        }
-    }
-
     /*TODO: Add warning! This method will delete all records thar related with BcompSettings! (i.e bcomp, user_session, bcomp_setting, session setting*/
     @Override
     public void delete(Class<BcompSettings> bcompSettingsClass, BigDecimal id) {

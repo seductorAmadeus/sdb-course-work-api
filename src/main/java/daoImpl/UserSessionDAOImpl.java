@@ -81,18 +81,4 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
         return list;
     }
 
-    @Deprecated
-    public void dropAllUserSessionRecords() {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.createSQLQuery("TRUNCATE TABLE user_session").executeUpdate();
-            transaction.commit();
-        } catch (HibernateException exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        }
-    }
 }

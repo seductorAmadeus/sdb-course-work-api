@@ -109,20 +109,6 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
         return freeRegistrationCode;
     }
 
-    @Deprecated
-    public void dropAllRegistrationCodesRecords() {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.createSQLQuery("TRUNCATE TABLE REGISTRATION_CODES").executeUpdate();
-        } catch (HibernateException exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        }
-    }
-
     public RegistrationCodes get(BigDecimal registrationCodeId) {
         Transaction transaction = null;
         RegistrationCodes registrationCode = null;

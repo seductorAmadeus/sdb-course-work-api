@@ -34,7 +34,11 @@ public enum MenuInputType {
     ASSING_USER_SETTINGS("28. Assign user settings\n"),
     GET_EMAIL_USING_SESSION_ID("29. Get admin email from user's session id\n"),
     GET_SETTINGS_ID_FOR_USER("30. Get settingsId for user\n"),
-    UPDATE_USER_PROFILE("31. Update user profile\n"),
+    ADD_USER_PROFILE("31. Add user profile\n"),
+    PRINT_USER_PROFILE("32. Print all user's profiles\n"),
+    GET_USER_PROFILE_BY_ID("33. Get user profile by id\n"),
+    UPDATE_USER_PROFILE("34. Update user profile\n"),
+    DELETE_USER_PROFILE("35. Delete user profile\n"),
 
     // RegistrationCodes
     INVITE_CODE_STATUS("Enter invite code status: "),
