@@ -27,6 +27,28 @@ public class UserProfileOperations implements DatabaseGenericOperations, RedisGe
 
     }
 
+    public void synchronize() {
+        JedisOperations jedisOperations = new JedisOperations();
+        UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
+
+        List<String> keysList = jedisOperations.getAllKeys(CachePrefixType.USER_PROFILE.toString() + "*");
+        // удаляем лишние записи в Redis, если таковые отсутствуют в БД
+        for (String aKeysList : keysList) {
+            String temStrId = aKeysList.substring(aKeysList.lastIndexOf(":") + 1);
+            BigDecimal tempId = new BigDecimal(temStrId);
+            if (!userProfileDAO.isExists(UserProfile.class, tempId)) {
+                jedisOperations.delete(aKeysList);
+            }
+        }
+
+        // добавляем отсутствующие записи в Redis из Oracle-а.
+        List<UserProfile> userProfiles = userProfileDAO.getList();
+
+        for (UserProfile profile : userProfiles) {
+            jedisOperations.set(CachePrefixType.USER_PROFILE.toString() + profile.getProfileId(), profile.toString());
+        }
+    }
+
     @Override
     public void print() {
         UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();

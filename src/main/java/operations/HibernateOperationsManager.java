@@ -27,18 +27,23 @@ public class HibernateOperationsManager {
 
         switch (menuNumber) {
             case 1:
+                registrationCodesOperations.synchronize();
                 registrationCodesOperations.jCreate();
                 break;
             case 2:
+                registrationCodesOperations.synchronize();
                 registrationCodesOperations.jPrintAll();
                 break;
             case 3:
+                registrationCodesOperations.synchronize();
                 registrationCodesOperations.jPrint();
                 break;
             case 4:
+                registrationCodesOperations.synchronize();
                 registrationCodesOperations.jUpdate();
                 break;
             case 5:
+                registrationCodesOperations.synchronize();
                 registrationCodesOperations.jDelete();
                 break;
             case 6:
@@ -68,49 +73,64 @@ public class HibernateOperationsManager {
                 userStudyingOperations.addUserGroup();
                 break;
             case 13:
+                userSessionOperations.synchronize();
                 userSessionOperations.jCreate();
                 break;
             case 14:
+                userSessionOperations.synchronize();
                 userSessionOperations.jPrintAll();
                 break;
             case 15:
+                userSessionOperations.synchronize();
                 userSessionOperations.jPrint();
                 break;
             case 16:
+                userSessionOperations.synchronize();
                 userSessionOperations.jUpdate();
                 break;
             case 17:
                 userSessionOperations.jDelete();
+                userSessionOperations.synchronize();
                 break;
             case 18:
+                bcompOperations.synchronize();
                 bcompOperations.jCreate();
                 break;
             case 19:
+                bcompOperations.synchronize();
                 bcompOperations.jPrintAll();
                 break;
             case 20:
+                bcompOperations.synchronize();
                 bcompOperations.jPrint();
                 break;
             case 21:
+                bcompOperations.synchronize();
                 bcompOperations.jUpdate();
                 break;
             case 22:
                 bcompOperations.jDelete();
+                bcompOperations.synchronize();
                 break;
             case 23:
+                bcompSettingsOperations.synchronize();
                 bcompSettingsOperations.jCreate();
                 break;
             case 24:
+                bcompSettingsOperations.synchronize();
                 bcompSettingsOperations.jPrintAll();
                 break;
             case 25:
+                bcompSettingsOperations.synchronize();
                 bcompSettingsOperations.jPrint();
                 break;
             case 26:
+                bcompSettingsOperations.synchronize();
                 bcompSettingsOperations.jUpdate();
                 break;
             case 27:
                 bcompSettingsOperations.jDelete();
+                bcompSettingsOperations.synchronize();
                 break;
             case 28:
                 sessionSettingsOperations.assignUserSettings();
@@ -122,19 +142,25 @@ public class HibernateOperationsManager {
                 specifiedOperations.getSettingsIdForUser();
                 break;
             case 31:
+                userProfileOperations.synchronize();
                 userProfileOperations.jCreate();
                 break;
             case 32:
+                userProfileOperations.synchronize();
                 userProfileOperations.jPrintAll();
                 break;
             case 33:
+                userProfileOperations.synchronize();
                 userProfileOperations.jPrint();
                 break;
             case 34:
+                userProfileOperations.synchronize();
                 userProfileOperations.jUpdate();
                 break;
             case 35:
                 userProfileOperations.jDelete();
+                userProfileOperations.synchronize();
+                usersOperations.synchronize();
                 break;
             default:
                 break;

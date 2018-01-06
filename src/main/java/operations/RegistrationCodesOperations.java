@@ -1,6 +1,5 @@
 package operations;
 
-import dao.RegistrationCodesDAO;
 import daoImpl.RegistrationCodesDAOImpl;
 import entities.RegistrationCodes;
 import utils.CachePrefixType;
@@ -30,6 +29,28 @@ public class RegistrationCodesOperations implements RedisGenericOperations, Data
     @Override
     public void print() {
 
+    }
+
+    public void synchronize() {
+        JedisOperations jedisOperations = new JedisOperations();
+        RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
+
+        List<String> keysList = jedisOperations.getAllKeys(CachePrefixType.REGISTRATION_CODES.toString() + "*");
+        // удаляем лишние записи в Redis, если таковые отсутствуют в БД
+        for (String aKeysList : keysList) {
+            String temStrId = aKeysList.substring(aKeysList.lastIndexOf(":") + 1);
+            BigDecimal tempId = new BigDecimal(temStrId);
+            if (!registrationCodesDAO.isExists(RegistrationCodes.class, tempId)) {
+                jedisOperations.delete(aKeysList);
+            }
+        }
+
+        // добавляем отсутствующие записи в Redis из Oracle-а.
+        List<RegistrationCodes> registrationCodes = registrationCodesDAO.getList();
+
+        for (RegistrationCodes codes : registrationCodes) {
+            jedisOperations.set(CachePrefixType.REGISTRATION_CODES.toString() + codes.getRegCodeId(), codes.toString());
+        }
     }
 
     public void update() {

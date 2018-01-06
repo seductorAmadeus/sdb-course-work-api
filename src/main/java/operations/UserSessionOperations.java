@@ -158,6 +158,28 @@ public class UserSessionOperations implements DatabaseGenericOperations, RedisGe
         }
     }
 
+    public void synchronize() {
+        JedisOperations jedisOperations = new JedisOperations();
+        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
+
+        List<String> keysList = jedisOperations.getAllKeys(CachePrefixType.USER_SESSION.toString() + "*");
+        // удаляем лишние записи в Redis, если таковые отсутствуют в БД
+        for (String aKeysList : keysList) {
+            String temStrId = aKeysList.substring(aKeysList.lastIndexOf(":") + 1);
+            BigDecimal tempId = new BigDecimal(temStrId);
+            if (!userSessionDAO.isExists(UserSession.class, tempId)) {
+                jedisOperations.delete(aKeysList);
+            }
+        }
+
+        // добавляем отсутствующие записи в Redis из Oracle-а.
+        List<UserSession> userSessions = userSessionDAO.getList();
+
+        for (UserSession userSession : userSessions) {
+            jedisOperations.set(CachePrefixType.USER_SESSION.toString() + userSession.getId(), userSession.toString());
+        }
+    }
+
     @Override
     public void jDelete() {
         JedisOperations jedisOperations = new JedisOperations();
@@ -202,7 +224,7 @@ public class UserSessionOperations implements DatabaseGenericOperations, RedisGe
                 BigDecimal userSessionId = userSessionDAO.create(userSession);
                 userSession.setStatus("active");
                 userSession.setId(userSessionId);
-                    jedisOperations.set(CachePrefixType.USER_SESSION.toString() + userSession.getId(), userSession.toString());
+                jedisOperations.set(CachePrefixType.USER_SESSION.toString() + userSession.getId(), userSession.toString());
             } else {
                 throw new NullPointerException();
             }
