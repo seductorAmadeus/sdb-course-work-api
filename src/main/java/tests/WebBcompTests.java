@@ -5,7 +5,7 @@ import entities.*;
 import operations.JedisOperations;
 import operations.UsersOperations;
 import org.junit.Test;
-import utils.CachePrefixType;
+import enums.CachePrefixType;
 import utils.DataReader;
 import utils.HibernateUtil;
 import utils.RandomInviteCodesGenerator;

@@ -1,12 +1,16 @@
 package utils;
 
 import entities.*;
+import enums.LimitType;
+import enums.MenuInputType;
+import exceptions.IllegalStringLengthException;
 import exceptions.NonComplianceWithConstraints;
 import exceptions.PatternException;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -283,6 +287,48 @@ public class DataReader {
         return userId;
     }
 
+    public static String readString(MenuInputType inputType, LimitType limitType, String... constraints) {
+        System.out.println(inputType);
+        String value;
+        for (; ; ) {
+            try {
+                value = scanner.nextLine();
+                if (!(value.length() >= limitType.getMaxLength() && value.length() <= limitType.getMinLength())) {
+                    throw new IllegalStringLengthException(limitType.getFieldName(), limitType.getMinLength(), limitType.getMaxLength());
+                }
+                if (constraints.length != 0) {
+                    if (!Arrays.asList(constraints).contains(value)) {
+                        throw new NonComplianceWithConstraints(limitType.getFieldName(), constraints);
+                    }
+                }
+                break;
+            } catch (IllegalStringLengthException exp) {
+                System.out.println(exp.getMessage());
+            } catch (NonComplianceWithConstraints exp) {
+                System.out.println(exp.getMessage());
+            }
+        }
+        return value;
+    }
+
+    public static BigDecimal readBigDecimal(MenuInputType inputType, LimitType limitType) {
+        BigDecimal id;
+        System.out.println(inputType);
+        for (; ; ) {
+            String tempValue = scanner.nextLine();
+            try {
+                if (!(tempValue.length() >= limitType.getMaxLength() && tempValue.length() <= limitType.getMinLength())) {
+                    throw new IllegalStringLengthException(limitType.getFieldName(), limitType.getMinLength(), limitType.getMaxLength());
+                }
+                id = new BigDecimal(tempValue);
+                break;
+            } catch (IllegalStringLengthException exp) {
+                System.out.println(exp.getMessage());
+            }
+        }
+        return id;
+    }
+
     public static BigDecimal readUserSessionId() {
         BigDecimal userSessionId = null;
         System.out.println(MenuInputType.BCOMP);
@@ -482,7 +528,7 @@ public class DataReader {
                 System.out.println("Repeat input: ");
             }
         }
-        }
+    }
 
     public static void initBcomp(Bcomp bcomp) {
         // TODO: need fix

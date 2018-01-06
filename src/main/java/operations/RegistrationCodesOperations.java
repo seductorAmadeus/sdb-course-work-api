@@ -2,7 +2,7 @@ package operations;
 
 import daoImpl.RegistrationCodesDAOImpl;
 import entities.RegistrationCodes;
-import utils.CachePrefixType;
+import enums.CachePrefixType;
 import utils.DataReader;
 
 import java.math.BigDecimal;

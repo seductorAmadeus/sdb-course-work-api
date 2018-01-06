@@ -1,7 +1,7 @@
 package operations;
 
 import utils.HibernateUtil;
-import utils.MenuInputType;
+import enums.MenuInputType;
 
 import java.util.Scanner;
 

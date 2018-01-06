@@ -2,7 +2,7 @@ package operations;
 
 import daoImpl.BcompSettingsDAOImpl;
 import entities.BcompSettings;
-import utils.CachePrefixType;
+import enums.CachePrefixType;
 import utils.DataReader;
 
 import java.math.BigDecimal;

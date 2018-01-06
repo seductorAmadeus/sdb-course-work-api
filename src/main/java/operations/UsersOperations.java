@@ -5,7 +5,7 @@ import daoImpl.UserRoleDAOImpl;
 import daoImpl.UserStudyingDAOImpl;
 import daoImpl.UsersDAOImpl;
 import entities.*;
-import utils.CachePrefixType;
+import enums.CachePrefixType;
 import utils.DataReader;
 
 import java.math.BigDecimal;

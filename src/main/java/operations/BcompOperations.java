@@ -4,7 +4,7 @@ import daoImpl.BcompDAOImpl;
 import daoImpl.UserSessionDAOImpl;
 import entities.Bcomp;
 import entities.UserSession;
-import utils.CachePrefixType;
+import enums.CachePrefixType;
 import utils.DataReader;
 
 import java.math.BigDecimal;
