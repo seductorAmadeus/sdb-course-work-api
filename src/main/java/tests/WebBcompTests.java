@@ -2,20 +2,25 @@ package tests;
 
 import daoImpl.*;
 import entities.*;
+import enums.CachePrefixType;
 import operations.JedisOperations;
 import operations.UsersOperations;
 import org.junit.Test;
-import enums.CachePrefixType;
 import utils.DataReader;
 import utils.HibernateUtil;
 import utils.RandomInviteCodesGenerator;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class WebBcompTests {
 
@@ -23,16 +28,38 @@ public class WebBcompTests {
 
     public static void main(String[] args) {
         WebBcompTests test = new WebBcompTests();
-        test.testSynchronize();
+        test.testConstraintsViolation();
+//        test.testSynchronize();
 //        test.dropAllTables();
 //        test.createRegistrationCodes();
 //        test.createUsers();
-        HibernateUtil.getSessionFactory().close();
+//        HibernateUtil.getSessionFactory().close();
     }
 
     private void testSynchronize() {
         UsersOperations usersOperations = new UsersOperations();
         usersOperations.synchronize();
+    }
+
+    private void testConstraintsViolation() {
+        RegistrationCodes registrationCodes = new RegistrationCodes(new BigDecimal(23), "availaeble", "maaf@mail.ru");
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        Set<ConstraintViolation<RegistrationCodes>> errors = validator.validateProperty(registrationCodes, "inviteCodeStatus");
+
+        if (errors.isEmpty()) {
+            System.out.println("Ошибок нет!");
+        } else {
+            System.out.println("Ошибки есть!");
+            for (ConstraintViolation<RegistrationCodes> constraintViolation : errors) {
+
+                System.out.println(constraintViolation.getPropertyPath() + " -> " +
+                        constraintViolation.getMessage());
+
+            }
+        }
     }
 
     @Test

@@ -1,6 +1,10 @@
 package entities;
 
+import validation.constraints.CheckConstraintsIn;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -23,24 +27,30 @@ public class RegistrationCodes implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "reg_code_id")
+    @NotNull
     private BigDecimal regCodeId;
 
     /**
      * This field contains user's invite code
      */
     @Column(name = "invite_code")
+    @NotNull
     private BigDecimal inviteCode;
 
     /**
      * This field contains status for user's invite code
      */
     @Column(name = "invite_code_status")
+    @NotNull
+    @CheckConstraintsIn(constraints = {"available", "not available"})
     private String inviteCodeStatus;
 
     /**
      * This field contains email of the admin who issued the invite code to the user
      */
     @Column(name = "email")
+    @NotNull()
+    @Email
     private String email;
 
     /**
