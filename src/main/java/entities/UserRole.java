@@ -13,7 +13,6 @@ import java.util.Set;
  * @version 0.1
  * @since 0.1
  */
-
 @Entity
 @Table(name = "user_role")
 public class UserRole {

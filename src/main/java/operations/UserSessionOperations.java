@@ -29,7 +29,7 @@ public class UserSessionOperations implements DatabaseGenericOperations, RedisGe
             if (userId != null) {
                 // получаем пользователя по id и устанавливаем в сессию, которую добавляем в БД
                 Users users = usersDAO.get(userId);
-                userSession.setUserID(users);
+                userSession.setUserId(users);
                 userSessionDAO.create(userSession);
             } else {
                 throw new NullPointerException();
@@ -220,7 +220,7 @@ public class UserSessionOperations implements DatabaseGenericOperations, RedisGe
                 // TODO: проверять наличие сессии не только в oracle но и в кеше!
                 // получаем пользователя по id и устанавливаем в сессию, которую добавляем в БД
                 Users users = usersDAO.get(userId);
-                userSession.setUserID(users);
+                userSession.setUserId(users);
                 BigDecimal userSessionId = userSessionDAO.create(userSession);
                 userSession.setStatus("active");
                 userSession.setId(userSessionId);

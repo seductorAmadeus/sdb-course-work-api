@@ -1,6 +1,10 @@
 package entities;
 
+import validation.constraints.CheckConstraintsIn;
+
 import javax.persistence.*;
+import javax.validation.Constraint;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +17,6 @@ import java.util.Set;
  * @version 0.1
  * @since 0.1
  */
-
 @Entity
 @Table(name = "user_session")
 public class UserSession {
@@ -22,13 +25,17 @@ public class UserSession {
     @SequenceGenerator(name = "user_session_seq", sequenceName = "USER_SESSION_ID_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_session_seq")
     @Column(name = "user_session_id")
+    @NotNull
     private BigDecimal id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
-    private Users userID;
+    @NotNull
+    private Users userId;
 
     @Column(name = "status")
+    @NotNull
+    @CheckConstraintsIn(constraints = {"active", "inactive"})
     private String status;
 
     @OneToMany(mappedBy = "userSession", cascade = CascadeType.ALL)
@@ -44,8 +51,8 @@ public class UserSession {
     public UserSession() {
     }
 
-    public UserSession(Users userID, String status, Set<Bcomp> bcomps) {
-        this.userID = userID;
+    public UserSession(Users userId, String status, Set<Bcomp> bcomps) {
+        this.userId = userId;
         this.status = status;
         this.bcomps = bcomps;
     }
@@ -58,12 +65,12 @@ public class UserSession {
         this.id = id;
     }
 
-    public Users getUserID() {
-        return userID;
+    public Users getUserId() {
+        return userId;
     }
 
-    public void setUserID(Users userID) {
-        this.userID = userID;
+    public void setUserId(Users userID) {
+        this.userId = userID;
     }
 
     public String getStatus() {
@@ -94,7 +101,7 @@ public class UserSession {
     public String toString() {
         return new StringBuilder()
                 .append(getId()).append(" ")
-                .append(getUserID().getUserId()).append(" ")
+                .append(getUserId().getUserId()).append(" ")
                 .append(getStatus()).append(" ")
                 .toString();
     }

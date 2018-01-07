@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,6 @@ import java.util.List;
  * @version 0.1
  * @since 0.1
  */
-
 @Entity
 @Table(name = "bcomp_settings")
 public class BcompSettings {
@@ -30,12 +30,14 @@ public class BcompSettings {
      * This field contains value that represents some bcomp setting
      */
     @Column(name = "value")
+    @Size(min = 1, max = 20)
     private String value;
 
     /**
      * This field contains value that represents type of some bcomp setting
      */
     @Column(name = "type")
+    @Size(min = 1, max = 20)
     private String type;
 
     /**

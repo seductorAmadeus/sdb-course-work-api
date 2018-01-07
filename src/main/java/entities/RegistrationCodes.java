@@ -5,6 +5,7 @@ import validation.constraints.CheckConstraintsIn;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -16,7 +17,6 @@ import java.util.Set;
  * @version 0.1
  * @since 0.1
  */
-
 @Entity
 @Table(name = "registration_codes")
 public class RegistrationCodes implements Serializable {
@@ -49,8 +49,9 @@ public class RegistrationCodes implements Serializable {
      * This field contains email of the admin who issued the invite code to the user
      */
     @Column(name = "email")
-    @NotNull()
+    @NotNull
     @Email
+    @Size(max = 25)
     private String email;
 
     /**

@@ -1,6 +1,9 @@
 package entities;
 
+import validation.constraints.CheckConstraintsIn;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 /**
@@ -10,7 +13,6 @@ import java.math.BigDecimal;
  * @version 0.1
  * @since 0.1
  */
-
 @Entity
 @Table(name = "bcomp")
 public class Bcomp {
@@ -42,96 +44,112 @@ public class Bcomp {
      * This field contains the value of the status register
      */
     @Column(name = "rs")
+    @Size(min = 9, max = 9)
     private String rs;
 
     /**
      * This field contains the value of the address register
      */
     @Column(name = "ra")
+    @Size(min = 11, max = 11)
     private String ra;
 
     /**
      * This field contains the value of the data register
      */
     @Column(name = "rd")
+    @Size(min = 16, max = 16)
     private String rd;
 
     /**
      * This field contains the value of the command register
      */
     @Column(name = "rc")
+    @Size(min = 16, max = 16)
     private String rc;
 
     /**
      * This field contains the value of the command counter
      */
     @Column(name = "cc")
+    @Size(min = 11, max = 11)
     private String cc;
 
     /**
      * This field contains the value of the buffer register
      */
     @Column(name = "br")
+    @Size(min = 11, max = 11)
     private String br;
 
     /**
      * This field contains the value of the accumulator
      */
     @Column(name = "ac")
+    @Size(min = 16, max = 16)
     private String ac;
 
     /**
      * This field contains the value of bit "c"
      */
     @Column(name = "c")
+    @Size(min = 1, max = 1)
     private String c;
 
     /**
      * This field contains the value of the key register
      */
     @Column(name = "kr")
+    @Size(min = 16, max = 16)
     private String kr;
 
     /**
      * This field contains single bit denoting the position in the key register
      */
     @Column(name = "bit")
+    @Size(min = 1, max = 1)
     private String bit;
 
     /**
      * This field contains the interrupt request status of the external device №1
      */
     @Column(name = "int_req_ed_1")
+    @CheckConstraintsIn(constraints = {"set", "unset"})
     private String intReqEd1;
 
     /**
      * This field contains the interrupt request status of the external device №2
      */
     @Column(name = "int_req_ed_2")
+    @CheckConstraintsIn(constraints = {"set", "unset"})
     private String intReqEd2;
 
     /**
      * This field contains the interrupt request status of the external device №3
      */
     @Column(name = "int_req_ed_3")
+    @CheckConstraintsIn(constraints = {"set", "unset"})
     private String intReqEd3;
 
     /**
      * This field contains the value of the data register of the external device №1
      */
     @Column(name = "rd_ed_1")
+    @Size(min = 8, max = 8)
     private String rdEd1;
 
     /**
      * This field contains the value of the data register of the external device №2
      */
     @Column(name = "rd_ed_2")
+    @Size(min = 8, max = 8)
     private String rdEd2;
 
     /**
      * This field contains the value of the data register of the external device №3
      */
     @Column(name = "rd_ed_3")
+    @Size(min = 8, max = 8)
     private String rdEd3;
 
     /**
@@ -145,12 +163,14 @@ public class Bcomp {
      * This field contains the value of the micro-command counter
      */
     @Column(name = "c_mc")
+    @Size(min = 8, max = 8)
     private String cMc;
 
     /**
      * This field contains the value of the register of the micro-command
      */
     @Column(name = "r_mc")
+    @Size(min = 16, max = 16)
     private String rMc;
 
     /**

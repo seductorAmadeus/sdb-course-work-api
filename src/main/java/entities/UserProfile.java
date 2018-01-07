@@ -1,8 +1,11 @@
 package entities;
 
 import org.hibernate.annotations.GenericGenerator;
+import validation.constraints.CheckConstraintsIn;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -14,7 +17,6 @@ import java.sql.Timestamp;
  * @version 0.1
  * @since 0.1
  */
-
 @Entity
 @Table(name = "user_profile", uniqueConstraints = {@UniqueConstraint(columnNames = "profile_id")})
 public class UserProfile implements Serializable {
@@ -34,30 +36,42 @@ public class UserProfile implements Serializable {
     private UserStudying userStudyingId;
 
     @Column(name = "last_seen")
+    //TODO: add pattern annotation
     private Timestamp lastSeen;
 
     @Column(name = "register_date")
     private Timestamp registerDate;
 
     @Column(name = "studying_status")
+    @NotNull
+    @CheckConstraintsIn(constraints = {"YES", "NOT"})
     private String studyingStatus;
 
     @Column(name = "first_name")
+    @NotNull
+    @Size(min = 3, max = 20)
     private String firstName;
 
     @Column(name = "last_name")
+    @NotNull
+    @Size(min = 3, max = 20)
     private String lastName;
 
     @Column(name = "middle_name")
+    @Size(min = 3, max = 20)
     private String middleName;
 
     @Column(name = "gender")
+    @NotNull
+    @CheckConstraintsIn(constraints = {"M", "F"})
     private String gender;
 
     @Column(name = "date_of_birth")
+    @NotNull
     private Timestamp dateOfBirth;
 
     @Column(name = "reg_status")
+    @CheckConstraintsIn(constraints = {"Y", "N"})
     private String regStatus;
 
     @OneToOne

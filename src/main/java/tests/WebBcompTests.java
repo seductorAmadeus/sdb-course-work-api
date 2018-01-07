@@ -49,10 +49,7 @@ public class WebBcompTests {
 
         Set<ConstraintViolation<RegistrationCodes>> errors = validator.validateProperty(registrationCodes, "inviteCodeStatus");
 
-        if (errors.isEmpty()) {
-            System.out.println("Ошибок нет!");
-        } else {
-            System.out.println("Ошибки есть!");
+        if (!errors.isEmpty()) {
             for (ConstraintViolation<RegistrationCodes> constraintViolation : errors) {
 
                 System.out.println(constraintViolation.getPropertyPath() + " -> " +

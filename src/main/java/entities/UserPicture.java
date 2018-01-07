@@ -1,6 +1,8 @@
 package entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.sql.Blob;
 
@@ -11,7 +13,6 @@ import java.sql.Blob;
  * @version 0.1
  * @since 0.1
  */
-
 @Entity
 @Table(name = "user_picture")
 public class UserPicture {
@@ -22,12 +23,14 @@ public class UserPicture {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_profile_id")
+    @NotNull
     private BigDecimal id;
 
     /**
      * This field contains name of the user picture
      */
     @Column(name = "picname")
+    @Size(min = 1, max = 20)
     private String pictureName;
 
     /**

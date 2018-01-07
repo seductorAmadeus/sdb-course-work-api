@@ -1,6 +1,8 @@
 package entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -12,7 +14,6 @@ import java.util.Set;
  * @version 0.1
  * @since 0.1
  */
-
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "user_id")})
@@ -25,18 +26,23 @@ public class Users implements Serializable {
     @SequenceGenerator(name = "user_seq", sequenceName = "USER_ID_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     @Column(name = "user_id", nullable = false, unique = true)
+    @NotNull
     private BigDecimal userId;
 
     /**
      * This field contains user's name in system (username)
      */
     @Column(name = "username")
+    @NotNull
+    @Size(min = 7, max = 20)
     private String username;
 
     /**
      * This field contains user's password
      */
     @Column(name = "password")
+    @NotNull
+    @Size(min = 7, max = 25)
     private String password;
 
     /**
@@ -49,7 +55,7 @@ public class Users implements Serializable {
     /**
      * This field contains set of entities that represents user's sessions
      */
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "userID")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "userId")
     private Set<UserSession> userSessions;
 
     /**
