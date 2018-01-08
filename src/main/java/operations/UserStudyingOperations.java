@@ -98,4 +98,27 @@ public class UserStudyingOperations extends DatabaseGenericOperations {
             System.out.println(" The specified user group already exists in the system. Check it out correctly and try again");
         }
     }
+
+    public void synchronize() {
+        JedisOperations jedisOperations = new JedisOperations();
+        UserStudyingDAOImpl userStudyingDAO = new UserStudyingDAOImpl();
+
+        List<String> keysList = jedisOperations.getAllKeys(CachePrefixType.USER_STUDYING.toString() + "*");
+        // удаляем лишние записи в Redis, если таковые отсутствуют в БД
+        for (String aKeysList : keysList) {
+            String temStrId = aKeysList.substring(aKeysList.lastIndexOf(":") + 1);
+            BigDecimal tempId = new BigDecimal(temStrId);
+            if (!userStudyingDAO.isExists(UserStudying.class, tempId)) {
+                jedisOperations.delete(aKeysList);
+            }
+        }
+
+        // добавляем отсутствующие записи в Redis из Oracle-а.
+        List<UserStudying> userStudyingList = userStudyingDAO.getList();
+
+        for (UserStudying userStudying : userStudyingList) {
+            jedisOperations.set(CachePrefixType.USER_STUDYING.toString() + userStudying.getId(), userStudying.toString());
+        }
+
+    }
 }

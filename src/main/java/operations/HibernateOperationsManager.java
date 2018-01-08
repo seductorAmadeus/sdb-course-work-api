@@ -70,17 +70,22 @@ public class HibernateOperationsManager {
                 userRoleOperations.generateAllUsersRoles();
                 break;
             case 12:
+                userStudyingOperations.synchronize();
                 userStudyingOperations.jCreate();
                 break;
             case 13:
+                userStudyingOperations.synchronize();
                 userStudyingOperations.jPrintAll();
                 break;
             case 14:
+                userStudyingOperations.synchronize();
                 userStudyingOperations.jUpdate();
                 userStudyingOperations.jPrint();
                 break;
             case 15:
                 userStudyingOperations.jDelete();
+                userStudyingOperations.synchronize();
+                break;
             case 16:
                 userSessionOperations.synchronize();
                 userSessionOperations.jCreate();
