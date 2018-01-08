@@ -150,7 +150,7 @@ public class WebBcompTests {
         UserRole userRole = new UserRole();
         userRoleDAO.generateAllUsersRoles();
         // set all roles as "admin"
-        userRole.setId(userRoleDAO.addAdminRole());
+        userRole.setId(userRoleDAO.getAdminRoleId());
 
         // Генерируем общий userStudying id
         // инициализировали UserStudyingId

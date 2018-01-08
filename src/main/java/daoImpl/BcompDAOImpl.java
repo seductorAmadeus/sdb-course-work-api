@@ -1,6 +1,6 @@
 package daoImpl;
 
-import dao.GenericDAO;
+import dao.BcompDAO;
 import entities.Bcomp;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -23,7 +23,7 @@ import java.util.List;
  * @version 0.1
  * @since 0.1
  */
-public class BcompDAOImpl implements GenericDAO<Bcomp, BigDecimal> {
+public class BcompDAOImpl implements BcompDAO {
 
     public BigDecimal create(Bcomp bcomp) {
         Connection connection = null;

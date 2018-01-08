@@ -81,7 +81,6 @@ public class UserStudyingDAOImpl implements UserStudyingDAO {
         return userStudyingId;
     }
 
-    @Deprecated
     public void generateAllUsersGroups() {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -126,11 +125,6 @@ public class UserStudyingDAOImpl implements UserStudyingDAO {
             }
         }
         return userStudying;
-    }
-
-    @Override
-    @Deprecated
-    public void update(UserStudying transientObject) {
     }
 
     @Override

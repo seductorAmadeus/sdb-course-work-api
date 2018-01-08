@@ -1,6 +1,6 @@
 package daoImpl;
 
-import dao.GenericDAO;
+import dao.UserRoleDAO;
 import entities.UserRole;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -20,9 +20,9 @@ import java.util.List;
  */
 
 // TODO: Create new interface or implement this
-public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
+public class UserRoleDAOImpl implements UserRoleDAO {
 
-    public BigDecimal addRootRole() {
+    public BigDecimal getRootRoleId() {
         Transaction transaction = null;
         BigDecimal bigDecimal = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -44,7 +44,7 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
         return bigDecimal;
     }
 
-    public BigDecimal addAdminRole() {
+    public BigDecimal getAdminRoleId() {
         Transaction transaction = null;
         BigDecimal bigDecimal = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -65,7 +65,7 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
         return bigDecimal;
     }
 
-    public BigDecimal addTeacherRole() {
+    public BigDecimal getTeacherRoleId() {
         Transaction transaction = null;
         BigDecimal bigDecimal = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -88,7 +88,7 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
         return bigDecimal;
     }
 
-    public BigDecimal addStudRole() {
+    public BigDecimal getStudRoleId() {
         Transaction transaction = null;
         BigDecimal bigDecimal = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -130,19 +130,6 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
         }
     }
 
-    public boolean checkUserRoleExists(BigDecimal userRoleId) {
-        boolean userRoleExists = false;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            if (session.get(UserRole.class, userRoleId) != null) {
-                userRoleExists = true;
-            }
-        } catch (HibernateException exp) {
-
-        }
-
-        return userRoleExists;
-    }
-
     @Override
     public BigDecimal create(UserRole newInstance) {
         return null;
@@ -153,18 +140,6 @@ public class UserRoleDAOImpl implements GenericDAO<UserRole, BigDecimal> {
         return null;
     }
 
-    @Override
-    public void update(UserRole transientObject) {
-
-    }
-
-    public void delete(BigDecimal id) {
-
-    }
-
-    public boolean isExists(BigDecimal id) {
-        return false;
-    }
 
     @Override
     public List<UserRole> getList() {

@@ -1,8 +1,7 @@
 package daoImpl;
 
-import dao.GenericDAO;
+import dao.UserSessionDAO;
 import entities.UserSession;
-import entities.Users;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,7 +19,7 @@ import java.util.List;
  * @since 0.1
  */
 
-public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
+public class UserSessionDAOImpl implements UserSessionDAO {
 
     public BigDecimal create(UserSession userSession) {
         Transaction transaction = null;

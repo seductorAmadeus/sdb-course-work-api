@@ -1,6 +1,6 @@
 package dao;
 
-import entities.RegistrationCodes;
+import entities.UserSession;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -8,16 +8,13 @@ import utils.HibernateUtil;
 
 import java.math.BigDecimal;
 
-public interface RegistrationCodesDAO extends GenericDAO<RegistrationCodes, BigDecimal> {
-
-    RegistrationCodes getAvailableCode();
-
-    default void update(RegistrationCodes transientObject) {
+public interface UserSessionDAO extends GenericDAO<UserSession, BigDecimal> {
+    default void update(UserSession userSession) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             // TODO: check this method!
-            session.saveOrUpdate(transientObject);
+            session.saveOrUpdate(userSession);
             transaction.commit();
         } catch (HibernateException exp) {
             if (transaction != null) {

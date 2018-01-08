@@ -74,11 +74,6 @@ public class SessionSettingsDAOImpl implements GenericDAO {
         return null;
     }
 
-    @Override
-    public void update(Object transientObject) {
-
-    }
-
     public void delete(Serializable id) {
 
     }

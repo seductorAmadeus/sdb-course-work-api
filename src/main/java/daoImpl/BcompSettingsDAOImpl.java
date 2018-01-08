@@ -1,5 +1,6 @@
 package daoImpl;
 
+import dao.BcompSettingsDAO;
 import dao.GenericDAO;
 import entities.BcompSettings;
 import org.hibernate.HibernateException;
@@ -24,7 +25,7 @@ import java.util.List;
  * @since 0.1
  */
 
-public class BcompSettingsDAOImpl implements GenericDAO<BcompSettings, BigDecimal> {
+public class BcompSettingsDAOImpl implements BcompSettingsDAO {
 
     public BigDecimal create(BcompSettings bcompSettings) {
         Connection connection = null;
@@ -46,26 +47,6 @@ public class BcompSettingsDAOImpl implements GenericDAO<BcompSettings, BigDecima
             exp.printStackTrace();
         } finally {
             connectionHandler.close(connection);
-        }
-
-        return bcompSettingsId;
-    }
-
-    @Deprecated
-    public BigDecimal addBcompSettingsH(BcompSettings bcompSettings) {
-        Transaction transaction = null;
-        BigDecimal bcompSettingsId = null;
-
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.persist(bcompSettings);
-            transaction.commit();
-            bcompSettingsId = bcompSettings.getId();
-        } catch (HibernateException exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
         }
 
         return bcompSettingsId;

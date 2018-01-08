@@ -8,4 +8,6 @@ public interface UserStudyingDAO extends GenericDAO<UserStudying, BigDecimal> {
 
     BigDecimal getIdByUserGroup(String userGroup);
 
+    void generateAllUsersGroups();
+
 }

@@ -115,16 +115,16 @@ public class UserProfileOperations extends DatabaseGenericOperations {
         String userRoleStr = DataReader.readUserRole();
         switch (userRoleStr) {
             case "root":
-                userRole.setId(userRoleDAO.addRootRole());
+                userRole.setId(userRoleDAO.getRootRoleId());
                 break;
             case "admin":
-                userRole.setId(userRoleDAO.addAdminRole());
+                userRole.setId(userRoleDAO.getAdminRoleId());
                 break;
             case "teacher":
-                userRole.setId(userRoleDAO.addTeacherRole());
+                userRole.setId(userRoleDAO.getTeacherRoleId());
                 break;
             case "stud":
-                userRole.setId(userRoleDAO.addStudRole());
+                userRole.setId(userRoleDAO.getStudRoleId());
                 break;
         }
         userProfile.setUserRoleId(userRole);
@@ -241,16 +241,16 @@ public class UserProfileOperations extends DatabaseGenericOperations {
         String userRoleStr = DataReader.readUserRole();
         switch (userRoleStr) {
             case "root":
-                userRole.setId(userRoleDAO.addRootRole());
+                userRole.setId(userRoleDAO.getRootRoleId());
                 break;
             case "admin":
-                userRole.setId(userRoleDAO.addAdminRole());
+                userRole.setId(userRoleDAO.getAdminRoleId());
                 break;
             case "teacher":
-                userRole.setId(userRoleDAO.addTeacherRole());
+                userRole.setId(userRoleDAO.getTeacherRoleId());
                 break;
             case "stud":
-                userRole.setId(userRoleDAO.addStudRole());
+                userRole.setId(userRoleDAO.getStudRoleId());
                 break;
         }
         userProfile.setUserRoleId(userRole);

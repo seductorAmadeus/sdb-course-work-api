@@ -1,6 +1,7 @@
 package daoImpl;
 
 import dao.GenericDAO;
+import dao.UsersDao;
 import entities.UserProfile;
 import entities.Users;
 import org.hibernate.HibernateException;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 // TODO: Create new interface or implement this
 
-public class UsersDAOImpl implements GenericDAO<Users, BigDecimal> {
+public class UsersDAOImpl implements UsersDao {
 
     public BigDecimal create(Users user) {
         Transaction transaction = null;
