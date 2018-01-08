@@ -9,5 +9,5 @@ public interface DatabaseGenericOperations {
 
     void delete();
 
-    void get();
+    void create();
 }

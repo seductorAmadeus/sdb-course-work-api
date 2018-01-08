@@ -92,7 +92,7 @@ public class UserProfileOperations implements DatabaseGenericOperations, RedisGe
 
     // TODO: change it!
     @Override
-    public void get() {
+    public void create() {
         RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
         UserProfileDAOImpl dao = new UserProfileDAOImpl();
         UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();

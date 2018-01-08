@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UserSessionOperations implements DatabaseGenericOperations, RedisGenericOperations {
 
-    public void get() {
+    public void create() {
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         UsersDAOImpl usersDAO = new UsersDAOImpl();
 

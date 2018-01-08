@@ -1,7 +1,7 @@
 package operations;
 
-import utils.HibernateUtil;
 import enums.MenuInputType;
+import utils.HibernateUtil;
 
 import java.util.Scanner;
 
@@ -70,94 +70,102 @@ public class HibernateOperationsManager {
                 userRoleOperations.generateAllUsersRoles();
                 break;
             case 12:
-                userStudyingOperations.addUserGroup();
+                userStudyingOperations.jCreate();
                 break;
             case 13:
+                userStudyingOperations.jPrintAll();
+                break;
+            case 14:
+                userStudyingOperations.jPrint();
+                break;
+            case 15:
+                userStudyingOperations.jDelete();
+            case 16:
                 userSessionOperations.synchronize();
                 userSessionOperations.jCreate();
                 break;
-            case 14:
+            case 17:
                 userSessionOperations.synchronize();
                 userSessionOperations.jPrintAll();
                 break;
-            case 15:
+            case 18:
                 userSessionOperations.synchronize();
                 userSessionOperations.jPrint();
                 break;
-            case 16:
+            case 19:
                 userSessionOperations.synchronize();
                 userSessionOperations.jUpdate();
                 break;
-            case 17:
+            case 20:
                 userSessionOperations.jDelete();
                 userSessionOperations.synchronize();
                 break;
-            case 18:
+            case 21:
                 bcompOperations.synchronize();
                 bcompOperations.jCreate();
                 break;
-            case 19:
+            case 22:
                 bcompOperations.synchronize();
                 bcompOperations.jPrintAll();
                 break;
-            case 20:
+            case 23:
                 bcompOperations.synchronize();
                 bcompOperations.jPrint();
                 break;
-            case 21:
+            case 24:
                 bcompOperations.synchronize();
                 bcompOperations.jUpdate();
                 break;
-            case 22:
+            case 25:
                 bcompOperations.jDelete();
                 bcompOperations.synchronize();
                 break;
-            case 23:
+            case 26:
                 bcompSettingsOperations.synchronize();
                 bcompSettingsOperations.jCreate();
                 break;
-            case 24:
+            case 27:
                 bcompSettingsOperations.synchronize();
                 bcompSettingsOperations.jPrintAll();
                 break;
-            case 25:
+            case 28:
                 bcompSettingsOperations.synchronize();
                 bcompSettingsOperations.jPrint();
                 break;
-            case 26:
+            case 29:
                 bcompSettingsOperations.synchronize();
                 bcompSettingsOperations.jUpdate();
                 break;
-            case 27:
+            case 30:
                 bcompSettingsOperations.jDelete();
                 bcompSettingsOperations.synchronize();
                 break;
-            case 28:
+            case 31:
                 sessionSettingsOperations.assignUserSettings();
                 break;
-            case 29:
+            case 32:
                 specifiedOperations.getEmailFromSessionId();
                 break;
-            case 30:
-                specifiedOperations.getSettingsIdForUser();
-                break;
-            case 31:
-                userProfileOperations.synchronize();
-                userProfileOperations.jCreate();
-                break;
-            case 32:
-                userProfileOperations.synchronize();
-                userProfileOperations.jPrintAll();
-                break;
             case 33:
-                userProfileOperations.synchronize();
-                userProfileOperations.jPrint();
+                specifiedOperations.getSettingsIdForUser();
                 break;
             case 34:
                 userProfileOperations.synchronize();
-                userProfileOperations.jUpdate();
+                userProfileOperations.jCreate();
                 break;
             case 35:
+                userProfileOperations.synchronize();
+                userProfileOperations.jPrintAll();
+                break;
+            case 36:
+                userProfileOperations.synchronize();
+                userProfileOperations.jPrint();
+                break;
+            case 37:
+                userProfileOperations.synchronize();
+                userProfileOperations.jUpdate();
+                break;
+            case 38:
                 userProfileOperations.jDelete();
                 userProfileOperations.synchronize();
                 usersOperations.synchronize();
@@ -186,6 +194,9 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.GENERATE_USER_ROLE)
                 .append("\n<<< User studying>>>\n")
                 .append(MenuInputType.ADD_USER_GROUP)
+                .append(MenuInputType.PRINT_USER_GROUP)
+                .append(MenuInputType.GET_USER_GROUP_BY_ID)
+                .append(MenuInputType.DELETE_USER_GROUP)
                 .append("\n<<< User session>>>\n")
                 .append(MenuInputType.CREATE_USER_SESSION)
                 .append(MenuInputType.PRINT_USER_SESSION)
@@ -203,10 +214,10 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.PRINT_BCOMP_SETTINGS)
                 .append(MenuInputType.GET_BCOMP_SETTING_BY_ID)
                 .append(MenuInputType.UPDATE_BCOMP_SETTING)
-                .append(MenuInputType.DELETE_BCOMP_SETING)
+                .append(MenuInputType.DELETE_BCOMP_SETTING)
                 .append("\n<<< Session settings >>>\n")
-                .append(MenuInputType.ASSING_USER_SETTINGS)
-                .append("\n<<< Separate functions >>>\n")
+                .append(MenuInputType.ASSIGN_USER_SETTINGS)
+                .append("\n<<< Additional functions >>>\n")
                 .append(MenuInputType.GET_EMAIL_USING_SESSION_ID)
                 .append(MenuInputType.GET_SETTINGS_ID_FOR_USER)
                 .append("\n<<< User profile >>>\n")

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RegistrationCodesOperations implements RedisGenericOperations, DatabaseGenericOperations {
 
-    public void get() {
+    public void create() {
         RegistrationCodesDAOImpl dao = new RegistrationCodesDAOImpl();
         RegistrationCodes registrationCodes = DataReader.readRegistrationCode();
         // TODO: Remove print action!

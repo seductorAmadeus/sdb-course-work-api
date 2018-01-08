@@ -22,7 +22,7 @@ import java.util.List;
  * @since 0.1
  */
 
-// TODO: Create new interface or implement this
+// TODO: create an interface that inherits a common interface
 
 public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal> {
 

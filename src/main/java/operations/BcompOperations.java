@@ -13,7 +13,7 @@ import java.util.List;
 public class BcompOperations implements RedisGenericOperations, DatabaseGenericOperations {
 
     @Deprecated
-    public void get() {
+    public void create() {
         Bcomp bcomp = new Bcomp();
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
