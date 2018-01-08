@@ -158,7 +158,7 @@ public class WebBcompTests {
         UserStudying userStudying = new UserStudying();
         userStudyingDAO.generateAllUsersGroups();
         String userGroupStr = "P3101";
-        userStudying.setId(userStudyingDAO.addGroupToUser(userGroupStr));
+        userStudying.setId(userStudyingDAO.getIdByUserGroup(userGroupStr));
 
         List<UserProfile> userProfiles = getProfilesList(userRole, userStudying);
         List<Users> users = getUsersList(getOldRegistrationCodesList(), userProfiles);

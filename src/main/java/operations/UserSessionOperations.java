@@ -10,7 +10,7 @@ import utils.DataReader;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class UserSessionOperations implements DatabaseGenericOperations, RedisGenericOperations {
+public class UserSessionOperations extends DatabaseGenericOperations {
 
     public void create() {
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();

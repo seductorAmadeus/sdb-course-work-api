@@ -76,6 +76,7 @@ public class HibernateOperationsManager {
                 userStudyingOperations.jPrintAll();
                 break;
             case 14:
+                userStudyingOperations.jUpdate();
                 userStudyingOperations.jPrint();
                 break;
             case 15:

@@ -6,7 +6,8 @@ public enum CachePrefixType {
     REGISTRATION_CODES("registration_codes:"),
     USERS("users:"),
     USER_PROFILE("user_profile:"),
-    USER_SESSION("user_session:");
+    USER_SESSION("user_session:"),
+    USER_STUDYING("user_studying:");
     private String text;
 
     CachePrefixType(String text) {

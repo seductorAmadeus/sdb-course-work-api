@@ -8,7 +8,7 @@ import utils.DataReader;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class RegistrationCodesOperations implements RedisGenericOperations, DatabaseGenericOperations {
+public class RegistrationCodesOperations extends DatabaseGenericOperations {
 
     public void create() {
         RegistrationCodesDAOImpl dao = new RegistrationCodesDAOImpl();

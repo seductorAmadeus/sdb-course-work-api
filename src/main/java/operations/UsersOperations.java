@@ -11,7 +11,7 @@ import utils.DataReader;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class UsersOperations implements RedisGenericOperations {
+public class UsersOperations extends DatabaseGenericOperations {
 
     public void addUser() {
         RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
@@ -60,12 +60,32 @@ public class UsersOperations implements RedisGenericOperations {
             case "P3102":
             case "P3110":
             case "P3111":
-                userStudying.setId(userStudyingDAO.addGroupToUser(userGroupStr));
+                userStudying.setId(userStudyingDAO.getIdByUserGroup(userGroupStr));
         }
         userProfile.setUserStudyingId(userStudying);
 
         user.setUserProfile(userProfile);
         dao.create(user);
+
+    }
+
+    @Override
+    void printAll() {
+
+    }
+
+    @Override
+    void print() {
+
+    }
+
+    @Override
+    void update() {
+
+    }
+
+    @Override
+    void delete() {
 
     }
 
@@ -219,7 +239,7 @@ public class UsersOperations implements RedisGenericOperations {
             case "P3102":
             case "P3110":
             case "P3111":
-                userStudying.setId(userStudyingDAO.addGroupToUser(userGroupStr));
+                userStudying.setId(userStudyingDAO.getIdByUserGroup(userGroupStr));
         }
         userProfile.setUserStudyingId(userStudying);
 

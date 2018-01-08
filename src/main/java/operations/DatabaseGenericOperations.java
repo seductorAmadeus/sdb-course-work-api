@@ -1,13 +1,35 @@
 package operations;
 
-public interface DatabaseGenericOperations {
-    void printAll();
+public abstract class DatabaseGenericOperations {
+    abstract void printAll();
 
-    void print();
+    abstract void print();
 
-    void update();
+    abstract void update();
 
-    void delete();
+    abstract void delete();
 
-    void create();
+    void create() {
+
+    }
+
+    void jPrintAll() {
+
+    }
+
+    void jPrint() {
+
+    }
+
+     void jUpdate() {
+
+    }
+
+    void jDelete() {
+
+    }
+
+    void jCreate() {
+
+    }
 }

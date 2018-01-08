@@ -1,6 +1,6 @@
 package daoImpl;
 
-import dao.GenericDAO;
+import dao.UserStudyingDAO;
 import entities.UserStudying;
 import oracle.jdbc.OracleTypes;
 import org.hibernate.HibernateException;
@@ -24,12 +24,12 @@ import java.util.List;
 
 // TODO: create an interface that inherits a common interface
 
-public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal> {
+public class UserStudyingDAOImpl implements UserStudyingDAO {
 
     private ResultSet resultSet;
     private BigDecimal bigDecimal;
 
-    public BigDecimal addGroupToUser(String userGroup) {
+    public BigDecimal getIdByUserGroup(String userGroup) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -59,23 +59,25 @@ public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal>
         Connection connection = null;
         ConnectionJDBC connectionHandler = new ConnectionJDBC();
         BigDecimal userStudyingId = null;
-        try {
-            connection = connectionHandler.createConnection();
+        // check that userGroup exists
+        if (getIdByUserGroup(userStudying.getUserGroup()) == null) {
+            try {
+                connection = connectionHandler.createConnection();
 
-            CallableStatement callableStatement = connection.prepareCall("{ ? = call CREATEPCKG.addUserStudying(?)}");
-            callableStatement.registerOutParameter(1, Types.DECIMAL);
-            callableStatement.setString(2, userStudying.getUserGroup());
-            callableStatement.execute();
+                CallableStatement callableStatement = connection.prepareCall("{ ? = call CREATEPCKG.addUserStudying(?)}");
+                callableStatement.registerOutParameter(1, Types.DECIMAL);
+                callableStatement.setString(2, userStudying.getUserGroup());
+                callableStatement.execute();
 
-            // we're getting id;
-            userStudyingId = (BigDecimal) callableStatement.getObject(1);
+                // we're getting id;
+                userStudyingId = (BigDecimal) callableStatement.getObject(1);
 
-        } catch (SQLException exp) {
-            exp.printStackTrace();
-        } finally {
-            connectionHandler.close(connection);
+            } catch (SQLException exp) {
+                exp.printStackTrace();
+            } finally {
+                connectionHandler.close(connection);
+            }
         }
-
         return userStudyingId;
     }
 

@@ -10,7 +10,7 @@ import utils.DataReader;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class BcompOperations implements RedisGenericOperations, DatabaseGenericOperations {
+public class BcompOperations extends DatabaseGenericOperations {
 
     @Deprecated
     public void create() {

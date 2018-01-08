@@ -62,4 +62,12 @@ public class UserStudying {
     public void setUserProfiles(Set<UserProfile> userProfiles) {
         this.userProfiles = userProfiles;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append(getId()).append(" ")
+                .append(getUserGroup()).append(" ")
+                .toString();
+    }
 }

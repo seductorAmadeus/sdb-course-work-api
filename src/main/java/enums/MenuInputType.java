@@ -43,7 +43,7 @@ public enum MenuInputType {
     UPDATE_USER_PROFILE("37. Update user profile\n"),
     //    DELETE_USER_PROFILE("35. Delete user profile \n(WARNING! This operation does not affect the user and only deletes the user profile if one exists)\n"),
     DELETE_USER_PROFILE("38. Delete user profile (and user)\n"),
-
+    USER_STUDYING_ID("Enter user studying id: "),
     // RegistrationCodes
     INVITE_CODE_STATUS("Enter invite code status: "),
     EMAIL("Enter email: "),

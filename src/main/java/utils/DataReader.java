@@ -347,6 +347,24 @@ public class DataReader {
         return userSessionId;
     }
 
+    public static BigDecimal readUserStudyingId() {
+        BigDecimal userStudyingId = null;
+        System.out.println(MenuInputType.USER_STUDYING_ID);
+        for (; ; ) {
+            String tempUserStudyingId = scanner.nextLine();
+            try {
+                if (tempUserStudyingId.length() > 20) {
+                    throw new Exception();
+                }
+                userStudyingId = new BigDecimal(tempUserStudyingId);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+        return userStudyingId;
+    }
+
     // TODO: make a generic method for reading id specified length
     // TODO: to put constants in another file
     public static BigDecimal readBcompSettingsId() {

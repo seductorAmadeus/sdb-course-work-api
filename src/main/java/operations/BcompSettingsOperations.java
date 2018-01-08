@@ -8,7 +8,7 @@ import utils.DataReader;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class BcompSettingsOperations implements DatabaseGenericOperations, RedisGenericOperations {
+public class BcompSettingsOperations extends DatabaseGenericOperations {
 
     public void create() {
         BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
