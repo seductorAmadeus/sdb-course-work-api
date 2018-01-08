@@ -23,7 +23,6 @@ import java.util.List;
  * @version 0.1
  * @since 0.1
  */
-
 public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
 
     public BigDecimal create(RegistrationCodes registrationCodes) {

@@ -13,6 +13,21 @@ public interface GenericDAO<T, PK extends Serializable> {
 
     T get(PK id);
 
+    default void update(T t) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(t);
+            transaction.commit();
+        }
+        catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        }
+    }
+
     default void delete(Class<T> tClass, PK id) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

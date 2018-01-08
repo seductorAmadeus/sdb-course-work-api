@@ -20,8 +20,6 @@ import java.util.List;
  * @version 0.1
  * @since 0.1
  */
-// TODO: Create new interface or implement this
-
 public class UsersDAOImpl implements UsersDao {
 
     public BigDecimal create(Users user) {

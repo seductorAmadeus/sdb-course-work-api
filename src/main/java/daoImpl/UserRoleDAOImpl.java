@@ -18,8 +18,6 @@ import java.util.List;
  * @version 0.1
  * @since 0.1
  */
-
-// TODO: Create new interface or implement this
 public class UserRoleDAOImpl implements UserRoleDAO {
 
     public BigDecimal getRootRoleId() {

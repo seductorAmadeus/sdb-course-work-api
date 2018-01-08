@@ -21,9 +21,6 @@ import java.util.List;
  * @version 0.1
  * @since 0.1
  */
-
-// TODO: create an interface that inherits a common interface
-
 public class UserStudyingDAOImpl implements UserStudyingDAO {
 
     private ResultSet resultSet;

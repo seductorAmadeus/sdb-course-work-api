@@ -12,18 +12,4 @@ public interface RegistrationCodesDAO extends GenericDAO<RegistrationCodes, BigD
 
     RegistrationCodes getAvailableCode();
 
-    default void update(RegistrationCodes transientObject) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            // TODO: check this method!
-            session.saveOrUpdate(transientObject);
-            transaction.commit();
-        } catch (HibernateException exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        }
-    }
 }

@@ -1,6 +1,6 @@
 package daoImpl;
 
-import dao.UserProfileDAO;
+import dao.GenericDAO;
 import entities.UserProfile;
 import entities.Users;
 import org.hibernate.HibernateException;
@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserProfileDAOImpl implements UserProfileDAO {
+public class UserProfileDAOImpl implements GenericDAO<UserProfile, BigDecimal> {
 
     @Override
     // This method does not create only the user profile, it also creates the user!

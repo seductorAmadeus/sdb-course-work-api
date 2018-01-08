@@ -18,8 +18,6 @@ import java.util.List;
  * @version 0.1
  * @since 0.1
  */
-
-// TODO: create new interface
 public class SessionSettingsDAOImpl implements GenericDAO {
 
 //    public void deleteByBcompSettingsId(BigDecimal id) {
