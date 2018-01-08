@@ -29,7 +29,7 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
     public BigDecimal create(RegistrationCodes registrationCodes) {
         Connection connection = null;
         ConnectionJDBC connectionHandler = new ConnectionJDBC();
-        BigDecimal inviteCode = null;
+        BigDecimal inviteCodeId = null;
         try {
             connection = connectionHandler.createConnection();
 
@@ -41,7 +41,7 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
             callableStatement.execute();
 
             // we're getting id;
-            inviteCode = (BigDecimal) callableStatement.getObject(1);
+            inviteCodeId = (BigDecimal) callableStatement.getObject(1);
 
         } catch (SQLException exp) {
             exp.printStackTrace();
@@ -49,7 +49,7 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
             connectionHandler.close(connection);
         }
 
-        return inviteCode;
+        return inviteCodeId;
     }
 
     @Deprecated

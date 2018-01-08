@@ -6,12 +6,12 @@ import oracle.jdbc.OracleTypes;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import utils.ConnectionJDBC;
 import utils.HibernateUtil;
 
 import java.math.BigDecimal;
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
-import java.sql.Types;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,47 +55,28 @@ public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal>
     }
 
 
-    public void addNewUserGroup(String group) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.doWork(connection -> {
-                CallableStatement callableStatement = connection.prepareCall("{ ? = call CREATEPCKG.addUserStudying(?)}");
-                callableStatement.registerOutParameter(1, Types.DECIMAL);
-                callableStatement.setString(2, group);
-                callableStatement.executeUpdate();
-            });
-            transaction.commit();
-        } catch (HibernateException exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
-        }
-    }
+    public BigDecimal create(UserStudying userStudying) {
+        Connection connection = null;
+        ConnectionJDBC connectionHandler = new ConnectionJDBC();
+        BigDecimal userStudyingId = null;
+        try {
+            connection = connectionHandler.createConnection();
 
-    // TODO: add function like "list all groups"
-    public boolean groupExist(String group) {
-        Transaction transaction = null;
-        boolean groupExist = false;
+            CallableStatement callableStatement = connection.prepareCall("{ ? = call CREATEPCKG.addUserStudying(?)}");
+            callableStatement.registerOutParameter(1, Types.DECIMAL);
+            callableStatement.setString(2, userStudying.getUserGroup());
+            callableStatement.execute();
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.doWork(connection -> {
-                // TODO: fix this function
-                CallableStatement callableStatement = connection.prepareCall("{ ? = call CREATEPCKG.addUserStudying(?)}");
-                callableStatement.registerOutParameter(1, Types.DECIMAL);
-                callableStatement.setString(2, "P3100");
-            });
-            transaction.commit();
-        } catch (HibernateException exp) {
-            if (transaction != null) {
-                transaction.rollback();
-                exp.printStackTrace();
-            }
+            // we're getting id;
+            userStudyingId = (BigDecimal) callableStatement.getObject(1);
+
+        } catch (SQLException exp) {
+            exp.printStackTrace();
+        } finally {
+            connectionHandler.close(connection);
         }
 
-        return groupExist;
+        return userStudyingId;
     }
 
     @Deprecated
@@ -126,40 +107,48 @@ public class UserStudyingDAOImpl implements GenericDAO<UserStudying, BigDecimal>
         }
     }
 
-    public boolean checkUserStudyingExists(BigDecimal userStudyingId) {
-        boolean userStudyingExists = false;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            if (session.get(UserStudying.class, userStudyingId) != null) {
-                userStudyingExists = true;
-            }
-        } catch (HibernateException exp) {
-
-        }
-
-        return userStudyingExists;
-    }
-
-    @Override
-    public BigDecimal create(UserStudying newInstance) {
-        return null;
-    }
-
     @Override
     public UserStudying get(BigDecimal id) {
-        return null;
+        Transaction transaction = null;
+        UserStudying userStudying = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            userStudying = (UserStudying) session.createQuery("from UserStudying where id = :id")
+                    .setParameter("id", id)
+                    .setMaxResults(1)
+                    .uniqueResult();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        }
+        return userStudying;
     }
 
     @Override
+    @Deprecated
     public void update(UserStudying transientObject) {
-
-    }
-
-    public void delete(BigDecimal id) {
-
     }
 
     @Override
     public List<UserStudying> getList() {
-        return null;
+        Transaction transaction = null;
+        List<UserStudying> list = new ArrayList<>();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            List tempList = session.createQuery("from UserStudying").list();
+            for (Object aTempList : tempList) {
+                UserStudying userStudying = (UserStudying) aTempList;
+                list.add(userStudying);
+            }
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        }
+
+        return list;
     }
 }
