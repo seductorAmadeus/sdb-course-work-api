@@ -5,7 +5,6 @@ import entities.*;
 import enums.CachePrefixType;
 import operations.JedisOperations;
 import operations.UsersOperations;
-import org.junit.Test;
 import utils.DataReader;
 import utils.HibernateUtil;
 import utils.RandomInviteCodesGenerator;
@@ -27,12 +26,20 @@ public class WebBcompTests {
     private static final int TESTS_COUNT = 20;
 
     public static void main(String[] args) {
-        WebBcompTests test = new WebBcompTests();
-//        test.testConstraintsViolation();
-//        test.testSynchronize();
-//        test.dropAllTables();
-        test.createRegistrationCodes();
-        test.createUsers();
+        WebBcompTests webBcompTests = new WebBcompTests();
+        webBcompTests.createAllTables(webBcompTests);
+        //test.testConstraintsViolation();
+        //test.testSynchronize();
+        //test.dropAllTables();
+    }
+
+    public void createAllTables(WebBcompTests webBcompTests) {
+        webBcompTests.createRegistrationCodes();
+        webBcompTests.createUsers();
+        webBcompTests.createUserSession();
+        webBcompTests.createBcomps();
+        webBcompTests.createBcompSettings();
+        webBcompTests.createSessionSettings();
         HibernateUtil.getSessionFactory().close();
     }
 
@@ -59,7 +66,6 @@ public class WebBcompTests {
         }
     }
 
-    @Test
     public void testRegexPattern() {
         System.out.println(DataReader.readUserGroup());
     }
@@ -73,7 +79,7 @@ public class WebBcompTests {
         return registrationCodes;
     }
 
-    private List<RegistrationCodes> getOldRegistrationCodesList() {
+    private List<RegistrationCodes> getAvailableCodesList() {
         RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
         List<RegistrationCodes> registrationCodes = new ArrayList<>();
         for (int i = 0; i < TESTS_COUNT; i++) {
@@ -145,23 +151,8 @@ public class WebBcompTests {
     private void createUsers() {
         UsersDAOImpl usersDAO = new UsersDAOImpl();
 
-        // Генерируем общую роль
-        UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
-        UserRole userRole = new UserRole();
-        userRoleDAO.generateAllUsersRoles();
-        // set all roles as "admin"
-        userRole.setId(userRoleDAO.getAdminRoleId());
-
-        // Генерируем общий userStudying id
-        // инициализировали UserStudyingId
-        UserStudyingDAOImpl userStudyingDAO = new UserStudyingDAOImpl();
-        UserStudying userStudying = new UserStudying();
-        userStudyingDAO.generateAllUsersGroups();
-        String userGroupStr = "P3101";
-        userStudying.setId(userStudyingDAO.getIdByUserGroup(userGroupStr));
-
-        List<UserProfile> userProfiles = getProfilesList(userRole, userStudying);
-        List<Users> users = getUsersList(getOldRegistrationCodesList(), userProfiles);
+        List<UserProfile> userProfiles = getProfilesList(getUserRole(), getUserStudying());
+        List<Users> users = getUsersList(getAvailableCodesList(), userProfiles);
         for (int i = 0; i < TESTS_COUNT; i++) {
             try {
                 users.get(i).setUserProfile(userProfiles.get(i));
@@ -172,29 +163,25 @@ public class WebBcompTests {
         }
     }
 
-    @Test
-    public void fillAllTables() {
-
-        /*
-          создаем сессии в БД на основе последнего пользователя, используя рандомайзер (доделать)
-         */
+    private void createUserSession() {
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
+        UsersDAOImpl usersDAO = new UsersDAOImpl();
+        List<Users> users = usersDAO.getList();
+
         for (int i = 0; i < TESTS_COUNT; i++) {
             try {
-//                userSessionDAO.create(users.get((int)
-//                        Math.random() * (users.size() - 1 - users.get(0).getUserId().intValue())).getUserId());
+                UserSession userSession = new UserSession();
+                userSession.setUserId(users.get((int) Math.random() * (users.size() - 1 - users.get(0).getUserId().intValue())));
+                userSessionDAO.create(userSession);
             } catch (NullPointerException exp) {
                 exp.getMessage();
             }
         }
+    }
 
-        /*
-          создаем BCOMP-ы
-         */
-        // получаем список пользовательских сессий
+    private void createBcomps() {
         UserSessionDAOImpl userSessionDAO1 = new UserSessionDAOImpl();
         List<UserSession> userSessionList = userSessionDAO1.getList();
-        // добавляем bcomp's
         List<Bcomp> bcompList = getBcompsList(userSessionList);
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
 
@@ -205,10 +192,9 @@ public class WebBcompTests {
                 exp.getMessage();
             }
         }
+    }
 
-        /*
-          создаем BCOMP settings
-         */
+    private void createBcompSettings() {
         BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
         List<BcompSettings> bcompSettingsList = getBcompSettings();
 
@@ -219,10 +205,11 @@ public class WebBcompTests {
                 exp.getMessage();
             }
         }
+    }
 
-        /*
-          ассоциируем настройки с userSessionId
-         */
+    private void createSessionSettings() {
+        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
+        BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
 
         List<BcompSettings> newBcompSettingsList = bcompSettingsDAO.getList();
         List<UserSession> newUserSessionList = userSessionDAO.getList();
@@ -235,7 +222,23 @@ public class WebBcompTests {
                 exp.getMessage();
             }
         }
+    }
 
-        HibernateUtil.getSessionFactory().close();
+    private UserRole getUserRole() {
+        UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
+        UserRole userRole = new UserRole();
+        userRoleDAO.generateAllUsersRoles();
+        // set all roles as "admin"
+        userRole.setId(userRoleDAO.getAdminRoleId());
+        return userRole;
+    }
+
+    private UserStudying getUserStudying() {
+        UserStudyingDAOImpl userStudyingDAO = new UserStudyingDAOImpl();
+        UserStudying userStudying = new UserStudying();
+        userStudyingDAO.generateAllUsersGroups();
+        String userGroupStr = "P3101";
+        userStudying.setId(userStudyingDAO.getIdByUserGroup(userGroupStr));
+        return userStudying;
     }
 }

@@ -1,6 +1,5 @@
 package daoImpl;
 
-import dao.GenericDAO;
 import dao.UsersDao;
 import entities.UserProfile;
 import entities.Users;

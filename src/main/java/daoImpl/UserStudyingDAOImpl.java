@@ -85,16 +85,26 @@ public class UserStudyingDAOImpl implements UserStudyingDAO {
             session.doWork(connection -> {
                 CallableStatement callableStatement = connection.prepareCall("{ ? = call CREATEPCKG.addUserStudying(?)}");
                 callableStatement.registerOutParameter(1, Types.DECIMAL);
-                callableStatement.setString(2, "P3100");
-                callableStatement.executeUpdate();
-                callableStatement.setString(2, "P3101");
-                callableStatement.executeUpdate();
-                callableStatement.setString(2, "P3102");
-                callableStatement.executeUpdate();
-                callableStatement.setString(2, "P3110");
-                callableStatement.executeUpdate();
-                callableStatement.setString(2, "P3111");
-                callableStatement.executeUpdate();
+                if (getIdByUserGroup("P3100") == null) {
+                    callableStatement.setString(2, "P3100");
+                    callableStatement.executeUpdate();
+                }
+                if (getIdByUserGroup("P3101") == null) {
+                    callableStatement.setString(2, "P3101");
+                    callableStatement.executeUpdate();
+                }
+                if (getIdByUserGroup("P3102") == null) {
+                    callableStatement.setString(2, "P3102");
+                    callableStatement.executeUpdate();
+                }
+                if (getIdByUserGroup("P3110") == null) {
+                    callableStatement.setString(2, "P3110");
+                    callableStatement.executeUpdate();
+                }
+                if (getIdByUserGroup("P3111") == null) {
+                    callableStatement.setString(2, "P3111");
+                    callableStatement.executeUpdate();
+                }
             });
             transaction.commit();
         } catch (HibernateException exp) {

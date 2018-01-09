@@ -52,7 +52,7 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
     }
 
     @Deprecated
-    public BigDecimal addRegistrationCodeH(RegistrationCodes registrationCodes) {
+    public BigDecimal createH(RegistrationCodes registrationCodes) {
         Transaction transaction = null;
         BigDecimal inviteCode = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
