@@ -39,20 +39,20 @@ public class UserRoleType implements UserType {
 
     @Override
     public Object nullSafeGet(ResultSet resultSet, String[] strings, SharedSessionContractImplementor sharedSessionContractImplementor, Object o) throws HibernateException, SQLException {
-        UserT phone = null;
+        UserT userT = null;
 
         String nameVal = resultSet.getString(strings[0]);
         if (nameVal != null) {
-            phone = new UserT();
+            userT = new UserT();
 
             StringTokenizer tokenizer = new StringTokenizer(nameVal, "-");
-            phone.setTeacher(tokenizer.nextToken());
-            phone.setStud(tokenizer.nextToken());
-            phone.setRoot(tokenizer.nextToken());
-            phone.setAdmin(tokenizer.nextToken());
+            userT.setTeacher(tokenizer.nextToken());
+            userT.setStud(tokenizer.nextToken());
+            userT.setRoot(tokenizer.nextToken());
+            userT.setAdmin(tokenizer.nextToken());
 
         }
-        return phone;
+        return userT;
     }
 
     @Override

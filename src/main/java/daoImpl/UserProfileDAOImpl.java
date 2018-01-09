@@ -20,8 +20,7 @@ public class UserProfileDAOImpl implements GenericDAO<UserProfile, BigDecimal> {
         UsersDAOImpl usersDAO = new UsersDAOImpl();
         Users users = userProfile.getUsers();
         users.setUserProfile(userProfile);
-        BigDecimal userProfileId = usersDAO.create(users);
-        return userProfileId;
+        return usersDAO.create(users);
     }
 
     @Override
@@ -44,7 +43,7 @@ public class UserProfileDAOImpl implements GenericDAO<UserProfile, BigDecimal> {
     }
 
     // TODO: add documentation
-   // if you only need to delete the profile, then comment out this method.
+    // if you only need to delete the profile, then comment out this method.
     public void delete(Class<UserProfile> userProfileClass, BigDecimal id) {
         UsersDAOImpl usersDAO = new UsersDAOImpl();
         usersDAO.delete(Users.class, id);

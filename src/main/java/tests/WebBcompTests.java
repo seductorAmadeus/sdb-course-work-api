@@ -28,12 +28,12 @@ public class WebBcompTests {
 
     public static void main(String[] args) {
         WebBcompTests test = new WebBcompTests();
-        test.testConstraintsViolation();
+//        test.testConstraintsViolation();
 //        test.testSynchronize();
 //        test.dropAllTables();
-//        test.createRegistrationCodes();
-//        test.createUsers();
-//        HibernateUtil.getSessionFactory().close();
+        test.createRegistrationCodes();
+        test.createUsers();
+        HibernateUtil.getSessionFactory().close();
     }
 
     private void testSynchronize() {
@@ -85,7 +85,7 @@ public class WebBcompTests {
     private List<Users> getUsersList(List<RegistrationCodes> registrationCodes, List<UserProfile> userProfile) {
         List<Users> userProfiles = new ArrayList<>();
         for (int i = 0; i < TESTS_COUNT; i++) {
-            userProfiles.add(new Users(registrationCodes.get(i), "login" + i, "password" + i, null, userProfile.get(i)));
+            userProfiles.add(new Users(registrationCodes.get(i), "loginlogin" + i, "passwordpassword" + i, null, userProfile.get(i)));
         }
         return userProfiles;
     }
@@ -104,7 +104,7 @@ public class WebBcompTests {
         List<UserProfile> userProfiles = new ArrayList<>();
         for (int i = 0; i < TESTS_COUNT; i++) {
             userProfiles.add(new UserProfile(userRoleId, userStudyingId, timestamp, timestamp,
-                    "YES", "Martin" + i, "Rayla" + i, "",
+                    "YES", "Martin" + i, "Rayla" + i, null,
                     "M", timestamp, "Y", null, null));
         }
         return userProfiles;

@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -111,14 +112,22 @@ public class UserRoleDAOImpl implements UserRoleDAO {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Query query = session.createSQLQuery("INSERT INTO USER_ROLE (TYPE) values(USER_T('yes','no','no','no'))");
-            query.executeUpdate();
-            Query query2 = session.createSQLQuery("INSERT INTO USER_ROLE (TYPE) values(USER_T('no','yes','no','no'))");
-            query2.executeUpdate();
-            Query query3 = session.createSQLQuery("INSERT INTO USER_ROLE (TYPE) values(USER_T('no','no','yes','no'))");
-            query3.executeUpdate();
-            Query query4 = session.createSQLQuery("INSERT INTO USER_ROLE (TYPE) values(USER_T('no','no','no','yes'))");
-            query4.executeUpdate();
+            if (getRootRoleId() == null) {
+                Query query = session.createSQLQuery("INSERT INTO USER_ROLE (TYPE) VALUES(USER_T('yes','no','no','no'))");
+                query.executeUpdate();
+            }
+            if (getAdminRoleId() == null) {
+                Query query2 = session.createSQLQuery("INSERT INTO USER_ROLE (TYPE) VALUES(USER_T('no','yes','no','no'))");
+                query2.executeUpdate();
+            }
+            if (getTeacherRoleId() == null) {
+                Query query3 = session.createSQLQuery("INSERT INTO USER_ROLE (TYPE) VALUES(USER_T('no','no','yes','no'))");
+                query3.executeUpdate();
+            }
+            if (getStudRoleId() == null) {
+                Query query4 = session.createSQLQuery("INSERT INTO USER_ROLE (TYPE) VALUES(USER_T('no','no','no','yes'))");
+                query4.executeUpdate();
+            }
             transaction.commit();
         } catch (HibernateException exp) {
             if (transaction != null) {
@@ -129,18 +138,62 @@ public class UserRoleDAOImpl implements UserRoleDAO {
     }
 
     @Override
-    public BigDecimal create(UserRole newInstance) {
-        return null;
+    public BigDecimal create(UserRole userRole) {
+        Transaction transaction = null;
+        BigDecimal userRoleId = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.persist(userRole);
+            transaction.commit();
+            userRoleId = userRole.getId();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        }
+        return userRoleId;
     }
 
     @Override
     public UserRole get(BigDecimal id) {
-        return null;
+        Transaction transaction = null;
+        UserRole userRole = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            userRole = (UserRole) session.createQuery("from UserRole where id = :userRoleId")
+                    .setParameter("userRoleId", id)
+                    .setMaxResults(1)
+                    .uniqueResult();
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        }
+        return userRole;
     }
 
 
     @Override
     public List<UserRole> getList() {
-        return null;
+        Transaction transaction = null;
+        List<UserRole> list = new ArrayList<>();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            List tempList = session.createQuery("from UserRole ").list();
+            for (Object aTempList : tempList) {
+                UserRole userRole = (UserRole) aTempList;
+                list.add(userRole);
+            }
+        } catch (HibernateException exp) {
+            if (transaction != null) {
+                transaction.rollback();
+                exp.printStackTrace();
+            }
+        }
+
+        return list;
+
     }
 }
