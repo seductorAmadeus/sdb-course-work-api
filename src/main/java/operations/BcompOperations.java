@@ -69,7 +69,7 @@ public class BcompOperations extends DatabaseGenericOperations {
         List<Bcomp> bcomps = bcompDAO.getList();
 
         for (Bcomp bcomp : bcomps) {
-            jedisOperations.set(CachePrefixType.USERS.toString() + bcomp.getId(), bcomp.toString());
+            jedisOperations.set(CachePrefixType.BCOMP.toString() + bcomp.getId(), bcomp.toString());
         }
 
     }

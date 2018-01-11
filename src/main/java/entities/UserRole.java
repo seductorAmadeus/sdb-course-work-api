@@ -60,4 +60,13 @@ public class UserRole {
     public void setUserProfile(Set<UserProfile> userProfile) {
         this.userProfile = userProfile;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append(getId()).append(" ")
+                //TODO: fix getType() value.
+                .append(getType()).append(" ")
+                .toString();
+    }
 }

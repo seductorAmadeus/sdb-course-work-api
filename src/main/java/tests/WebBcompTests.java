@@ -5,7 +5,6 @@ import entities.*;
 import enums.CachePrefixType;
 import operations.JedisOperations;
 import operations.UsersOperations;
-import utils.DataReader;
 import utils.HibernateUtil;
 import utils.RandomInviteCodesGenerator;
 
@@ -145,14 +144,19 @@ public class WebBcompTests {
     }
 
     private void createUsers() {
+        JedisOperations jedisOperations = new JedisOperations();
         UsersDAOImpl usersDAO = new UsersDAOImpl();
 
         List<UserProfile> userProfiles = getProfilesList(getUserRole(), getUserStudying());
         List<Users> users = getUsersList(getAvailableCodesList(), userProfiles);
+        // TODO: изменить цикл на пробег по пользователям
         for (int i = 0; i < TESTS_COUNT; i++) {
             try {
                 users.get(i).setUserProfile(userProfiles.get(i));
-                usersDAO.create(users.get(i));
+                BigDecimal userId = usersDAO.create(users.get(i));
+                users.get(i).setUserId(userId);
+                jedisOperations.set(CachePrefixType.USERS.toString() + users.get(i).getUserId(), users.get(i).toString());
+                jedisOperations.set(CachePrefixType.USER_PROFILE.toString() + users.get(i).getUserProfile().getProfileId(), users.get(i).getUserProfile().toString());
             } catch (NullPointerException exp) {
                 exp.getMessage();
             }
@@ -160,6 +164,7 @@ public class WebBcompTests {
     }
 
     private void createUserSession() {
+        JedisOperations jedisOperations = new JedisOperations();
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         UsersDAOImpl usersDAO = new UsersDAOImpl();
         List<Users> users = usersDAO.getList();
@@ -168,7 +173,9 @@ public class WebBcompTests {
             try {
                 UserSession userSession = new UserSession();
                 userSession.setUserId(users.get((int) Math.random() * (users.size() - 1 - users.get(0).getUserId().intValue())));
-                userSessionDAO.create(userSession);
+                BigDecimal userSessionId = userSessionDAO.create(userSession);
+                userSession.setId(userSessionId);
+                jedisOperations.set(CachePrefixType.USER_SESSION.toString() + userSession.getId(), userSession.toString());
             } catch (NullPointerException exp) {
                 exp.getMessage();
             }
@@ -176,6 +183,7 @@ public class WebBcompTests {
     }
 
     private void createBcomps() {
+        JedisOperations jedisOperations = new JedisOperations();
         UserSessionDAOImpl userSessionDAO1 = new UserSessionDAOImpl();
         List<UserSession> userSessionList = userSessionDAO1.getList();
         List<Bcomp> bcompList = getBcompsList(userSessionList);
@@ -183,7 +191,9 @@ public class WebBcompTests {
 
         for (int i = 0; i < TESTS_COUNT; i++) {
             try {
-                bcompDAO.create(bcompList.get(i));
+                BigDecimal bcompId = bcompDAO.create(bcompList.get(i));
+                bcompList.get(i).setId(bcompId);
+                jedisOperations.set(CachePrefixType.BCOMP.toString() + bcompList.get(i).getId(), bcompList.get(i).toString());
             } catch (NullPointerException exp) {
                 exp.getMessage();
             }
@@ -191,12 +201,15 @@ public class WebBcompTests {
     }
 
     private void createBcompSettings() {
+        JedisOperations jedisOperations = new JedisOperations();
         BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
         List<BcompSettings> bcompSettingsList = getBcompSettings();
 
         for (int i = 0; i < TESTS_COUNT; i++) {
             try {
-                bcompSettingsDAO.create(bcompSettingsList.get(i));
+                BigDecimal bcompSettingsId = bcompSettingsDAO.create(bcompSettingsList.get(i));
+                bcompSettingsList.get(i).setId(bcompSettingsId);
+                jedisOperations.set(CachePrefixType.BCOMP_SETTINGS.toString() + bcompSettingsList.get(i).getId(), bcompSettingsList.get(i).toString());
             } catch (NullPointerException exp) {
                 exp.getMessage();
             }
@@ -220,20 +233,33 @@ public class WebBcompTests {
     }
 
     private UserRole getUserRole() {
+        JedisOperations jedisOperations = new JedisOperations();
+
         UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
         UserRole userRole = new UserRole();
         userRoleDAO.generateAllUsersRoles();
         // set all roles as "admin"
         userRole.setId(userRoleDAO.getAdminRoleId());
+
+        List<UserRole> userRoles = userRoleDAO.getList();
+        for (UserRole temp : userRoles) {
+            jedisOperations.set(CachePrefixType.USER_ROLE.toString() + temp.getId(), temp.toString());
+        }
         return userRole;
     }
 
     private UserStudying getUserStudying() {
+        JedisOperations jedisOperations = new JedisOperations();
         UserStudyingDAOImpl userStudyingDAO = new UserStudyingDAOImpl();
         UserStudying userStudying = new UserStudying();
         userStudyingDAO.generateAllUsersGroups();
         String userGroupStr = "P3101";
         userStudying.setId(userStudyingDAO.getIdByUserGroup(userGroupStr));
+
+        List<UserStudying> userStudyings = userStudyingDAO.getList();
+        for (UserStudying temp : userStudyings) {
+            jedisOperations.set(CachePrefixType.USER_STUDYING.toString() + temp.getId(), temp.toString());
+        }
         return userStudying;
     }
 }
