@@ -149,4 +149,13 @@ public class UserPicture {
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append(getId()).append(" ")
+                .append(getPictureName()).append(" ")
+                .append(getPicture()).append(" ")
+                .toString();
+    }
 }
