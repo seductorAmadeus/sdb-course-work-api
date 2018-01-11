@@ -21,7 +21,6 @@ public class UserPicture {
      * This field contains user picture identifier
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_profile_id")
     @NotNull
     private BigDecimal id;

@@ -1,7 +1,9 @@
 package operations;
 
 import daoImpl.UserPictureDAOImpl;
+import daoImpl.UserProfileDAOImpl;
 import entities.UserPicture;
+import entities.UserProfile;
 import enums.CachePrefixType;
 import utils.DataReader;
 
@@ -80,17 +82,21 @@ public class UserPictureOperations extends DatabaseGenericOperations {
 
         UserPicture userPicture;
         UserPictureDAOImpl userPictureDAO = new UserPictureDAOImpl();
+        UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
 
         userPicture = DataReader.readUserPicture();
+        BigDecimal userProfileId = DataReader.readUserProfileId();
+        if (userProfileDAO.isExists(UserProfile.class, userProfileId)) {
+            userPicture.setId(userProfileId);
+            try {
+                BigDecimal userPictureId = userPictureDAO.create(userPicture);
 
-        try {
-            BigDecimal userPictureId = userPictureDAO.create(userPicture);
-
-            if (userPictureId != null) {
-                jedisOperations.set(CachePrefixType.USER_PICTURE.toString() + userPicture.getId(), userPicture.toString());
+                if (userPictureId != null) {
+                    jedisOperations.set(CachePrefixType.USER_PICTURE.toString() + userPicture.getId(), userPicture.toString());
+                }
+            } catch (NullPointerException exp) {
+                System.out.println("Something happened, sorry");
             }
-        } catch (NullPointerException exp) {
-            System.out.println("Something happened, sorry");
         }
     }
 

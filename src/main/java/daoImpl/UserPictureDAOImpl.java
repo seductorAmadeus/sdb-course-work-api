@@ -19,7 +19,7 @@ public class UserPictureDAOImpl implements GenericDAO<UserPicture, BigDecimal> {
         BigDecimal userPictureId = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.persist(userPicture);
+            session.merge(userPicture);
             transaction.commit();
             userPictureId = userPicture.getId();
         } catch (HibernateException exp) {
