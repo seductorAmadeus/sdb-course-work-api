@@ -21,7 +21,7 @@ public class HibernateOperationsManager {
         SessionSettingsOperations sessionSettingsOperations = new SessionSettingsOperations();
         SpecifiedOperations specifiedOperations = new SpecifiedOperations();
         UserProfileOperations userProfileOperations = new UserProfileOperations();
-
+        UserPictureOperations userPictureOperations = new UserPictureOperations();
 
         int menuNumber = Integer.parseInt(scanner.nextLine());
 
@@ -41,7 +41,7 @@ public class HibernateOperationsManager {
             case 5:
                 registrationCodesOperations.jDelete();
 //TODO: check NumberFormatException from synchronize
-                //                registrationCodesOperations.synchronize();
+                registrationCodesOperations.synchronize();
                 break;
             case 6:
                 usersOperations.jCreate();
@@ -149,6 +149,21 @@ public class HibernateOperationsManager {
                 userProfileOperations.synchronize();
                 usersOperations.synchronize();
                 break;
+            case 39:
+                userPictureOperations.jCreate();
+                break;
+            case 40:
+                userPictureOperations.jPrintAll();
+                break;
+            case 41:
+                userPictureOperations.jPrint();
+                break;
+            case 42:
+                userPictureOperations.jUpdate();
+                break;
+            case 43:
+                userPictureOperations.jDelete();
+                break;
             default:
                 break;
         }
@@ -205,6 +220,12 @@ public class HibernateOperationsManager {
                 .append(MenuInputType.GET_USER_PROFILE_BY_ID)
                 .append(MenuInputType.UPDATE_USER_PROFILE)
                 .append(MenuInputType.DELETE_USER_PROFILE)
+                .append("\n<<< User picture >>>\n")
+                .append(MenuInputType.ADD_USER_PICTURE)
+                .append(MenuInputType.PRINT_USER_PICTURE)
+                .append(MenuInputType.GET_USER_PICTURE_BY_ID)
+                .append(MenuInputType.UPDATE_USER_PICTURE)
+                .append(MenuInputType.DELETE_USER_PICTURE)
                 .toString();
     }
 }

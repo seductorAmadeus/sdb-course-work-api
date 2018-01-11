@@ -55,7 +55,7 @@ public class DataReader {
         return registrationCodes;
     }
 
-    public static Bcomp readEntity() {
+    public static Bcomp readBcomp() {
         Bcomp bcomp = new Bcomp();
         // TODO: need fix
 //        System.out.println(MenuInputType.);
@@ -541,6 +541,25 @@ public class DataReader {
         return user;
     }
 
+    public static UserPicture readUserPicture() {
+        UserPicture userPicture = new UserPicture();
+        System.out.println(MenuInputType.USER_PICTURE_PICNAME);
+        for (; ; ) {
+            String picname = scanner.nextLine();
+            try {
+                if (picname.length() > 20) {
+                    throw new Exception();
+                }
+                userPicture.setPictureName(picname);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        return userPicture;
+    }
+
     public static String readUsername() {
         System.out.println(MenuInputType.USERNAME);
         String username;
@@ -571,6 +590,21 @@ public class DataReader {
             }
         }
         return password;
+    }
+
+    public static BigDecimal readUserPictureId() {
+        BigDecimal userPictureId = null;
+        System.out.println(MenuInputType.USER_PICTURE_ID);
+        for (; ; ) {
+            String tempUserId = scanner.nextLine();
+            try {
+                userPictureId = new BigDecimal(tempUserId);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+        return userPictureId;
     }
 
     public static BigDecimal readUserId() {

@@ -8,7 +8,9 @@ public enum CachePrefixType {
     USER_PROFILE("user_profile:"),
     USER_SESSION("user_session:"),
     USER_ROLE("user_role:"),
-    USER_STUDYING("user_studying:");
+    USER_STUDYING("user_studying:"),
+    USER_PICTURE("user_picture:");
+
     private String text;
 
     CachePrefixType(String text) {

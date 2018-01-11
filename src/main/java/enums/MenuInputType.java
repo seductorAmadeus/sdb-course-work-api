@@ -23,7 +23,6 @@ public enum MenuInputType {
     GET_USER_SESSION_BY_ID("18. Print user session by id\n"),
     UPDATE_USER_SESSION("19. Update user's session by id\n"),
     DELETE_USER_SESSION("20. Delete user's session by id\n"),
-
     ADD_BCOMP("21. Add new empty bcomp\n"),
     PRINT_BCOMPS("22. Print all bcomps\n"),
     GET_BCOMP_BY_ID("23. Get bcomp by id\n"),
@@ -43,7 +42,15 @@ public enum MenuInputType {
     UPDATE_USER_PROFILE("37. Update user profile\n"),
     //    DELETE_USER_PROFILE("35. Delete user profile \n(WARNING! This operation does not affect the user and only deletes the user profile if one exists)\n"),
     DELETE_USER_PROFILE("38. Delete user profile (and user)\n"),
+    ADD_USER_PICTURE("39. Create new user picture\n"),
+    PRINT_USER_PICTURE("40. Print all user's pictures names\n"),
+    GET_USER_PICTURE_BY_ID("41. Print user's picture by id\n"),
+    UPDATE_USER_PICTURE("42. Update user's picture by id\n"),
+    DELETE_USER_PICTURE("43. Delete user's picture\n"),
+
     USER_STUDYING_ID("Enter user studying id: "),
+    USER_PICTURE_ID("Enter user picture id: "),
+    USER_PICTURE_PICNAME("Enter user's picture picname: "),
     // RegistrationCodes
     INVITE_CODE_STATUS("Enter invite code status: "),
     EMAIL("Enter email: "),

@@ -71,6 +71,12 @@ public class UserStudyingOperations extends DatabaseGenericOperations {
     }
 
     @Override
+    @Deprecated
+    void jUpdate() {
+
+    }
+
+    @Override
     public void jDelete() {
         JedisOperations jedisOperations = new JedisOperations();
         UserStudyingDAOImpl userStudyingDAO = new UserStudyingDAOImpl();
