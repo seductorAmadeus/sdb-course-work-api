@@ -110,15 +110,18 @@ public class UsersOperations extends DatabaseGenericOperations {
     @Override
     public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
-
         BigDecimal userId = DataReader.readUserId();
+        UsersDAOImpl usersDAO = new UsersDAOImpl();
 
-        String users = jedisOperations.get(CachePrefixType.USERS.toString() + userId);
-
-        if (users != null) {
+        if (jedisOperations.isExists(CachePrefixType.USERS.toString(), userId)) {
+            String jUser = jedisOperations.get(CachePrefixType.USERS.toString() + userId);
+            System.out.println(jUser);
+        } else if (usersDAO.isExists(Users.class, userId)) {
+            Users users = usersDAO.get(userId);
             System.out.println(users);
+            jedisOperations.set(CachePrefixType.USERS.toString() + users.getUserId(), users.toString());
         } else {
-            System.out.println("The specified user id was not found in the Redis cache. Check it out correctly and try again");
+            System.out.println("The entry was not found in the Redis cache and in the Oracle database.");
         }
     }
 
@@ -149,21 +152,24 @@ public class UsersOperations extends DatabaseGenericOperations {
         }
     }
 
-    @Override
     public void jDelete() {
         JedisOperations jedisOperations = new JedisOperations();
         UsersDAOImpl usersDAO = new UsersDAOImpl();
 
         BigDecimal userId = DataReader.readUserId();
 
-        // TODO: удалить несовпадение проверок
         if (usersDAO.isExists(Users.class, userId)) {
             usersDAO.delete(Users.class, userId);
-            // TODO: add exception checking
-            // TODO: добавить полную проверку зависимостей с другими пользователями
-            jedisOperations.delete(CachePrefixType.USERS.toString() + userId);
+            System.out.println("The entry was successfully deleted from the database");
         } else {
-            System.out.println("The specified user id was not found in the Redis cache. Check it out correctly and try again");
+            System.out.println("The entry was not found in the Database.");
+        }
+
+        if (jedisOperations.isExists(CachePrefixType.USERS.toString(), userId)) {
+            jedisOperations.delete(CachePrefixType.USERS.toString() + userId);
+            System.out.println("The entry was successfully deleted from the Redis cache");
+        } else {
+            System.out.println("The entry was not found in the Redis cache.");
         }
     }
 

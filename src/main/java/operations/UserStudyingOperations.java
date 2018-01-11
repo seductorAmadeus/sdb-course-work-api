@@ -56,11 +56,17 @@ public class UserStudyingOperations extends DatabaseGenericOperations {
     public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
         BigDecimal userStudyingId = DataReader.readUserStudyingId();
-        String userStudying = jedisOperations.get(CachePrefixType.USER_STUDYING.toString() + userStudyingId);
-        if (userStudying != null) {
+        UserStudyingDAOImpl userStudyingDAO = new UserStudyingDAOImpl();
+
+        if (jedisOperations.isExists(CachePrefixType.USER_STUDYING.toString(), userStudyingId)) {
+            String jUserStudying = jedisOperations.get(CachePrefixType.USER_STUDYING.toString() + userStudyingId);
+            System.out.println(jUserStudying);
+        } else if (userStudyingDAO.isExists(UserStudying.class, userStudyingId)) {
+            UserStudying userStudying = userStudyingDAO.get(userStudyingId);
             System.out.println(userStudying);
+            jedisOperations.set(CachePrefixType.USER_STUDYING.toString() + userStudying.getId(), userStudying.toString());
         } else {
-            System.out.println("The specified user studying was not found in the Redis cache. Check it out correctly and try again");
+            System.out.println("The entry was not found in the Redis cache and in the Oracle database.");
         }
     }
 
@@ -73,10 +79,16 @@ public class UserStudyingOperations extends DatabaseGenericOperations {
 
         if (userStudyingDAO.isExists(UserStudying.class, userStudyingId)) {
             userStudyingDAO.delete(UserStudying.class, userStudyingId);
-            // TODO: add exception checking
-            jedisOperations.delete(CachePrefixType.USER_STUDYING.toString() + userStudyingId);
+            System.out.println("The entry was successfully deleted from the database");
         } else {
-            System.out.println("The specified user studying was not found in the Redis cache. Check it out correctly and try again");
+            System.out.println("The entry was not found in the Database.");
+        }
+
+        if (jedisOperations.isExists(CachePrefixType.USER_STUDYING.toString(), userStudyingId)) {
+            jedisOperations.delete(CachePrefixType.USER_STUDYING.toString() + userStudyingId);
+            System.out.println("The entry was successfully deleted from the Redis cache");
+        } else {
+            System.out.println("The entry was not found in the Redis cache.");
         }
     }
 

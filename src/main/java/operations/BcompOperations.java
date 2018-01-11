@@ -162,29 +162,36 @@ public class BcompOperations extends DatabaseGenericOperations {
 
         BigDecimal bcompId = DataReader.readBcompId();
 
-        // TODO: удалить несовпадение проверок
         if (bcompDAO.isExists(Bcomp.class, bcompId)) {
             bcompDAO.delete(Bcomp.class, bcompId);
-            // TODO: add exception checking
-            jedisOperations.delete(CachePrefixType.BCOMP.toString() + bcompId);
+            System.out.println("The entry was successfully deleted from the database");
         } else {
-            System.out.println("The specified bcomp id was not found in the Redis cache. Check it out correctly and try again");
+            System.out.println("The entry was not found in the Database.");
+        }
+
+        if (jedisOperations.isExists(CachePrefixType.BCOMP.toString(), bcompId)) {
+            jedisOperations.delete(CachePrefixType.BCOMP.toString() + bcompId);
+            System.out.println("The entry was successfully deleted from the Redis cache");
+        } else {
+            System.out.println("The entry was not found in the Redis cache.");
         }
     }
 
     public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
-
         BigDecimal bcompId = DataReader.readBcompId();
+        BcompDAOImpl bcompDAO = new BcompDAOImpl();
 
-        String bcomp = jedisOperations.get(CachePrefixType.BCOMP.toString() + bcompId);
-
-        if (bcomp != null) {
+        if (jedisOperations.isExists(CachePrefixType.BCOMP.toString(), bcompId)) {
+            String jBcomp = jedisOperations.get(CachePrefixType.BCOMP.toString() + bcompId);
+            System.out.println(jBcomp);
+        } else if (bcompDAO.isExists(Bcomp.class, bcompId)) {
+            Bcomp bcomp = bcompDAO.get(bcompId);
             System.out.println(bcomp);
+            jedisOperations.set(CachePrefixType.BCOMP.toString() + bcomp.getId(), bcomp.toString());
         } else {
-            System.out.println("The specified bcomp id was not found in the Redis cache. Check it out correctly and try again");
+            System.out.println("The entry was not found in the Redis cache and in the Oracle database.");
         }
-
     }
 
     @Override

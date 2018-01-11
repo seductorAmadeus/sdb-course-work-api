@@ -95,11 +95,17 @@ public class RegistrationCodesOperations extends DatabaseGenericOperations {
     public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
         BigDecimal registrationCodeId = DataReader.readRegistrationCodeId();
-        String registrationCode = jedisOperations.get(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodeId);
-        if (registrationCode != null) {
-            System.out.println(registrationCode);
+        RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
+
+        if (jedisOperations.isExists(CachePrefixType.REGISTRATION_CODES.toString(), registrationCodeId)) {
+            String jRegistrationCode = jedisOperations.get(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodeId);
+            System.out.println(jRegistrationCode);
+        } else if (registrationCodesDAO.isExists(RegistrationCodes.class, registrationCodeId)) {
+            RegistrationCodes registrationCodes = registrationCodesDAO.get(registrationCodeId);
+            System.out.println(registrationCodes);
+            jedisOperations.set(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodes.getRegCodeId(), registrationCodes.toString());
         } else {
-            System.out.println("The specified registration code was not found in the Redis cache. Check it out correctly and try again");
+            System.out.println("The entry was not found in the Redis cache and in the Oracle database.");
         }
     }
 
@@ -124,23 +130,25 @@ public class RegistrationCodesOperations extends DatabaseGenericOperations {
         }
     }
 
-    @Override
     public void jDelete() {
-
         JedisOperations jedisOperations = new JedisOperations();
         RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
 
         BigDecimal registrationCodeId = DataReader.readRegistrationCodeId();
 
-        // TODO: удалить несовпадение проверок
         if (registrationCodesDAO.isExists(RegistrationCodes.class, registrationCodeId)) {
             registrationCodesDAO.delete(RegistrationCodes.class, registrationCodeId);
-            // TODO: add exception checking
-            jedisOperations.delete(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodeId);
+            System.out.println("The entry was successfully deleted from the database");
         } else {
-            System.out.println("The specified registration code id was not found in the Redis cache. Check it out correctly and try again");
+            System.out.println("The entry was not found in the Database.");
         }
 
+        if (jedisOperations.isExists(CachePrefixType.REGISTRATION_CODES.toString(), registrationCodeId)) {
+            jedisOperations.delete(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodeId);
+            System.out.println("The entry was successfully deleted from the Redis cache");
+        } else {
+            System.out.println("The entry was not found in the Redis cache.");
+        }
     }
 
     @Override

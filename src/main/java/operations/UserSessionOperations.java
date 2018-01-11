@@ -123,17 +123,19 @@ public class UserSessionOperations extends DatabaseGenericOperations {
     @Override
     public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
-
         BigDecimal userSessionId = DataReader.readUserSessionId();
+        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
 
-        String userSession = jedisOperations.get(CachePrefixType.USER_SESSION.toString() + userSessionId);
-
-        if (userSession != null) {
+        if (jedisOperations.isExists(CachePrefixType.USER_SESSION.toString(), userSessionId)) {
+            String jUserSession = jedisOperations.get(CachePrefixType.USER_SESSION.toString() + userSessionId);
+            System.out.println(jUserSession);
+        } else if (userSessionDAO.isExists(UserSession.class, userSessionId)) {
+            UserSession userSession = userSessionDAO.get(userSessionId);
             System.out.println(userSession);
+            jedisOperations.set(CachePrefixType.USER_SESSION.toString() + userSession.getId(), userSession.toString());
         } else {
-            System.out.println("The specified user's session is not created in the Redis cache. Check it out correctly and try again");
+            System.out.println("The entry was not found in the Redis cache and in the Oracle database.");
         }
-
     }
 
     @Override
@@ -180,21 +182,24 @@ public class UserSessionOperations extends DatabaseGenericOperations {
         }
     }
 
-    @Override
     public void jDelete() {
         JedisOperations jedisOperations = new JedisOperations();
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
 
         BigDecimal userSessionId = DataReader.readUserSessionId();
 
-        // TODO: удалить несовпадение проверок
         if (userSessionDAO.isExists(UserSession.class, userSessionId)) {
             userSessionDAO.delete(UserSession.class, userSessionId);
-            // TODO: add exception checking
-            // TODO: добавить дополонительную проверку, существует ли такая сущность в кеше
-            jedisOperations.delete(CachePrefixType.USER_SESSION.toString() + userSessionId);
+            System.out.println("The entry was successfully deleted from the database");
         } else {
-            System.out.println("The specified user's session was not found in the Redis cache. Check it out correctly and try again");
+            System.out.println("The entry was not found in the Database.");
+        }
+
+        if (jedisOperations.isExists(CachePrefixType.USER_SESSION.toString(), userSessionId)) {
+            jedisOperations.delete(CachePrefixType.USER_SESSION.toString() + userSessionId);
+            System.out.println("The entry was successfully deleted from the Redis cache");
+        } else {
+            System.out.println("The entry was not found in the Redis cache.");
         }
     }
 

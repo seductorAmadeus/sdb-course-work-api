@@ -27,39 +27,32 @@ public class HibernateOperationsManager {
 
         switch (menuNumber) {
             case 1:
-                registrationCodesOperations.synchronize();
                 registrationCodesOperations.jCreate();
                 break;
             case 2:
-                registrationCodesOperations.synchronize();
                 registrationCodesOperations.jPrintAll();
                 break;
             case 3:
-                registrationCodesOperations.synchronize();
                 registrationCodesOperations.jPrint();
                 break;
             case 4:
-                registrationCodesOperations.synchronize();
                 registrationCodesOperations.jUpdate();
                 break;
             case 5:
-                registrationCodesOperations.synchronize();
                 registrationCodesOperations.jDelete();
+//TODO: check NumberFormatException from synchronize
+                //                registrationCodesOperations.synchronize();
                 break;
             case 6:
-                usersOperations.synchronize();
                 usersOperations.jCreate();
                 break;
             case 7:
-                usersOperations.synchronize();
                 usersOperations.jPrintAll();
                 break;
             case 8:
-                usersOperations.synchronize();
                 usersOperations.jPrint();
                 break;
             case 9:
-                usersOperations.synchronize();
                 usersOperations.jUpdate();
                 break;
             case 10:
@@ -70,16 +63,12 @@ public class HibernateOperationsManager {
                 userRoleOperations.generateAllUsersRoles();
                 break;
             case 12:
-                userStudyingOperations.synchronize();
                 userStudyingOperations.jCreate();
                 break;
             case 13:
-                userStudyingOperations.synchronize();
                 userStudyingOperations.jPrintAll();
                 break;
             case 14:
-                userStudyingOperations.synchronize();
-                userStudyingOperations.jUpdate();
                 userStudyingOperations.jPrint();
                 break;
             case 15:
@@ -87,19 +76,15 @@ public class HibernateOperationsManager {
                 userStudyingOperations.synchronize();
                 break;
             case 16:
-                userSessionOperations.synchronize();
                 userSessionOperations.jCreate();
                 break;
             case 17:
-                userSessionOperations.synchronize();
                 userSessionOperations.jPrintAll();
                 break;
             case 18:
-                userSessionOperations.synchronize();
                 userSessionOperations.jPrint();
                 break;
             case 19:
-                userSessionOperations.synchronize();
                 userSessionOperations.jUpdate();
                 break;
             case 20:
@@ -107,19 +92,15 @@ public class HibernateOperationsManager {
                 userSessionOperations.synchronize();
                 break;
             case 21:
-                bcompOperations.synchronize();
                 bcompOperations.jCreate();
                 break;
             case 22:
-                bcompOperations.synchronize();
                 bcompOperations.jPrintAll();
                 break;
             case 23:
-                bcompOperations.synchronize();
                 bcompOperations.jPrint();
                 break;
             case 24:
-                bcompOperations.synchronize();
                 bcompOperations.jUpdate();
                 break;
             case 25:
@@ -127,19 +108,15 @@ public class HibernateOperationsManager {
                 bcompOperations.synchronize();
                 break;
             case 26:
-                bcompSettingsOperations.synchronize();
                 bcompSettingsOperations.jCreate();
                 break;
             case 27:
-                bcompSettingsOperations.synchronize();
                 bcompSettingsOperations.jPrintAll();
                 break;
             case 28:
-                bcompSettingsOperations.synchronize();
                 bcompSettingsOperations.jPrint();
                 break;
             case 29:
-                bcompSettingsOperations.synchronize();
                 bcompSettingsOperations.jUpdate();
                 break;
             case 30:
@@ -156,19 +133,15 @@ public class HibernateOperationsManager {
                 specifiedOperations.getSettingsIdForUser();
                 break;
             case 34:
-                userProfileOperations.synchronize();
                 userProfileOperations.jCreate();
                 break;
             case 35:
-                userProfileOperations.synchronize();
                 userProfileOperations.jPrintAll();
                 break;
             case 36:
-                userProfileOperations.synchronize();
                 userProfileOperations.jPrint();
                 break;
             case 37:
-                userProfileOperations.synchronize();
                 userProfileOperations.jUpdate();
                 break;
             case 38:

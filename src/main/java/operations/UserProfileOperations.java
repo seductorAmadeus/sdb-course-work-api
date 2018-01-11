@@ -168,17 +168,21 @@ public class UserProfileOperations extends DatabaseGenericOperations {
     @Override
     public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
-
         BigDecimal userProfileId = DataReader.readUserProfileId();
+        UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
 
-        String userProfile = jedisOperations.get(CachePrefixType.USER_PROFILE.toString() + userProfileId);
-
-        if (userProfile != null) {
+        if (jedisOperations.isExists(CachePrefixType.USER_PROFILE.toString(), userProfileId)) {
+            String jUserProfile = jedisOperations.get(CachePrefixType.USER_PROFILE.toString() + userProfileId);
+            System.out.println(jUserProfile);
+        } else if (userProfileDAO.isExists(UserProfile.class, userProfileId)) {
+            UserProfile userProfile = userProfileDAO.get(userProfileId);
             System.out.println(userProfile);
+            jedisOperations.set(CachePrefixType.USER_PROFILE.toString() + userProfile.getProfileId(), userProfile.toString());
         } else {
-            System.out.println("The specified user's profile is not created in the Redis cache. Check it out correctly and try again");
+            System.out.println("The entry was not found in the Redis cache and in the Oracle database.");
         }
     }
+
 
     @Override
     public void jUpdate() {
@@ -197,21 +201,24 @@ public class UserProfileOperations extends DatabaseGenericOperations {
         }
     }
 
-    @Override
     public void jDelete() {
         JedisOperations jedisOperations = new JedisOperations();
         UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
 
         BigDecimal userProfileId = DataReader.readUserProfileId();
 
-        // TODO: удалить несовпадение проверок
         if (userProfileDAO.isExists(UserProfile.class, userProfileId)) {
             userProfileDAO.delete(UserProfile.class, userProfileId);
-            // TODO: add exception checking
-            // TODO: добавить полную проверку зависимостей с другими пользователями
-            jedisOperations.delete(CachePrefixType.USER_PROFILE.toString() + userProfileId);
+            System.out.println("The entry was successfully deleted from the database");
         } else {
-            System.out.println("The specified user's profile id was not found in the Redis cache. Check it out correctly and try again");
+            System.out.println("The entry was not found in the Database.");
+        }
+
+        if (jedisOperations.isExists(CachePrefixType.USER_PROFILE.toString(), userProfileId)) {
+            jedisOperations.delete(CachePrefixType.USER_PROFILE.toString() + userProfileId);
+            System.out.println("The entry was successfully deleted from the Redis cache");
+        } else {
+            System.out.println("The entry was not found in the Redis cache.");
         }
     }
 

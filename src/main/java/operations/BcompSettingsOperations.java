@@ -74,15 +74,18 @@ public class BcompSettingsOperations extends DatabaseGenericOperations {
     @Override
     public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
+        BigDecimal bcompSettingsId = DataReader.readBcompSettingsId();
+        BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
 
-        BigDecimal bcompSettingId = DataReader.readBcompSettingsId();
-
-        String bcompSetting = jedisOperations.get(CachePrefixType.BCOMP_SETTINGS.toString() + bcompSettingId);
-
-        if (bcompSetting != null) {
-            System.out.println(bcompSetting);
+        if (jedisOperations.isExists(CachePrefixType.BCOMP_SETTINGS.toString(), bcompSettingsId)) {
+            String jBcompSettings = jedisOperations.get(CachePrefixType.BCOMP_SETTINGS.toString() + bcompSettingsId);
+            System.out.println(jBcompSettings);
+        } else if (bcompSettingsDAO.isExists(BcompSettings.class, bcompSettingsId)) {
+            BcompSettings bcompSettings = bcompSettingsDAO.get(bcompSettingsId);
+            System.out.println(bcompSettings);
+            jedisOperations.set(CachePrefixType.BCOMP_SETTINGS.toString() + bcompSettings.getId(), bcompSettings.toString());
         } else {
-            System.out.println("The specified bcomp setting id was not found in the Redis cache. Check it out correctly and try again");
+            System.out.println("The entry was not found in the Redis cache and in the Oracle database.");
         }
     }
 
@@ -135,16 +138,21 @@ public class BcompSettingsOperations extends DatabaseGenericOperations {
         JedisOperations jedisOperations = new JedisOperations();
         BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
 
-        BigDecimal bcompSettingId = DataReader.readBcompSettingsId();
+        BigDecimal bcompSettingsId = DataReader.readBcompSettingsId();
 
-        if (bcompSettingsDAO.isExists(BcompSettings.class, bcompSettingId)) {
-            // TODO: delete from jedis связанные classes, а не только bcomp setting!!
-            bcompSettingsDAO.delete(BcompSettings.class, bcompSettingId);
+        if (bcompSettingsDAO.isExists(BcompSettings.class, bcompSettingsId)) {
+            bcompSettingsDAO.delete(BcompSettings.class, bcompSettingsId);
+            System.out.println("The entry was successfully deleted from the database");
         } else {
-            System.out.println("The specified bcomp setting id was not found in the oracle DB. Check it out correctly and try again");
+            System.out.println("The entry was not found in the Database.");
         }
-        // check if exists in cache
-        jedisOperations.delete(CachePrefixType.BCOMP_SETTINGS.toString() + bcompSettingId);
+
+        if (jedisOperations.isExists(CachePrefixType.BCOMP_SETTINGS.toString(), bcompSettingsId)) {
+            jedisOperations.delete(CachePrefixType.BCOMP_SETTINGS.toString() + bcompSettingsId);
+            System.out.println("The entry was successfully deleted from the Redis cache");
+        } else {
+            System.out.println("The entry was not found in the Redis cache.");
+        }
     }
 
     @Override

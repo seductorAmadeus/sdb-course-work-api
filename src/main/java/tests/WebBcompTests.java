@@ -66,10 +66,6 @@ public class WebBcompTests {
         }
     }
 
-    public void testRegexPattern() {
-        System.out.println(DataReader.readUserGroup());
-    }
-
     private List<RegistrationCodes> getRegistrationCodesList() {
         RandomInviteCodesGenerator randomInviteCodesGenerator = new RandomInviteCodesGenerator();
         List<RegistrationCodes> registrationCodes = new ArrayList<>();
@@ -213,7 +209,6 @@ public class WebBcompTests {
 
         List<BcompSettings> newBcompSettingsList = bcompSettingsDAO.getList();
         List<UserSession> newUserSessionList = userSessionDAO.getList();
-        // TODO: add a check of existence in the table sessionSettings
         SessionSettingsDAOImpl sessionSettingsDAO = new SessionSettingsDAOImpl();
         for (int i = newBcompSettingsList.size(); i > newBcompSettingsList.size() - TESTS_COUNT; i--) {
             try {

@@ -55,6 +55,307 @@ public class DataReader {
         return registrationCodes;
     }
 
+    public static Bcomp readEntity() {
+        Bcomp bcomp = new Bcomp();
+        // TODO: need fix
+//        System.out.println(MenuInputType.);
+        for (; ; ) {
+            String memory = scanner.nextLine();
+            try {
+//                if (memory.length() > 20) {
+//                    throw new Exception();
+//                }
+                bcomp.setMemory(memory);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.RS);
+        for (; ; ) {
+            String rs = scanner.nextLine();
+            try {
+                if (rs.length() > 9) {
+                    throw new Exception();
+                }
+                bcomp.setMemory(rs);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.RA);
+        for (; ; ) {
+            String ra = scanner.nextLine();
+            try {
+                if (ra.length() > 11) {
+                    throw new Exception();
+                }
+                bcomp.setRa(ra);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.RD);
+        for (; ; ) {
+            String rd = scanner.nextLine();
+            try {
+                if (rd.length() > 16) {
+                    throw new Exception();
+                }
+                bcomp.setRd(rd);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.RC);
+        for (; ; ) {
+            String rc = scanner.nextLine();
+            try {
+                if (rc.length() > 16) {
+                    throw new Exception();
+                }
+                bcomp.setRc(rc);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.CC);
+        for (; ; ) {
+            String cc = scanner.nextLine();
+            try {
+                if (cc.length() > 11) {
+                    throw new Exception();
+                }
+                bcomp.setCc(cc);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.BR);
+        for (; ; ) {
+            String br = scanner.nextLine();
+            try {
+                if (br.length() > 11) {
+                    throw new Exception();
+                }
+                bcomp.setBr(br);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+
+        System.out.println(MenuInputType.AC);
+        for (; ; ) {
+            String ac = scanner.nextLine();
+            try {
+                if (ac.length() > 16) {
+                    throw new Exception();
+                }
+                bcomp.setAc(ac);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.C);
+        for (; ; ) {
+            String c = scanner.nextLine();
+            try {
+                if (c.length() > 1) {
+                    throw new Exception();
+                }
+                bcomp.setC(c);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.KR);
+        for (; ; ) {
+            String kr = scanner.nextLine();
+            try {
+                if (kr.length() > 11) {
+                    throw new Exception();
+                }
+                bcomp.setKr(kr);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.BIT);
+        for (; ; ) {
+            String bit = scanner.nextLine();
+            try {
+                if (bit.length() > 1) {
+                    throw new Exception();
+                }
+                bcomp.setBit(bit);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.INT_REQ_ED_1);
+        for (; ; ) {
+            String intReqEd1 = scanner.nextLine();
+            try {
+                if (!intReqEd1.equals("set") && !intReqEd1.equals("unset")) {
+                    throw new NonComplianceWithConstraints("int_req_ed_1", "set", "unset");
+                }
+                bcomp.setIntReqEd1(intReqEd1);
+                break;
+            } catch (NonComplianceWithConstraints exp) {
+                System.out.println(exp.getMessage());
+            }
+        }
+
+        System.out.println(MenuInputType.INT_REQ_ED_2);
+        for (; ; ) {
+            String intReqEd2 = scanner.nextLine();
+            try {
+                if (!intReqEd2.equals("set") && !intReqEd2.equals("unset")) {
+                    throw new NonComplianceWithConstraints("int_req_ed_2", "set", "unset");
+                }
+                bcomp.setIntReqEd2(intReqEd2);
+                break;
+            } catch (NonComplianceWithConstraints exp) {
+                System.out.println(exp.getMessage());
+            }
+        }
+
+        System.out.println(MenuInputType.INT_REQ_ED_3);
+        for (; ; ) {
+            String intReqEd3 = scanner.nextLine();
+            try {
+                if (!intReqEd3.equals("set") && !intReqEd3.equals("unset")) {
+                    throw new NonComplianceWithConstraints("int_req_ed_3", "set", "unset");
+                }
+                bcomp.setIntReqEd3(intReqEd3);
+                break;
+            } catch (NonComplianceWithConstraints exp) {
+                System.out.println(exp.getMessage());
+            }
+        }
+
+        System.out.println(MenuInputType.RD_ED_1);
+        for (; ; ) {
+            String rdEd1 = scanner.nextLine();
+            try {
+                if (rdEd1.length() > 8) {
+                    throw new Exception();
+                }
+                bcomp.setRdEd1(rdEd1);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.RD_ED_2);
+        for (; ; ) {
+            String rdEd2 = scanner.nextLine();
+            try {
+                if (rdEd2.length() > 8) {
+                    throw new Exception();
+                }
+                bcomp.setRdEd2(rdEd2);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.RD_ED_3);
+        for (; ; ) {
+            String rdEd3 = scanner.nextLine();
+            try {
+                if (rdEd3.length() > 8) {
+                    throw new Exception();
+                }
+                bcomp.setRdEd3(rdEd3);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.MEMORY_MC);
+        for (; ; ) {
+            String memoryMc = scanner.nextLine();
+            try {
+//                if (memory.length() > 20) {
+//                    throw new Exception();
+//                }
+                bcomp.setMemoryMc(memoryMc);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.C_MC);
+        for (; ; ) {
+            String cMc = scanner.nextLine();
+            try {
+                if (cMc.length() > 8) {
+                    throw new Exception();
+                }
+                bcomp.setcMc(cMc);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.R_MC);
+        for (; ; ) {
+            String rMc = scanner.nextLine();
+            try {
+                if (rMc.length() > 16) {
+                    throw new Exception();
+                }
+                bcomp.setrMc(rMc);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        System.out.println(MenuInputType.ASM);
+        for (; ; ) {
+            String asm = scanner.nextLine();
+            try {
+//                if (asm.length() > 16) {
+//                    throw new Exception();
+//                }
+                bcomp.setAsm(asm);
+                break;
+            } catch (Exception exp) {
+                System.out.println("Repeat input: ");
+            }
+        }
+
+        return bcomp;
+    }
+
     public static String readNewStatusForRegistrationCode() {
         RegistrationCodes registrationCodes = new RegistrationCodes();
         System.out.println(MenuInputType.INVITE_CODE_STATUS);
@@ -549,303 +850,6 @@ public class DataReader {
     }
 
     public static void initBcomp(Bcomp bcomp) {
-        // TODO: need fix
-//        System.out.println(MenuInputType.);
-        for (; ; ) {
-            String memory = scanner.nextLine();
-            try {
-//                if (memory.length() > 20) {
-//                    throw new Exception();
-//                }
-                bcomp.setMemory(memory);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.RS);
-        for (; ; ) {
-            String rs = scanner.nextLine();
-            try {
-                if (rs.length() > 9) {
-                    throw new Exception();
-                }
-                bcomp.setMemory(rs);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-
-        System.out.println(MenuInputType.RA);
-        for (; ; ) {
-            String ra = scanner.nextLine();
-            try {
-                if (ra.length() > 11) {
-                    throw new Exception();
-                }
-                bcomp.setRa(ra);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.RD);
-        for (; ; ) {
-            String rd = scanner.nextLine();
-            try {
-                if (rd.length() > 16) {
-                    throw new Exception();
-                }
-                bcomp.setRd(rd);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.RC);
-        for (; ; ) {
-            String rc = scanner.nextLine();
-            try {
-                if (rc.length() > 16) {
-                    throw new Exception();
-                }
-                bcomp.setRc(rc);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.CC);
-        for (; ; ) {
-            String cc = scanner.nextLine();
-            try {
-                if (cc.length() > 11) {
-                    throw new Exception();
-                }
-                bcomp.setCc(cc);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.BR);
-        for (; ; ) {
-            String br = scanner.nextLine();
-            try {
-                if (br.length() > 11) {
-                    throw new Exception();
-                }
-                bcomp.setBr(br);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-
-        System.out.println(MenuInputType.AC);
-        for (; ; ) {
-            String ac = scanner.nextLine();
-            try {
-                if (ac.length() > 16) {
-                    throw new Exception();
-                }
-                bcomp.setAc(ac);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.C);
-        for (; ; ) {
-            String c = scanner.nextLine();
-            try {
-                if (c.length() > 1) {
-                    throw new Exception();
-                }
-                bcomp.setC(c);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.KR);
-        for (; ; ) {
-            String kr = scanner.nextLine();
-            try {
-                if (kr.length() > 11) {
-                    throw new Exception();
-                }
-                bcomp.setKr(kr);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.BIT);
-        for (; ; ) {
-            String bit = scanner.nextLine();
-            try {
-                if (bit.length() > 1) {
-                    throw new Exception();
-                }
-                bcomp.setBit(bit);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.INT_REQ_ED_1);
-        for (; ; ) {
-            String intReqEd1 = scanner.nextLine();
-            try {
-                if (!intReqEd1.equals("set") && !intReqEd1.equals("unset")) {
-                    throw new NonComplianceWithConstraints("int_req_ed_1", "set", "unset");
-                }
-                bcomp.setIntReqEd1(intReqEd1);
-                break;
-            } catch (NonComplianceWithConstraints exp) {
-                System.out.println(exp.getMessage());
-            }
-        }
-
-        System.out.println(MenuInputType.INT_REQ_ED_2);
-        for (; ; ) {
-            String intReqEd2 = scanner.nextLine();
-            try {
-                if (!intReqEd2.equals("set") && !intReqEd2.equals("unset")) {
-                    throw new NonComplianceWithConstraints("int_req_ed_2", "set", "unset");
-                }
-                bcomp.setIntReqEd2(intReqEd2);
-                break;
-            } catch (NonComplianceWithConstraints exp) {
-                System.out.println(exp.getMessage());
-            }
-        }
-
-        System.out.println(MenuInputType.INT_REQ_ED_3);
-        for (; ; ) {
-            String intReqEd3 = scanner.nextLine();
-            try {
-                if (!intReqEd3.equals("set") && !intReqEd3.equals("unset")) {
-                    throw new NonComplianceWithConstraints("int_req_ed_3", "set", "unset");
-                }
-                bcomp.setIntReqEd3(intReqEd3);
-                break;
-            } catch (NonComplianceWithConstraints exp) {
-                System.out.println(exp.getMessage());
-            }
-        }
-
-        System.out.println(MenuInputType.RD_ED_1);
-        for (; ; ) {
-            String rdEd1 = scanner.nextLine();
-            try {
-                if (rdEd1.length() > 8) {
-                    throw new Exception();
-                }
-                bcomp.setRdEd1(rdEd1);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.RD_ED_2);
-        for (; ; ) {
-            String rdEd2 = scanner.nextLine();
-            try {
-                if (rdEd2.length() > 8) {
-                    throw new Exception();
-                }
-                bcomp.setRdEd2(rdEd2);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.RD_ED_3);
-        for (; ; ) {
-            String rdEd3 = scanner.nextLine();
-            try {
-                if (rdEd3.length() > 8) {
-                    throw new Exception();
-                }
-                bcomp.setRdEd3(rdEd3);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.MEMORY_MC);
-        for (; ; ) {
-            String memoryMc = scanner.nextLine();
-            try {
-//                if (memory.length() > 20) {
-//                    throw new Exception();
-//                }
-                bcomp.setMemoryMc(memoryMc);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.C_MC);
-        for (; ; ) {
-            String cMc = scanner.nextLine();
-            try {
-                if (cMc.length() > 8) {
-                    throw new Exception();
-                }
-                bcomp.setcMc(cMc);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.R_MC);
-        for (; ; ) {
-            String rMc = scanner.nextLine();
-            try {
-                if (rMc.length() > 16) {
-                    throw new Exception();
-                }
-                bcomp.setrMc(rMc);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.ASM);
-        for (; ; ) {
-            String asm = scanner.nextLine();
-            try {
-//                if (asm.length() > 16) {
-//                    throw new Exception();
-//                }
-                bcomp.setAsm(asm);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
 
     }
 }

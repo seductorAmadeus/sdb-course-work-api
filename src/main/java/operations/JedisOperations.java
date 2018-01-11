@@ -93,7 +93,7 @@ public class JedisOperations {
         return res;
     }
 
-    public boolean isExistsId(String keyPattern, BigDecimal id) {
+    public boolean isExists(String keyPattern, BigDecimal id) {
         Jedis jedis = pool.getResource();
         // pattern:id
         return jedis.exists(keyPattern + id);
