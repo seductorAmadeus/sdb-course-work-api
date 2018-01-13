@@ -35,6 +35,7 @@ public class WebBcompTests {
     public void createAllTables(WebBcompTests webBcompTests) {
         webBcompTests.createRegistrationCodes();
         webBcompTests.createUsers();
+        webBcompTests.createUserPictures();
         webBcompTests.createUserSession();
         webBcompTests.createBcomps();
         webBcompTests.createBcompSettings();
@@ -128,6 +129,14 @@ public class WebBcompTests {
                     null, null, null));
         }
         return bcompList;
+    }
+
+    private List<UserPicture> getUserPicturesList() {
+        List<UserPicture> userPictureList = new ArrayList<>();
+        for (int i = 0; i < TESTS_COUNT; i++) {
+            userPictureList.add(new UserPicture("picturename" + i, null, null));
+        }
+        return userPictureList;
     }
 
     private void createRegistrationCodes() {
@@ -228,6 +237,25 @@ public class WebBcompTests {
                 sessionSettingsDAO.assignUserSettings(newUserSessionList.get(i - 1), newBcompSettingsList.get(i - 1));
             } catch (NullPointerException exp) {
                 exp.getMessage();
+            }
+        }
+    }
+
+    private void createUserPictures() {
+        JedisOperations jedisOperations = new JedisOperations();
+
+        UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
+        UserPictureDAOImpl userPictureDAO = new UserPictureDAOImpl();
+        List<UserProfile> userProfileList = userProfileDAO.getList();
+
+        for (UserProfile userProfile : userProfileList) {
+
+            if (!userPictureDAO.isExists(UserPicture.class, userProfile.getProfileId())) {
+                UserPicture userPicture = new UserPicture();
+                userPicture.setId(userProfile.getProfileId());
+                userPicture.setPictureName("pictureName" + userPicture.getId());
+                userPictureDAO.create(userPicture);
+                jedisOperations.set(CachePrefixType.USER_PICTURE.toString() + userPicture.getId(), userPicture.toString());
             }
         }
     }
