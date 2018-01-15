@@ -23,8 +23,8 @@ import java.sql.Timestamp;
 public class UserProfile implements Serializable {
 
     @Id
-    @GeneratedValue(generator="gen")
-    @GenericGenerator(name="gen", strategy="foreign",parameters=@org.hibernate.annotations.Parameter(name="property", value="users"))
+    @GeneratedValue(generator = "gen")
+    @GenericGenerator(name = "gen", strategy = "foreign", parameters = @org.hibernate.annotations.Parameter(name = "property", value = "users"))
     @Column(name = "profile_id", unique = true, nullable = false)
     @Digits(integer = 7, fraction = 0)
     private BigDecimal profileId;
@@ -38,7 +38,7 @@ public class UserProfile implements Serializable {
     private UserStudying userStudyingId;
 
     @Column(name = "last_seen")
-    //TODO: add pattern annotation
+    //TODO: Change Timestamp to Date using @Temporal annotation and fix validation
     private Timestamp lastSeen;
 
     @Column(name = "register_date")

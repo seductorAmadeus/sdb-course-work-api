@@ -56,8 +56,13 @@ public class RegistrationCodesOperations extends DatabaseGenericOperations {
 
     public void update() {
         RegistrationCodesDAOImpl dao = new RegistrationCodesDAOImpl();
-        String newInviteCodeStatus = DataReader.readNewStatusForRegistrationCode();
-        BigDecimal oldInviteCode = DataReader.readInviteCode();
+        String newInviteCodeStatus = DataReader.readString(RegistrationCodes.class, "inviteCodeStatus", MenuInputType.INVITE_CODE_STATUS);
+        BigDecimal oldInviteCode = null;
+        try {
+            oldInviteCode = DataReader.readBigDecimal(RegistrationCodes.class, "inviteCode", MenuInputType.INVITE_CODE);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
         RegistrationCodes tempRegistrationCode = new RegistrationCodes();
         tempRegistrationCode.setInviteCode(oldInviteCode);
         tempRegistrationCode.setInviteCodeStatus(newInviteCodeStatus);
@@ -70,8 +75,8 @@ public class RegistrationCodesOperations extends DatabaseGenericOperations {
 
     public void delete() {
         RegistrationCodesDAOImpl dao = new RegistrationCodesDAOImpl();
-        BigDecimal inviteCode = DataReader.readInviteCode();
-        dao.delete(RegistrationCodes.class, inviteCode);
+        BigDecimal registrationCodeId = DataReader.readId(RegistrationCodes.class, "regCodeId", MenuInputType.REGISTRATION_CODE_ID);
+        dao.delete(RegistrationCodes.class, registrationCodeId);
     }
 
     @Override

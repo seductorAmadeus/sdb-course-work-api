@@ -36,6 +36,7 @@ public class RegistrationCodes implements Serializable {
      * This field contains user's invite code
      */
     @Column(name = "invite_code")
+    @Digits(integer = 38, fraction = 0)
     @NotNull
     private BigDecimal inviteCode;
 
@@ -52,6 +53,7 @@ public class RegistrationCodes implements Serializable {
      */
     @Column(name = "email")
     @NotNull
+    //TODO: create new annotation for email validation
     @Email
     @Size(max = 25)
     private String email;

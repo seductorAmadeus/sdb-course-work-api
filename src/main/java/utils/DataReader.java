@@ -32,337 +32,56 @@ public class DataReader {
     // TODO: Add string size checking
     public static RegistrationCodes readRegistrationCode() {
         RegistrationCodes registrationCodes = new RegistrationCodes();
-
         // generate invite code
         RandomInviteCodesGenerator inviteCodesGenerator = new RandomInviteCodesGenerator();
         registrationCodes.setInviteCode(inviteCodesGenerator.getInviteCode());
-
-        System.out.println(MenuInputType.INVITE_CODE_STATUS);
-        readStatus(registrationCodes);
-        System.out.println(MenuInputType.EMAIL);
-        for (; ; ) {
-            try {
-                String email = scanner.nextLine();
-                Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
-                if (!matcher.find()) {
-                    throw new PatternException("email", VALID_EMAIL_ADDRESS_REGEX);
-                }
-                registrationCodes.setEmail(email);
-                break;
-            } catch (PatternException exp) {
-                System.out.println(exp.getMessage());
-                System.out.println("Repeat input: ");
-            }
-        }
+        registrationCodes.setInviteCodeStatus(DataReader.readString(RegistrationCodes.class, "inviteCodeStatus", MenuInputType.INVITE_CODE_STATUS));
+//        System.out.println(MenuInputType.EMAIL);
+//
+//        for (; ; ) {
+//            try {
+//                String email = scanner.nextLine();
+//                Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+//                if (!matcher.find()) {
+//                    throw new PatternException("email", VALID_EMAIL_ADDRESS_REGEX);
+//                }
+//                registrationCodes.setEmail(email);
+//                break;
+//            } catch (PatternException exp) {
+//                System.out.println(exp.getMessage());
+//                System.out.println("Repeat input: ");
+//            }
+//        }
+        registrationCodes.setEmail(DataReader.readString(RegistrationCodes.class, "email", MenuInputType.EMAIL));
         return registrationCodes;
     }
 
     public static Bcomp readBcomp() {
         Bcomp bcomp = new Bcomp();
-        // TODO: need fix
-//        System.out.println(MenuInputType.);
-        for (; ; ) {
-            String memory = scanner.nextLine();
-            try {
-//                if (memory.length() > 20) {
-//                    throw new Exception();
-//                }
-                bcomp.setMemory(memory);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
 
-        System.out.println(MenuInputType.RS);
-        for (; ; ) {
-            String rs = scanner.nextLine();
-            try {
-                if (rs.length() > 9) {
-                    throw new Exception();
-                }
-                bcomp.setMemory(rs);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.RA);
-        for (; ; ) {
-            String ra = scanner.nextLine();
-            try {
-                if (ra.length() > 11) {
-                    throw new Exception();
-                }
-                bcomp.setRa(ra);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.RD);
-        for (; ; ) {
-            String rd = scanner.nextLine();
-            try {
-                if (rd.length() > 16) {
-                    throw new Exception();
-                }
-                bcomp.setRd(rd);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.RC);
-        for (; ; ) {
-            String rc = scanner.nextLine();
-            try {
-                if (rc.length() > 16) {
-                    throw new Exception();
-                }
-                bcomp.setRc(rc);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.CC);
-        for (; ; ) {
-            String cc = scanner.nextLine();
-            try {
-                if (cc.length() > 11) {
-                    throw new Exception();
-                }
-                bcomp.setCc(cc);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.BR);
-        for (; ; ) {
-            String br = scanner.nextLine();
-            try {
-                if (br.length() > 11) {
-                    throw new Exception();
-                }
-                bcomp.setBr(br);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-
-        System.out.println(MenuInputType.AC);
-        for (; ; ) {
-            String ac = scanner.nextLine();
-            try {
-                if (ac.length() > 16) {
-                    throw new Exception();
-                }
-                bcomp.setAc(ac);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.C);
-        for (; ; ) {
-            String c = scanner.nextLine();
-            try {
-                if (c.length() > 1) {
-                    throw new Exception();
-                }
-                bcomp.setC(c);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.KR);
-        for (; ; ) {
-            String kr = scanner.nextLine();
-            try {
-                if (kr.length() > 11) {
-                    throw new Exception();
-                }
-                bcomp.setKr(kr);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.BIT);
-        for (; ; ) {
-            String bit = scanner.nextLine();
-            try {
-                if (bit.length() > 1) {
-                    throw new Exception();
-                }
-                bcomp.setBit(bit);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.INT_REQ_ED_1);
-        for (; ; ) {
-            String intReqEd1 = scanner.nextLine();
-            try {
-                if (!intReqEd1.equals("set") && !intReqEd1.equals("unset")) {
-                    throw new NonComplianceWithConstraints("int_req_ed_1", "set", "unset");
-                }
-                bcomp.setIntReqEd1(intReqEd1);
-                break;
-            } catch (NonComplianceWithConstraints exp) {
-                System.out.println(exp.getMessage());
-            }
-        }
-
-        System.out.println(MenuInputType.INT_REQ_ED_2);
-        for (; ; ) {
-            String intReqEd2 = scanner.nextLine();
-            try {
-                if (!intReqEd2.equals("set") && !intReqEd2.equals("unset")) {
-                    throw new NonComplianceWithConstraints("int_req_ed_2", "set", "unset");
-                }
-                bcomp.setIntReqEd2(intReqEd2);
-                break;
-            } catch (NonComplianceWithConstraints exp) {
-                System.out.println(exp.getMessage());
-            }
-        }
-
-        System.out.println(MenuInputType.INT_REQ_ED_3);
-        for (; ; ) {
-            String intReqEd3 = scanner.nextLine();
-            try {
-                if (!intReqEd3.equals("set") && !intReqEd3.equals("unset")) {
-                    throw new NonComplianceWithConstraints("int_req_ed_3", "set", "unset");
-                }
-                bcomp.setIntReqEd3(intReqEd3);
-                break;
-            } catch (NonComplianceWithConstraints exp) {
-                System.out.println(exp.getMessage());
-            }
-        }
-
-        System.out.println(MenuInputType.RD_ED_1);
-        for (; ; ) {
-            String rdEd1 = scanner.nextLine();
-            try {
-                if (rdEd1.length() > 8) {
-                    throw new Exception();
-                }
-                bcomp.setRdEd1(rdEd1);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.RD_ED_2);
-        for (; ; ) {
-            String rdEd2 = scanner.nextLine();
-            try {
-                if (rdEd2.length() > 8) {
-                    throw new Exception();
-                }
-                bcomp.setRdEd2(rdEd2);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.RD_ED_3);
-        for (; ; ) {
-            String rdEd3 = scanner.nextLine();
-            try {
-                if (rdEd3.length() > 8) {
-                    throw new Exception();
-                }
-                bcomp.setRdEd3(rdEd3);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.MEMORY_MC);
-        for (; ; ) {
-            String memoryMc = scanner.nextLine();
-            try {
-//                if (memory.length() > 20) {
-//                    throw new Exception();
-//                }
-                bcomp.setMemoryMc(memoryMc);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.C_MC);
-        for (; ; ) {
-            String cMc = scanner.nextLine();
-            try {
-                if (cMc.length() > 8) {
-                    throw new Exception();
-                }
-                bcomp.setcMc(cMc);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.R_MC);
-        for (; ; ) {
-            String rMc = scanner.nextLine();
-            try {
-                if (rMc.length() > 16) {
-                    throw new Exception();
-                }
-                bcomp.setrMc(rMc);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.ASM);
-        for (; ; ) {
-            String asm = scanner.nextLine();
-            try {
-//                if (asm.length() > 16) {
-//                    throw new Exception();
-//                }
-                bcomp.setAsm(asm);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
+        bcomp.setMemory(DataReader.readString(Bcomp.class, "memory", MenuInputType.MEMORY));
+        bcomp.setRs(DataReader.readString(Bcomp.class, "rs", MenuInputType.RS));
+        bcomp.setRa(DataReader.readString(Bcomp.class, "ra", MenuInputType.RA));
+        bcomp.setRd(DataReader.readString(Bcomp.class, "rd", MenuInputType.RD));
+        bcomp.setRc(DataReader.readString(Bcomp.class, "rc", MenuInputType.RC));
+        bcomp.setCc(DataReader.readString(Bcomp.class, "cc", MenuInputType.CC));
+        bcomp.setBr(DataReader.readString(Bcomp.class, "br", MenuInputType.BR));
+        bcomp.setAc(DataReader.readString(Bcomp.class, "ac", MenuInputType.AC));
+        bcomp.setC(DataReader.readString(Bcomp.class, "c", MenuInputType.C));
+        bcomp.setKr(DataReader.readString(Bcomp.class, "kr", MenuInputType.KR));
+        bcomp.setBit(DataReader.readString(Bcomp.class, "bit", MenuInputType.BIT));
+        bcomp.setIntReqEd1(DataReader.readString(Bcomp.class, "intReqEd1", MenuInputType.INT_REQ_ED_1));
+        bcomp.setIntReqEd2(DataReader.readString(Bcomp.class, "intReqEd2", MenuInputType.INT_REQ_ED_2));
+        bcomp.setIntReqEd3(DataReader.readString(Bcomp.class, "intReqEd3", MenuInputType.INT_REQ_ED_3));
+        bcomp.setRdEd1(DataReader.readString(Bcomp.class, "rdEd1", MenuInputType.RD_ED_1));
+        bcomp.setRdEd2(DataReader.readString(Bcomp.class, "rdEd2", MenuInputType.RD_ED_2));
+        bcomp.setRdEd3(DataReader.readString(Bcomp.class, "rdEd3", MenuInputType.RD_ED_3));
+        bcomp.setMemoryMc(DataReader.readString(Bcomp.class, "memoryMc", MenuInputType.MEMORY_MC));
+        bcomp.setcMc(DataReader.readString(Bcomp.class, "cMc", MenuInputType.C_MC));
+        bcomp.setrMc(DataReader.readString(Bcomp.class, "rMc", MenuInputType.R_MC));
+        bcomp.setAsm(DataReader.readString(Bcomp.class, "asm", MenuInputType.ASM));
 
         return bcomp;
-    }
-
-    public static String readNewStatusForRegistrationCode() {
-        RegistrationCodes registrationCodes = new RegistrationCodes();
-        System.out.println(MenuInputType.INVITE_CODE_STATUS);
-        readStatus(registrationCodes);
-        return registrationCodes.getInviteCodeStatus();
     }
 
     public static String readUserSessionStatus() {
@@ -383,98 +102,16 @@ public class DataReader {
         return userSession.getStatus();
     }
 
-    public static BigDecimal readInviteCode() {
-        BigDecimal inviteCode = null;
-        System.out.println(MenuInputType.INVITE_CODE);
-        for (; ; ) {
-            String tempInviteCode = scanner.nextLine();
-            try {
-                inviteCode = new BigDecimal(tempInviteCode);
-                break;
-            } catch (Exception exp) {
-                System.out.println(exp.getMessage());
-                System.out.println("Repeat input: ");
-            }
-        }
-        return inviteCode;
-    }
-
-    private static void readStatus(RegistrationCodes registrationCodes) {
-        for (; ; ) {
-            try {
-                String inviteCodeStatus = scanner.nextLine();
-                if (!inviteCodeStatus.equals("available") && !inviteCodeStatus.equals("not available")) {
-                    throw new NonComplianceWithConstraints("invite_code_status", "available", "not available");
-                }
-                registrationCodes.setInviteCodeStatus(inviteCodeStatus);
-                break;
-            } catch (NonComplianceWithConstraints exp) {
-                System.out.println(exp.getMessage());
-            }
-        }
-    }
-
     public static UserProfile readUserProfile() {
         UserProfile userProfile = new UserProfile();
         System.out.println(MenuInputType.STUDYING_STATUS);
 
-        for (; ; ) {
-            try {
-                String studyingStatus = scanner.nextLine();
-                if (!studyingStatus.equals("YES") && !studyingStatus.equals("NOT")) {
-                    throw new NonComplianceWithConstraints("studying_status", "YES", "NOT");
-                }
-                userProfile.setStudyingStatus(studyingStatus);
-                break;
-            } catch (NonComplianceWithConstraints exp) {
-                System.out.println(exp.getMessage());
-            }
-        }
-
-        System.out.println(MenuInputType.FIRST_NAME);
-
-        for (; ; ) {
-            try {
-                String firstName = scanner.nextLine();
-                if (firstName.length() >= 20) throw new Exception();
-                userProfile.setFirstName(firstName);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.LAST_NAME);
-
-        for (; ; ) {
-            try {
-                String lastName = scanner.nextLine();
-                if (lastName.length() >= 20) throw new Exception();
-                userProfile.setLastName(lastName);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-
-        System.out.println(MenuInputType.GENDER);
-
-        for (; ; ) {
-            try {
-                String gender = scanner.nextLine();
-                if (!gender.equals("M") && !gender.equals("F")) {
-                    throw new NonComplianceWithConstraints("gender", "M", "F");
-                }
-                userProfile.setGender(gender);
-                break;
-            } catch (NonComplianceWithConstraints exp) {
-                System.out.println(exp.getMessage());
-            }
-        }
+        userProfile.setStudyingStatus(DataReader.readString(UserProfile.class, "studyingStatus", MenuInputType.STUDYING_STATUS));
+        userProfile.setFirstName(DataReader.readString(UserProfile.class, "firstName", MenuInputType.FIRST_NAME));
+        userProfile.setLastName(DataReader.readString(UserProfile.class, "lastName", MenuInputType.LAST_NAME));
+        userProfile.setGender(DataReader.readString(UserProfile.class, "gender", MenuInputType.GENDER));
 
         System.out.println(MenuInputType.DATE_OF_BIRTH);
-
         for (; ; ) {
             try {
                 String dateOfBirth = scanner.nextLine();
@@ -537,64 +174,19 @@ public class DataReader {
     public static Users readUser() {
         Users user = new Users();
 
-        user.setUsername(readUsername());
-        user.setPassword(readPassword());
+        user.setUsername(DataReader.readString(Users.class, "username", MenuInputType.USERNAME));
+        user.setPassword(DataReader.readString(Users.class, "password", MenuInputType.PASSWORD));
 
         return user;
     }
 
     public static UserPicture readUserPicture() {
         UserPicture userPicture = new UserPicture();
-        System.out.println(MenuInputType.USER_PICTURE_PICNAME);
-        for (; ; ) {
-            String picname = scanner.nextLine();
-            try {
-                if (picname.length() > 20) {
-                    throw new Exception();
-                }
-                userPicture.setPictureName(picname);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
+        userPicture.setPictureName(DataReader.readString(UserPicture.class, "pictureName", MenuInputType.USER_PICTURE_PICNAME));
         return userPicture;
     }
 
-    public static String readUsername() {
-        System.out.println(MenuInputType.USERNAME);
-        String username;
-        for (; ; ) {
-            try {
-                username = scanner.nextLine();
-                if (username.length() >= 20) throw new Exception();
-                break;
-            } catch (Exception exp) {
-                System.out.println(exp.getMessage());
-                System.out.println("Repeat input: ");
-            }
-        }
-        return username;
-    }
-
-    public static String readPassword() {
-        System.out.println(MenuInputType.PASSWORD);
-        String password;
-        for (; ; ) {
-            try {
-                password = scanner.nextLine();
-                if (password.length() >= 25) throw new Exception();
-                break;
-            } catch (Exception exp) {
-                System.out.println(exp.getMessage());
-                System.out.println("Repeat input: ");
-            }
-        }
-        return password;
-    }
-
-    public static String readString(Class aClass, String propertyName, MenuInputType inputType) {
+    public static String readString(Class aClass, String fieldName, MenuInputType inputType) {
         String value;
         for (; ; ) {
             try {
@@ -604,7 +196,7 @@ public class DataReader {
                 System.out.println(inputType);
                 value = scanner.nextLine();
 
-                Set<ConstraintViolation<?>> errors = validator.validateValue(aClass, propertyName, value);
+                Set<ConstraintViolation<?>> errors = validator.validateValue(aClass, fieldName, value);
 
                 if (!errors.isEmpty()) {
                     for (ConstraintViolation<?> constraintViolation : errors) {
@@ -661,108 +253,28 @@ public class DataReader {
 
     public static BcompSettings readBcompSettings() {
         BcompSettings bcompSettings = new BcompSettings();
-
-        System.out.println(MenuInputType.BCOMP_SETTINGS_TYPE);
-        for (; ; ) {
-            String bcompSettingsType = scanner.nextLine();
-            try {
-                if (bcompSettingsType.length() > 20) {
-                    throw new Exception();
-                }
-                bcompSettings.setType(bcompSettingsType);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.BCOMP_SETTINGS_VALUE);
-        for (; ; ) {
-            String bcompSettingsValue = scanner.nextLine();
-            try {
-                if (bcompSettingsValue.length() > 20) {
-                    throw new Exception();
-                }
-                bcompSettings.setValue(bcompSettingsValue);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
+        bcompSettings.setType(DataReader.readString(BcompSettings.class, "type", MenuInputType.BCOMP_SETTINGS_TYPE));
+        bcompSettings.setValue(DataReader.readString(BcompSettings.class, "value", MenuInputType.BCOMP_SETTINGS_VALUE));
         return bcompSettings;
     }
 
     public static void initUserProfile(UserProfile userProfile) {
-        System.out.println(MenuInputType.STUDYING_STATUS);
+        userProfile.setStudyingStatus(DataReader.readString(UserProfile.class, "studyingStatus", MenuInputType.STUDYING_STATUS));
+        userProfile.setFirstName(DataReader.readString(UserProfile.class, "firstName", MenuInputType.FIRST_NAME));
+        userProfile.setLastName(DataReader.readString(UserProfile.class, "lastName", MenuInputType.LAST_NAME));
+        userProfile.setGender(DataReader.readString(UserProfile.class, "gender", MenuInputType.GENDER));
 
         for (; ; ) {
             try {
-                String studyingStatus = scanner.nextLine();
-                if (!studyingStatus.equals("YES") && !studyingStatus.equals("NOT")) {
-                    throw new NonComplianceWithConstraints("studying_status", "YES", "NOT");
-                }
-                userProfile.setStudyingStatus(studyingStatus);
-                break;
-            } catch (NonComplianceWithConstraints exp) {
-                System.out.println(exp.getMessage());
-            }
-        }
-
-        System.out.println(MenuInputType.FIRST_NAME);
-
-        for (; ; ) {
-            try {
-                String firstName = scanner.nextLine();
-                if (firstName.length() >= 20) throw new Exception();
-                userProfile.setFirstName(firstName);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-        System.out.println(MenuInputType.LAST_NAME);
-
-        for (; ; ) {
-            try {
-                String lastName = scanner.nextLine();
-                if (lastName.length() >= 20) throw new Exception();
-                userProfile.setLastName(lastName);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-
-
-        System.out.println(MenuInputType.GENDER);
-
-        for (; ; ) {
-            try {
-                String gender = scanner.nextLine();
-                if (!gender.equals("M") && !gender.equals("F")) {
-                    throw new NonComplianceWithConstraints("gender", "M", "F");
-                }
-                userProfile.setGender(gender);
-                break;
-            } catch (NonComplianceWithConstraints exp) {
-                System.out.println(exp.getMessage());
-            }
-        }
-
-        System.out.println(MenuInputType.DATE_OF_BIRTH);
-
-        for (; ; ) {
-            try {
+                System.out.println(MenuInputType.DATE_OF_BIRTH);
                 String dateOfBirth = scanner.nextLine();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
                 Date parsedDate = dateFormat.parse(dateOfBirth);
-                Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+                Timestamp timestamp = new Timestamp(parsedDate.getTime());
                 userProfile.setDateOfBirth(timestamp);
                 break;
             } catch (Exception exp) {
-                System.out.println("Repeat input: ");
+                System.out.println(exp.getMessage());
             }
         }
     }

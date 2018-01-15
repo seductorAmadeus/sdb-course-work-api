@@ -17,8 +17,9 @@ public class UserSessionOperations extends DatabaseGenericOperations {
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         UsersDAOImpl usersDAO = new UsersDAOImpl();
 
-        String username = DataReader.readUsername();
-        String password = DataReader.readPassword();
+        String username = DataReader.readString(Users.class, "username", MenuInputType.USERNAME);
+        String password = DataReader.readString(Users.class, "password", MenuInputType.PASSWORD);
+
         // create new Hibernate session and get user for adding to user's session
 
         UserSession userSession = new UserSession();
@@ -211,8 +212,8 @@ public class UserSessionOperations extends DatabaseGenericOperations {
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         UsersDAOImpl usersDAO = new UsersDAOImpl();
 
-        String username = DataReader.readUsername();
-        String password = DataReader.readPassword();
+        String username = DataReader.readString(Users.class, "username", MenuInputType.USERNAME);
+        String password = DataReader.readString(Users.class, "password", MenuInputType.PASSWORD);
         // create new Hibernate session and get user for adding to user's session
 
         UserSession userSession = new UserSession();
