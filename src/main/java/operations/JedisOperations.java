@@ -2,6 +2,7 @@ package operations;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.exceptions.JedisConnectionException;
 import redis.clients.jedis.exceptions.JedisException;
 
 import java.math.BigDecimal;
@@ -14,18 +15,20 @@ public class JedisOperations {
     private final static String HOST = "127.0.0.1";
     private final static int PORT = 6379;
 
-    private static JedisPool pool;
+    private JedisPool pool;
 
     public JedisOperations() {
         pool = new JedisPool(HOST, PORT);
     }
 
     public void set(String key, String value) {
-        Jedis jedis = pool.getResource();
-
+        Jedis jedis = null;
         try {
+            jedis = pool.getResource();
             jedis.set(key, value);
             System.out.println("> Added to cache " + key + " " + jedis.get(key));
+        } catch (JedisConnectionException exp) {
+            System.out.println(exp.getMessage() + ". There is no connection to " + HOST + ":" + PORT);
         } catch (JedisException e) {
             // if something wrong happened, return it back to the pool
             if (null != jedis) {
@@ -47,12 +50,14 @@ public class JedisOperations {
      * @param expTime - expiration interval (in sec)
      */
     public void setExpire(String key, String value, int expTime) {
-        Jedis jedis = pool.getResource();
-
+        Jedis jedis = null;
         try {
+            jedis = pool.getResource();
             jedis.set(key, value);
             jedis.expire(key, expTime);
             System.out.println("> Added to cache " + key + " " + jedis.get(key));
+        } catch (JedisConnectionException exp) {
+            System.out.println(exp.getMessage() + ". There is no connection to " + HOST + ":" + PORT);
         } catch (JedisException e) {
             // if something wrong happened, return it back to the pool
             if (null != jedis) {
@@ -73,11 +78,14 @@ public class JedisOperations {
      * @return value from cache
      */
     public String get(String key) {
-        Jedis jedis = pool.getResource();
+        Jedis jedis = null;
         String res = null;
         try {
+            jedis = pool.getResource();
             res = jedis.get(key);
             System.out.println(">> Got from cache: " + res);
+        } catch (JedisConnectionException exp) {
+            System.out.println(exp.getMessage() + ". There is no connection to " + HOST + ":" + PORT);
         } catch (JedisException e) {
             // if something wrong happened, return it back to the pool
             if (null != jedis) {
@@ -94,19 +102,29 @@ public class JedisOperations {
     }
 
     public boolean isExists(String keyPattern, BigDecimal id) {
-        Jedis jedis = pool.getResource();
-        // pattern:id
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+        } catch (JedisConnectionException exp) {
+            System.out.println(exp.getMessage() + ". There is no connection to " + HOST + ":" + PORT);
+        } catch (JedisException exp) {
+            //
+        }
+        if (jedis == null) return false;
         return jedis.exists(keyPattern + id);
     }
 
     public List<String> getAllKeys(String pattern) {
-        Jedis jedis = pool.getResource();
+        Jedis jedis = null;
         List<String> keys = new ArrayList<>();
         try {
+            jedis = pool.getResource();
             Set<String> tempKeys = jedis.keys(pattern);
 
             keys.addAll(tempKeys);
 
+        } catch (JedisConnectionException exp) {
+            System.out.println(exp.getMessage() + ". There is no connection to " + HOST + ":" + PORT);
         } catch (JedisException ex) {
             System.err.println("Oops, sorry " + ex.getMessage());
             if (null != jedis) {
@@ -121,10 +139,11 @@ public class JedisOperations {
     }
 
     public List<BigDecimal> getAllIdsMatchingPattern(String keyPattern) {
-        Jedis jedis = pool.getResource();
+        Jedis jedis = null;
         // pattern:id
         List<BigDecimal> id = new ArrayList<>();
         try {
+            jedis = pool.getResource();
             Set<String> keys = jedis.keys(keyPattern);
 
             for (String key : keys) {
@@ -133,6 +152,8 @@ public class JedisOperations {
                 id.add(new BigDecimal(s));
             }
 
+        } catch (JedisConnectionException exp) {
+            System.out.println(exp.getMessage() + ". There is no connection to " + HOST + ":" + PORT);
         } catch (JedisException ex) {
             System.err.println("Oops, sorry " + ex.getMessage());
             if (null != jedis) {
@@ -147,9 +168,10 @@ public class JedisOperations {
     }
 
     public List<String> getAllRecordsMatchingPattern(String keyPattern) {
-        Jedis jedis = pool.getResource();
+        Jedis jedis = null;
         List<String> records = new ArrayList<>();
         try {
+            jedis = pool.getResource();
             Set<String> keys = jedis.keys(keyPattern);
 
             for (String key : keys) {
@@ -157,6 +179,8 @@ public class JedisOperations {
                 records.add(s);
             }
 
+        } catch (JedisConnectionException exp) {
+            System.out.println(exp.getMessage() + ". There is no connection to " + HOST + ":" + PORT);
         } catch (JedisException ex) {
             System.err.println("Oops, sorry " + ex.getMessage());
             if (null != jedis) {
@@ -171,10 +195,13 @@ public class JedisOperations {
     }
 
     public void delete(String key) {
-        Jedis jedis = pool.getResource();
+        Jedis jedis = null;
         try {
+            jedis = pool.getResource();
             jedis.del(key);
             System.out.println(">> Deleted " + key);
+        } catch (JedisConnectionException exp) {
+            System.out.println(exp.getMessage() + ". There is no connection to " + HOST + ":" + PORT);
         } catch (JedisException ex) {
             System.err.println("Something happened (Jedis, deleteByBcompSettingsId) " + ex.getMessage());
             if (null != jedis) {
