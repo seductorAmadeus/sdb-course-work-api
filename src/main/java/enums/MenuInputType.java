@@ -48,6 +48,7 @@ public enum MenuInputType {
     UPDATE_USER_PICTURE("42. Update user's picture by id\n"),
     DELETE_USER_PICTURE("43. Delete user's picture\n"),
 
+    USER_SESSION_ID("Enter user session id: "),
     USER_STUDYING_ID("Enter user studying id: "),
     USER_PICTURE_ID("Enter user picture id: "),
     USER_PICTURE_PICNAME("Enter user's picture picname: "),

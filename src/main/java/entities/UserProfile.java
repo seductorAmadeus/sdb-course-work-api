@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import validation.constraints.CheckConstraintsIn;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public class UserProfile implements Serializable {
     @GeneratedValue(generator="gen")
     @GenericGenerator(name="gen", strategy="foreign",parameters=@org.hibernate.annotations.Parameter(name="property", value="users"))
     @Column(name = "profile_id", unique = true, nullable = false)
+    @Digits(integer = 7, fraction = 0)
     private BigDecimal profileId;
 
     @ManyToOne()

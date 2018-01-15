@@ -3,6 +3,7 @@ package operations;
 import daoImpl.BcompSettingsDAOImpl;
 import entities.BcompSettings;
 import enums.CachePrefixType;
+import enums.MenuInputType;
 import utils.DataReader;
 
 import java.math.BigDecimal;
@@ -19,7 +20,7 @@ public class BcompSettingsOperations extends DatabaseGenericOperations {
     public void update() {
         BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
 
-        BigDecimal tempBcompSettingId = DataReader.readBcompSettingsId();
+        BigDecimal tempBcompSettingId = DataReader.readId(BcompSettings.class, "id", MenuInputType.BCOMP_SETTINGS_ID);
         BcompSettings bcompSettings = DataReader.readBcompSettings();
         bcompSettings.setId(tempBcompSettingId);
 
@@ -74,7 +75,7 @@ public class BcompSettingsOperations extends DatabaseGenericOperations {
     @Override
     public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
-        BigDecimal bcompSettingsId = DataReader.readBcompSettingsId();
+        BigDecimal bcompSettingsId = DataReader.readId(BcompSettings.class, "id", MenuInputType.BCOMP_SETTINGS_ID);
         BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
 
         if (jedisOperations.isExists(CachePrefixType.BCOMP_SETTINGS.toString(), bcompSettingsId)) {
@@ -96,7 +97,7 @@ public class BcompSettingsOperations extends DatabaseGenericOperations {
         BcompSettings bcompSettings;
         BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
 
-        BigDecimal bcompSettingsId = DataReader.readBcompSettingsId();
+        BigDecimal bcompSettingsId = DataReader.readId(BcompSettings.class, "id", MenuInputType.BCOMP_SETTINGS_ID);
 
         if (bcompSettingsDAO.isExists(BcompSettings.class, bcompSettingsId)) {
             bcompSettings = DataReader.readBcompSettings();
@@ -138,7 +139,7 @@ public class BcompSettingsOperations extends DatabaseGenericOperations {
         JedisOperations jedisOperations = new JedisOperations();
         BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
 
-        BigDecimal bcompSettingsId = DataReader.readBcompSettingsId();
+        BigDecimal bcompSettingsId = DataReader.readId(BcompSettings.class, "id", MenuInputType.BCOMP_SETTINGS_ID);
 
         if (bcompSettingsDAO.isExists(BcompSettings.class, bcompSettingsId)) {
             bcompSettingsDAO.delete(BcompSettings.class, bcompSettingsId);

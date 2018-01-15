@@ -6,6 +6,7 @@ import daoImpl.UserRoleDAOImpl;
 import daoImpl.UserStudyingDAOImpl;
 import entities.*;
 import enums.CachePrefixType;
+import enums.MenuInputType;
 import utils.DataReader;
 
 import java.math.BigDecimal;
@@ -53,7 +54,7 @@ public class UserProfileOperations extends DatabaseGenericOperations {
     public void print() {
         UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
         UserProfile userProfile;
-        BigDecimal userProfileId = DataReader.readUserProfileId();
+        BigDecimal userProfileId = DataReader.readId(UserProfile.class, "profileId", MenuInputType.USER_PROFILE_ID);
 
         if (userProfileDAO.isExists(UserProfile.class, userProfileId)) {
             userProfile = userProfileDAO.get(userProfileId);
@@ -67,7 +68,7 @@ public class UserProfileOperations extends DatabaseGenericOperations {
     public void update() {
         UserProfile userProfile;
         UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
-        BigDecimal userProfileId = DataReader.readUserProfileId();
+        BigDecimal userProfileId = DataReader.readId(UserProfile.class, "profileId", MenuInputType.USER_PROFILE_ID);
 
         if (userProfileDAO.isExists(UserProfile.class, userProfileId)) {
             userProfile = userProfileDAO.get(userProfileId);
@@ -81,7 +82,7 @@ public class UserProfileOperations extends DatabaseGenericOperations {
     @Override
     public void delete() {
         UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
-        BigDecimal userProfileId = DataReader.readUserProfileId();
+        BigDecimal userProfileId = DataReader.readId(UserProfile.class, "profileId", MenuInputType.USER_PROFILE_ID);
 
         if (userProfileDAO.isExists(UserProfile.class, userProfileId)) {
             userProfileDAO.delete(UserProfile.class, userProfileId);
@@ -168,7 +169,7 @@ public class UserProfileOperations extends DatabaseGenericOperations {
     @Override
     public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
-        BigDecimal userProfileId = DataReader.readUserProfileId();
+        BigDecimal userProfileId = DataReader.readId(UserProfile.class, "profileId", MenuInputType.USER_PROFILE_ID);
         UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
 
         if (jedisOperations.isExists(CachePrefixType.USER_PROFILE.toString(), userProfileId)) {
@@ -189,7 +190,7 @@ public class UserProfileOperations extends DatabaseGenericOperations {
         JedisOperations jedisOperations = new JedisOperations();
         UserProfile userProfile;
         UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
-        BigDecimal userProfileId = DataReader.readUserProfileId();
+        BigDecimal userProfileId = DataReader.readId(UserProfile.class, "profileId", MenuInputType.USER_PROFILE_ID);
 
         if (userProfileDAO.isExists(UserProfile.class, userProfileId)) {
             userProfile = userProfileDAO.get(userProfileId);
@@ -205,7 +206,7 @@ public class UserProfileOperations extends DatabaseGenericOperations {
         JedisOperations jedisOperations = new JedisOperations();
         UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
 
-        BigDecimal userProfileId = DataReader.readUserProfileId();
+        BigDecimal userProfileId = DataReader.readId(UserProfile.class, "profileId", MenuInputType.USER_PROFILE_ID);
 
         if (userProfileDAO.isExists(UserProfile.class, userProfileId)) {
             userProfileDAO.delete(UserProfile.class, userProfileId);

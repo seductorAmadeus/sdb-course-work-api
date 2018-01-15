@@ -1,18 +1,20 @@
 package utils;
 
 import entities.*;
-import enums.LimitType;
 import enums.MenuInputType;
-import exceptions.IllegalStringLengthException;
 import exceptions.NonComplianceWithConstraints;
 import exceptions.PatternException;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -592,132 +594,69 @@ public class DataReader {
         return password;
     }
 
-    public static BigDecimal readUserPictureId() {
-        BigDecimal userPictureId = null;
-        System.out.println(MenuInputType.USER_PICTURE_ID);
-        for (; ; ) {
-            String tempUserId = scanner.nextLine();
-            try {
-                userPictureId = new BigDecimal(tempUserId);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-        return userPictureId;
-    }
-
-    public static BigDecimal readUserId() {
-        BigDecimal userId = null;
-        System.out.println(MenuInputType.USER_ID);
-        for (; ; ) {
-            String tempUserId = scanner.nextLine();
-            try {
-                userId = new BigDecimal(tempUserId);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-        return userId;
-    }
-
-    public static String readString(MenuInputType inputType, LimitType limitType, String... constraints) {
-        System.out.println(inputType);
+    public static String readString(Class aClass, String propertyName, MenuInputType inputType) {
         String value;
         for (; ; ) {
             try {
+                ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+                Validator validator = factory.getValidator();
+
+                System.out.println(inputType);
                 value = scanner.nextLine();
-                if (!(value.length() >= limitType.getMaxLength() && value.length() <= limitType.getMinLength())) {
-                    throw new IllegalStringLengthException(limitType.getFieldName(), limitType.getMinLength(), limitType.getMaxLength());
-                }
-                if (constraints.length != 0) {
-                    if (!Arrays.asList(constraints).contains(value)) {
-                        throw new NonComplianceWithConstraints(limitType.getFieldName(), constraints);
+
+                Set<ConstraintViolation<?>> errors = validator.validateValue(aClass, propertyName, value);
+
+                if (!errors.isEmpty()) {
+                    for (ConstraintViolation<?> constraintViolation : errors) {
+                        System.out.println(constraintViolation.getPropertyPath() + " -> " +
+                                constraintViolation.getMessage());
                     }
-                }
-                break;
-            } catch (IllegalStringLengthException exp) {
-                System.out.println(exp.getMessage());
-            } catch (NonComplianceWithConstraints exp) {
+                } else break;
+            } catch (Exception exp) {
                 System.out.println(exp.getMessage());
             }
         }
         return value;
     }
 
-    public static BigDecimal readBigDecimal(MenuInputType inputType, LimitType limitType) {
-        BigDecimal id;
-        System.out.println(inputType);
-        for (; ; ) {
-            String tempValue = scanner.nextLine();
-            try {
-                if (!(tempValue.length() >= limitType.getMaxLength() && tempValue.length() <= limitType.getMinLength())) {
-                    throw new IllegalStringLengthException(limitType.getFieldName(), limitType.getMinLength(), limitType.getMaxLength());
-                }
-                id = new BigDecimal(tempValue);
-                break;
-            } catch (IllegalStringLengthException exp) {
-                System.out.println(exp.getMessage());
-            }
+    public static BigDecimal readId(Class aClass, String fieldName, MenuInputType inputType) {
+        BigDecimal id = null;
+        try {
+            id = readBigDecimal(aClass, fieldName, inputType);
+        } catch (NoSuchFieldException e) {
+            //TODO: check @notNull if fieldName doesn't exists
+            System.out.println(fieldName + " -> " + "field is missing");
         }
         return id;
     }
 
-    public static BigDecimal readUserSessionId() {
-        BigDecimal userSessionId = null;
-        System.out.println(MenuInputType.BCOMP);
+    public static BigDecimal readBigDecimal(Class aClass, String fieldName, MenuInputType inputType) throws NoSuchFieldException {
+        BigDecimal bigDecimal = null;
+        String tempInput;
         for (; ; ) {
-            String tempUserSessionId = scanner.nextLine();
             try {
-                if (tempUserSessionId.length() > 20) {
-                    throw new Exception();
-                }
-                userSessionId = new BigDecimal(tempUserSessionId);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-        return userSessionId;
-    }
+                ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+                Validator validator = factory.getValidator();
 
-    public static BigDecimal readUserStudyingId() {
-        BigDecimal userStudyingId = null;
-        System.out.println(MenuInputType.USER_STUDYING_ID);
-        for (; ; ) {
-            String tempUserStudyingId = scanner.nextLine();
-            try {
-                if (tempUserStudyingId.length() > 20) {
-                    throw new Exception();
-                }
-                userStudyingId = new BigDecimal(tempUserStudyingId);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-        return userStudyingId;
-    }
+                System.out.println(inputType);
+                tempInput = scanner.nextLine();
 
-    // TODO: make a generic method for reading id specified length
-    // TODO: to put constants in another file
-    public static BigDecimal readBcompSettingsId() {
-        BigDecimal bcompSettingsId = null;
-        System.out.println(MenuInputType.BCOMP_SETTINGS_ID);
-        for (; ; ) {
-            String tempBcompSettingsId = scanner.nextLine();
-            try {
-                if (tempBcompSettingsId.length() > 20) {
-                    throw new Exception();
+                Set<ConstraintViolation<?>> errors = validator.validateValue(aClass, fieldName, new BigDecimal(tempInput));
+
+                if (!errors.isEmpty()) {
+                    for (ConstraintViolation<?> constraintViolation : errors) {
+                        System.out.println(constraintViolation.getPropertyPath() + " -> " +
+                                constraintViolation.getMessage());
+                    }
+                } else {
+                    bigDecimal = new BigDecimal(tempInput);
                 }
-                bcompSettingsId = new BigDecimal(tempBcompSettingsId);
                 break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
+            } catch (NumberFormatException exp) {
+                System.out.println(fieldName + " -> must be " + aClass.getDeclaredField(fieldName).getType());
             }
         }
-        return bcompSettingsId;
+        return bigDecimal;
     }
 
     public static BcompSettings readBcompSettings() {
@@ -753,61 +692,6 @@ public class DataReader {
 
         return bcompSettings;
     }
-
-    public static BigDecimal readBcompId() {
-        BigDecimal bcompId = null;
-        System.out.println(MenuInputType.BCOMP_ID);
-        for (; ; ) {
-            String tempBcompId = scanner.nextLine();
-            try {
-                if (tempBcompId.length() > 20) {
-                    throw new Exception();
-                }
-                bcompId = new BigDecimal(tempBcompId);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-        return bcompId;
-    }
-
-    public static BigDecimal readRegistrationCodeId() {
-        BigDecimal registrationCodeId;
-        System.out.println(MenuInputType.REGISTRATION_CODE_ID);
-        for (; ; ) {
-            String tempBcompId = scanner.nextLine();
-            try {
-                if (tempBcompId.length() > 20) {
-                    throw new Exception();
-                }
-                registrationCodeId = new BigDecimal(tempBcompId);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-        return registrationCodeId;
-    }
-
-    public static BigDecimal readUserProfileId() {
-        BigDecimal userProfileId = null;
-        System.out.println(MenuInputType.USER_PROFILE_ID);
-        for (; ; ) {
-            String tempUserProfileId = scanner.nextLine();
-            try {
-                if (tempUserProfileId.length() > 7) {
-                    throw new Exception();
-                }
-                userProfileId = new BigDecimal(tempUserProfileId);
-                break;
-            } catch (Exception exp) {
-                System.out.println("Repeat input: ");
-            }
-        }
-        return userProfileId;
-    }
-
 
     public static void initUserProfile(UserProfile userProfile) {
         System.out.println(MenuInputType.STUDYING_STATUS);

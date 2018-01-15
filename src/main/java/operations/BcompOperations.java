@@ -5,6 +5,7 @@ import daoImpl.UserSessionDAOImpl;
 import entities.Bcomp;
 import entities.UserSession;
 import enums.CachePrefixType;
+import enums.MenuInputType;
 import utils.DataReader;
 
 import java.math.BigDecimal;
@@ -19,7 +20,7 @@ public class BcompOperations extends DatabaseGenericOperations {
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         UserSession userSession;
 
-        BigDecimal userSessionId = DataReader.readUserSessionId();
+        BigDecimal userSessionId = DataReader.readId(UserSession.class, "id", MenuInputType.USER_SESSION_ID);
         try {
             // checking that session exists
             userSession = userSessionDAO.get(userSessionId);
@@ -100,7 +101,7 @@ public class BcompOperations extends DatabaseGenericOperations {
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         UserSession userSession;
 
-        BigDecimal userSessionId = DataReader.readUserSessionId();
+        BigDecimal userSessionId = DataReader.readId(UserSession.class, "id", MenuInputType.USER_SESSION_ID);
         try {
             // checking that session exists
             userSession = userSessionDAO.get(userSessionId);
@@ -125,7 +126,7 @@ public class BcompOperations extends DatabaseGenericOperations {
         Bcomp bcomp;
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
 
-        BigDecimal bcompId = DataReader.readBcompId();
+        BigDecimal bcompId = DataReader.readId(Bcomp.class, "id", MenuInputType.BCOMP_ID);
 
         if (bcompDAO.isExists(Bcomp.class, bcompId)) {
             bcomp = bcompDAO.get(bcompId);
@@ -142,7 +143,7 @@ public class BcompOperations extends DatabaseGenericOperations {
         Bcomp bcomp;
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
 
-        BigDecimal bcompId = DataReader.readBcompId();
+        BigDecimal bcompId = DataReader.readId(Bcomp.class, "id", MenuInputType.BCOMP_ID);
 
         if (bcompDAO.isExists(Bcomp.class, bcompId)) {
             bcomp = bcompDAO.get(bcompId);
@@ -160,7 +161,7 @@ public class BcompOperations extends DatabaseGenericOperations {
         JedisOperations jedisOperations = new JedisOperations();
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
 
-        BigDecimal bcompId = DataReader.readBcompId();
+        BigDecimal bcompId = DataReader.readId(Bcomp.class, "id", MenuInputType.BCOMP_ID);
 
         if (bcompDAO.isExists(Bcomp.class, bcompId)) {
             bcompDAO.delete(Bcomp.class, bcompId);
@@ -179,7 +180,7 @@ public class BcompOperations extends DatabaseGenericOperations {
 
     public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
-        BigDecimal bcompId = DataReader.readBcompId();
+        BigDecimal bcompId = DataReader.readId(Bcomp.class, "id", MenuInputType.BCOMP_ID);
         BcompDAOImpl bcompDAO = new BcompDAOImpl();
 
         if (jedisOperations.isExists(CachePrefixType.BCOMP.toString(), bcompId)) {

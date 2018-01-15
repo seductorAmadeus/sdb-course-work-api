@@ -5,6 +5,7 @@ import daoImpl.UserProfileDAOImpl;
 import entities.UserPicture;
 import entities.UserProfile;
 import enums.CachePrefixType;
+import enums.MenuInputType;
 import utils.DataReader;
 
 import java.math.BigDecimal;
@@ -33,7 +34,7 @@ public class UserPictureOperations extends DatabaseGenericOperations {
     @Override
     void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
-        BigDecimal userPictureId = DataReader.readUserPictureId();
+        BigDecimal userPictureId = DataReader.readId(UserPicture.class, "id", MenuInputType.USER_PICTURE_ID);
         UserPictureDAOImpl userPictureDAO = new UserPictureDAOImpl();
 
         if (jedisOperations.isExists(CachePrefixType.USER_PICTURE.toString(), userPictureId)) {
@@ -59,17 +60,17 @@ public class UserPictureOperations extends DatabaseGenericOperations {
         JedisOperations jedisOperations = new JedisOperations();
         UserPictureDAOImpl userPictureDAO = new UserPictureDAOImpl();
 
-        BigDecimal readUserPictureId = DataReader.readUserPictureId();
+        BigDecimal userPictureId = DataReader.readId(UserPicture.class, "id", MenuInputType.USER_PICTURE_ID);
 
-        if (userPictureDAO.isExists(UserPicture.class, readUserPictureId)) {
-            userPictureDAO.delete(UserPicture.class, readUserPictureId);
+        if (userPictureDAO.isExists(UserPicture.class, userPictureId)) {
+            userPictureDAO.delete(UserPicture.class, userPictureId);
             System.out.println("The entry was successfully deleted from the database");
         } else {
             System.out.println("The entry was not found in the Database.");
         }
 
-        if (jedisOperations.isExists(CachePrefixType.USER_PICTURE.toString(), readUserPictureId)) {
-            jedisOperations.delete(CachePrefixType.USER_PICTURE.toString() + readUserPictureId);
+        if (jedisOperations.isExists(CachePrefixType.USER_PICTURE.toString(), userPictureId)) {
+            jedisOperations.delete(CachePrefixType.USER_PICTURE.toString() + userPictureId);
             System.out.println("The entry was successfully deleted from the Redis cache");
         } else {
             System.out.println("The entry was not found in the Redis cache.");
@@ -85,7 +86,7 @@ public class UserPictureOperations extends DatabaseGenericOperations {
         UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
 
         userPicture = DataReader.readUserPicture();
-        BigDecimal userProfileId = DataReader.readUserProfileId();
+        BigDecimal userProfileId = DataReader.readId(UserProfile.class, "profileId", MenuInputType.USER_PROFILE_ID);
         if (userProfileDAO.isExists(UserProfile.class, userProfileId)) {
             userPicture.setId(userProfileId);
             try {

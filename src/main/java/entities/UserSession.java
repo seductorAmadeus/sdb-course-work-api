@@ -3,7 +3,7 @@ package entities;
 import validation.constraints.CheckConstraintsIn;
 
 import javax.persistence.*;
-import javax.validation.Constraint;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -25,6 +25,7 @@ public class UserSession {
     @SequenceGenerator(name = "user_session_seq", sequenceName = "USER_SESSION_ID_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_session_seq")
     @Column(name = "user_session_id")
+    @Digits(integer = 20, fraction = 0)
     @NotNull
     private BigDecimal id;
 

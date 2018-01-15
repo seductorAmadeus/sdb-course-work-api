@@ -3,6 +3,7 @@ package operations;
 import daoImpl.RegistrationCodesDAOImpl;
 import entities.RegistrationCodes;
 import enums.CachePrefixType;
+import enums.MenuInputType;
 import utils.DataReader;
 
 import java.math.BigDecimal;
@@ -94,7 +95,7 @@ public class RegistrationCodesOperations extends DatabaseGenericOperations {
     @Override
     public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
-        BigDecimal registrationCodeId = DataReader.readRegistrationCodeId();
+        BigDecimal registrationCodeId = DataReader.readId(RegistrationCodes.class, "regCodeId", MenuInputType.REGISTRATION_CODE_ID);
         RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
 
         if (jedisOperations.isExists(CachePrefixType.REGISTRATION_CODES.toString(), registrationCodeId)) {
@@ -116,7 +117,7 @@ public class RegistrationCodesOperations extends DatabaseGenericOperations {
         RegistrationCodes registrationCodes;
         RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
 
-        BigDecimal registrationCodeId = DataReader.readRegistrationCodeId();
+        BigDecimal registrationCodeId = DataReader.readId(RegistrationCodes.class, "regCodeId", MenuInputType.REGISTRATION_CODE_ID);
 
         if (registrationCodesDAO.isExists(RegistrationCodes.class, registrationCodeId)) {
             registrationCodes = DataReader.readRegistrationCode();
@@ -134,7 +135,7 @@ public class RegistrationCodesOperations extends DatabaseGenericOperations {
         JedisOperations jedisOperations = new JedisOperations();
         RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
 
-        BigDecimal registrationCodeId = DataReader.readRegistrationCodeId();
+        BigDecimal registrationCodeId = DataReader.readId(RegistrationCodes.class, "regCodeId", MenuInputType.REGISTRATION_CODE_ID);
 
         if (registrationCodesDAO.isExists(RegistrationCodes.class, registrationCodeId)) {
             registrationCodesDAO.delete(RegistrationCodes.class, registrationCodeId);

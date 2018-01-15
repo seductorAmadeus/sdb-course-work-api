@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -22,6 +23,7 @@ public class UserPicture {
      */
     @Id
     @Column(name = "user_profile_id")
+    @Digits(integer = 7, fraction = 0)
     @NotNull
     private BigDecimal id;
 

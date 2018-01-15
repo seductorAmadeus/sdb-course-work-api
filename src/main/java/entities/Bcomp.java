@@ -3,6 +3,7 @@ package entities;
 import validation.constraints.CheckConstraintsIn;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
@@ -24,6 +25,7 @@ public class Bcomp {
     @SequenceGenerator(name = "bcomp_seq", sequenceName = "BCOMP_ID_SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bcomp_seq")
     @Column(name = "bcomp_id")
+    @Digits(integer = 20, fraction = 0)
     private BigDecimal id;
 
     /**

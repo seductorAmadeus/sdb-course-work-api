@@ -3,6 +3,7 @@ package operations;
 import daoImpl.UserStudyingDAOImpl;
 import entities.UserStudying;
 import enums.CachePrefixType;
+import enums.MenuInputType;
 import utils.DataReader;
 
 import java.math.BigDecimal;
@@ -55,7 +56,7 @@ public class UserStudyingOperations extends DatabaseGenericOperations {
     @Override
     public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
-        BigDecimal userStudyingId = DataReader.readUserStudyingId();
+        BigDecimal userStudyingId = DataReader.readId(UserStudying.class, "id", MenuInputType.USER_STUDYING_ID);
         UserStudyingDAOImpl userStudyingDAO = new UserStudyingDAOImpl();
 
         if (jedisOperations.isExists(CachePrefixType.USER_STUDYING.toString(), userStudyingId)) {
@@ -81,7 +82,7 @@ public class UserStudyingOperations extends DatabaseGenericOperations {
         JedisOperations jedisOperations = new JedisOperations();
         UserStudyingDAOImpl userStudyingDAO = new UserStudyingDAOImpl();
 
-        BigDecimal userStudyingId = DataReader.readUserStudyingId();
+        BigDecimal userStudyingId = DataReader.readId(UserStudying.class, "id", MenuInputType.USER_STUDYING_ID);
 
         if (userStudyingDAO.isExists(UserStudying.class, userStudyingId)) {
             userStudyingDAO.delete(UserStudying.class, userStudyingId);

@@ -3,6 +3,7 @@ package entities;
 import validation.constraints.CheckConstraintsIn;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -21,6 +22,7 @@ public class UserStudying {
     @SequenceGenerator(name = "user_studying_seq", sequenceName = "USER_STUDYING_ID_SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_studying_seq")
     @Column(name = "user_studying_id")
+    @Digits(integer = 7, fraction = 0)
     @NotNull
     private BigDecimal id;
 

@@ -5,6 +5,7 @@ import daoImpl.SessionSettingsDAOImpl;
 import daoImpl.UserSessionDAOImpl;
 import entities.BcompSettings;
 import entities.UserSession;
+import enums.MenuInputType;
 import utils.DataReader;
 
 import java.math.BigDecimal;
@@ -19,8 +20,8 @@ public class SessionSettingsOperations {
         UserSession userSession;
         BcompSettings bcompSettings;
 
-        BigDecimal userSessionId = DataReader.readUserSessionId();
-        BigDecimal bcompSettingsId = DataReader.readBcompSettingsId();
+        BigDecimal userSessionId = DataReader.readId(UserSession.class, "id", MenuInputType.USER_SESSION_ID);
+        BigDecimal bcompSettingsId = DataReader.readId(BcompSettings.class, "id", MenuInputType.BCOMP_SETTINGS_ID);
 
         try {
             // checking that session exists

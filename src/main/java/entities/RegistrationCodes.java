@@ -3,6 +3,7 @@ package entities;
 import validation.constraints.CheckConstraintsIn;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,6 +28,7 @@ public class RegistrationCodes implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "reg_code_id")
+    @Digits(integer = 7, fraction = 0)
     @NotNull
     private BigDecimal regCodeId;
 

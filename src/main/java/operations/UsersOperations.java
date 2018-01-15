@@ -6,6 +6,7 @@ import daoImpl.UserStudyingDAOImpl;
 import daoImpl.UsersDAOImpl;
 import entities.*;
 import enums.CachePrefixType;
+import enums.MenuInputType;
 import utils.DataReader;
 
 import java.math.BigDecimal;
@@ -110,7 +111,7 @@ public class UsersOperations extends DatabaseGenericOperations {
     @Override
     public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
-        BigDecimal userId = DataReader.readUserId();
+        BigDecimal userId = DataReader.readId(Users.class, "userId", MenuInputType.USER_ID);
         UsersDAOImpl usersDAO = new UsersDAOImpl();
 
         if (jedisOperations.isExists(CachePrefixType.USERS.toString(), userId)) {
@@ -132,7 +133,7 @@ public class UsersOperations extends DatabaseGenericOperations {
         Users user, tempUser;
         UsersDAOImpl usersDAO = new UsersDAOImpl();
 
-        BigDecimal userId = DataReader.readUserId();
+        BigDecimal userId = DataReader.readId(Users.class, "userId", MenuInputType.USER_ID);
 
         if (usersDAO.isExists(Users.class, userId)) {
             user = usersDAO.get(userId);
@@ -156,7 +157,7 @@ public class UsersOperations extends DatabaseGenericOperations {
         JedisOperations jedisOperations = new JedisOperations();
         UsersDAOImpl usersDAO = new UsersDAOImpl();
 
-        BigDecimal userId = DataReader.readUserId();
+        BigDecimal userId = DataReader.readId(Users.class, "userId", MenuInputType.USER_ID);
 
         if (usersDAO.isExists(Users.class, userId)) {
             usersDAO.delete(Users.class, userId);

@@ -5,6 +5,7 @@ import daoImpl.UsersDAOImpl;
 import entities.UserSession;
 import entities.Users;
 import enums.CachePrefixType;
+import enums.MenuInputType;
 import utils.DataReader;
 
 import java.math.BigDecimal;
@@ -59,7 +60,7 @@ public class UserSessionOperations extends DatabaseGenericOperations {
     public void print() {
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         UserSession userSession;
-        BigDecimal userSessionId = DataReader.readUserSessionId();
+        BigDecimal userSessionId = DataReader.readId(UserSession.class, "id", MenuInputType.USER_SESSION_ID);
 
         if (userSessionDAO.isExists(UserSession.class, userSessionId)) {
             userSession = userSessionDAO.get(userSessionId);
@@ -74,7 +75,7 @@ public class UserSessionOperations extends DatabaseGenericOperations {
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         UserSession userSession;
 
-        BigDecimal userSessionId = DataReader.readUserSessionId();
+        BigDecimal userSessionId = DataReader.readId(UserSession.class, "id", MenuInputType.USER_SESSION_ID);
         String userSessionStatus = DataReader.readUserSessionStatus();
 
         if (userSessionDAO.isExists(UserSession.class, userSessionId)) {
@@ -92,7 +93,7 @@ public class UserSessionOperations extends DatabaseGenericOperations {
     public void delete() {
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
 
-        BigDecimal userSessionId = DataReader.readUserSessionId();
+        BigDecimal userSessionId = DataReader.readId(UserSession.class, "id", MenuInputType.USER_SESSION_ID);
 
         if (userSessionDAO.isExists(UserSession.class, userSessionId)) {
             userSessionDAO.delete(UserSession.class, userSessionId);
@@ -123,7 +124,7 @@ public class UserSessionOperations extends DatabaseGenericOperations {
     @Override
     public void jPrint() {
         JedisOperations jedisOperations = new JedisOperations();
-        BigDecimal userSessionId = DataReader.readUserSessionId();
+        BigDecimal userSessionId = DataReader.readId(UserSession.class, "id", MenuInputType.USER_SESSION_ID);
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
 
         if (jedisOperations.isExists(CachePrefixType.USER_SESSION.toString(), userSessionId)) {
@@ -144,7 +145,7 @@ public class UserSessionOperations extends DatabaseGenericOperations {
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         UserSession userSession;
 
-        BigDecimal userSessionId = DataReader.readUserSessionId();
+        BigDecimal userSessionId = DataReader.readId(UserSession.class, "id", MenuInputType.USER_SESSION_ID);
         String userSessionStatus = DataReader.readUserSessionStatus();
 
         if (userSessionDAO.isExists(UserSession.class, userSessionId)) {
@@ -186,7 +187,7 @@ public class UserSessionOperations extends DatabaseGenericOperations {
         JedisOperations jedisOperations = new JedisOperations();
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
 
-        BigDecimal userSessionId = DataReader.readUserSessionId();
+        BigDecimal userSessionId = DataReader.readId(UserSession.class, "id", MenuInputType.USER_SESSION_ID);
 
         if (userSessionDAO.isExists(UserSession.class, userSessionId)) {
             userSessionDAO.delete(UserSession.class, userSessionId);
