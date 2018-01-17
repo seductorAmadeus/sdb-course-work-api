@@ -43,8 +43,12 @@ public class HibernateOperationsManager {
                 break;
             case 5:
                 registrationCodesOperations.jDelete();
-//TODO: check NumberFormatException from synchronize
-                registrationCodesOperations.synchronize(RegistrationCodesDAOImpl.class, RegistrationCodes.class, CachePrefixType.REGISTRATION_CODES);
+                usersOperations.synchronize(UsersDAOImpl.class, Users.class, CachePrefixType.USERS);
+                userProfileOperations.synchronize(UserProfileDAOImpl.class, UserProfile.class, CachePrefixType.USER_PROFILE);
+                userPictureOperations.synchronize(UserPictureDAOImpl.class, UserPicture.class, CachePrefixType.USER_PICTURE);
+                userSessionOperations.synchronize(UserSessionDAOImpl.class, UserSession.class, CachePrefixType.USER_SESSION);
+                bcompSettingsOperations.synchronize(BcompSettingsDAOImpl.class, BcompSettings.class, CachePrefixType.BCOMP_SETTINGS);
+                bcompOperations.synchronize(BcompDAOImpl.class, Bcomp.class, CachePrefixType.BCOMP);
                 break;
             case 6:
                 usersOperations.jCreate();
@@ -60,7 +64,10 @@ public class HibernateOperationsManager {
                 break;
             case 10:
                 usersOperations.jDelete();
-                usersOperations.synchronize(UsersDAOImpl.class, Users.class, CachePrefixType.USERS);
+                userProfileOperations.synchronize(UserProfileDAOImpl.class, UserProfile.class, CachePrefixType.USER_PROFILE);
+                userPictureOperations.synchronize(UserPictureDAOImpl.class, UserPicture.class, CachePrefixType.USER_PICTURE);
+                userSessionOperations.synchronize(UserSessionDAOImpl.class, UserSession.class, CachePrefixType.USER_SESSION);
+                bcompOperations.synchronize(BcompDAOImpl.class, Bcomp.class, CachePrefixType.BCOMP);
                 break;
             case 11:
                 userRoleOperations.generateAllUsersRoles();
@@ -76,7 +83,8 @@ public class HibernateOperationsManager {
                 break;
             case 15:
                 userStudyingOperations.jDelete();
-                userStudyingOperations.synchronize(UserStudyingDAOImpl.class, UserStudying.class, CachePrefixType.USER_STUDYING);
+                userProfileOperations.synchronize(UserProfileDAOImpl.class, UserProfile.class, CachePrefixType.USER_PROFILE);
+                userPictureOperations.synchronize(UserPictureDAOImpl.class, UserPicture.class, CachePrefixType.USER_PICTURE);
                 break;
             case 16:
                 userSessionOperations.jCreate();
@@ -92,7 +100,8 @@ public class HibernateOperationsManager {
                 break;
             case 20:
                 userSessionOperations.jDelete();
-                userSessionOperations.synchronize(UserSessionDAOImpl.class, UserSession.class, CachePrefixType.USER_SESSION);
+                bcompOperations.synchronize(BcompDAOImpl.class, Bcomp.class, CachePrefixType.BCOMP);
+                bcompSettingsOperations.synchronize(BcompSettingsDAOImpl.class, BcompSettings.class, CachePrefixType.BCOMP_SETTINGS);
                 break;
             case 21:
                 bcompOperations.jCreate();
@@ -108,7 +117,6 @@ public class HibernateOperationsManager {
                 break;
             case 25:
                 bcompOperations.jDelete();
-                bcompOperations.synchronize(BcompDAOImpl.class, Bcomp.class, CachePrefixType.BCOMP);
                 break;
             case 26:
                 bcompSettingsOperations.jCreate();
@@ -124,7 +132,8 @@ public class HibernateOperationsManager {
                 break;
             case 30:
                 bcompSettingsOperations.jDelete();
-                bcompSettingsOperations.synchronize(BcompSettingsDAOImpl.class, BcompSettings.class, CachePrefixType.BCOMP_SETTINGS);
+                userSessionOperations.synchronize(UserSessionDAOImpl.class, UserSession.class, CachePrefixType.USER_SESSION);
+                bcompOperations.synchronize(BcompDAOImpl.class, Bcomp.class, CachePrefixType.BCOMP);
                 break;
             case 31:
                 sessionSettingsOperations.assignUserSettings();

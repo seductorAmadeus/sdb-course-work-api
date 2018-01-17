@@ -27,10 +27,7 @@ public class WebBcompTests {
 
     public static void main(String[] args) {
         WebBcompTests webBcompTests = new WebBcompTests();
-        BcompOperations bcompOperations = new BcompOperations();
-        bcompOperations.synchronize(BcompDAOImpl.class, Bcomp.class, CachePrefixType.BCOMP);
-
-        //webBcompTests.createAllTables(webBcompTests);
+        webBcompTests.createAllTables(webBcompTests);
         //test.testConstraintsViolation();
         //test.testSynchronize();
         //test.dropAllTables();

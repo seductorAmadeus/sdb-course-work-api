@@ -1,7 +1,6 @@
 package daoImpl;
 
 import dao.GenericDAO;
-import entities.Bcomp;
 import entities.BcompSettings;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -93,9 +92,8 @@ public class BcompSettingsDAOImpl implements GenericDAO<BcompSettings, BigDecima
         return GenericDAO.super.isExists(bcompSettingsClass, id);
     }
 
-    /*TODO: Add warning! This method will delete all records thar related with BcompSettings! (i.e bcomp, user_session, bcomp_setting, session setting*/
     @Override
     public void delete(Class<BcompSettings> bcompSettingsClass, BigDecimal id) {
-        delete(bcompSettingsClass, id);
+        GenericDAO.super.delete(bcompSettingsClass, id);
     }
 }
