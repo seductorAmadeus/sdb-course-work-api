@@ -82,18 +82,30 @@ public class RegistrationCodesOperations extends DatabaseGenericOperations {
     @Override
     public void jPrintAll() {
         JedisOperations jedisOperations = new JedisOperations();
+        RegistrationCodesDAOImpl registrationCodesDAO = new RegistrationCodesDAOImpl();
         List<String> records;
-        try {
-            records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.REGISTRATION_CODES + "*");
-            if (records.size() == 0) {
-                throw new NullPointerException();
-            } else {
-                for (String record : records) {
-                    System.out.println(record);
+        List<RegistrationCodes> registrationCodesList;
+
+        records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.REGISTRATION_CODES + "*");
+        if (records.size() == 0) {
+            System.out.println("Registration codes list is empty. No registration codes has been created/added in the Redis cache");
+        } else {
+            for (String record : records) {
+                System.out.println(record);
+            }
+        }
+        registrationCodesList = registrationCodesDAO.getList();
+        if (registrationCodesList.size() != 0) {
+            for (RegistrationCodes aRegistrationCodesList : registrationCodesList) {
+                if (!jedisOperations.isExists(CachePrefixType.REGISTRATION_CODES.toString(), aRegistrationCodesList.getRegCodeId())) {
+                    // set in the Redis cache
+                    jedisOperations.set(CachePrefixType.REGISTRATION_CODES.toString() + aRegistrationCodesList.getRegCodeId(), aRegistrationCodesList.toString());
+                    // and output the record with the missing key in the Redis cache.
+                    System.out.println(aRegistrationCodesList);
                 }
             }
-        } catch (NullPointerException exp) {
-            System.out.println("Registration codes list is empty. No bcomp has been created/added in Redis cache");
+        } else {
+            System.out.println("Registration codes list is empty. No registration codes has been created in the Oracle DB");
         }
     }
 

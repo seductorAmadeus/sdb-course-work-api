@@ -93,18 +93,30 @@ public class UsersOperations extends DatabaseGenericOperations {
     @Override
     public void jPrintAll() {
         JedisOperations jedisOperations = new JedisOperations();
+        UsersDAOImpl usersDAO = new UsersDAOImpl();
         List<String> records;
-        try {
-            records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.USERS + "*");
-            if (records.size() == 0) {
-                throw new NullPointerException();
-            } else {
-                for (String record : records) {
-                    System.out.println(record);
+        List<Users> usersList;
+
+        records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.USERS + "*");
+        if (records.size() == 0) {
+            System.out.println("User's list is empty. No user's has been created/added in the Redis cache");
+        } else {
+            for (String record : records) {
+                System.out.println(record);
+            }
+        }
+        usersList = usersDAO.getList();
+        if (usersList.size() != 0) {
+            for (Users users : usersList) {
+                if (!jedisOperations.isExists(CachePrefixType.USERS.toString(), users.getUserId())) {
+                    // set in the Redis cache
+                    jedisOperations.set(CachePrefixType.USERS.toString() + users.getUserId(), users.toString());
+                    // and output the record with the missing key in the Redis cache.
+                    System.out.println(users);
                 }
             }
-        } catch (NullPointerException exp) {
-            System.out.println("Users' list is empty. No bcomp has been created/added in Redis cache");
+        } else {
+            System.out.println("User's list is empty. No user's has been created/added in the Oracle DB");
         }
     }
 

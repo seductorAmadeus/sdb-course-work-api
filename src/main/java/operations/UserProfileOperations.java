@@ -151,18 +151,30 @@ public class UserProfileOperations extends DatabaseGenericOperations {
     @Override
     public void jPrintAll() {
         JedisOperations jedisOperations = new JedisOperations();
+        UserProfileDAOImpl userProfileDAO = new UserProfileDAOImpl();
         List<String> records;
-        try {
-            records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.USER_PROFILE + "*");
-            if (records.size() == 0) {
-                throw new NullPointerException();
-            } else {
-                for (String record : records) {
-                    System.out.println(record);
+        List<UserProfile> userProfileList;
+
+        records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.USER_PROFILE + "*");
+        if (records.size() == 0) {
+            System.out.println("User profiles list is empty. No user's profile has been created/added in the Redis cache");
+        } else {
+            for (String record : records) {
+                System.out.println(record);
+            }
+        }
+        userProfileList = userProfileDAO.getList();
+        if (userProfileList.size() != 0) {
+            for (UserProfile userProfile : userProfileList) {
+                if (!jedisOperations.isExists(CachePrefixType.USER_PROFILE.toString(), userProfile.getProfileId())) {
+                    // set in the Redis cache
+                    jedisOperations.set(CachePrefixType.USER_PROFILE.toString() + userProfile.getProfileId(), userProfile.toString());
+                    // and output the record with the missing key in the Redis cache.
+                    System.out.println(userProfile);
                 }
             }
-        } catch (NullPointerException exp) {
-            System.out.println("User's profiles list is empty. No user's profiles  has been created/added in Redis cache");
+        } else {
+            System.out.println("User profiles list is empty. No user's profile has been created/added in the Oracle DB");
         }
     }
 

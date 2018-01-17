@@ -56,20 +56,31 @@ public class BcompSettingsOperations extends DatabaseGenericOperations {
     @Override
     public void jPrintAll() {
         JedisOperations jedisOperations = new JedisOperations();
+        BcompSettingsDAOImpl bcompSettingsDAO = new BcompSettingsDAOImpl();
         List<String> records;
-        try {
-            records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.BCOMP_SETTINGS + "*");
-            if (records.size() == 0) {
-                throw new NullPointerException();
-            } else {
-                for (String record : records) {
-                    System.out.println(record);
+        List<BcompSettings> bcompSettingsList;
+
+        records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.BCOMP_SETTINGS + "*");
+        if (records.size() == 0) {
+            System.out.println("Bcomp settings list is empty. No bcomp setting has been created/added in the Redis cache");
+        } else {
+            for (String record : records) {
+                System.out.println(record);
+            }
+        }
+        bcompSettingsList = bcompSettingsDAO.getList();
+        if (bcompSettingsList.size() != 0) {
+            for (BcompSettings bcompSettings : bcompSettingsList) {
+                if (!jedisOperations.isExists(CachePrefixType.BCOMP_SETTINGS.toString(), bcompSettings.getId())) {
+                    // set in the Redis cache
+                    jedisOperations.set(CachePrefixType.BCOMP_SETTINGS.toString() + bcompSettings.getId(), bcompSettings.toString());
+                    // and output the record with the missing key in the Redis cache.
+                    System.out.println(bcompSettings);
                 }
             }
-        } catch (NullPointerException exp) {
-            System.out.println("Bcomp settings list is empty. No bcomp has been created/added in Redis cache");
+        } else {
+            System.out.println("Bcomp settings list is empty. No bcomp setting has been created/added in the Oracle DB");
         }
-
     }
 
     @Override

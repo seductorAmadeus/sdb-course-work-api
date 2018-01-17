@@ -107,18 +107,30 @@ public class UserSessionOperations extends DatabaseGenericOperations {
     @Override
     public void jPrintAll() {
         JedisOperations jedisOperations = new JedisOperations();
+        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
         List<String> records;
-        try {
-            records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.USER_SESSION + "*");
-            if (records.size() == 0) {
-                throw new NullPointerException();
-            } else {
-                for (String record : records) {
-                    System.out.println(record);
+        List<UserSession> userSessionList;
+
+        records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.USER_SESSION + "*");
+        if (records.size() == 0) {
+            System.out.println("User session list is empty. No user's session has been created/added in the Redis cache");
+        } else {
+            for (String record : records) {
+                System.out.println(record);
+            }
+        }
+        userSessionList = userSessionDAO.getList();
+        if (userSessionList.size() != 0) {
+            for (UserSession userSession : userSessionList) {
+                if (!jedisOperations.isExists(CachePrefixType.USER_SESSION.toString(), userSession.getId())) {
+                    // set in the Redis cache
+                    jedisOperations.set(CachePrefixType.USER_SESSION.toString() + userSession.getId(), userSession.toString());
+                    // and output the record with the missing key in the Redis cache.
+                    System.out.println(userSession);
                 }
             }
-        } catch (NullPointerException exp) {
-            System.out.println("User's sessions list is empty. No user's session has been created/added in Redis cache");
+        } else {
+            System.out.println("User session list is empty. No user's session has been created/added in the Oracle DB");
         }
     }
 

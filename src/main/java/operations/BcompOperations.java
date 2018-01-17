@@ -77,20 +77,31 @@ public class BcompOperations extends DatabaseGenericOperations {
 
     public void jPrintAll() {
         JedisOperations jedisOperations = new JedisOperations();
+        BcompDAOImpl bcompDAO = new BcompDAOImpl();
         List<String> records;
-        try {
-            records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.BCOMP + "*");
-            if (records.size() == 0) {
-                throw new NullPointerException();
-            } else {
-                for (String record : records) {
-                    System.out.println(record);
+        List<Bcomp> bcompList;
+
+        records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.BCOMP + "*");
+        if (records.size() == 0) {
+            System.out.println("Bcomp list is empty. No bcomp has been created/added in the Redis cache");
+        } else {
+            for (String record : records) {
+                System.out.println(record);
+            }
+        }
+        bcompList = bcompDAO.getList();
+        if (bcompList.size() != 0) {
+            for (Bcomp bcomp : bcompList) {
+                if (!jedisOperations.isExists(CachePrefixType.BCOMP.toString(), bcomp.getId())) {
+                    // set in the Redis cache
+                    jedisOperations.set(CachePrefixType.BCOMP.toString() + bcomp.getId(), bcomp.toString());
+                    // and output the record with the missing key in the Redis cache.
+                    System.out.println(bcomp);
                 }
             }
-        } catch (NullPointerException exp) {
-            System.out.println("Bcomp list is empty. No bcomp has been created/added in Redis cache");
+        } else {
+            System.out.println("Bcomp list is empty. No bcomp has been created/added in the Oracle DB");
         }
-
     }
 
     public void jCreate() {

@@ -38,18 +38,30 @@ public class UserStudyingOperations extends DatabaseGenericOperations {
     @Override
     public void jPrintAll() {
         JedisOperations jedisOperations = new JedisOperations();
+        UserStudyingDAOImpl userStudyingDAO = new UserStudyingDAOImpl();
         List<String> records;
-        try {
-            records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.USER_STUDYING + "*");
-            if (records.size() == 0) {
-                throw new NullPointerException();
-            } else {
-                for (String record : records) {
-                    System.out.println(record);
+        List<UserStudying> userStudyingList;
+
+        records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.USER_STUDYING + "*");
+        if (records.size() == 0) {
+            System.out.println("User's studying list is empty. No user's studying has been created/added in the Redis cache");
+        } else {
+            for (String record : records) {
+                System.out.println(record);
+            }
+        }
+        userStudyingList = userStudyingDAO.getList();
+        if (userStudyingList.size() != 0) {
+            for (UserStudying userStudying : userStudyingList) {
+                if (!jedisOperations.isExists(CachePrefixType.USER_STUDYING.toString(), userStudying.getId())) {
+                    // set in the Redis cache
+                    jedisOperations.set(CachePrefixType.USER_STUDYING.toString() + userStudying.getId(), userStudying.toString());
+                    // and output the record with the missing key in the Redis cache.
+                    System.out.println(userStudying);
                 }
             }
-        } catch (NullPointerException exp) {
-            System.out.println("User studying list is empty. No user's studying information has been created/added in Redis cache");
+        } else {
+            System.out.println("User's studying list is empty. No user's studying has been created/added in the Oracle DB");
         }
     }
 

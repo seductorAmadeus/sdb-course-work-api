@@ -14,20 +14,32 @@ import java.util.List;
 public class UserPictureOperations extends DatabaseGenericOperations {
 
     @Override
-    void jPrintAll() {
+    public void jPrintAll() {
         JedisOperations jedisOperations = new JedisOperations();
+        UserPictureDAOImpl userPictureDAO = new UserPictureDAOImpl();
         List<String> records;
-        try {
-            records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.USER_PICTURE + "*");
-            if (records.size() == 0) {
-                throw new NullPointerException();
-            } else {
-                for (String record : records) {
-                    System.out.println(record);
+        List<UserPicture> userPictureList;
+
+        records = jedisOperations.getAllRecordsMatchingPattern(CachePrefixType.USER_PICTURE + "*");
+        if (records.size() == 0) {
+            System.out.println("User picture list is empty. No user's pictures has been created/added in the Redis cache");
+        } else {
+            for (String record : records) {
+                System.out.println(record);
+            }
+        }
+        userPictureList = userPictureDAO.getList();
+        if (userPictureList.size() != 0) {
+            for (UserPicture userPicture : userPictureList) {
+                if (!jedisOperations.isExists(CachePrefixType.USER_PICTURE.toString(), userPicture.getId())) {
+                    // set in the Redis cache
+                    jedisOperations.set(CachePrefixType.USER_PICTURE.toString() + userPicture.getId(), userPicture.toString());
+                    // and output the record with the missing key in the Redis cache.
+                    System.out.println(userPicture);
                 }
             }
-        } catch (NullPointerException exp) {
-            System.out.println("User's pictures list is empty. No user's pictures has been created/added in Redis cache");
+        } else {
+            System.out.println("User picture list is empty. No user's pictures has been created/added in the Oracle DB");
         }
     }
 
