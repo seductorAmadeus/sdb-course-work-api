@@ -1,6 +1,7 @@
 package daoImpl;
 
 import dao.GenericDAO;
+import entities.UserPicture;
 import entities.UserSession;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -79,4 +80,7 @@ public class UserSessionDAOImpl implements GenericDAO<UserSession, BigDecimal> {
         return list;
     }
 
+    public boolean isExists(Class<UserSession> userSessionClass, BigDecimal id) {
+        return GenericDAO.super.isExists(userSessionClass, id);
+    }
 }

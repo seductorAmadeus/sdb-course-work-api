@@ -68,4 +68,8 @@ public class UserProfileDAOImpl implements GenericDAO<UserProfile, BigDecimal> {
         }
         return list;
     }
+
+    public boolean isExists(Class<UserProfile> userProfileClass, BigDecimal id) {
+        return GenericDAO.super.isExists(userProfileClass, id);
+    }
 }

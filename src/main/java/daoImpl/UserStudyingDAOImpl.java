@@ -154,4 +154,8 @@ public class UserStudyingDAOImpl implements UserStudyingDAO {
 
         return list;
     }
+
+    public boolean isExists(Class<UserStudying> userStudyingClass, BigDecimal id) {
+        return UserStudyingDAO.super.isExists(userStudyingClass, id);
+    }
 }

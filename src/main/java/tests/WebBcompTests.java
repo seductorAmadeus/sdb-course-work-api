@@ -3,6 +3,7 @@ package tests;
 import daoImpl.*;
 import entities.*;
 import enums.CachePrefixType;
+import operations.BcompOperations;
 import operations.JedisOperations;
 import operations.UsersOperations;
 import utils.HibernateUtil;
@@ -26,7 +27,10 @@ public class WebBcompTests {
 
     public static void main(String[] args) {
         WebBcompTests webBcompTests = new WebBcompTests();
-        webBcompTests.createAllTables(webBcompTests);
+        BcompOperations bcompOperations = new BcompOperations();
+        bcompOperations.synchronize(BcompDAOImpl.class, Bcomp.class, CachePrefixType.BCOMP);
+
+        //webBcompTests.createAllTables(webBcompTests);
         //test.testConstraintsViolation();
         //test.testSynchronize();
         //test.dropAllTables();
@@ -41,11 +45,6 @@ public class WebBcompTests {
         webBcompTests.createBcompSettings();
         webBcompTests.createSessionSettings();
         HibernateUtil.getSessionFactory().close();
-    }
-
-    private void testSynchronize() {
-        UsersOperations usersOperations = new UsersOperations();
-        usersOperations.synchronize();
     }
 
     private void testConstraintsViolation() {

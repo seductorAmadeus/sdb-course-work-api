@@ -52,29 +52,6 @@ public class BcompOperations extends DatabaseGenericOperations {
 
     }
 
-    public void synchronize() {
-        JedisOperations jedisOperations = new JedisOperations();
-        BcompDAOImpl bcompDAO = new BcompDAOImpl();
-
-        List<String> keysList = jedisOperations.getAllKeys(CachePrefixType.BCOMP.toString() + "*");
-        // удаляем лишние записи в Redis, если таковые отсутствуют в БД
-        for (String aKeysList : keysList) {
-            String temStrId = aKeysList.substring(aKeysList.lastIndexOf(":") + 1);
-            BigDecimal tempId = new BigDecimal(temStrId);
-            if (!bcompDAO.isExists(Bcomp.class, tempId)) {
-                jedisOperations.delete(aKeysList);
-            }
-        }
-
-        // добавляем отсутствующие записи в Redis из Oracle-а.
-        List<Bcomp> bcomps = bcompDAO.getList();
-
-        for (Bcomp bcomp : bcomps) {
-            jedisOperations.set(CachePrefixType.BCOMP.toString() + bcomp.getId(), bcomp.toString());
-        }
-
-    }
-
     public void jPrintAll() {
         JedisOperations jedisOperations = new JedisOperations();
         BcompDAOImpl bcompDAO = new BcompDAOImpl();

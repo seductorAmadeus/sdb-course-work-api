@@ -125,4 +125,8 @@ public class RegistrationCodesDAOImpl implements RegistrationCodesDAO {
         }
         return registrationCode;
     }
+
+    public boolean isExists(Class<RegistrationCodes> registrationCodesClass, BigDecimal id) {
+        return RegistrationCodesDAO.super.isExists(registrationCodesClass, id);
+    }
 }

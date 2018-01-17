@@ -111,6 +111,10 @@ public class BcompDAOImpl implements GenericDAO<Bcomp, BigDecimal> {
         return list;
     }
 
+    public boolean isExists(Class<Bcomp> bcompClass, BigDecimal id) {
+        return GenericDAO.super.isExists(bcompClass, id);
+    }
+
     public Bcomp get(BigDecimal bcompId) {
         Transaction transaction = null;
         Bcomp bcomp = null;

@@ -186,29 +186,6 @@ public class UsersOperations extends DatabaseGenericOperations {
         }
     }
 
-    public void synchronize() {
-        JedisOperations jedisOperations = new JedisOperations();
-        UsersDAOImpl usersDAO = new UsersDAOImpl();
-
-        List<String> keysList = jedisOperations.getAllKeys(CachePrefixType.USERS.toString() + "*");
-        // удаляем лишние записи в Redis, если таковые отсутствуют в БД
-        for (String aKeysList : keysList) {
-            String temStrId = aKeysList.substring(aKeysList.lastIndexOf(":") + 1);
-            BigDecimal tempId = new BigDecimal(temStrId);
-            if (!usersDAO.isExists(Users.class, tempId)) {
-                jedisOperations.delete(aKeysList);
-            }
-        }
-
-        // добавляем отсутствующие записи в Redis из Oracle-а.
-        List<Users> users = usersDAO.getList();
-
-        for (Users user : users) {
-            jedisOperations.set(CachePrefixType.USERS.toString() + user.getUserId(), user.toString());
-        }
-
-    }
-
     @Override
     public void jCreate() {
         JedisOperations jedisOperations = new JedisOperations();

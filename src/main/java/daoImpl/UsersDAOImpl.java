@@ -106,4 +106,8 @@ public class UsersDAOImpl implements UsersDao {
         }
         return list;
     }
+
+    public boolean isExists(Class<Users> usersClass, BigDecimal id) {
+        return UsersDao.super.isExists(usersClass, id);
+    }
 }

@@ -69,4 +69,8 @@ public class UserPictureDAOImpl implements GenericDAO<UserPicture, BigDecimal> {
         }
         return list;
     }
+
+    public boolean isExists(Class<UserPicture> userPictureClass, BigDecimal id) {
+        return GenericDAO.super.isExists(userPictureClass, id);
+    }
 }

@@ -174,28 +174,6 @@ public class UserSessionOperations extends DatabaseGenericOperations {
         }
     }
 
-    public void synchronize() {
-        JedisOperations jedisOperations = new JedisOperations();
-        UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();
-
-        List<String> keysList = jedisOperations.getAllKeys(CachePrefixType.USER_SESSION.toString() + "*");
-        // удаляем лишние записи в Redis, если таковые отсутствуют в БД
-        for (String aKeysList : keysList) {
-            String temStrId = aKeysList.substring(aKeysList.lastIndexOf(":") + 1);
-            BigDecimal tempId = new BigDecimal(temStrId);
-            if (!userSessionDAO.isExists(UserSession.class, tempId)) {
-                jedisOperations.delete(aKeysList);
-            }
-        }
-
-        // добавляем отсутствующие записи в Redis из Oracle-а.
-        List<UserSession> userSessions = userSessionDAO.getList();
-
-        for (UserSession userSession : userSessions) {
-            jedisOperations.set(CachePrefixType.USER_SESSION.toString() + userSession.getId(), userSession.toString());
-        }
-    }
-
     public void jDelete() {
         JedisOperations jedisOperations = new JedisOperations();
         UserSessionDAOImpl userSessionDAO = new UserSessionDAOImpl();

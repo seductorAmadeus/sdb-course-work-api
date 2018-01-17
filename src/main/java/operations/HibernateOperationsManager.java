@@ -1,5 +1,8 @@
 package operations;
 
+import daoImpl.*;
+import entities.*;
+import enums.CachePrefixType;
 import enums.MenuInputType;
 import utils.HibernateUtil;
 
@@ -41,7 +44,7 @@ public class HibernateOperationsManager {
             case 5:
                 registrationCodesOperations.jDelete();
 //TODO: check NumberFormatException from synchronize
-                registrationCodesOperations.synchronize();
+                registrationCodesOperations.synchronize(RegistrationCodesDAOImpl.class, RegistrationCodes.class, CachePrefixType.REGISTRATION_CODES);
                 break;
             case 6:
                 usersOperations.jCreate();
@@ -57,7 +60,7 @@ public class HibernateOperationsManager {
                 break;
             case 10:
                 usersOperations.jDelete();
-                usersOperations.synchronize();
+                usersOperations.synchronize(UsersDAOImpl.class, Users.class, CachePrefixType.USERS);
                 break;
             case 11:
                 userRoleOperations.generateAllUsersRoles();
@@ -73,7 +76,7 @@ public class HibernateOperationsManager {
                 break;
             case 15:
                 userStudyingOperations.jDelete();
-                userStudyingOperations.synchronize();
+                userStudyingOperations.synchronize(UserStudyingDAOImpl.class, UserStudying.class, CachePrefixType.USER_STUDYING);
                 break;
             case 16:
                 userSessionOperations.jCreate();
@@ -89,7 +92,7 @@ public class HibernateOperationsManager {
                 break;
             case 20:
                 userSessionOperations.jDelete();
-                userSessionOperations.synchronize();
+                userSessionOperations.synchronize(UserSessionDAOImpl.class, UserSession.class, CachePrefixType.USER_SESSION);
                 break;
             case 21:
                 bcompOperations.jCreate();
@@ -105,7 +108,7 @@ public class HibernateOperationsManager {
                 break;
             case 25:
                 bcompOperations.jDelete();
-                bcompOperations.synchronize();
+                bcompOperations.synchronize(BcompDAOImpl.class, Bcomp.class, CachePrefixType.BCOMP);
                 break;
             case 26:
                 bcompSettingsOperations.jCreate();
@@ -121,7 +124,7 @@ public class HibernateOperationsManager {
                 break;
             case 30:
                 bcompSettingsOperations.jDelete();
-                bcompSettingsOperations.synchronize();
+                bcompSettingsOperations.synchronize(BcompSettingsDAOImpl.class, BcompSettings.class, CachePrefixType.BCOMP_SETTINGS);
                 break;
             case 31:
                 sessionSettingsOperations.assignUserSettings();
@@ -146,8 +149,8 @@ public class HibernateOperationsManager {
                 break;
             case 38:
                 userProfileOperations.jDelete();
-                userProfileOperations.synchronize();
-                usersOperations.synchronize();
+                userProfileOperations.synchronize(UserProfileDAOImpl.class, UserProfile.class, CachePrefixType.USER_PROFILE);
+                usersOperations.synchronize(UsersDAOImpl.class, Users.class, CachePrefixType.USERS);
                 break;
             case 39:
                 userPictureOperations.jCreate();

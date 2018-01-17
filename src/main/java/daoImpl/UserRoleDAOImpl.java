@@ -194,6 +194,9 @@ public class UserRoleDAOImpl implements UserRoleDAO {
         }
 
         return list;
+    }
 
+    public boolean isExists(Class<UserRole> userRoleClass, BigDecimal id) {
+        return UserRoleDAO.super.isExists(userRoleClass, id);
     }
 }
