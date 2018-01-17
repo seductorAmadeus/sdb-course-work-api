@@ -41,13 +41,6 @@ public class JedisOperations {
         }
     }
 
-    /**
-     * Adding single value to cache and setting expiration interval
-     *
-     * @param key
-     * @param value
-     * @param expTime - expiration interval (in sec)
-     */
     public void setExpire(String key, String value, int expTime) {
         Jedis jedis = null;
         try {
@@ -69,12 +62,6 @@ public class JedisOperations {
         }
     }
 
-    /**
-     * Getting values from cache by the given key
-     *
-     * @param key
-     * @return value from cache
-     */
     public String get(String key) {
         Jedis jedis = null;
         String res = null;

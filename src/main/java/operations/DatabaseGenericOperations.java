@@ -29,35 +29,31 @@ public abstract class DatabaseGenericOperations<T extends Serializable> {
 
     }
 
-    public void synchronize(Class<?> aClassImpl, Class tClass, CachePrefixType cachePrefixType) {
+    public void synchronize(Class<?> aClassDAOImpl, Class tClass, CachePrefixType cachePrefixType) {
         JedisOperations jedisOperations = new JedisOperations();
 
-        Method method = null;
+        Method method;
+        Object aClassDAOInstance = null;
+        try {
+            aClassDAOInstance = aClassDAOImpl.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
         List<String> keysList = jedisOperations.getAllKeys(cachePrefixType.toString() + "*");
-        // удаляем лишние записи в Redis, если таковые отсутствуют в БД
-        for (String aKeysList : keysList) {
-            String temStrId = aKeysList.substring(aKeysList.lastIndexOf(":") + 1);
+        // Delete unnecessary entries in Redis, if it's missing in the database
+        for (String aKey : keysList) {
+            String temStrId = aKey.substring(aKey.lastIndexOf(":") + 1);
             BigDecimal tempId = new BigDecimal(temStrId);
             try {
-                method = aClassImpl.getMethod("isExists", tClass.getClass(), BigDecimal.class);
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-            try {
-                try {
-                    if (!(boolean) method.invoke(aClassImpl.newInstance(), tClass, tempId)) {
-                        jedisOperations.delete(aKeysList);
-                    }
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
+                method = aClassDAOImpl.getMethod("isExists", tClass.getClass(), BigDecimal.class);
+                if (!(boolean) method.invoke(aClassDAOInstance, tClass, tempId)) {
+                    jedisOperations.delete(aKey);
                 }
-            } catch (IllegalAccessException | InvocationTargetException e) {
+            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
         }
-
-
     }
 
     abstract void jPrintAll();
