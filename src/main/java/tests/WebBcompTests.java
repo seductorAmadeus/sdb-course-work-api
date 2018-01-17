@@ -37,9 +37,9 @@ public class WebBcompTests {
 
     private void testSetExpire(int expireTime) {
         JedisOperations jedisOperations = new JedisOperations();
-        // filling registration_codes
+
         List<RegistrationCodes> registrationCodesList = getRegistrationCodesList();
-        //
+
         System.out.println("Печатаем записи из Redis-хранилища до задержки:");
         for (int i = 0; i < registrationCodesList.size(); i++) {
             RegistrationCodes registrationCodes = registrationCodesList.get(i);
@@ -47,6 +47,7 @@ public class WebBcompTests {
             jedisOperations.setExpire(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodes.getRegCodeId(), registrationCodes.toString(), expireTime);
             System.out.println(jedisOperations.get(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodes.getRegCodeId()));
         }
+
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
