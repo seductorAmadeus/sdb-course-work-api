@@ -3,23 +3,16 @@ package tests;
 import daoImpl.*;
 import entities.*;
 import enums.CachePrefixType;
-import operations.BcompOperations;
 import operations.JedisOperations;
-import operations.UsersOperations;
 import utils.HibernateUtil;
 import utils.RandomInviteCodesGenerator;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 public class WebBcompTests {
 
@@ -28,9 +21,7 @@ public class WebBcompTests {
     public static void main(String[] args) {
         WebBcompTests webBcompTests = new WebBcompTests();
         webBcompTests.createAllTables(webBcompTests);
-        //test.testConstraintsViolation();
-        //test.testSynchronize();
-        //test.dropAllTables();
+        //webBcompTests.testSetExpire(5);
     }
 
     public void createAllTables(WebBcompTests webBcompTests) {
@@ -44,22 +35,30 @@ public class WebBcompTests {
         HibernateUtil.getSessionFactory().close();
     }
 
-    private void testConstraintsViolation() {
-        RegistrationCodes registrationCodes = new RegistrationCodes(new BigDecimal(23), "availaeble", "maaf@mail.ru");
-
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-
-        Set<ConstraintViolation<RegistrationCodes>> errors = validator.validateProperty(registrationCodes, "inviteCodeStatus");
-
-        if (!errors.isEmpty()) {
-            for (ConstraintViolation<RegistrationCodes> constraintViolation : errors) {
-
-                System.out.println(constraintViolation.getPropertyPath() + " -> " +
-                        constraintViolation.getMessage());
-
-            }
+    private void testSetExpire(int expireTime) {
+        JedisOperations jedisOperations = new JedisOperations();
+        // filling registration_codes
+        List<RegistrationCodes> registrationCodesList = getRegistrationCodesList();
+        //
+        System.out.println("Печатаем записи из Redis-хранилища до задержки:");
+        for (int i = 0; i < registrationCodesList.size(); i++) {
+            RegistrationCodes registrationCodes = registrationCodesList.get(i);
+            registrationCodes.setRegCodeId(new BigDecimal(i));
+            jedisOperations.setExpire(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodes.getRegCodeId(), registrationCodes.toString(), expireTime);
+            System.out.println(jedisOperations.get(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodes.getRegCodeId()));
         }
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Печатаем записи из Redis-хранилища после задержки:");
+        for (RegistrationCodes registrationCodes : registrationCodesList) {
+            System.out.println(jedisOperations.get(CachePrefixType.REGISTRATION_CODES.toString() + registrationCodes.getRegCodeId()));
+        }
+
+        HibernateUtil.getSessionFactory().close();
     }
 
     private List<RegistrationCodes> getRegistrationCodesList() {
@@ -125,14 +124,6 @@ public class WebBcompTests {
                     null, null, null));
         }
         return bcompList;
-    }
-
-    private List<UserPicture> getUserPicturesList() {
-        List<UserPicture> userPictureList = new ArrayList<>();
-        for (int i = 0; i < TESTS_COUNT; i++) {
-            userPictureList.add(new UserPicture("picturename" + i, null, null));
-        }
-        return userPictureList;
     }
 
     private void createRegistrationCodes() {
