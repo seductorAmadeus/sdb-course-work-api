@@ -106,6 +106,10 @@ public class JedisOperations {
             System.out.println(exp.getMessage() + ". There is no connection to " + HOST + ":" + PORT);
         } catch (JedisException exp) {
             System.err.println("Oops, something was wrong" + exp.getMessage());
+        } finally {
+            // return jedis instance to the pool
+            if (null != jedis)
+                pool.returnResource(jedis);
         }
         if (jedis == null) return false;
         return jedis.exists(keyPattern + id);
