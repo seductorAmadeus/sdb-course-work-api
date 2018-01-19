@@ -44,18 +44,6 @@ public interface GenericDAO<T, PK extends Serializable> {
             }
         }
     }
-    default boolean isExists1(PK id) {
-        boolean condition = false;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-//            if (session.get(tClass, id) != null) {
-//                condition = true;
-//            }
-        } catch (HibernateException exp) {
-
-        }
-
-        return condition;
-    }
 
     default boolean isExists(Class<T> tClass, PK id) {
         boolean condition = false;
@@ -64,7 +52,7 @@ public interface GenericDAO<T, PK extends Serializable> {
                 condition = true;
             }
         } catch (HibernateException exp) {
-
+            exp.printStackTrace();
         }
 
         return condition;
