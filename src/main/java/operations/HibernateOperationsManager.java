@@ -43,6 +43,7 @@ public class HibernateOperationsManager {
                 break;
             case 5:
                 registrationCodesOperations.jDelete();
+
                 usersOperations.synchronize(UsersDAOImpl.class, Users.class, CachePrefixType.USERS);
                 userProfileOperations.synchronize(UserProfileDAOImpl.class, UserProfile.class, CachePrefixType.USER_PROFILE);
                 userPictureOperations.synchronize(UserPictureDAOImpl.class, UserPicture.class, CachePrefixType.USER_PICTURE);
@@ -158,6 +159,7 @@ public class HibernateOperationsManager {
                 break;
             case 38:
                 userProfileOperations.jDelete();
+                userPictureOperations.synchronize(UserPictureDAOImpl.class, UserPicture.class, CachePrefixType.USER_PICTURE);
                 userProfileOperations.synchronize(UserProfileDAOImpl.class, UserProfile.class, CachePrefixType.USER_PROFILE);
                 usersOperations.synchronize(UsersDAOImpl.class, Users.class, CachePrefixType.USERS);
                 break;

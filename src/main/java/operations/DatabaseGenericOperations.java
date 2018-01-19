@@ -40,6 +40,7 @@ public abstract class DatabaseGenericOperations<T extends Serializable> {
             e.printStackTrace();
         }
 
+
         List<String> keysList = jedisOperations.getAllKeys(cachePrefixType.toString() + "*");
         // Delete unnecessary entries in Redis, if it's missing in the database
         for (String aKey : keysList) {
